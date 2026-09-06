@@ -13,8 +13,7 @@ Liron Bergman, Niv Cohen, and Yedid Hoshen.
 
 \bibitem[Papernot and McDaniel(2018)]{papernot2018deep}
 Nicolas Papernot and Patrick McDaniel.
-\newblock Deep k-nearest neighbors: Towards confident, interpretable and robust
-  deep learning.
+\newblock Deep k-nearest neighbors: Towards confident, interpretable and robust deep learning.
 \newblock \emph{arXiv preprint arXiv:1803.04765}, 2018.
 \newblock URL \url{https://arxiv.org/abs/1803.04765}.
 

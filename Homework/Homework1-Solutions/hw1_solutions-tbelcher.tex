@@ -19,6 +19,7 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{cancel}
 \usepackage{graphicx}
+\usepackage{float}
 \usepackage{listings}
 \lstset{
     language=Python,
@@ -219,20 +220,77 @@ the majority of training time comes from neural net inference to extract feature
 larger groups makes the task more difficult. They also noted that kNN time increases with larger datasets, but they suggested first doing k-means and then performing kNN on the cluster centers to reduce the number of comparisons. Besides time to classification increasing with large data sets, the authors noted that the pretrained features might be less effective on images
 very dissimilar to those in ImageNet. 
 
-This idea of reducing the size of the training set in particular stood out to me. Cluster centers make sense as a representative reduction of a larger set, but I am curious if we not just place the rough location of a test point
-and then just test the values within a ball of a given radius of that test point rather than comparing to the entire training corpus. Perhaps an algorithm that could quickly place the test point in an approximate 
-``quadrant'' of available training data and then only compare to the training points in that quadrant. If the training data was already processed, not unlike k-means clustering, then we could already know a subset of training data points that are near a given training data point. Specifying the algorithm for grouping the training points and comparing it's 
-speed and accuracy to k-means clustering and then kNN on the cluster centers would be one way to test this idea. Codex tells me that my idea is close to the kd-trees mentioned in the paper. 
-
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{figures/bergman2020-figure5.png}
     \caption{Reproduced from Figure 5 of \citet{bergman2020deep}.}
     \label{fig:bergman-figure5}
 \end{figure}
 
+This idea of reducing the size of the training set in particular stood out to me. Cluster centers make sense as a representative reduction of a larger set, but I am curious if we not just place the rough location of a test point
+and then just test the values within a ball of a given radius of that test point rather than comparing to the entire training corpus. Perhaps an algorithm that could quickly place the test point in an approximate 
+``quadrant'' of available training data and then only compare to the training points in that quadrant. If the training data was already processed, not unlike k-means clustering, then we could already know a subset of training data points that are near a given training data point. Specifying the algorithm for grouping the training points and comparing it's 
+speed and accuracy to k-means clustering and then kNN on the cluster centers would be one way to test this idea. Codex tells me that my idea is close to the kd-trees mentioned in the paper. 
+
 \clearpage
-\setcounter{enumi}{4}
+The second paper I read was \emph{Deep k-Nearest Neighbors: Towards Confident, Interpretable and Robust Deep Learning} by \cite{papernot2018deep}. While the previous paper looked at using a neural network to first process images that could then be analyzed with k nearest neighbors, this paper attempts to improve neural network performance with the kNN algorithm. In particular,
+the authors were interested in looking at the interpretability of a deep neural network at intermediate stages as well as improving the robustness of DNN models against adversarial attacks. Their idea was to perform kNN on each intermediate layer output to check how similar that output was to expected outputs for the training data. As they say in the paper, they wanted to answer ``Why did the model decide that?''. In the included figure from the paper,
+you can see how they are using k nearest neighbors to check intermediate outputs from the neural network and see if they are conformal, that is, the match all through through the network during the hidden layers. 
+
+Their results show that by checking intermediate outputs from the layers of the neural network and comparing them with kNN, their DkNN model has a higher accuracy because of lower credibility (it's estimate of the probability of correct classification) than traditional DNNs and is also more robust against adverarial attacks because of this lower credibility. They were even able to find mislabeled data in the MNIST data set
+by searching for inputs with high credibility in the model but had been marked as incorrect predictions. The models also outperform softmax on out of training examples because they had low credibliity on the new data. The authors seem to think this approach is very strong, as the scenario they describe for a successful adversarial attack requires inside knowledge and would mean targeting an image that stays conformal within the intermediate stages of the DkNN despite ultimately being an anomalous image. 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{figures/papernot2018-figure1.png}
+    \caption{Reproduced from Figure 1 of \citet{papernot2018deep}, including the original caption.}
+    \label{fig:papernot-figure1}
+\end{figure}
+
+\clearpage 
+
+\item \emph{(Question 3)}
+
+\begin{itemize}
+    \item The prior probabilities are:
+    \[
+    \begin{aligned}
+        P(\text{Yes}) &= \frac{\text{Number of stolen vehicles}}{\text{Total number of vehicles}} = \frac{5}{10} = 0.500, \\
+        P(\text{No}) &= \frac{\text{Number of non-stolen vehicles}}{\text{Total number of vehicles}} = \frac{5}{10} = 0.500.
+    \end{aligned}
+    \]
+    \item Using the Naive-Bayes assumption, the conditional likelihoods are:
+    \[
+    \begin{aligned}
+        P(\text{Red, Domestic, SUV} \mid \text{Yes})
+        &= P(\text{Red} \mid \text{Yes})\,P(\text{Domestic} \mid \text{Yes})\,P(\text{SUV} \mid \text{Yes}) \\
+        &= \frac{3}{5}\cdot\frac{2}{5}\cdot\frac{1}{5} = 0.048.
+    \end{aligned}
+    \]
+    \[
+    \begin{aligned}
+        P(\text{Red, Domestic, SUV} \mid \text{No})
+        &= P(\text{Red} \mid \text{No})\,P(\text{Domestic} \mid \text{No})\,P(\text{SUV} \mid \text{No}) \\
+        &= \frac{2}{5}\cdot\frac{3}{5}\cdot\frac{3}{5} = 0.144.
+    \end{aligned}
+    \]
+    \item The unnormalized posterior scores are:
+    \[
+    \begin{aligned}
+        \text{Score(Yes)} &= P(\text{Yes})\,P(\text{Red, Domestic, SUV} \mid \text{Yes}) \\
+        &= 0.500\cdot 0.048 = 0.024, \\
+        \text{Score(No)} &= P(\text{No})\,P(\text{Red, Domestic, SUV} \mid \text{No}) \\
+        &= 0.500\cdot 0.144 = 0.072.
+    \end{aligned}
+    \]
+    Since $0.072 > 0.024$, the predicted class is No (not stolen).
+    \item If a required conditional count were zero, the entire class score would become zero. If we fix this by applying Laplace smoothing, we would add 1 to every possible value's count, including nonzero counts, and then add the number of possible values of that feature to the denominator. 
+    For example, since Type can be Sports or SUV, if the probability for Sports given Yes stolen was $\frac{0}{5}$ we would change the conditional likelihood to $\frac{0+1}{5+2}=\frac{1}{7}$. The conditional likelihoods for Color and Origin would also be shifted similarly.
+\end{itemize}
+
+\item \emph{(Question 4)} 
+
 \item \emph{(Question 5)} Solutions to this problem were created with Codex GPT-6 Astra. A log of my conversation was maintained by Astra in the Markdown file labeled \path{q5_ai_conversation_log.md}. Most of my prompts
 are recorded verbatim, but some longer ones have been summarized. I prompted Astra to write summaries of the work we did for this problem, but the reflection requested in Bullet Point 4 was written by me. 
 % Student will add context and the final reflection separately.
