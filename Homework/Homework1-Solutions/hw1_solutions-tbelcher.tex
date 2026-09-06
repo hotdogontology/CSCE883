@@ -33,6 +33,8 @@
 \let\epsilon\varepsilon
 \usepackage{enumitem}
 \setlist[enumerate]{label=\arabic*.}
+\usepackage[authoryear,round]{natbib}
+\usepackage[hidelinks]{hyperref}
 
 
 \newcommand{\class}{CSCE883 Machine Learning}           
@@ -196,7 +198,7 @@ I re-ran the KNN classifer on the two versions of the scaled data and got the fo
 \end{center} 
 
 Both scaling methods resulted in a slight decrease in accuracy, misclassifying only one test point. I was again suprised because I had expected that scaling would only 
-improve accuracy, or at least not hurt it. I was again worried that I had implemented the algorithm incorrectly, but I cannot identify what is wrong with the implementation so 
+improve accuracy, or at least not hurt it. Given that the original data had perfect accuracy, I thought the scaled versions would also. I was again worried that I had implemented the algorithm incorrectly, but I cannot identify what is wrong with the implementation so 
 I am working on the assumption that the given data has been set up this way on purpose and that my implementation is correct. 
 
 Given these results, it would appear that the original unscaled data is the best approach for this particular dataset, but that is not necessarily true in general. I wanted to know which
@@ -208,7 +210,142 @@ we could drop a feature entirely and still perfectly predict the test set. I pro
 scaled data. This code showed that if we dropped Feature 4 and used the standardized data, we could stil get 100\% accuracy for $k=1 ... 9$. I think this supports my hypothesis that Feature 4 is the one that is causing the misclassification after scaling.
 
 \item \emph{(Question 2)} 
+These summaries are written by me. I asked for feedback from Codex on what I wrote and made some edits based on AI feedback, but I am the author. 
+
+The first paper that I read was \emph{Deep Nearest Neighbor Anomaly Detection} by \cite{bergman2020deep}. The paper proposes and tests using an available neural network image classifier to first extract features of the image and then perform kNN on the extracted features to detect anomalous images. They call it Deep Nearest Neighbors (DN2).
+Identifying anomalous images is advantageous in threat assessment and preventative maintenance. For example, a stream monitoring an oil pipeline might be able to detect evidence of corrosion and immiment failure. Anomaly detection training can be \emph{supervised, semi-supervised,} or emph{unsupervised}. In particular,
+they were interested in the \emph{semi-supervised} cases where the training set has no anomalous images and \emph{unsupervised} cases where unlabeled normal and anomalous images are in the training set. The authors ran the ImageNet pre-trained ResNet feature extractor on both the training and test images. The authors note that
+the majority of training time comes from neural net inference to extract features and that more layers produces better results, but that DN2 is able to perform well even with a very small training set, as evidenced by their figure showing average ROC area. They also investigated identifying groups of images rather than single images, but noted that 
+larger groups makes the task more difficult. They also noted that kNN time increases with larger datasets, but they suggested first doing k-means and then performing kNN on the cluster centers to reduce the number of comparisons. Besides time to classification increasing with large data sets, the authors noted that the pretrained features might be less effective on images
+very dissimilar to those in ImageNet. 
+
+This idea of reducing the size of the training set in particular stood out to me. Cluster centers make sense as a representative reduction of a larger set, but I am curious if we not just place the rough location of a test point
+and then just test the values within a ball of a given radius of that test point rather than comparing to the entire training corpus. Perhaps an algorithm that could quickly place the test point in an approximate 
+``quadrant'' of available training data and then only compare to the training points in that quadrant. If the training data was already processed, not unlike k-means clustering, then we could already know a subset of training data points that are near a given training data point. Specifying the algorithm for grouping the training points and comparing it's 
+speed and accuracy to k-means clustering and then kNN on the cluster centers would be one way to test this idea. Codex tells me that my idea is close to the kd-trees mentioned in the paper. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{figures/bergman2020-figure5.png}
+    \caption{Reproduced from Figure 5 of \citet{bergman2020deep}.}
+    \label{fig:bergman-figure5}
+\end{figure}
+
+\clearpage
+\setcounter{enumi}{4}
+\item \emph{(Question 5)} Solutions to this problem were created with Codex GPT-6 Astra. A log of my conversation was maintained by Astra in the Markdown file labeled \path{q5_ai_conversation_log.md}. Most of my prompts
+are recorded verbatim, but some longer ones have been summarized. I prompted Astra to write summaries of the work we did for this problem, but the reflection requested in Bullet Point 4 was written by me. 
+% Student will add context and the final reflection separately.
+\par\medskip
+\noindent\textbf{Identified problems and corrections.}
+The corrected notebook is \path{q5_corrected.ipynb}.
+Line numbers refer to the original \path{q5_starter_classifier.py}.
+The explanations and notebook evidence below were prepared with AI assistance;
+independent validation is recorded separately in the AI-use conversation log.
+
+\begin{enumerate}[label=\alph*.]
+    \item \textbf{CSV headers are parsed as numeric data (line 27).}
+    The original \texttt{np.loadtxt} call does not skip the header row
+    \texttt{F1,F2,F3,F4,Class}. It therefore fails while converting
+    \texttt{F1} to a floating-point number, before any model can run.
+    The correction skips the single header row:
+\begin{lstlisting}
+np.loadtxt(path, delimiter=",", skiprows=1)
+\end{lstlisting}
+    \textbf{Evidence:} Figure~\ref{fig:q5-csv-header-error} shows the original
+    loading failure. The corrected notebook successfully loads 910 training
+    rows and 462 test rows, each with five numeric columns. Thus the correction
+    resolves an execution failure rather than merely changing formatting.
+
+    \item \textbf{The distance function sums signed differences (lines 30--31).}
+    The expression \texttt{np.sum(a - b)} is not Euclidean distance:
+    differences can cancel, and the result can be negative.
+    In addition, $\sum_j(q_j-r_j)=\sum_j q_j-\sum_j r_j$, so sorting these
+    scores favors training rows with larger coordinate sums independently
+    of the query, apart from numerical tie effects.
+    The corrected function computes the square root of the sum of squared
+    coordinate differences:
+\begin{lstlisting}
+return np.sqrt(np.sum((a - b) ** 2))
+\end{lstlisting}
+    \textbf{Evidence:} For $(0,0)$ and $(3,4)$, the original result is
+    $-7.000$, whereas the corrected distance is $5.000$. For $(0,0)$ and
+    $(3,-3)$, the original result is $0.000$, whereas the corrected result is
+    $\sqrt{18}\approx4.243$. These examples demonstrate both a failure of
+    the original formula and agreement of the correction with Euclidean geometry.
+
+    \item \textbf{Class values are included in feature coordinates (lines 50--54).}
+    The starter scales all five columns into \texttt{train\_x} and
+    \texttt{test\_x}, including the final class column. Extracting labels
+    afterward does not remove that column from the feature arrays. This exposes
+    the true test labels to the predictor and makes the feature representation
+    invalid for evaluating classification.
+    The correction separates features and labels before preprocessing:
+\begin{lstlisting}
+X_train = train[:, :-1]
+y_train = train[:, -1].astype(int)
+X_test = test[:, :-1]
+y_test = test[:, -1].astype(int)
+\end{lstlisting}
+    Only the four-column feature arrays are scaled and passed to the distance
+    calculation; labels remain separate for voting and evaluation.
+    \textbf{Evidence:} The original transformations preserve all five columns.
+    The corrected notebook reports feature shapes $(910,4)$ and $(462,4)$.
+    The slices explicitly exclude the last column while preserving its values
+    in the separate label arrays.
+
+    \item \textbf{Scaling is fitted using test data (line 50).}
+    The starter combines training and test rows before fitting its scaler, so test
+    values influence the means and standard deviations used to prepare the
+    model inputs. This is preprocessing leakage and compromises the held-out
+    evaluation, whether or not it increases measured accuracy.
+    The correction fits on training features alone and reuses those parameters:
+\begin{lstlisting}
+scaler = StandardScaler().fit(X_train)
+train_scaled = scaler.transform(X_train)
+test_scaled = scaler.transform(X_test)
+\end{lstlisting}
+    The internal training/validation split likewise fits its scaler only on the
+    fitting subset.
+    \textbf{Evidence:} The pooled F2 mean is $1.922$, while the training-only
+    F2 mean is $2.010$, demonstrating that test data alter the original fitted
+    parameters. The corrected notebook verifies that the scaler's mean vector
+    equals the training-feature mean vector.
+
+    \item \textbf{Vote ties silently favor class 0 (line 38).}
+    The starter counts votes by class and selects the index with the largest
+    count using \texttt{argmax}. For equal binary class
+    counts, \texttt{argmax} selects index 0. The corrected notebook instead
+    adopts Question 1's stated policy: choose the label of the nearest neighbor
+    whose class is tied for the most votes. This is a voting-policy alignment
+    with Q1; Q5 does not independently prescribe a particular tie policy.
+\begin{lstlisting}
+classes, counts = np.unique(votes, return_counts=True)
+tied = classes[counts == counts.max()]
+return next(label for label in votes if label in tied)
+\end{lstlisting}
+    Here \texttt{votes} is ordered by increasing neighbor distance.
+    \textbf{Evidence:} Nearest-first votes $[1,0,1,0]$ yield counts $[2,2]$,
+    so the starter chooses 0 while the adopted policy chooses 1. The notebook's
+    four-neighbor toy example confirms that a tied vote returns the nearest
+    neighbor's class, 1.
 \end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{figures/q5-csv-header-error.png}
+    \caption{Q5 starter CSV-loading error: line 27 attempts to convert the column header \texttt{F1} to a floating-point number.}
+    \label{fig:q5-csv-header-error}
+\end{figure}
+
+% Parenthetical citations: \citep{papernot2018deep} or \citep{bergman2020deep}.
+% Author-in-text citations: \citet{papernot2018deep} or \citet{bergman2020deep}.
+\end{enumerate}
+
+% Include both selected papers before citations are added to the report.
+\nocite{papernot2018deep,bergman2020deep}
+\bibliographystyle{plainnat}
+\bibliography{references}
 
 \end{document}
 

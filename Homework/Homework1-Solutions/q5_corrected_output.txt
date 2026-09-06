@@ -1,0 +1,46 @@
+Execution method: Python 3 Jupyter kernel via nbclient.
+
+Training features: (910, 4) Test features: (462, 4)
+Classes: [0 1]
+
+K  validation accuracy  validation macro-F1
+
+1       1.000               1.000
+
+2       1.000               1.000
+
+3       1.000               1.000
+
+4       1.000               1.000
+
+5       1.000               1.000
+
+6       1.000               1.000
+
+7       1.000               1.000
+
+8       1.000               1.000
+
+9       1.000               1.000
+Selected K: 1
+
+Corrected KNN (K=1): accuracy=0.998, macro-F1=0.998
+                 predicted 0  predicted 1
+true 0                  261            1
+true 1                    0          200
+Gaussian Naive Bayes: accuracy=0.874, macro-F1=0.871
+                 predicted 0  predicted 1
+true 0                  238           24
+true 1                   34          166
+
+Signed-sum cancellation: 0.0
+Correct distance: 4.242640687119285
+Training-only feature means: [ 0.43836132  2.009717    1.33862628 -1.2055323 ]
+Pooled feature means: [ 0.43373526  1.92235312  1.39762712 -1.19165652]
+Focused checks passed.
+
+Starter distinct neighbor sets: 1
+Starter logic (header bypass only): accuracy=0.567, macro-F1=0.362
+                 predicted 0  predicted 1
+true 0                  262            0
+true 1                  200            0
