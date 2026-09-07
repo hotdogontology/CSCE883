@@ -289,7 +289,81 @@ by searching for inputs with high credibility in the model but had been marked a
     For example, since Type can be Sports or SUV, if the probability for Sports given Yes stolen was $\frac{0}{5}$ we would change the conditional likelihood to $\frac{0+1}{5+2}=\frac{1}{7}$. The conditional likelihoods for Color and Origin would also be shifted similarly.
 \end{itemize}
 
-\item \emph{(Question 4)} 
+\item \emph{(Question 4)} Codex assisted me with this problem. I first began by investigating the data. Since there are no headers, I asked Codex to write some code that would give an eumeration of values or at least summary statistics in each category. 
+Although quite a few features turned out to be binary, there were several that were not. After reviewing the models available from scikit, it seemed to me that since not all of the features were binary or clearly all the same kind of feature, I could not use one of the
+specialized models that made restrictive assumptions (like BernoulliNB for binary features). Since GuassianNB seems the most general and therefore appropriate for the data, I ran that, but Codex suggested we could also look at Categorical after binning the data (and possibly losing numeric features). I let Coded run both after the Gaussian 
+just to see if there was any improvement.\\
+
+Results from the code are reproduced in the tables below. For 5 misclassified points, I was unsure where to start to identify why Bayes might have misclassified them. Given that so many features are binary I thought that perhaps the discrete nature of a binary category means it is easy for a small difference to flip the indicator.
+I notice that Feature 10 for nearly all the misclassified points has values in the 30s. Perhaps looking at all points with those values and seeing how many are misclassified would produce some insights. I would also be interested in running kNN on the misclassified points just to compare them to their neighbors. 
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\textbf{GaussianNB results.}
+The scikit Gaussian implementation in \path{Q4.ipynb} produced the following results.
+
+\begin{center}
+\begin{tabular}{lrrr}
+\hline
+Dataset & Rows & Input features & Total columns \\
+\hline
+Training & 700 & 24 & 25 \\
+Test & 300 & 24 & 25 \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{lr}
+\hline
+Test metric & Value \\
+\hline
+Accuracy & 0.740 \\
+Macro-precision & 0.701 \\
+Macro-recall & 0.714 \\
+Macro-F1 & 0.706 \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{lrr}
+\hline
+Actual class & Predicted class 1 & Predicted class 2 \\
+\hline
+Class 1 & 162 & 45 \\
+Class 2 & 33 & 60 \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{minipage}
+\par\medskip
+
+\noindent\textbf{Misclassified test examples.}
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{rrrp{0.62\linewidth}}
+\hline
+Test row & Actual & Predicted & Encoded features (F1--F24) \\
+\hline
+1 & 2 & 1 & \texttt{4, 12, 2, 11, 3, 3, 2, 4, 3, 29, 3, 1,}\newline
+\texttt{1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0} \\
+\hline
+2 & 2 & 1 & \texttt{1, 48, 4, 63, 1, 5, 3, 4, 4, 46, 3, 2,}\newline
+\texttt{1, 2, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1} \\
+\hline
+5 & 1 & 2 & \texttt{2, 27, 2, 25, 1, 2, 2, 1, 2, 32, 3, 1,}\newline
+\texttt{2, 2, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1} \\
+\hline
+21 & 2 & 1 & \texttt{3, 9, 0, 13, 1, 2, 3, 2, 3, 34, 3, 2,}\newline
+\texttt{1, 2, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0} \\
+\hline
+31 & 1 & 2 & \texttt{2, 24, 3, 64, 1, 2, 3, 2, 3, 33, 3, 1,}\newline
+\texttt{1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1} \\
+\hline
+\end{tabular}
+\end{center}
 
 \item \emph{(Question 5)} Solutions to this problem were created with Codex GPT-6 Astra. A log of my conversation was maintained by Astra in the Markdown file labeled \path{q5_ai_conversation_log.md}. Most of my prompts
 are recorded verbatim, but some longer ones have been summarized. I prompted Astra to write summaries of the work we did for this problem, but the reflection requested in Bullet Point 4 was written by me. 
