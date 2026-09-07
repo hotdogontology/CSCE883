@@ -1,0 +1,24 @@
+Class 0 correlations (F1-F4):
+[[ 1.    -0.212 -0.347  0.412]
+ [-0.212  1.    -0.741 -0.672]
+ [-0.347 -0.741  1.     0.414]
+ [ 0.412 -0.672  0.414  1.   ]]
+Class 1 correlations (F1-F4):
+[[ 1.     0.091 -0.478  0.292]
+ [ 0.091  1.    -0.896 -0.524]
+ [-0.478 -0.896  1.     0.308]
+ [ 0.292 -0.524  0.308  1.   ]]
+Gaussian NB — VALIDATION ONLY: accuracy=0.879, macro-F1=0.877
+                 predicted 0  predicted 1
+true 0                   93            7
+true 1                   15           67
+Diagonal Gaussian control — VALIDATION ONLY: accuracy=0.879, macro-F1=0.877
+                 predicted 0  predicted 1
+true 0                   93            7
+true 1                   15           67
+Full-covariance Gaussian — VALIDATION ONLY: accuracy=0.995, macro-F1=0.994
+                 predicted 0  predicted 1
+true 0                   99            1
+true 1                    0           82
+Full covariance minus NB: accuracy=+0.115, macro-F1=+0.118
+No additional test evaluation performed. This comparison is exploratory.

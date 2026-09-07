@@ -396,6 +396,75 @@ return next(label for label in votes if label in tied)
     \label{fig:q5-csv-header-error}
 \end{figure}
 
+
+\clearpage
+\noindent\textbf{Corrected model results.}
+Both models use the same 462 test examples from \path{Q1_test.csv}, with
+standardization fitted only on training features. KNN uses $K=1$, selected
+from $K=1,\ldots,9$ using a stratified validation split within the training
+set. All nine values tied on validation macro-F1; the stated selection rule
+favored the smallest $K$. Gaussian Naive Bayes estimates a Gaussian density
+for each feature within each class and uses training class frequencies as
+priors. Its Gaussian and conditional-independence assumptions are approximations
+for the four numeric features.
+
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+Model & Accuracy & Macro-F1 \\
+\hline
+Corrected KNN ($K=1$) & 0.998 & 0.998 \\
+Gaussian Naive Bayes & 0.874 & 0.871 \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent Confusion matrices below use rows for true classes and columns for
+predicted classes. Entries are counts; macro-F1 averages the F1 scores of
+classes 0 and 1 equally.
+
+\begin{center}
+\begin{minipage}{0.48\linewidth}
+\centering
+\textbf{Corrected KNN ($K=1$)}\par\medskip
+\begin{tabular}{lrr}
+\hline
+ & Predicted 0 & Predicted 1 \\
+\hline
+True 0 & 261 & 1 \\
+True 1 & 0 & 200 \\
+\hline
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}{0.48\linewidth}
+\centering
+\textbf{Gaussian Naive Bayes}\par\medskip
+\begin{tabular}{lrr}
+\hline
+ & Predicted 0 & Predicted 1 \\
+\hline
+True 0 & 238 & 24 \\
+True 1 & 34 & 166 \\
+\hline
+\end{tabular}
+\end{minipage}
+\end{center}
+
+\noindent Results are reproduced from the executed notebook
+\path{q5_corrected.ipynb} and its saved output
+\path{q5_corrected_output.txt}.
+
+\textbf{Reflection}. Repeating the same data as Q1 helped with this problem because I already had an idea what to expect. My python syntax knowledge is a bit sparse, especially for syntactic sugar on numpy functions, but
+I was able to notice the basic issues with the wrong metric, including the class label in the point, and setting parameters using test values. The other issues Codex pointed out to me, although I feel as though I should have attempted to run
+the code before asking it to analyze, just like I read the code before asking Codex to analyze it.\\
+
+The code does attempt to normalize the data and handle a 0 variance case. As pointed out in the responses to the earlier bullet points, there were issues with attempting to read the header, including the class label, using the test points in parameter training, and not explicitly deciding what to do in the case
+of a tie among neighbor votes. Looking at the results, we see that kNN does beter than Naive Bayes. The additional investigation I asked Codex to conduct to see if not making the naive assumption about independence among features would improve the result gave the 
+expected result. Between Naive Bayes and kNN I would recommend using kNN given how much better it performs on accuracy and F1. Improving Bayes by investigating dependence between features is not something I would want to try if I did not have Codex to work through that code for me to test it.\\
+
+As stated before, Codex GPT-6 Astra assisted me with this problem. Codex kept a log of our conversation and work on Problem 5 and that log can be viewed in the included Markdown file named \path{q5_ai_conversation_log.md}. 
+% Student will write the required reflection separately.
+
 % Parenthetical citations: \citep{papernot2018deep} or \citep{bergman2020deep}.
 % Author-in-text citations: \citet{papernot2018deep} or \citet{bergman2020deep}.
 \end{enumerate}

@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex hw1_solutions-tbelcher"] 1788728022.66416 "hw1_solutions-tbelcher.aux" "hw1_solutions-tbelcher.bbl" "hw1_solutions-tbelcher" 1788731063.20357 0
+["bibtex hw1_solutions-tbelcher"] 1788740525.6799 "hw1_solutions-tbelcher.aux" "hw1_solutions-tbelcher.bbl" "hw1_solutions-tbelcher" 1788740527.85917 0
   "./references.bib" 1788639092.62048 558 b472f9477f627bc83d18b1283c1dd99a ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "hw1_solutions-tbelcher.aux" 1788731062.51835 1555 f7e5ba88dac3d9ed6f7a69989769531c "pdflatex"
+  "hw1_solutions-tbelcher.aux" 1788740527.33558 1556 238ea5706ffddb5d69f64214a51b8355 "pdflatex"
   (generated)
   "hw1_solutions-tbelcher.bbl"
   "hw1_solutions-tbelcher.blg"
   (rewritten before read)
-["pdflatex"] 1788731060.98775 "/home/taylor/Documents/Work/USC/Courses/CSCE883/Homework/Homework1-Solutions/hw1_solutions-tbelcher.tex" "hw1_solutions-tbelcher.pdf" "hw1_solutions-tbelcher" 1788731063.20443 0
+["pdflatex"] 1788740525.84517 "/home/taylor/Documents/Work/USC/Courses/CSCE883/Homework/Homework1-Solutions/hw1_solutions-tbelcher.tex" "hw1_solutions-tbelcher.pdf" "hw1_solutions-tbelcher" 1788740527.85955 0
   "/etc/texmf/web2c/texmf.cnf" 1774390156.74107 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/taylor/Documents/Work/USC/Courses/CSCE883/Homework/Homework1-Solutions/hw1_solutions-tbelcher.tex" 1788731060.38731 22838 aa54689d64b2cb0e8811be090b564f72 ""
+  "/home/taylor/Documents/Work/USC/Courses/CSCE883/Homework/Homework1-Solutions/hw1_solutions-tbelcher.tex" 1788740522.99935 26188 274506e763ea3b567f493770fad075b1 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc" 1490131464 2933 9ad527ce78d7c5fa0a642dead095f172 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc" 1490131464 2934 a4a9158faed2e9e89c771b4e3b7fc12f ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_dhi6qf.enc" 1558472472 2914 3d1e3c4123f03ab27df5767d5039d109 ""
@@ -245,10 +245,10 @@
   "figures/bergman2020-figure5.png" 1788657560.24046 117782 d9ed36675f034df02d19f9a02a432ec5 ""
   "figures/papernot2018-figure1.png" 1788725683.55898 484141 b1377b8ab7d12310b2bfc1a66b3ce7b6 ""
   "figures/q5-csv-header-error.png" 1788661591.72566 54753 0027b5dd237704e53c371bb693c56314 ""
-  "hw1_solutions-tbelcher.aux" 1788731062.51835 1555 f7e5ba88dac3d9ed6f7a69989769531c "pdflatex"
-  "hw1_solutions-tbelcher.bbl" 1788728022.80011 856 2833480118234ce0211833cb46cbd974 "bibtex hw1_solutions-tbelcher"
-  "hw1_solutions-tbelcher.out" 1788731062.09035 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "hw1_solutions-tbelcher.tex" 1788731060.38731 22838 aa54689d64b2cb0e8811be090b564f72 ""
+  "hw1_solutions-tbelcher.aux" 1788740527.33558 1556 238ea5706ffddb5d69f64214a51b8355 "pdflatex"
+  "hw1_solutions-tbelcher.bbl" 1788740525.83443 856 2833480118234ce0211833cb46cbd974 "bibtex hw1_solutions-tbelcher"
+  "hw1_solutions-tbelcher.out" 1788740526.89354 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "hw1_solutions-tbelcher.tex" 1788740522.99935 26188 274506e763ea3b567f493770fad075b1 ""
   (generated)
   "hw1_solutions-tbelcher.aux"
   "hw1_solutions-tbelcher.log"
