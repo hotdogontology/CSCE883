@@ -1,0 +1,27 @@
+# LaTeX build artifacts (keep PDFs available for course materials/submissions)
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex
+*.synctex.gz
+*.synctex(busy)
+*.synctex.gz(busy)
+*.toc
+*.lof
+*.lot
+*.loa
+*.nav
+*.snm
+*.vrb
+*.bcf
+*.run.xml
+*.xdv
+*.dvi
+
+# Python bytecode
+__pycache__/
+*.py[cod]
