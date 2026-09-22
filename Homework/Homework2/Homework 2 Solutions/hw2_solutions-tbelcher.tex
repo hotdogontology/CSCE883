@@ -73,7 +73,7 @@ P(X=x\mid\theta) & 2\theta/3 & \theta/3 & 2(1-\theta)/3 & (1-\theta)/3 \\
 \end{array}
 \] 
 
-We have the following i.i.d. sample $\mathbf{x} = (3,0,2,1,3,2,1,0,2,1)$ from $X$ and we want the maximum likelihood estimate of $\theta$. Let $x^t$ denote the $t$-th observation, for $t=1,\ldots,N$, where here $N=10$, so that $\mathbf{x}=(x^1,\ldots,x^N)$. The likelihood of the parameter $\theta$ is 
+We have the following i.i.d. sample $\mathbf{x} = (3,0,2,1,3,2,1,0,2,1)$ from $X$ and we want the maximum likelihood estimate of $\theta$. Let $x^t$ denote the $t$-th observation, for $t=1,\ldots,N$, where here $N=10$, so that $\mathbf{x}=(x^1,\ldots,x^N)$. Since the observations are independent, the likelihood of the parameter $\theta$ is 
 
 \[
 \begin{aligned}
@@ -92,28 +92,149 @@ l(\theta \mid \mathbf{x}) &= \prod\limits_{t=1}^{N} p(x^{t} \mid \theta) \\
 
 We can optimize via the log likelihood and our desired MLE for $\theta$ is $\hat{\theta} = \operatorname*{arg\,max}\limits_{\theta}\left( L(\theta \mid \mathbf{x})\right)$ so consider 
 
-$$L(\theta \mid \mathbf{x}) = \log(l(\theta \mid \mathbf{x})) = \log\left(\frac{2^5}{3^{10}}\theta^5(1-\theta)^5\right)$$ 
+\[
+\begin{aligned}
+L(\theta \mid \mathbf{x})
+&= \log\left(l(\theta \mid \mathbf{x})\right) \\
+&= \log\left(\frac{2^5}{3^{10}}\theta^5(1-\theta)^5\right).
+\end{aligned}
+\]
 
-Applying rules of logarithms we have 
+Applying rules of logarithms we have
 
-$$ L(\theta \mid \mathbf{x}) = \log \frac{2^5}{3^{10}} + 5 \log \theta + 5 \log (1-\theta)$$
+\[
+L(\theta \mid \mathbf{x}) = \log\left(\frac{2^5}{3^{10}}\right) + 5 \log \theta + 5 \log(1-\theta).
+\]
 
-Taking the derivative of $L$ with respect to $\theta$ 
+Taking the derivative of $L$ with respect to $\theta$
 
-$$\frac{dL}{d\theta} = 0 + 5\cdot \frac{1}{\theta} + 5\cdot \frac{1}{1-\theta}\cdot (-1)$$
-$$ = \frac{5}{\theta} - \frac{5}{1-\theta}$$
+\[
+\begin{aligned}
+\frac{dL}{d\theta}
+&= 0 + 5\cdot \frac{1}{\theta} + 5\cdot \frac{1}{1-\theta}\cdot (-1) \\
+&= \frac{5}{\theta} - \frac{5}{1-\theta}.
+\end{aligned}
+\]
 
-Set the derivative equal to zero and solve for $\theta$: 
+Set the derivative equal to zero and solve for $\theta$:
 
-$$0 = \frac{5}{\theta} - \frac{5}{1-\theta}$$
-$$\frac{5}{1-\theta}= \frac{5}{\theta} $$
-$$\theta = 1 - \theta$$ 
-$$\theta = \frac{1}{2}$$
+\[
+\begin{aligned}
+0 &= \frac{5}{\theta} - \frac{5}{1-\theta} \\
+\frac{5}{1-\theta} &= \frac{5}{\theta} \\
+\theta &= 1 - \theta \\
+\theta &= \frac{1}{2}.
+\end{aligned}
+\]
+
+To verify that this gives a maximum, rewrite the derivative with a common denominator:
+
+\[
+\begin{aligned}
+\frac{dL}{d\theta}
+&= \frac{5}{\theta} - \frac{5}{1-\theta} \\
+&= \frac{5(1-\theta)-5\theta}{\theta(1-\theta)} \\
+&= \frac{5(1-2\theta)}{\theta(1-\theta)}.
+\end{aligned}
+\]
+
+For $0<\theta<1$, the denominator is positive, so the sign of the derivative is determined by $1-2\theta$. Thus the derivative is positive for $0<\theta<\frac{1}{2}$, zero at $\theta=\frac{1}{2}$, and negative for $\frac{1}{2}<\theta<1$. The log likelihood therefore increases up to $\theta=\frac{1}{2}$ and decreases afterward. Since the logarithm is strictly increasing, this also maximizes the likelihood on $(0,1)$. At the endpoints $\theta=0$ and $\theta=1$, the likelihood is zero, so neither endpoint gives a larger value.
+
+Therefore the maximum likelihood estimate of $\theta$ is $\hat{\theta} = \boxed{\frac{1}{2}}$. 
+
+\item \emph{(Question 2).} Let $X_1, X_2, \ldots, X_N$ be i.i.d. random variables with density function
+\[
+f(x \mid \sigma) = \frac{1}{2\sigma}e^{-\frac{|x|}{\sigma}}.
+\]
+
+Again, since the observations are independent, we define the likelihood function as
+
+\[
+\begin{aligned}
+l(\sigma \mid x) \equiv p(x \mid \sigma)
+&= \prod_{t=1}^N p(x_t \mid \sigma) \\
+&= \prod_{t=1}^N f(x_t \mid \sigma) \\
+&= \prod_{t=1}^N \left(\frac{1}{2\sigma}e^{-\frac{|x_t|}{\sigma}}\right) \\
+&= \left(\frac{1}{2\sigma}\right)^N
+   \prod_{t=1}^N \left(e^{-\frac{|x_t|}{\sigma}}\right) \\
+&= \left(\frac{1}{2\sigma}\right)^N
+   e^{\left(\displaystyle \sum_{t=1}^N -\frac{|x_t|}{\sigma}\right)}\\
+&= \left(\frac{1}{2\sigma}\right)^N
+   e^{\left(\displaystyle -\frac{1}{\sigma} \sum_{t=1}^N |x_t|\right)}.
+\end{aligned}
+\] 
+
+We then take the log, which we will optimize.
+
+\[
+\begin{aligned}
+L(\sigma \mid x)
+&= \log\left(l(\sigma \mid x)\right) \\
+&= \log\left[\left(\frac{1}{2\sigma}\right)^N
+   e^{-\frac{1}{\sigma}\sum_{t=1}^N |x_t|}\right].
+\end{aligned}
+\]
+
+Applying rules of logarithms we have
+
+\[
+\begin{aligned}
+L(\sigma \mid x)
+&= \log\left[\left(\frac{1}{2\sigma}\right)^N\right]
+   + \log\left[e^{-\frac{1}{\sigma}\sum_{t=1}^N |x_t|}\right] \\
+&= N\log\left(\frac{1}{2\sigma}\right)
+   - \frac{1}{\sigma}\sum_{t=1}^N |x_t| \\
+&= -N\log(2\sigma) - \frac{1}{\sigma}\sum_{t=1}^N |x_t| \\
+&= -N\log 2 - N\log\sigma - \frac{1}{\sigma}\sum_{t=1}^N |x_t|.
+\end{aligned}
+\]
+
+Taking the derivative of $L$ with respect to $\sigma$
+
+\[
+\begin{aligned}
+\frac{dL}{d\sigma}
+&= 0 - N\cdot\frac{1}{\sigma}
+   - \left(-\frac{1}{\sigma^2}\right)\sum_{t=1}^N |x_t| \\
+&= -\frac{N}{\sigma} + \frac{1}{\sigma^2}\sum_{t=1}^N |x_t|.
+\end{aligned}
+\]
+
+Set the derivative equal to zero and solve for $\sigma$:
+
+\begin{align*}
+0 &= -\frac{N}{\sigma} + \frac{1}{\sigma^2}\sum_{t=1}^N |x_t| \\
+\frac{N}{\sigma} &= \frac{1}{\sigma^2}\sum_{t=1}^N |x_t| \\
+\intertext{Since $\sigma > 0$, we have $\sigma^2 > 0$, so we can multiply both sides by $\sigma^2$:}
+N\sigma &= \sum_{t=1}^N |x_t| \\
+\sigma &= \frac{1}{N}\sum_{t=1}^N |x_t|.
+\end{align*}
+
+To verify that this gives a maximum, let $\hat{\sigma}=\frac{1}{N}\sum_{t=1}^N |x_t|$ and rewrite the derivative with a common denominator:
+
+\[
+\begin{aligned}
+\frac{dL}{d\sigma}
+&= -\frac{N}{\sigma} + \frac{1}{\sigma^2}\sum_{t=1}^N |x_t| \\
+&= \frac{\sum_{t=1}^N |x_t|-N\sigma}{\sigma^2} \\
+&= \frac{N\hat{\sigma}-N\sigma}{\sigma^2} \\
+&= \frac{N(\hat{\sigma}-\sigma)}{\sigma^2}.
+\end{aligned}
+\]
+
+For $\sigma>0$, the factor $N/\sigma^2$ is positive, so the sign of the derivative is determined by $\hat{\sigma}-\sigma$. When $\sum_{t=1}^N |x_t|>0$, we have $\hat{\sigma}>0$. Thus the derivative is positive for $0<\sigma<\hat{\sigma}$, zero at $\sigma=\hat{\sigma}$, and negative for $\sigma>\hat{\sigma}$. The log likelihood therefore increases up to $\hat{\sigma}$ and decreases afterward, so this gives the maximum. Since the logarithm is strictly increasing, maximizing the likelihood is equivalent to maximizing its log. Therefore the maximum likelihood estimate of $\sigma$ is
+
+\[
+\begin{aligned}
+\hat{\sigma}
+&= \operatorname*{arg\,max}_{\sigma > 0} l(x \mid \sigma) \\
+&= \operatorname*{arg\,max}_{\sigma > 0} \log\left(l(x \mid \sigma)\right) \\
+&= \operatorname*{arg\,max}_{\sigma > 0} L(\sigma \mid x) \\
+&= \boxed{\frac{1}{N}\sum_{t=1}^N |x_t|}.
+\end{aligned}
+\]
 
 
-Therefore the maximum likelihood estimate of $\theta$, is $\hat{\theta} = \frac{1}{2}$. 
-
-\item \emph{(Question 2).} 
 \end{enumerate}
 
 \end{document}
