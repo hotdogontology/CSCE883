@@ -1,0 +1,128 @@
+\documentclass[12pt]{article}
+
+
+% --- math/fonts ---
+\usepackage{amsmath,amssymb}
+\usepackage{braket}
+\usepackage[T1]{fontenc}
+\usepackage{libertine}
+\usepackage[utf8]{inputenc}
+
+% --- graphics/tikz ---
+\usepackage{tikz}
+\usepackage{qcircuit}
+
+% --- other stuff ---
+\usepackage[margin=1in]{geometry}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage[shortlabels]{enumitem}
+\usepackage{cancel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\bfseries,
+    frame=single,
+    breaklines=true,
+    keepspaces=true,
+    columns=fullflexible,
+    showstringspaces=false
+}
+\let\epsilon\varepsilon
+\usepackage{enumitem}
+\setlist[enumerate]{label=\arabic*.}
+\usepackage[authoryear,round]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+
+\newcommand{\class}{CSCE883 Machine Learning}           
+\newcommand{\examnum}{Homework 2}      
+\newcommand{\examdate}{09/26/2026}        
+\newcommand{\timelimit}{}             
+
+
+
+
+\begin{document} 
+\pagestyle{plain}
+\thispagestyle{empty}
+
+\noindent
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r @{\extracolsep{6pt}} l}
+ \textbf{\class} & \textbf{Name:} & \textit{Taylor Belcher}\\       
+\textbf{\examnum} &&\\
+\textbf{\examdate} &&\\
+\end{tabular*}\\
+\rule[2ex]{\textwidth}{2pt}
+% ---
+
+ 
+\begin{enumerate}
+   \item \emph{(Question 1).} Let $X$ be a discrete random variable with the given probability mass function with $0 \leq \theta \leq 1$ as a parameter:
+   
+  \[
+\begin{array}{|c|c|c|c|c|}
+\hline
+x & 0 & 1 & 2 & 3 \\
+\hline
+P(X=x\mid\theta) & 2\theta/3 & \theta/3 & 2(1-\theta)/3 & (1-\theta)/3 \\
+\hline
+\end{array}
+\] 
+
+We have the following i.i.d. sample $\mathbf{x} = (3,0,2,1,3,2,1,0,2,1)$ from $X$ and we want the maximum likelihood estimate of $\theta$. Let $x^t$ denote the $t$-th observation, for $t=1,\ldots,N$, where here $N=10$, so that $\mathbf{x}=(x^1,\ldots,x^N)$. The likelihood of the parameter $\theta$ is 
+
+\[
+\begin{aligned}
+l(\theta \mid \mathbf{x}) &= \prod\limits_{t=1}^{N} p(x^{t} \mid \theta) \\
+&= p(3 \mid \theta) \cdot p(0 \mid \theta) \cdot p(2 \mid \theta) \cdot p(1 \mid \theta) \cdot p(3 \mid \theta) \\
+&\quad {}\cdot p(2 \mid \theta) \cdot p(1 \mid \theta) \cdot p(0 \mid \theta) \cdot p(2 \mid \theta) \cdot p(1 \mid \theta) \\
+&= \frac{1-\theta}{3} \cdot \frac{2\theta}{3} \cdot \frac{2(1-\theta)}{3} \cdot \frac{\theta}{3} \cdot \frac{1-\theta}{3} \\
+&\quad {}\cdot \frac{2(1-\theta)}{3} \cdot \frac{\theta}{3} \cdot \frac{2\theta}{3} \cdot \frac{2(1-\theta)}{3} \cdot \frac{\theta}{3} \\
+&= \left(\frac{2\theta}{3}\right)^2
+   \left(\frac{\theta}{3}\right)^3
+   \left(\frac{2(1-\theta)}{3}\right)^3
+   \left(\frac{1-\theta}{3}\right)^2 \\
+&= \frac{2^5}{3^{10}}\theta^5(1-\theta)^5.
+\end{aligned}
+\] 
+
+We can optimize via the log likelihood and our desired MLE for $\theta$ is $\hat{\theta} = \operatorname*{arg\,max}\limits_{\theta}\left( L(\theta \mid \mathbf{x})\right)$ so consider 
+
+$$L(\theta \mid \mathbf{x}) = \log(l(\theta \mid \mathbf{x})) = \log\left(\frac{2^5}{3^{10}}\theta^5(1-\theta)^5\right)$$ 
+
+Applying rules of logarithms we have 
+
+$$ L(\theta \mid \mathbf{x}) = \log \frac{2^5}{3^{10}} + 5 \log \theta + 5 \log (1-\theta)$$
+
+Taking the derivative of $L$ with respect to $\theta$ 
+
+$$\frac{dL}{d\theta} = 0 + 5\cdot \frac{1}{\theta} + 5\cdot \frac{1}{1-\theta}\cdot (-1)$$
+$$ = \frac{5}{\theta} - \frac{5}{1-\theta}$$
+
+Set the derivative equal to zero and solve for $\theta$: 
+
+$$0 = \frac{5}{\theta} - \frac{5}{1-\theta}$$
+$$\frac{5}{1-\theta}= \frac{5}{\theta} $$
+$$\theta = 1 - \theta$$ 
+$$\theta = \frac{1}{2}$$
+
+
+Therefore the maximum likelihood estimate of $\theta$, is $\hat{\theta} = \frac{1}{2}$. 
+
+\item \emph{(Question 2).} 
+\end{enumerate}
+
+\end{document}
+
+% Quick aligned table for equations and explanations
+%
+%\begin{center}
+%  \begin{tabular}{l l l l}
+%    % template line 
+%    % LHS & $=$ & RHS & \emph{(comment)}\\
+%   \end{tabular}
+% \end{center}
