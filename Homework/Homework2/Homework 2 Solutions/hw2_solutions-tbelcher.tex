@@ -234,6 +234,169 @@ For $\sigma>0$, the factor $N/\sigma^2$ is positive, so the sign of the derivati
 \end{aligned}
 \]
 
+\item \emph{(Question 3).} We are given $N$ random samples $X_1, X_2, ... X_N$ where we assume that the density function is the Gaussian:
+
+$$ f(x \mid \mu , \sigma^2) = \frac{1}{\sqrt{2\pi}\sigma}e^{\displaystyle \left(-\frac{(x-\mu)^2}{2\sigma^2}\right)}$$
+
+We use MLE to estimate the parameters $\mu$ and $\sigma$. I prefer $e$ notation, but the exponents are getting very large for this problem so I am going to switch to exp:
+
+\[
+\begin{aligned}
+l(\mu, \sigma \mid x) \equiv p(x \mid \mu, \sigma)
+&= \prod_{t=1}^N p(x_t \mid \mu, \sigma) \\
+&= \prod_{t=1}^N f(x_t \mid \mu, \sigma^2) \\
+&= \prod_{t=1}^N \left[\frac{1}{\sqrt{2\pi}\sigma}
+   \exp\left(-\frac{(x_t-\mu)^2}{2\sigma^2}\right)\right] \\
+&= \left(\frac{1}{\sqrt{2\pi}\sigma}\right)^N
+   \prod_{t=1}^N \exp\left(-\frac{(x_t-\mu)^2}{2\sigma^2}\right) \\
+&= \left(\frac{1}{\sqrt{2\pi}\sigma}\right)^N
+   \exp\left[\sum_{t=1}^N \left(-\frac{(x_t-\mu)^2}{2\sigma^2}\right)\right] \\
+&= \frac{1}{(2\pi)^{N/2}\sigma^N}
+   \exp\left[-\frac{1}{2\sigma^2}\sum_{t=1}^N (x_t-\mu)^2\right].
+\end{aligned}
+\] 
+
+This is old hat at this point, we take the log to make differentiation easier. 
+
+\[
+\begin{aligned}
+L(\mu, \sigma \mid x)
+&= \log\left(l(\mu, \sigma \mid x)\right) \\
+&= \log\left[\frac{1}{(2\pi)^{N/2}\sigma^N}
+   \exp\left(-\frac{1}{2\sigma^2}\sum_{t=1}^N (x_t-\mu)^2\right)\right] \\
+&= \log\left(\frac{1}{(2\pi)^{N/2}\sigma^N}\right)
+   + \log\left[\exp\left(-\frac{1}{2\sigma^2}\sum_{t=1}^N (x_t-\mu)^2\right)\right] \\
+&= -\log\left((2\pi)^{N/2}\sigma^N\right)
+   - \frac{1}{2\sigma^2}\sum_{t=1}^N (x_t-\mu)^2 \\
+&= -\log\left((2\pi)^{N/2}\right) - \log\left(\sigma^N\right)
+   - \frac{1}{2\sigma^2}\sum_{t=1}^N (x_t-\mu)^2 \\
+&= -\frac{N}{2}\log(2\pi) - N\log\sigma
+   - \frac{1}{2\sigma^2}\sum_{t=1}^N (x_t-\mu)^2.
+\end{aligned}
+\] 
+
+Since we are estimating for both $\mu$ and $\sigma$ and $L$ is a function of both, we will have to take partial derivatives. First with respect to $\mu$: 
+
+\[
+\begin{aligned}
+\frac{\partial L}{\partial\mu}
+&= 0 - 0 - \frac{1}{2\sigma^2}\sum_{t=1}^N 2(x_t-\mu)\cdot(-1) \\
+&= \frac{1}{\sigma^2}\sum_{t=1}^N (x_t-\mu) \\
+&= \frac{1}{\sigma^2}\left(\sum_{t=1}^N x_t-N\mu\right).
+\end{aligned}
+\]
+
+Then with respect to $\sigma$:
+
+\[
+\begin{aligned}
+\frac{\partial L}{\partial\sigma}
+&= 0 - N\cdot\frac{1}{\sigma}
+   - \frac{1}{2}\cdot(-2\sigma^{-3})\sum_{t=1}^N (x_t-\mu)^2 \\
+&= -\frac{N}{\sigma} + \frac{1}{\sigma^3}\sum_{t=1}^N (x_t-\mu)^2.
+\end{aligned}
+\]
+
+Now we set these partial derivatives equal to 0 and solve. 
+
+\begin{align*}
+0 &= \frac{1}{\sigma^2}\left(\sum_{t=1}^N x_t-N\mu\right) \\
+\intertext{Since $\sigma>0$, we can multiply both sides by $\sigma^2$:}
+0 &= \sum_{t=1}^N x_t-N\mu \\
+N\mu &= \sum_{t=1}^N x_t \\
+\mu &= \boxed{\frac{1}{N}\sum_{t=1}^N x_t = \bar{x}}.
+\end{align*}
+
+For $\sigma$, substituting $\mu=\bar{x}$ gives
+
+\begin{align*}
+0 &= -\frac{N}{\sigma} + \frac{1}{\sigma^3}\sum_{t=1}^N (x_t-\bar{x})^2 \\
+\frac{N}{\sigma} &= \frac{1}{\sigma^3}\sum_{t=1}^N (x_t-\bar{x})^2 \\
+\intertext{Since $\sigma>0$, we can multiply both sides by $\sigma^3$:}
+N\sigma^2 &= \sum_{t=1}^N (x_t-\bar{x})^2 \\
+\sigma^2 &= \frac{1}{N}\sum_{t=1}^N (x_t-\bar{x})^2 \\
+\intertext{Taking the positive square root, provided the samples are not all identical:}
+\sigma &= \boxed{\sqrt{\frac{1}{N}\sum_{t=1}^N (x_t-\bar{x})^2}}.
+\end{align*} 
+
+These are, of course, the familiar formulas when working with the normal distribution from statistics.
+
+\item \emph{(Question 4).} Let $X_1, X_2, \ldots, X_N$ be an i.i.d. sample from a Poisson distribution with parameter $\lambda$ and probability mass function
+\[
+P(X=x\mid\lambda)=\frac{\lambda^x e^{-\lambda}}{x!},
+\qquad x=0,1,2,\ldots.
+\]
+
+We use MLE to estimate $\lambda$. Again, since the observations are independent, the likelihood is
+
+\[
+\begin{aligned}
+l(\lambda\mid x)
+&= \prod_{t=1}^N p(x_t\mid\lambda) \\
+&= \prod_{t=1}^N \frac{\lambda^{x_t}e^{-\lambda}}{x_t!} \\
+&= \frac{\left(\prod_{t=1}^N\lambda^{x_t}\right)
+   \left(\prod_{t=1}^N e^{-\lambda}\right)}{\prod_{t=1}^N x_t!} \\
+&= \frac{\lambda^{\sum_{t=1}^N x_t}e^{-N\lambda}}{\prod_{t=1}^N x_t!}.
+\end{aligned}
+\]
+
+We then take the log to make differentiation easier. For $\lambda>0$, applying rules of logarithms gives
+
+\[
+\begin{aligned}
+L(\lambda\mid x)
+&= \log\left(l(\lambda\mid x)\right) \\
+&= \log\left(\frac{\lambda^{\sum_{t=1}^N x_t}e^{-N\lambda}}{\prod_{t=1}^N x_t!}\right) \\
+&= \log\left(\lambda^{\sum_{t=1}^N x_t}\right)
+   + \log\left(e^{-N\lambda}\right)
+   - \log\left(\prod_{t=1}^N x_t!\right) \\
+&= \left(\sum_{t=1}^N x_t\right)\log\lambda
+   - N\lambda - \sum_{t=1}^N\log(x_t!).
+\end{aligned}
+\]
+
+Taking the derivative of $L$ with respect to $\lambda$
+
+\[
+\begin{aligned}
+\frac{dL}{d\lambda}
+&= \left(\sum_{t=1}^N x_t\right)\cdot\frac{1}{\lambda} - N - 0 \\
+&= \frac{1}{\lambda}\sum_{t=1}^N x_t-N.
+\end{aligned}
+\]
+
+Set the derivative equal to zero and solve for $\lambda$:
+
+\begin{align*}
+0 &= \frac{1}{\lambda}\sum_{t=1}^N x_t-N \\
+N &= \frac{1}{\lambda}\sum_{t=1}^N x_t \\
+\intertext{Since $\lambda>0$, we can multiply both sides by $\lambda$:}
+N\lambda &= \sum_{t=1}^N x_t \\
+\lambda &= \frac{1}{N}\sum_{t=1}^N x_t=\bar{x}.
+\end{align*}
+
+To verify that this gives a maximum when $\bar{x}>0$, rewrite the derivative as
+
+\[
+\begin{aligned}
+\frac{dL}{d\lambda}
+&= \frac{\sum_{t=1}^N x_t-N\lambda}{\lambda} \\
+&= \frac{N(\bar{x}-\lambda)}{\lambda}.
+\end{aligned}
+\]
+
+For $\lambda>0$, the factor $N/\lambda$ is positive, so the sign of the derivative is determined by $\bar{x}-\lambda$. Thus the derivative is positive for $0<\lambda<\bar{x}$, zero at $\lambda=\bar{x}$, and negative for $\lambda>\bar{x}$. The log likelihood therefore increases up to $\bar{x}$ and decreases afterward. Since the logarithm is strictly increasing, this also maximizes the likelihood.
+
+Therefore, on the parameter space $\lambda>0$, the maximum likelihood estimate is
+
+\[
+\begin{aligned}
+\hat{\lambda}
+&= \operatorname*{arg\,max}_{\lambda>0} l(\lambda\mid x) \\
+&= \operatorname*{arg\,max}_{\lambda>0} L(\lambda\mid x) \\
+&= \boxed{\frac{1}{N}\sum_{t=1}^N x_t=\bar{x}}.
+\end{aligned}
+\]
 
 \end{enumerate}
 
