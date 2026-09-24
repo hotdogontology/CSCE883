@@ -396,7 +396,140 @@ Therefore, on the parameter space $\lambda>0$, the maximum likelihood estimate i
 &= \operatorname*{arg\,max}_{\lambda>0} L(\lambda\mid x) \\
 &= \boxed{\frac{1}{N}\sum_{t=1}^N x_t=\bar{x}}.
 \end{aligned}
+\] 
+
+\item \emph{(Question 5).} We are given $N$ data samples $(X_1,Y_1), (X_2,Y_2), \ldots, (X_N,Y_N)$.
+For each input $X_i$, the neural network predicts both a mean $\mu(X_i)$ and a
+standard deviation $\sigma(X_i)$. We assume that the output $Y$ follows a
+Gaussian distribution conditioned on $X$:
+
+\[
+Y \mid X \sim \mathcal{N}\left(\mu(X),\sigma^2(X)\right).
 \]
+
+Therefore, for a single sample $(X_i,Y_i)$, the conditional density is
+
+\[
+p(Y_i \mid X_i)
+=
+\frac{1}{\sqrt{2\pi}\sigma(X_i)}
+\exp\left(
+-\frac{(Y_i-\mu(X_i))^2}{2\sigma^2(X_i)}
+\right).
+\]
+
+As before, assuming the samples are independent, the likelihood of observing
+all $N$ samples is the product of the individual probabilities:
+
+\[
+\begin{aligned}
+l
+&= \prod_{i=1}^N p(Y_i \mid X_i) \\
+&= \prod_{i=1}^N
+\left[
+\frac{1}{\sqrt{2\pi}\sigma(X_i)}
+\exp\left(
+-\frac{(Y_i-\mu(X_i))^2}{2\sigma^2(X_i)}
+\right)
+\right].
+\end{aligned}
+\]
+
+We could maximize this likelihood directly, but as before it is easier to work
+with the log likelihood:
+
+\[
+\begin{aligned}
+L
+&= \log l \\
+&= \sum_{i=1}^N
+\log
+\left[
+\frac{1}{\sqrt{2\pi}\sigma(X_i)}
+\exp\left(
+-\frac{(Y_i-\mu(X_i))^2}{2\sigma^2(X_i)}
+\right)
+\right] \\
+&= \sum_{i=1}^N
+\left[
+\log\left(
+\frac{1}{\sqrt{2\pi}\sigma(X_i)}
+\right)
+-
+\frac{(Y_i-\mu(X_i))^2}{2\sigma^2(X_i)}
+\right] \\
+&= \sum_{i=1}^N
+\left[
+-\frac{1}{2}\log(2\pi)
+-\log\sigma(X_i)
+-
+\frac{(Y_i-\mu(X_i))^2}{2\sigma^2(X_i)}
+\right].
+\end{aligned}
+\]
+
+Maximum Likelihood Estimation seeks to maximize this quantity. However, the
+loss function for the neural network is to be minimized, so we instead minimize
+the negative log likelihood:
+
+\[
+\mathcal{L} = -L.
+\]
+
+Therefore,
+
+\[
+\boxed{
+\mathcal{L}
+=
+\sum_{i=1}^N
+\left[
+\frac{1}{2}\log(2\pi)
++
+\log\sigma(X_i)
++
+\frac{(Y_i-\mu(X_i))^2}{2\sigma^2(X_i)}
+\right]
+}.
+\]
+
+Equivalently, using $\log(\sigma^2)=2\log\sigma$,
+
+\[
+\boxed{
+\mathcal{L}
+=
+\frac{1}{2}
+\sum_{i=1}^N
+\left[
+\log\left(2\pi\sigma^2(X_i)\right)
++
+\frac{(Y_i-\mu(X_i))^2}{\sigma^2(X_i)}
+\right]
+}.
+\]
+
+%The first term involving $\log\sigma(X_i)$ penalizes the model for predicting
+%unnecessarily large uncertainty, while the second term measures the squared
+%difference between the predicted mean $\mu(X_i)$ and the actual value $Y_i$,
+%weighted by the predicted variance. Thus, minimizing this loss encourages the
+%network to predict both an accurate mean and an appropriate uncertainty for
+%each input.
+
+\item \emph{(Question 6).} Stacked deep decision trees for activity classification.
+
+\noindent\textbf{Implementation:} See \texttt{q6\_cascade\_forest.ipynb} for the AI-assisted code, experiment outputs, and learning prompts. AI coding assistance is permitted by this question.
+
+\begin{description}
+    \item[Architecture.] \emph{[Explain the four forests in each layer, their class-probability outputs, concatenation with the original features, and the final averaging and class selection. Note how the randomized forests are implemented.]}
+    \item[Experimental setup.] \emph{[Describe the UCI HAR data, the 80:10:10 split, out-of-fold training features, and validation-based depth selection. Explain what each split is used for.]}
+    \item[Results.] \emph{[Use the notebook outputs to report the selected depth, both test accuracies and macro F1 scores, and the accuracy difference in percentage points. Discuss the confusion matrices and training cost.]}
+    \item[Discussion.] \emph{[Explain whether stacking helped in this run. Discuss participant overlap across splits, the single split and seed, and the difference in computational cost. State what the experiment does and does not establish.]}
+\end{description}
+
+% Suggested sources for the completed write-up:
+% UCI HAR dataset: https://doi.org/10.24432/C54S4K
+% Zhou and Feng, Deep Forest: https://arxiv.org/abs/1702.08835
 
 \end{enumerate}
 
