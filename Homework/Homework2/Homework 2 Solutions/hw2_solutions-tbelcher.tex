@@ -21,6 +21,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{listings}
+\usepackage{booktabs}
 \lstset{
     language=Python,
     basicstyle=\ttfamily\footnotesize,
@@ -516,21 +517,289 @@ Equivalently, using $\log(\sigma^2)=2\log\sigma$,
 %network to predict both an accurate mean and an appropriate uncertainty for
 %each input.
 
-\item \emph{(Question 6).} Stacked deep decision trees for activity classification.
+\item \emph{(Question 6).} Code for this problem can be found in \texttt{q6\_cascade\_forest.ipynb}.\\
 
-\noindent\textbf{Implementation:} See \texttt{q6\_cascade\_forest.ipynb} for the AI-assisted code, experiment outputs, and learning prompts. AI coding assistance is permitted by this question.
+A deep forest is used for a classification problem in which each observation is represented by a vector of $d$ features and belongs to one of $k$ possible classes.
 
-\begin{description}
-    \item[Architecture.] \emph{[Explain the four forests in each layer, their class-probability outputs, concatenation with the original features, and the final averaging and class selection. Note how the randomized forests are implemented.]}
-    \item[Experimental setup.] \emph{[Describe the UCI HAR data, the 80:10:10 split, out-of-fold training features, and validation-based depth selection. Explain what each split is used for.]}
-    \item[Results.] \emph{[Use the notebook outputs to report the selected depth, both test accuracies and macro F1 scores, and the accuracy difference in percentage points. Discuss the confusion matrices and training cost.]}
-    \item[Discussion.] \emph{[Explain whether stacking helped in this run. Discuss participant overlap across splits, the single split and seed, and the difference in computational cost. State what the experiment does and does not establish.]}
-\end{description}
+Initially, we feed the vector of $d$ features into the first layer of the deep forest. In the architecture shown, each layer contains two random forests and two completely random forests. A random forest contains many decision trees that are made different from one another by introducing randomness in the training samples and in the features considered when choosing splits. In a completely random forest, a random feature and a random threshold are selected at each node rather than searching for the best split.
+
+Each tree produces probabilities for the $k$ possible classes. The probability vectors produced by the trees in a forest are aggregated into a single vector of length $k$ containing that forest's estimated probabilities for each possible class.
+
+Since the layer contains four forests, it therefore produces four vectors of length $k$. These four class-probability vectors are concatenated with the original $d$ features, producing a new feature vector of length $d + 4k.$
+
+This augmented feature vector is then passed to the next layer, which repeats the same process. Each layer therefore receives both the original features and the class-probability information produced by the immediately preceding layer.
+
+We keep the probability vectors and not just the predicted class because the vectors contain useful information about how likely the other possible classes are. For example, a forest might predict that an observation is walking while also indicating that walking upstairs is plausible but sitting down is extremely unlikely. This information would be lost if only the most likely class were passed to the next layer.
+
+The cascade continues through additional layers, with the class-probability vectors becoming increasingly informed by the outputs of the previous layers. At the final layer, the probability vectors produced by the forests are combined, and the class with the largest resulting probability is taken as the final prediction.
+
+For this particular experiment, we used the UCI Human Activity Recognition dataset, which contains 10,299 observations represented by 561 numeric features and divided among six activity classes. We combined the original training and test data and created a new 80:10:10 split, shown in Table~\ref{tab:q6-split}. The validation set was used to choose the depth of the cascade, while the test set was reserved for the final comparison.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrr}
+\toprule
+\textbf{Set} & \textbf{Observations} & \textbf{Fraction} \\
+\midrule
+Training   & 8,239 & 80\% \\
+Validation & 1,030 & 10\% \\
+Test       & 1,030 & 10\% \\
+\midrule
+Total      & 10,299 & 100\% \\
+\bottomrule
+\end{tabular}
+\caption{Training, validation, and test split for the UCI HAR dataset.}
+\label{tab:q6-split}
+\end{table}
+
+Our implementation used four forests at each cascade layer: two standard random forests and two randomized forests approximating the completely random forests in the given architecture. Each forest contained 100 trees. Since there are six possible classes, each forest produced a vector of six class probabilities. The four probability vectors gave 24 additional features, so after the first layer the input to each subsequent layer consisted of the original 561 features together with the 24 probability features from the previous layer, for a total of 585 features. During training, three-fold out-of-fold predictions were used to generate the probability features passed to the next layer.
+
+We allowed the cascade to grow to a maximum of four layers and selected the depth using validation accuracy. Validation accuracy increased from $0.9786$ at one layer to $0.9864$ at two layers and $0.9884$ at three layers. The fourth layer did not improve validation accuracy, so the selected cascade depth was three.
+
+The final results are shown in Table~\ref{tab:q6-results}. The standard random forest achieved a test accuracy of $0.9806$, while the three-layer cascade forest achieved a test accuracy of $0.9893$. Thus, in this experiment the cascade improved test accuracy by approximately $0.874$ percentage points.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Model} &
+\textbf{Validation Acc.} &
+\textbf{Test Acc.} &
+\textbf{Macro F1} &
+\textbf{Trees} \\
+\midrule
+Standard Random Forest
+    & 0.9825 & 0.9806 & 0.9798 & 400 \\
+Cascade Forest
+    & 0.9884 & 0.9893 & 0.9895 & 1,200 \\
+\bottomrule
+\end{tabular}
+\caption{Performance of the standard random forest and the selected three-layer cascade forest.}
+\label{tab:q6-results}
+\end{table}
+
+The improvement came at additional computational cost. The standard random forest trained in approximately 7.3 seconds, while the cascade depth-selection process took approximately 47.3 seconds. The gains in accuracy are probably not worth the nearly 7x increase in training time.
 
 % Suggested sources for the completed write-up:
 % UCI HAR dataset: https://doi.org/10.24432/C54S4K
 % Zhou and Feng, Deep Forest: https://arxiv.org/abs/1702.08835
+\item \emph{(Question 7).} In this problem we use the information gain method to build a decision tree for the table below.
 
+\[
+\begin{array}{|c|c|c|}
+\hline
+x_1 & x_2 & y \\
+\hline
+0 & 1 & 0 \\
+1 & 1 & 0 \\
+0 & 0 & 1 \\
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 1 & 1 \\
+\hline
+\end{array}
+\]
+
+We begin by calculating the entropy of the class label $Y$. There are four examples with $y=0$ and two examples with $y=1$, so
+
+\[
+P(Y=0)=\frac{4}{6},
+\qquad
+P(Y=1)=\frac{2}{6}.
+\]
+
+Therefore,
+
+\[
+\begin{aligned}
+H(Y)
+&=
+-\frac{4}{6}\log_2\left(\frac{4}{6}\right)
+-\frac{2}{6}\log_2\left(\frac{2}{6}\right) \\
+&\approx 0.9183.
+\end{aligned}
+\]
+
+We next calculate the conditional entropy after splitting on $x_1$.
+
+For $x_1=0$, there are four examples with class labels
+
+\[
+0,1,0,1,
+\]
+
+so
+
+\[
+P(Y=0\mid x_1=0)=\frac{2}{4},
+\qquad
+P(Y=1\mid x_1=0)=\frac{2}{4},
+\]
+
+and
+
+\[
+\begin{aligned}
+H(Y\mid x_1=0)
+&=
+-\frac{2}{4}\log_2\left(\frac{2}{4}\right)
+-\frac{2}{4}\log_2\left(\frac{2}{4}\right) \\
+&=1.
+\end{aligned}
+\]
+
+For $x_1=1$, there are two examples and both have $y=0$. Thus,
+
+\[
+H(Y\mid x_1=1)=0.
+\]
+
+The conditional entropy for $x_1$ is therefore
+
+\[
+\begin{aligned}
+H(Y\mid X_1)
+&=
+P(x_1=0)H(Y\mid x_1=0)
++
+P(x_1=1)H(Y\mid x_1=1) \\
+&=
+\frac{4}{6}(1)+\frac{2}{6}(0) \\
+&=
+\frac{2}{3}
+\approx 0.6667.
+\end{aligned}
+\]
+
+Thus, the information gain from splitting on $x_1$ is
+
+\[
+\begin{aligned}
+IG(X_1)
+&=
+H(Y)-H(Y\mid X_1) \\
+&=
+0.9183-0.6667 \\
+&\approx 0.2516.
+\end{aligned}
+\]
+
+We now perform the same calculation for $x_2$.
+
+For $x_2=0$, there are two examples, one with $y=0$ and one with $y=1$. Therefore,
+
+\[
+P(Y=0\mid x_2=0)=\frac{1}{2},
+\qquad
+P(Y=1\mid x_2=0)=\frac{1}{2},
+\]
+
+and
+
+\[
+H(Y\mid x_2=0)
+=
+-\frac{1}{2}\log_2\left(\frac{1}{2}\right)
+-\frac{1}{2}\log_2\left(\frac{1}{2}\right)
+=1.
+\]
+
+For $x_2=1$, there are four examples, three with $y=0$ and one with $y=1$. Thus,
+
+\[
+P(Y=0\mid x_2=1)=\frac{3}{4},
+\qquad
+P(Y=1\mid x_2=1)=\frac{1}{4},
+\]
+
+and
+
+\[
+\begin{aligned}
+H(Y\mid x_2=1)
+&=
+-\frac{3}{4}\log_2\left(\frac{3}{4}\right)
+-\frac{1}{4}\log_2\left(\frac{1}{4}\right) \\
+&\approx 0.8113.
+\end{aligned}
+\]
+
+Therefore,
+
+\[
+\begin{aligned}
+H(Y\mid X_2)
+&=
+P(x_2=0)H(Y\mid x_2=0)
++
+P(x_2=1)H(Y\mid x_2=1) \\
+&=
+\frac{2}{6}(1)+\frac{4}{6}(0.8113) \\
+&\approx 0.8742.
+\end{aligned}
+\]
+
+The information gain from splitting on $x_2$ is therefore
+
+\[
+\begin{aligned}
+IG(X_2)
+&=
+H(Y)-H(Y\mid X_2) \\
+&=
+0.9183-0.8742 \\
+&\approx 0.0441.
+\end{aligned}
+\]
+
+Since
+
+\[
+IG(X_1) > IG(X_2),
+\]
+
+$x_1$ is selected as the root node.
+
+For the branch $x_1=1$, both examples have $y=0$, so this branch is already pure and becomes a leaf with class $y=0$.
+
+For the branch $x_1=0$, the class labels are not pure, so we split again using the remaining attribute $x_2$. If $x_2=0$, the only example has $y=1$, so this becomes a leaf with class $y=1$. If $x_2=1$, the three class labels are
+
+\[
+0,0,1.
+\]
+
+No attributes remain for further splitting, so majority voting is used and this leaf is assigned class $y=0$.
+
+The resulting decision tree is
+
+\begin{center}
+\begin{tikzpicture}[
+    level distance=1.7cm,
+    level 1/.style={sibling distance=5cm},
+    level 2/.style={sibling distance=3cm},
+    decision/.style={circle, draw, thick, minimum size=1cm},
+    leaf/.style={rectangle, rounded corners=3pt, draw, thick,
+                 minimum width=1.5cm, minimum height=0.8cm},
+    edge from parent/.style={draw, thick, ->},
+    branch/.style={midway, fill=white, inner sep=2pt}
+]
+\node[decision] {$x_1$}
+    child {node[decision] {$x_2$}
+        child {node[leaf] {$y=1$}
+            edge from parent node[branch] {$0$}}
+        child {node[leaf] {$y=0$}
+            edge from parent node[branch] {$1$}}
+        edge from parent node[branch] {$0$}}
+    child {node[leaf] {$y=0$}
+        edge from parent node[branch] {$1$}};
+\end{tikzpicture}
+\end{center}
+
+The final leaf for $x_1=0$ and $x_2=1$ is not pure because the identical input
+$(x_1,x_2)=(0,1)$ occurs with both class labels in the training data. Since no additional attributes are available, the majority class $y=0$ is used.
+
+
+\item \emph{(Question 8).} Solutions and code for this question can be found in\\ \texttt{q8\_classification\_metrics.ipynb}.
 \end{enumerate}
 
 \end{document}
