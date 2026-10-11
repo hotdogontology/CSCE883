@@ -1,0 +1,41 @@
+{
+  "hypothesis": "Sequence order provides more classification information than nucleotide composition.",
+  "motivation": "DNA uses a shared alphabet; arrangements may carry more distinguishing information than overall letter frequencies.",
+  "predictions": {
+    "frequency": "Near 50% accuracy",
+    "sequence_models": "Above chance on intact sequences; substantially lower after shuffling",
+    "dinucleotides": "Improvement over nucleotide frequencies alone"
+  },
+  "challenge": "Frequency-only performance comparable to sequence models, little neural accuracy loss after shuffling, or no dinucleotide improvement.",
+  "investigation": "4 nucleotide frequencies versus the same 4 plus 16 adjacent-pair frequencies",
+  "held_fixed": "Row splits, labels, logistic regression L2 C=1, no scaling, probability threshold 0.5, evaluation metrics",
+  "split_seeds": [
+    11,
+    22,
+    33
+  ],
+  "split_sizes": [
+    12000,
+    3000,
+    5000
+  ],
+  "initialization_seed": "s+1000",
+  "loader_seed": "s+2000",
+  "perturbation_seed": "s+100",
+  "neural_configurations": [
+    {
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "batch_size": 128,
+      "weight_decay": 0.0
+    }
+  ],
+  "max_epochs": 100,
+  "patience": 10,
+  "checkpoint": "Minimum validation BCE",
+  "mlp": "1000 -> 64 ReLU -> 32 ReLU -> 1 logit",
+  "cnn": "4x250 -> Conv1d(4,16,7,padding=3) ReLU -> MaxPool(2) -> Conv1d(16,32,7,padding=3) ReLU -> MaxPool(2) -> Flatten -> 32 ReLU -> 1 logit",
+  "test_policy": "Train and select every model for every split before any test evaluation.",
+  "ai_decision": "Accepted the suggestion to add dinucleotide frequencies as a direct low-cost test of neighboring-base information.",
+  "checks": "Hand-count features on ACGTA; verify row alignment and disjoint stratified splits; verify shuffled counts and invariant frequency predictions."
+}

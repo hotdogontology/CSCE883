@@ -200,7 +200,7 @@
     $4$, so the last row and column of the $9\times9$ input are not covered
     by a pooling window.
 
-    \item Each convolutional output filter spans all input channels.
+    \item Since groups $=1$, each convolutional output filter spans all input channels.
     Therefore a $k\times k$ filter has $C_{\mathrm{in}}k^2$ weights and
     one bias, giving
     \[
@@ -530,6 +530,325 @@
        Dividing that difference by the small number $2\epsilon$
        amplifies those errors. Thus reducing $\epsilon$ can initially
        improve agreement, but an excessively small step can worsen it.
+   \end{enumerate}
+
+   \item \emph{(Question 3.)} Evaluation protocol audit.
+   \begin{enumerate}[(a)]
+       \item The preprocessing leakage occurs because the student
+       includes the test observations when computing the means and
+       standard deviations used for standardization. These parameters
+       should be estimated from the training set only, then applied
+       to the validation and test sets. Otherwise, information from
+       the test set influences the model's preprocessing.
+
+       Additionally, the student uses the test set to choose the best
+       of 20 architectures. Test scores depend partly on the particular
+       observations in the test set, so selecting the highest score
+       can favor a model that performs unusually well on those
+       observations by chance. The selected score is consequently
+       optimistic as an estimate of performance on new data.
+       Repeating the procedure five times does not remove either
+       problem: each repetition still leaks test information and
+       selects a model using its test performance.
+
+       \item We should first split the data into training, validation,
+       and test sets, for example using an $80/10/10$ split. Fit the
+       standardization parameters on the training set only and use
+       those same parameters to transform all three sets. Train the
+       candidate models on the training set and use validation
+       performance to tune hyperparameters and select the architecture.
+
+       For early stopping, monitor validation loss during training.
+       Stop when it has not improved for a prespecified number of
+       epochs, and restore the checkpoint with the
+       lowest validation loss. This selects the training duration
+       using validation data rather than test data. After choosing
+       the model with the best validation performance and fixing all
+       modeling choices, evaluate it on the held-out test set and
+       report its performance without using that result for further
+       tuning or selection.
+
+       \item If several rows measure the same material, placing those
+       rows in both training and testing can make test performance
+       optimistic for prediction on previously unseen materials.
+       The model may benefit from having already seen related
+       measurements of a test material during training.
+       We should instead split by material: all rows from a given
+       material must belong entirely to the training, validation,
+       or test set. This also prevents validation-based selection
+       from benefiting from overlap with training materials.
+       We need a material identifier for each row that reliably
+       groups repeated measurements of the same material, including
+       records that use different names for that material.
+   \end{enumerate}
+
+   \item \emph{(Question 4.)} DNA composition and sequence order.
+   \begin{enumerate}[label=\textbf{\Alph*.}, leftmargin=*]
+       \setlength{\emergencystretch}{2em}
+       \item \emph{Hypothesis and data preparation.}
+       My hypothesis is that sequence order provides more information
+       for distinguishing the two classes than nucleotide composition.
+       DNA uses a shared alphabet, and I expect the arrangement of those
+       letters to be more informative than their overall frequencies.
+       This is a prediction about the supplied classification task;
+       sharing an alphabet does not rule out differences in composition.
+       Before training, I predicted that frequency-only logistic regression
+       would perform near chance ($50\%$), that sequence models would
+       perform better on intact sequences and lose accuracy after
+       shuffling, and that adding neighboring-base information would
+       improve on frequencies alone. A strong frequency baseline, little
+       neural-model degradation after shuffling, or no improvement from
+       neighboring-base features would challenge these predictions.
+
+       The audit found 20,000 aligned sequence--label records, each with
+       250 bases from A, C, G, T, and 10,000 records in each numeric class.
+       There were no exact duplicate sequences or conflicting labels.
+       Numeric labels were retained without assigning a biological identity
+       to either value. With each split seed $s\in\{11,22,33\}$, I first
+       held out 5,000 stratified test rows, then split the development rows
+       into 12,000 training and 3,000 validation rows. The same indices
+       were used for every compared model.
+
+       One-hot encoding uses channel order A, C, G, T. The MLP receives
+       1,000 flattened entries, and the CNN receives a $4\times250$ tensor.
+       Nucleotide frequencies are counts divided by 250; the additional
+       16 dinucleotide frequencies are adjacent-pair counts divided by
+       249. These deterministic features require no learned preprocessing,
+       and no scaling was applied. Pair order is AA, AC, AG, AT, CA, CC,
+       CG, CT, GA, GC, GG, GT, TA, TC, TG, TT.
+
+       \item \emph{Models and shuffling control.}
+       Both logistic regressions use L2 regularization with $C=1$,
+       an intercept, the \texttt{lbfgs} solver, and at most 1,000 solver
+       iterations; all fits converged within that limit. The frequency
+       model has 5 parameters, and the frequency-plus-pairs model has 21.
+       The neural architectures below include biases; ReLU, pooling,
+       and flattening have no trainable parameters.
+       \begin{center}
+       {\small
+       \begin{tabular}{l l r}
+           \toprule
+           MLP layer & Output dimension & Parameters \\
+           \midrule
+           Flatten & $1{,}000$ & 0 \\
+           Linear + ReLU & $64$ & $64{,}064$ \\
+           Linear + ReLU & $32$ & $2{,}080$ \\
+           Linear (logit) & $1$ & $33$ \\
+           \midrule
+           Total & & $66{,}177$ \\
+           \bottomrule
+       \end{tabular}}
+       \end{center}
+       \begin{center}
+       {\small
+       \begin{tabular}{l l r}
+           \toprule
+           CNN layer & Output dimension & Parameters \\
+           \midrule
+           Conv 1 + ReLU & $16\times250$ & $464$ \\
+           Max pool 1 & $16\times125$ & 0 \\
+           Conv 2 + ReLU & $32\times125$ & $3{,}616$ \\
+           Max pool 2 & $32\times62$ & 0 \\
+           Flatten & $1{,}984$ & 0 \\
+           Linear + ReLU & $32$ & $63{,}520$ \\
+           Linear (logit) & $1$ & $33$ \\
+           \midrule
+           Total & & $67{,}633$ \\
+           \bottomrule
+       \end{tabular}}
+       \end{center}
+       CNN convolutions run along sequence positions, with kernel width 7,
+       stride 1, padding 3, dilation 1, and groups 1. Pooling has window
+       and stride 2, no padding, and floor rounding. Similar parameter
+       totals do not make the architectures equivalent in capacity.
+
+       Before fitting, I declared one training configuration for each
+       neural model: Adam, learning rate $0.001$, batch size 128, zero
+       weight decay, and no dropout. The loss is binary cross-entropy
+       computed directly from logits. Models train for at most 100 epochs
+       with patience 10 on validation loss and restore the checkpoint
+       with the lowest validation loss separately in each split.
+       Initialization seeds are $s+1000$ and data-loader seeds are $s+2000$.
+       All models and checkpoints were fixed before inspecting any test
+       results. Probabilities at least $0.5$ predict class 1.
+
+       For the control, positions within each test sequence were
+       independently shuffled using seed $s+100$, with identical shuffled
+       sequences supplied to all models. Labels and nucleotide counts
+       were preserved, and frozen models were evaluated without retraining.
+       The frequency baseline isolates prediction from overall nucleotide
+       composition. Its performance above chance establishes that
+       composition contains information useful to this classifier on
+       these splits. It does not establish that composition is the only
+       useful information, and poor performance would not rule out
+       composition information that a different classifier could exploit.
+       Its predictions must remain unchanged after shuffling because its
+       four input features are identical; this invariance also checks
+       that the shuffling control preserves composition.
+
+       Frozen-model shuffling tests whether a trained model's predictions
+       and accuracy depend on the arrangement of bases while holding
+       their counts fixed. A decrease in accuracy establishes sensitivity
+       to the ordering patterns disrupted by this perturbation, rather
+       than to a change in nucleotide composition. It does not separate
+       loss of useful order information from difficulty processing inputs
+       outside the model's training distribution, nor does it measure the
+       best accuracy achievable by a model retrained on shuffled data.
+       Little or no accuracy change would not prove that the model ignores
+       order: predictions can change without changing overall accuracy.
+       Neither control establishes biological mechanisms or generalization
+       to new genomic regions or sequence families.
+
+       \item \emph{Neighboring-base investigation.}
+       I compared two feature settings: four nucleotide frequencies and
+       those same four features plus 16 dinucleotide frequencies. Splits,
+       logistic-regression settings, and evaluation were held fixed.
+       This tests whether adjacent-pair statistics add predictive
+       information beyond overall composition. The expanded model has
+       more parameters (21 versus 5), so the comparison also changes
+       capacity. Dinucleotide frequencies summarize local order and
+       cannot represent all longer-range sequence relationships.
+       \item \emph{Evidence and conclusion.}
+       The following scores are percentages. Because each test partition
+       contains 2,500 observations from each class, accuracy and balanced
+       accuracy are equal for every reported run. Each entry therefore
+       reports both metrics. The summaries use the sample standard
+       deviation across the three overlapping splits, not a confidence
+       interval. ``Freq.+pairs LR'' is the additional investigation.
+       \begin{center}
+       {\small
+       \begin{tabular}{l l r r r c}
+           \toprule
+           Model & Test input & Seed 11 & Seed 22 & Seed 33 & Mean $\pm$ SD \\
+           \midrule
+           Freq. LR & Original & 79.04 & 78.82 & 78.76 & $78.87\pm0.15$ \\
+           Freq. LR & Shuffled & 79.04 & 78.82 & 78.76 & $78.87\pm0.15$ \\
+           Freq.+pairs LR & Original & 97.24 & 96.92 & 97.06 & $97.07\pm0.16$ \\
+           Freq.+pairs LR & Shuffled & 70.38 & 70.32 & 70.26 & $70.32\pm0.06$ \\
+           MLP & Original & 82.14 & 82.16 & 83.18 & $82.49\pm0.59$ \\
+           MLP & Shuffled & 81.64 & 80.90 & 82.34 & $81.63\pm0.72$ \\
+           CNN & Original & 99.36 & 99.18 & 99.18 & $99.24\pm0.10$ \\
+           CNN & Shuffled & 64.58 & 62.44 & 62.28 & $63.10\pm1.28$ \\
+           \bottomrule
+       \end{tabular}}
+       \end{center}
+       Paired accuracy differences below are in percentage points.
+       The shuffle changes subtract original accuracy from shuffled accuracy.
+       \begin{center}
+       {\small
+       \begin{tabular}{l r r r c}
+           \toprule
+           Difference & Seed 11 & Seed 22 & Seed 33 & Mean $\pm$ SD \\
+           \midrule
+           CNN minus MLP (original) & 17.22 & 17.02 & 16.00 & $16.75\pm0.65$ \\
+           Pairs minus frequencies (original) & 18.20 & 18.10 & 18.30 & $18.20\pm0.10$ \\
+           Freq. LR shuffle change & 0.00 & 0.00 & 0.00 & $0.00\pm0.00$ \\
+           Freq.+pairs LR shuffle change & -26.86 & -26.60 & -26.80 & $-26.75\pm0.14$ \\
+           MLP shuffle change & -0.50 & -1.26 & -0.84 & $-0.87\pm0.38$ \\
+           CNN shuffle change & -34.78 & -36.74 & -36.90 & $-36.14\pm1.18$ \\
+           \bottomrule
+       \end{tabular}}
+       \end{center}
+       \begin{center}
+       \begin{tabular}{l r r r r r}
+           \toprule
+           Model & Seed & Best epoch & Epochs run & Val. BCE & Seconds \\
+           \midrule
+           MLP & 11 & 6 & 16 & 0.38343 & 4.66 \\
+           CNN & 11 & 31 & 41 & 0.02212 & 77.69 \\
+           MLP & 22 & 5 & 15 & 0.38651 & 4.47 \\
+           CNN & 22 & 38 & 48 & 0.02210 & 90.84 \\
+           MLP & 33 & 5 & 15 & 0.38827 & 4.53 \\
+           CNN & 33 & 34 & 44 & 0.02831 & 82.96 \\
+           \bottomrule
+       \end{tabular}
+       \end{center}
+       The experiment took 271.5 seconds
+       on an Intel Core i7-8650U CPU (8 logical CPUs), using two
+       PyTorch computation threads and no GPU. This total includes data
+       preparation, fitting, evaluation, and plotting, and excludes
+       imports and package installation. The per-model times above
+       cover neural training and validation.
+       Freq. LR fitting took 0.013, 0.008, 0.010 seconds for seeds 11, 22, and 33, respectively.
+       Freq.+pairs LR fitting took 0.033, 0.036, 0.040 seconds for seeds 11, 22, and 33, respectively.
+       Software versions were Python 3.12.3, NumPy 1.26.4,
+       pandas 2.1.4, scikit-learn 1.4.1.post1, PyTorch 2.14.1+cpu,
+       and Matplotlib 3.6.3. The runnable notebook is
+       \texttt{hw3\_question4-tbelcher.ipynb}; dependencies, a standalone
+       script, saved splits, checkpoints, metrics, and histories are
+       provided in the \texttt{question4} directory.
+
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=\linewidth]{question4/results/learning_curves.png}
+           \caption{Training and validation loss for the core neural models
+           on seed 11. The minimum validation loss determines the checkpoint.}
+       \end{figure}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.9\linewidth]{question4/results/neighbor_investigation.png}
+           \caption{Paired comparison of frequencies alone and frequencies
+           plus adjacent-pair features on the original test sequences.}
+       \end{figure}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=\linewidth]{question4/results/shuffle_control.png}
+           \caption{Frozen-model accuracy before and after shuffling. Error
+           bars show sample standard deviations across the three splits.}
+       \end{figure}
+       The results support useful sequence-order information, but challenge
+       my prediction that composition alone would be near chance.
+       Frequency-only logistic regression achieved $78.87\%$ mean accuracy,
+       so composition already distinguishes the classes substantially.
+       Adding dinucleotide frequencies increased mean accuracy to $97.07\%$,
+       a paired improvement of $18.20$ percentage points. The CNN achieved
+       $99.24\%$, compared with the MLP's $82.49\%$, with a mean paired
+       difference of $16.75$ percentage points.
+
+       Shuffling reduced CNN accuracy by $36.14$ percentage points to
+       $63.10\%$, while the MLP lost only $0.87$ percentage points.
+       Frequency-only predictions were exactly unchanged, as expected.
+       Thus the CNN strongly depends on patterns disrupted by shuffling,
+       whereas this MLP is much less sensitive to that perturbation.
+       The MLP's small change does not show that order is uninformative;
+       it may have learned mainly composition or other shuffle-insensitive
+       features under this architecture and training configuration.
+       The seed-11 loss curves also show increasing MLP validation loss
+       after its selected checkpoint, consistent with overfitting.
+
+       My strongest supported conclusion is that adjacent-pair statistics
+       add substantial predictive information beyond nucleotide frequencies
+       for these row splits, and the CNN uses information sensitive to
+       position shuffling. These results do not establish that a model
+       interprets biological instructions or that order is universally
+       more important than composition. A plausible alternative is that
+       class-specific collection or sequence-generation artifacts produce
+       the distinguishing statistics. The frozen CNN's deterioration may
+       also partly reflect distribution shift. A follow-up experiment
+       would retrain the same architecture on shuffled training sequences,
+       select checkpoints on shuffled validation sequences, and evaluate
+       on shuffled test sequences. This would help distinguish information
+       lost through shuffling from difficulty processing an unfamiliar
+       input distribution; it is proposed here and was not run.
+
+       Random row splits assess performance on held-out rows from this
+       dataset, rather than on new genomic regions or sequence families.
+       Related or overlapping sequences could occur across partitions
+       even without exact duplicates. A stronger evaluation would keep
+       genomic regions or homologous sequence families in separate
+       partitions. It would require source provenance, reference genome
+       and assembly, chromosome and genomic coordinates, and identifiers
+       or similarity-based groupings for sequence families. The supplied
+       sequence and label files do not provide those grouping annotations.
+
+       One consequential suggestion I accepted was to compare nucleotide
+       frequencies with frequencies plus neighboring-base information.
+       I checked the feature implementation using ACGTA: its nucleotide
+       frequencies are $(0.4,0.2,0.2,0.2)$, and AC, CG, GT, and TA each
+       have pair frequency $1/4$, with all other pairs zero.
+       Additional checks confirmed one-hot reconstruction, disjoint
+       balanced splits, count preservation after shuffling, and identical
+       frequency-baseline predictions on original and shuffled inputs.
    \end{enumerate}
 
 \end{enumerate}

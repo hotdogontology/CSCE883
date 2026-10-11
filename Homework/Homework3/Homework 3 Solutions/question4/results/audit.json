@@ -1,0 +1,15 @@
+{
+  "rows": 20000,
+  "length": 250,
+  "alphabet": "ACGT",
+  "class_counts": {
+    "0": 10000,
+    "1": 10000
+  },
+  "duplicate_extra_rows": 0,
+  "conflicting_sequences": 0,
+  "sha256": {
+    "humanvsran.seq.txt": "2703f9bbad5194c0386b8ed866afbd6e1c681046bdb19d7c4a19e5fa34d0a49c",
+    "humanvsran_label.txt": "f893f5325877844eca32942c15cd311e176fc3a8fa757207d2ba92fbb8479a96"
+  }
+}
