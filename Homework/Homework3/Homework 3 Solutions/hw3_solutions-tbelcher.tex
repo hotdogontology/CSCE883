@@ -128,7 +128,7 @@
     \]
     Therefore the magnitude of the input derivative is bounded above by $4^{-L}$, which decreases exponentially with the number of layers. Increasing the number of layers will decrease the gradient exponentially, making it so that earlier layers will take much longer to train. 
 
-    \item If the weights were not bounded above by 1, then we could counter-balance the derivative of the sigmoid function with a larger product of weights, but this is not a guarantee as the weights would also increase the input to the sigmoid functions and the larger the input, the flatter the curve on the sigmoid gets, which means the derivative would also be getting smaller. So increasing the weights can help with a vanishing gradient, but it is not a guaranteed solution. More precisely, the weight bound matters because each layer contributes both a weight and a sigmoid derivative:
+    \item If the weights were not bounded above by 1, then we could counter-balance the derivative of the sigmoid function with a larger product of weights, but this is not a guarantee as the weights would also increase the input to the sigmoid functions and the larger the input, the flatter the curve on the sigmoid gets, which means the derivative would also be getting smaller as it moves into the saturation region. So increasing the weights can help with a vanishing gradient, but it is not a guaranteed solution. More precisely, the weight bound matters because each layer contributes both a weight and a sigmoid derivative:
     \[
         \left|\frac{\partial h_l}{\partial h_{l-1}}\right|
         = \left|w_l\sigma'(w_lh_{l-1})\right|
@@ -151,7 +151,7 @@
         &=\delta_{ij}+[J_{F_l}(\mathbf h_l)]_{ij},
     \end{aligned}
     \]
-    where $\delta_{ij}=1$ if $i=j$ and $0$ otherwise. These entries form the identity matrix, so
+    where $\delta_{ij}=1$ if $i=j$ and $0$ otherwise, is Kroenecker's delta. These entries form the identity matrix, so
     \[
         \boxed{J_l=I+J_{F_l}(\mathbf h_l)}.
     \]
@@ -163,6 +163,88 @@
     \]
     The identity term provides a direct contribution from the next layer's gradient. When $J_{F_l}$ is small, the block's Jacobian is close to $I$, which helps preserve gradients. This does not guarantee successful training: for example, $J_{F_l}=-I$ would cancel the identity term entirely, and products of Jacobians across many blocks can still shrink or amplify gradients.
    \end{enumerate} 
+
+   \item \emph{(Question 1B.)}
+
+   The input is $3\times24\times24$ in channel--height--width order.
+   Convolutions have stride 1, no padding, dilation 1, and one bias per
+   output channel. Pooling uses a $2\times2$ window with stride 2,
+   no padding, and floor rounding.
+
+   \begin{enumerate}[(i)]
+    \item For either spatial dimension $n$, the output-size formula is
+    \[
+        n_{\mathrm{out}}
+        =\left\lfloor\frac{n_{\mathrm{in}}+2p-d(k-1)-1}{s}\right\rfloor+1,
+    \]
+    where $k$ is the kernel size, $p$ is padding, $d$ is dilation,
+    and $s$ is stride. Here $p=0$ and $d=1$, so this becomes
+    $n_{\mathrm{out}}=\lfloor(n_{\mathrm{in}}-k)/s\rfloor+1$.
+    Since height and width are equal, the same calculation applies to both:
+    \begin{center}
+    \begin{tabular}{l c c}
+        \toprule
+        Layer & Spatial calculation & Output dimension \\
+        \midrule
+        Conv 1 & $\lfloor(24-3)/1\rfloor+1=22$ & $12\times22\times22$ \\
+        Pool 1 & $\lfloor(22-2)/2\rfloor+1=11$ & $12\times11\times11$ \\
+        Conv 2 & $\lfloor(11-3)/1\rfloor+1=9$ & $128\times9\times9$ \\
+        Pool 2 & $\lfloor(9-2)/2\rfloor+1=4$ & $128\times4\times4$ \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    A convolution's channel count is its number of output filters, while
+    pooling preserves the channel count. In Pool 2, floor rounding gives
+    $4$, so the last row and column of the $9\times9$ input are not covered
+    by a pooling window.
+
+    \item Each convolutional output filter spans all input channels.
+    Therefore a $k\times k$ filter has $C_{\mathrm{in}}k^2$ weights and
+    one bias, giving
+    \[
+        N_{\mathrm{conv}}=C_{\mathrm{out}}\cdot(C_{\mathrm{in}}k^2+1).
+    \]
+    For Conv 1, each output filter has $3\cdot3\cdot3=27$ weights
+    and one bias. With 12 output filters, the total is
+    \[
+        N_{\mathrm{Conv\,1}}=12(27+1)=\boxed{336}
+        \quad\text{($324$ weights and $12$ biases).}
+    \]
+    Conv 2 receives 12 channels, so each output filter has
+    $12\cdot3\cdot3=108$ weights and one bias. With 128 output filters,
+    \[
+        N_{\mathrm{Conv\,2}}=128(108+1)=\boxed{13{,}952}
+        \quad\text{($13{,}824$ weights and $128$ biases).}
+    \]
+    Max pooling only selects the maximum within each window and has
+    no trainable weights or biases. Thus Pool 1 and Pool 2 each have
+    $\boxed{0}$ trainable parameters.
+
+    \item After Pool 2, flattening the $128\times4\times4$ tensor gives
+    \[
+        n_{\mathrm{flat}}=128\cdot4\cdot4=\boxed{2{,}048}
+    \]
+    features. A fully connected layer with 10 outputs has one weight
+    for each input--output pair and one bias per output, so it adds
+    \[
+        N_{\mathrm{FC}}=2{,}048\cdot10+10=\boxed{20{,}490}
+    \]
+    trainable parameters. Flattening itself has no trainable parameters.
+
+    In a convolution, the same filter weights and bias are reused at
+    every spatial location. Thus its parameter count depends on the
+    kernel size and channel counts, rather than the number of output
+    locations. A fully connected mapping learns separate weights for
+    every input--output pair. For example, a fully connected mapping
+    from the original $3\cdot24\cdot24=1{,}728$ inputs to the
+    $12\cdot22\cdot22=5{,}808$ outputs of Conv 1 would require
+    \[
+        1{,}728\cdot5{,}808+5{,}808=10{,}042{,}032
+    \]
+    parameters, compared with Conv 1's 336. This reduction comes from
+    both local connectivity (each output uses a $3\times3$ spatial patch)
+    and weight sharing (all locations use the same filters).
+   \end{enumerate}
 
 \end{enumerate}
 
