@@ -1,0 +1,31 @@
+seed,model,group,threshold_K,count,mae_K
+11,Mean,above_train_median,20.0,2105,30.862423962080257
+11,Mean,at_or_below_train_median,20.0,2148,27.519469941299313
+11,Ridge,above_train_median,20.0,2105,16.31320223696023
+11,Ridge,at_or_below_train_median,20.0,2148,10.160629633317846
+11,MLP 2,above_train_median,20.0,2105,9.83486794122936
+11,MLP 2,at_or_below_train_median,20.0,2148,4.319221337296289
+11,MLP 1,above_train_median,20.0,2105,11.402861794132404
+11,MLP 1,at_or_below_train_median,20.0,2148,5.687962803324062
+11,MLP 3,above_train_median,20.0,2105,9.426641524003859
+11,MLP 3,at_or_below_train_median,20.0,2148,3.591444948616426
+22,Mean,above_train_median,20.0,2099,32.244746795303904
+22,Mean,at_or_below_train_median,20.0,2154,27.52131007401225
+22,Ridge,above_train_median,20.0,2099,16.198016411984625
+22,Ridge,at_or_below_train_median,20.0,2154,10.951896416924983
+22,MLP 2,above_train_median,20.0,2099,9.77853090042725
+22,MLP 2,at_or_below_train_median,20.0,2154,4.690435375324331
+22,MLP 1,above_train_median,20.0,2099,12.325146821318723
+22,MLP 1,at_or_below_train_median,20.0,2154,5.978367563756185
+22,MLP 3,above_train_median,20.0,2099,9.677186684737949
+22,MLP 3,at_or_below_train_median,20.0,2154,4.184820967155542
+33,Mean,above_train_median,19.9,2142,31.640008725079536
+33,Mean,at_or_below_train_median,19.9,2111,27.50949742027724
+33,Ridge,above_train_median,19.9,2142,16.37194852661903
+33,Ridge,at_or_below_train_median,19.9,2111,10.543873233438225
+33,MLP 2,above_train_median,19.9,2142,10.387561226122632
+33,MLP 2,at_or_below_train_median,19.9,2111,4.3748375714967285
+33,MLP 1,above_train_median,19.9,2142,12.348609753990708
+33,MLP 1,at_or_below_train_median,19.9,2111,5.72606609862239
+33,MLP 3,above_train_median,19.9,2142,10.180905709266662
+33,MLP 3,at_or_below_train_median,19.9,2111,3.8225770243647936

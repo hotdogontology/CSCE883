@@ -1,0 +1,4 @@
+seed,train_rows,validation_rows,test_rows,subgroup_threshold_K,validation_rows_with_training_features,test_rows_with_training_features
+11,13608,3402,4253,20.0,1189,1485
+22,13608,3402,4253,20.0,1122,1497
+33,13608,3402,4253,19.9,1160,1477

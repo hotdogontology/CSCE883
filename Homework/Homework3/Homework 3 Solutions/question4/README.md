@@ -1,6 +1,6 @@
 # Homework 3, Question 4
 
-Run `hw3_question4-tbelcher.ipynb` (in the parent directory) from top to bottom, or run `python run_question4.py` from this directory. Both contain the same experiment. Use Python 3.12 and install the packages in `requirements.txt`. A notebook interface additionally requires Jupyter and ipykernel. For CPU-only PyTorch, install `torch==2.14.1` from `https://download.pytorch.org/whl/cpu` before installing the remaining requirements.
+Run `hw3_question4-tbelcher.ipynb` (in the parent directory) from top to bottom, or run `python run_question4.py` from this directory. Both contain the same experiment. Use Python 3.12 and install `../requirements-python312.txt` for a portable pip setup. The local `requirements.txt` records the original run versions; its system-provided Matplotlib 3.6.3 has no Python 3.12 wheel. A notebook interface additionally requires Jupyter and ipykernel. For CPU-only PyTorch, install `torch==2.14.1` from `https://download.pytorch.org/whl/cpu` before installing the remaining requirements.
 
 The input files are read from `../../Homework3_revision/Homework3_revision/`: `humanvsran.seq.txt` and `humanvsran_label.txt`. Keep the supplied directory layout. No downloads of data are needed.
 

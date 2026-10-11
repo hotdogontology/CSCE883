@@ -76,7 +76,7 @@ those questions.
 \begin{enumerate}
    \item \emph{(Question 1.)} Gradient propagation and CNN dimensions.
    \begin{enumerate}[label=\textbf{\Alph*.}, leftmargin=*]
-   \item \emph{Gradient propagation.} We have a linear network with $L$ layers with the initial input $h_0 = x$ and at each subsesquent layer $l$ (where $1 \leq l \leq L$), $h_l = \sigma (w_lh_{l-1})$ and $\sigma(z) = \dfrac{1}{1+e^{-z}}$. $|w_l| \leq 1$ and there are no biases. 
+   \item \emph{Gradient propagation.} We have a scalar network with $L$ layers with the initial input $h_0 = x$ and at each subsequent layer $l$ (where $1 \leq l \leq L$), $h_l = \sigma (w_lh_{l-1})$ and $\sigma(z) = \dfrac{1}{1+e^{-z}}$. $|w_l| \leq 1$ and there are no biases. 
    
    \begin{enumerate}[(i)]
     \item We want to estimate an upper bound on $\left|\dfrac{\partial h_L}{\partial x}\right|$ in terms of $L$. We have that 
@@ -140,9 +140,9 @@ those questions.
             &= \boxed{\left(\frac14\right)^L = 4^{-L}}.
     \end{aligned}
     \]
-    Therefore the magnitude of the input derivative is bounded above by $4^{-L}$, which decreases exponentially with the number of layers. Increasing the number of layers will decrease the gradient exponentially, making it so that earlier layers will take much longer to train. 
+    Therefore the magnitude of the input derivative is bounded above by $4^{-L}$, which decreases exponentially with the number of layers. Gradients propagated through many of these layers can become very small, making it difficult to train earlier layers. The bound describes gradient attenuation; it does not determine the training time.
 
-    \item If the weights were not bounded above by 1, then we could counter-balance the derivative of the sigmoid function with a larger product of weights, but this is not a guarantee as the weights would also increase the input to the sigmoid functions and the larger the input, the flatter the curve on the sigmoid gets, which means the derivative would also be getting smaller as it moves into the saturation region. So increasing the weights can help with a vanishing gradient, but it is not a guaranteed solution. More precisely, the weight bound matters because each layer contributes both a weight and a sigmoid derivative:
+    \item If the weights were not bounded in magnitude by 1, then a larger product of weight magnitudes could offset small sigmoid derivatives. However, larger weights can also increase the magnitude of the sigmoid inputs, moving them into saturation regions where the derivative is small. Increasing the weights can therefore help with a vanishing gradient, but it is not a guaranteed solution. More precisely, each layer contributes both a weight and a sigmoid derivative:
     \[
         \left|\frac{\partial h_l}{\partial h_{l-1}}\right|
         = \left|w_l\sigma'(w_lh_{l-1})\right|
@@ -158,14 +158,14 @@ those questions.
     Its Jacobian contains the partial derivative of each output component with respect to each input component. Writing the $i$th output component as $h_{l+1,i}=h_{l,i}+F_{l,i}(\mathbf h_l)$ gives
     \[
     \begin{aligned}
-        [J_l]_{ij}
+        \relax[J_l]_{ij}
         &=\frac{\partial h_{l+1,i}}{\partial h_{l,j}} \\
         &=\frac{\partial h_{l,i}}{\partial h_{l,j}}
           +\frac{\partial F_{l,i}(\mathbf h_l)}{\partial h_{l,j}} \\
         &=\delta_{ij}+[J_{F_l}(\mathbf h_l)]_{ij},
     \end{aligned}
     \]
-    where $\delta_{ij}=1$ if $i=j$ and $0$ otherwise, is Kroenecker's delta. These entries form the identity matrix, so
+    where $\delta_{ij}=1$ if $i=j$ and $0$ otherwise, is Kronecker's delta. These entries form the identity matrix, so
     \[
         \boxed{J_l=I+J_{F_l}(\mathbf h_l)}.
     \]
@@ -385,7 +385,8 @@ those questions.
            w_4^{\mathrm{new}}&=w_4-\eta(\hat y-y)h_2.
        \end{aligned}
        \]
-       
+       All quantities on the right, including $h_1$, $h_2$, and $\hat y$,
+       are evaluated at the same pre-update weights.
 
        \item Let
        \[
@@ -471,7 +472,7 @@ those questions.
            x=0.7,\qquad y=1,\qquad
            (w_1,w_2,w_3,w_4)=(0.2,-0.3,0.4,-0.5).
        \]
-       For sigmoid and scaled Softplus with $k=1$,  and compare the
+       For sigmoid and scaled Softplus with $k=1$, we compare the
        analytic gradients with automatic differentiation and central
        finite differences using $\epsilon=10^{-5}$ and float64
        arithmetic. The four gradients and the maximum absolute
@@ -479,6 +480,8 @@ those questions.
        \texttt{hw3\_question2c-tbelcher.ipynb} and uses NumPy 1.26.4
        and Autograd 1.9.1. The loss is evaluated directly from logits as
        $\log(1+e^z)-yz$ using \texttt{logaddexp} for numerical stability.
+       The saved comparison cell took approximately $0.029$ seconds
+       on an Intel Core i7-8650U CPU; this excludes package imports.
 
        \begin{center}
        \textbf{Sigmoid hidden activation}
@@ -871,6 +874,330 @@ those questions.
        Additional checks confirmed one-hot reconstruction, disjoint
        balanced splits, count preservation after shuffling, and identical
        frequency-baseline predictions on original and shuffled inputs.
+   \end{enumerate}
+
+   \item \emph{(Question 5.)} When does a neural network help in regression?
+   \begin{enumerate}[label=\textbf{\Alph*.}, leftmargin=*]
+       \setlength{\emergencystretch}{2em}
+       \setlength{\tabcolsep}{4pt}
+       \item \emph{Hypothesis and common evaluation.}
+       I hypothesize that useful nonlinear relationships between the
+       features and critical temperature will allow an MLP to outperform
+       ridge regression. I predict that increasing depth from one to two
+       hidden layers will improve performance, while a third layer may
+       provide diminishing returns. Ridge matching or outperforming the
+       MLP would challenge the first prediction under our training
+       conditions. Additional depth improving only training error would
+       challenge the second. Even a single hidden layer can represent
+       nonlinear relationships, so this comparison tests the benefit of
+       depth rather than the existence of nonlinearity itself.
+
+       We used only \texttt{superconductor.csv}, predicting
+       \texttt{critical\_temp} from the preceding 81 columns. The audit
+       found 21,263 rows, no missing or nonfinite values, and temperatures
+       ranging from $0.00021$ to $185$ K. Temperatures are in kelvin,
+       consistent with the dataset's
+       \href{https://arxiv.org/html/1803.10260}{originating paper}.
+       There were 66 duplicate rows beyond their first occurrences and
+       6,093 repeated feature vectors beyond their first occurrences.
+       We retained the supplied rows and discuss overlap below.
+
+       For each split seed $s\in\{11,22,33\}$, we first held out $20\%$
+       for testing, then used $20\%$ of the development rows for
+       validation. Integer rounding gave 13,608 training, 3,402 validation,
+       and 4,253 test rows, with shared indices across models.
+       We fitted feature standardization on training rows only and
+       applied the same transformation to every model. For neural
+       training, we also standardized targets using the training-target
+       mean and standard deviation. We inverted this transformation
+       before computing metrics, so MAE and RMSE are in kelvin.
+       This affine target scaling preserves the relative MSE comparison.
+
+       I accepted the suggested subgroup of targets above the
+       training-target median. We computed its threshold separately
+       for each split before testing and also report the complementary
+       subgroup for context. All architectures, settings, checkpoints,
+       and subgroup thresholds were fixed before inspecting test results.
+
+       \item \emph{Baselines and capacity investigation.}
+       The mean baseline predicts the training-target mean and has one
+       fitted parameter. Ridge has 81 coefficients and an intercept
+       (82 parameters). We selected its regularization parameter from
+       $\alpha\in\{0.1,1,10,100\}$ by minimum validation MSE separately
+       in each split, using standardized inputs and unscaled targets.
+
+       I chose the capacity investigation suggested by Sol. We compared
+       one, two, and three 64-unit ReLU hidden layers, with two layers
+       as the reference. Each model has a linear scalar output and
+       trainable biases. The input dimension is 81; each hidden output
+       dimension is 64; the final output dimension is 1.
+       \[
+           N_{\mathrm{MLP}}(d)
+           =(81\cdot64+64)+(d-1)(64\cdot64+64)+(64+1).
+       \]
+       \begin{center}
+       \begin{tabular}{l r}
+           \toprule
+           Hidden layers & Trainable parameters \\
+           \midrule
+           1 & $5{,}313$ \\
+           2 (reference) & $9{,}473$ \\
+           3 & $13{,}633$ \\
+           \bottomrule
+       \end{tabular}
+       \end{center}
+       We declared one candidate training configuration: Adam,
+       learning rate $0.001$, batch size 128, zero weight decay, and
+       no dropout. All MLPs use mean squared error on standardized
+       targets and the same preprocessing and configuration within a
+       split. Initialization seeds are $s+1000$ and loader seeds are
+       $s+2000$; there is no perturbation seed for this investigation.
+       We allowed at most 100 epochs, stopped after 10 epochs without
+       improved validation loss, and restored the best checkpoint
+       separately for each depth and split.
+
+       The maximum epoch budget and stopping rules are held fixed.
+       Actual epochs, updates, and runtime differ, and adding layers
+       changes both depth and parameter count. The same initialization
+       seed does not make different architectures have identical initial
+       functions. These differences limit attributing improvements
+       solely to depth; we report the realized training budgets below.
+
+       \item \emph{Additional improvement strategy.}
+       Sol suggested adding quadratic and pairwise interaction features
+       to ridge regression. We propose this as a future comparison:
+       these features would let ridge model specified nonlinear
+       relationships while remaining linear in its fitted coefficients.
+       The expanded feature set would require train-only preprocessing
+       and validation-based regularization to control its increased
+       size. Improvement would help determine whether some of the MLP's
+       advantage can be reproduced using explicit interactions.
+       This is an untested proposal, not an additional result.
+       \item \emph{Results and error analysis.}
+       The per-run test metrics are below. MAE and RMSE are in kelvin;
+       larger $R^2$ and smaller error metrics indicate better performance.
+       MLP 2 is the reference architecture.
+       \begin{center}
+       {\small
+       \begin{tabular}{l r r r r}
+           \toprule
+           Model & Seed & $R^2$ & MAE (K) & RMSE (K) \\
+           \midrule
+           Mean & 11 & -0.00018 & 29.174 & 34.101 \\
+           Mean & 22 & -0.00007 & 29.852 & 34.705 \\
+           Mean & 33 & -0.00016 & 29.590 & 34.532 \\
+           Ridge & 11 & 0.74137 & 13.206 & 17.341 \\
+           Ridge & 22 & 0.73722 & 13.541 & 17.790 \\
+           Ridge & 33 & 0.73525 & 13.479 & 17.767 \\
+           MLP 1 & 11 & 0.86969 & 8.517 & 12.309 \\
+           MLP 1 & 22 & 0.85352 & 9.111 & 13.282 \\
+           MLP 1 & 33 & 0.85269 & 9.061 & 13.253 \\
+           MLP 2 & 11 & 0.89974 & 7.049 & 10.797 \\
+           MLP 2 & 22 & 0.89289 & 7.202 & 11.358 \\
+           MLP 2 & 33 & 0.88965 & 7.403 & 11.470 \\
+           MLP 3 & 11 & 0.90486 & 6.480 & 10.517 \\
+           MLP 3 & 22 & 0.89335 & 6.895 & 11.333 \\
+           MLP 3 & 33 & 0.89635 & 7.025 & 11.117 \\
+           \bottomrule
+       \end{tabular}}
+       \end{center}
+       Mean $\pm$ sample standard deviation across seeds 11, 22, and 33:
+       \begin{center}
+       {\small
+       \begin{tabular}{l c c c}
+           \toprule
+           Model & $R^2$ & MAE (K) & RMSE (K) \\
+           \midrule
+           Mean & $-0.00014\pm0.00006$ & $29.539\pm0.342$ & $34.446\pm0.311$ \\
+           Ridge & $0.73795\pm0.00312$ & $13.409\pm0.178$ & $17.632\pm0.253$ \\
+           MLP 1 & $0.85864\pm0.00958$ & $8.896\pm0.330$ & $12.948\pm0.554$ \\
+           MLP 2 & $0.89409\pm0.00515$ & $7.218\pm0.178$ & $11.208\pm0.361$ \\
+           MLP 3 & $0.89819\pm0.00597$ & $6.800\pm0.285$ & $10.989\pm0.423$ \\
+           \bottomrule
+       \end{tabular}}
+       \end{center}
+       These splits overlap; their sample standard deviations are not
+       confidence intervals. Negative $R^2$ means a model's squared
+       prediction error exceeds that of predicting the test-target mean.
+       The training-mean baseline can therefore have a slightly negative
+       test $R^2$ because its mean differs from the test-target mean.
+
+       Paired differences subtract the second model from the first on
+       the same test rows. Positive $R^2$ differences and negative MAE
+       and RMSE differences favor the first model.
+       \begin{center}
+       {\small
+       \begin{tabular}{l r r r r}
+           \toprule
+           Comparison & Seed & $\Delta R^2$ & $\Delta$ MAE (K) & $\Delta$ RMSE (K) \\
+           \midrule
+           MLP 2 minus Ridge & 11 & 0.15837 & -6.157 & -6.544 \\
+           MLP 2 minus Ridge & 22 & 0.15567 & -6.339 & -6.432 \\
+           MLP 2 minus Ridge & 33 & 0.15440 & -6.076 & -6.297 \\
+           MLP 1 minus MLP 2 & 11 & -0.03005 & 1.467 & 1.512 \\
+           MLP 1 minus MLP 2 & 22 & -0.03937 & 1.909 & 1.924 \\
+           MLP 1 minus MLP 2 & 33 & -0.03696 & 1.658 & 1.782 \\
+           MLP 3 minus MLP 2 & 11 & 0.00512 & -0.570 & -0.279 \\
+           MLP 3 minus MLP 2 & 22 & 0.00046 & -0.306 & -0.024 \\
+           MLP 3 minus MLP 2 & 33 & 0.00670 & -0.378 & -0.353 \\
+           MLP 2 minus Mean & 11 & 0.89992 & -22.125 & -23.304 \\
+           MLP 2 minus Mean & 22 & 0.89296 & -22.651 & -23.348 \\
+           MLP 2 minus Mean & 33 & 0.88981 & -22.187 & -23.062 \\
+           \bottomrule
+       \end{tabular}}
+       \end{center}
+       The paired summaries (mean $\pm$ sample standard deviation) are
+       \begin{center}
+       {\small
+       \begin{tabular}{l c c c}
+           \toprule
+           Comparison & $\Delta R^2$ & $\Delta$ MAE (K) & $\Delta$ RMSE (K) \\
+           \midrule
+           MLP 2 minus Ridge & $0.15615\pm0.00203$ & $-6.191\pm0.135$ & $-6.424\pm0.124$ \\
+           MLP 1 minus MLP 2 & $-0.03546\pm0.00484$ & $1.678\pm0.222$ & $1.740\pm0.209$ \\
+           MLP 3 minus MLP 2 & $0.00409\pm0.00325$ & $-0.418\pm0.136$ & $-0.219\pm0.173$ \\
+           MLP 2 minus Mean & $0.89423\pm0.00517$ & $-22.321\pm0.288$ & $-23.238\pm0.154$ \\
+           \bottomrule
+       \end{tabular}}
+       \end{center}
+       The selected neural checkpoints and realized training budgets are
+       \begin{center}
+       {\small
+       \begin{tabular}{r r r r r r r r}
+           \toprule
+           Depth & Seed & Best & Run & Updates & Train MSE & Val. MSE & Seconds \\
+           \midrule
+           1 & 11 & 99 & 100 & 10700 & 148.37 & 156.40 & 13.49 \\
+           2 & 11 & 70 & 80 & 8560 & 102.02 & 118.86 & 12.32 \\
+           3 & 11 & 97 & 100 & 10700 & 77.91 & 105.12 & 17.46 \\
+           1 & 22 & 42 & 52 & 5564 & 161.33 & 172.71 & 7.29 \\
+           2 & 22 & 94 & 100 & 10700 & 94.04 & 125.54 & 15.42 \\
+           3 & 22 & 74 & 84 & 8988 & 89.06 & 121.63 & 15.13 \\
+           1 & 33 & 55 & 65 & 6955 & 156.03 & 179.62 & 9.50 \\
+           2 & 33 & 57 & 67 & 7169 & 104.42 & 141.61 & 10.65 \\
+           3 & 33 & 54 & 64 & 6848 & 91.53 & 137.24 & 11.93 \\
+           \bottomrule
+       \end{tabular}}
+       \end{center}
+       ``Best'' is the selected epoch and ``Run'' is the number of epochs
+       executed. MSE is in K$^2$. Training MSE in this table is evaluated
+       at the restored checkpoint; plotted training histories are running
+       batch losses during each epoch. Ridge selected
+$\alpha=0.1, 0.1, 0.1$ for seeds 11, 22, and 33, respectively.
+       Total runtime was 116.5 seconds on an Intel
+       Core i7-8650U CPU with 8 logical CPUs, using two PyTorch
+       computation threads and no GPU. This includes the audit,
+       preprocessing, fitting, evaluation, and plots; imports and package
+       installation are excluded. Software versions were Python 3.12.3,
+       NumPy 1.26.4, pandas 2.1.4, scikit-learn 1.4.1.post1,
+       PyTorch 2.14.1+cpu, and Matplotlib 3.6.3. The notebook is
+       \texttt{hw3\_question5-tbelcher.ipynb}; pinned dependencies,
+       a README, and saved results are in \texttt{question5}.
+
+       We fixed the subgroup threshold using each training set. The table
+       reports the threshold in K, test sample count, and subgroup MAE
+       for ridge and the base MLP, with the complementary group included.
+       \begin{center}
+       {\small
+       \begin{tabular}{r r l r r r}
+           \toprule
+           Seed & Threshold & Test subgroup & Count & Ridge MAE & MLP 2 MAE \\
+           \midrule
+           11 & 20.000 & Above median & 2105 & 16.313 & 9.835 \\
+           11 & 20.000 & At/below median & 2148 & 10.161 & 4.319 \\
+           22 & 20.000 & Above median & 2099 & 16.198 & 9.779 \\
+           22 & 20.000 & At/below median & 2154 & 10.952 & 4.690 \\
+           33 & 19.900 & Above median & 2142 & 16.372 & 10.388 \\
+           33 & 19.900 & At/below median & 2111 & 10.544 & 4.375 \\
+           \bottomrule
+       \end{tabular}}
+       \end{center}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=\linewidth]{question5/results/capacity_investigation.png}
+           \caption{RMSE advantage over ridge as depth increases. Positive
+           values favor the MLP; lines pair results within each split.}
+       \end{figure}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=\linewidth]{question5/results/learning_curves.png}
+           \caption{Training and validation MSE for each depth on seed 11,
+           including the two-layer reference.}
+       \end{figure}
+       \begin{figure}[H]
+           \centering
+           \includegraphics[width=0.9\linewidth]{question5/results/residuals_seed11.png}
+           \caption{Reference MLP residuals on seed 11. Positive residuals
+           indicate underprediction. This test analysis was not used to tune models.}
+       \end{figure}
+       The overall score hides a difference in errors across target ranges.
+       For the base MLP, MAE above the training-target median was
+       $9.835$, $9.779$, and $10.388$ K, compared with $4.319$, $4.690$,
+       and $4.375$ K at or below the median. The base MLP improved on
+       ridge in both groups for every split, but higher targets remained
+       harder to predict accurately. The seed-11 residual plot also shows
+       substantial individual errors and a tendency toward positive
+       residuals among the highest observed temperatures, indicating
+       underprediction there. We did not tune models using this test analysis.
+
+       \item \emph{Interpretation and assessment.}
+       The results support my prediction that an MLP would outperform
+       ridge under this evaluation. Mean RMSE was $17.632$ K for ridge
+       and $11.208$ K for the base MLP, a paired reduction of $6.424$ K.
+       Mean $R^2$ increased from $0.73795$ to $0.89409$.
+       The depth prediction was also supported: mean RMSE fell from
+       $12.948$ K with one hidden layer to $11.208$ K with two, then
+       to $10.989$ K with three. The improvement from the third layer
+       was smaller and varied across splits, ranging from $0.024$ to
+       $0.353$ K relative to the two-layer reference.
+       Selected validation MSE improved with added depth in every split,
+       alongside lower training MSE, so the change was not confined to
+       fitting the training data.
+
+       Our strongest supported conclusion is that these MLPs predicted
+       held-out rows more accurately than ridge, and added layers helped
+       under the declared training settings. This is consistent with
+       useful nonlinear relationships, but does not identify a particular
+       relationship between material properties and temperature.
+       An alternative explanation for the depth improvement is the
+       additional parameters rather than depth itself; optimization and
+       different stopping epochs may also contribute. We propose a next
+       experiment comparing different depths with adjusted widths to
+       give similar parameter counts, while retaining common splits and
+       training rules. That would help distinguish a depth benefit from
+       the benefit of a larger parameter budget. It was not run here.
+
+       Random row splits do not establish generalization to previously
+       unseen material families. In seeds 11, 22, and 33, respectively,
+       1,485, 1,497, and 1,477 test rows had a feature vector also present
+       in training. These exact feature matches are a concrete overlap
+       diagnostic, though they are not verified material identifiers.
+       Repeated or related materials can occur in multiple partitions,
+       allowing performance on familiar materials to contribute to the
+       test score. A stronger evaluation would group rows by material
+       or family before splitting. It would require material identifiers,
+       chemical formulas, and family groupings, which are not supplied
+       in this numerical feature file.
+
+       \noindent\textit{AI-use statement for Question 5:}
+       I used Sol through the Codex interface to help plan the experiment,
+       choose technical settings, write and run the notebook, perform
+       implementation checks, propose an additional improvement strategy,
+       and draft the results and interpretation. I supplied the nonlinear
+       relationship hypothesis and accepted the capacity investigation,
+       depth prediction, and subgroup definition.
+       One consequential suggestion I accepted from Sol was to compare
+       one, two, and three hidden layers. We checked the parameter counts
+       and compared training, validation, and paired test performance,
+       while acknowledging that depth and parameter count both changed.
+
+       As implementation checks, we verified that scaler means and
+       variances match the training rows, that inverse target scaling
+       reconstructs the training targets, and that row partitions are
+       disjoint. We also checked the metric functions by hand: for targets
+       $(1,3)$ and predictions $(2,2)$, MAE and RMSE are both 1 and
+       $R^2=0$. An independent calculation from the saved test predictions
+       reproduced every reported per-run metric.
    \end{enumerate}
 
 \end{enumerate}

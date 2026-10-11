@@ -1,0 +1,12 @@
+{
+  "rows": 21263,
+  "features": 81,
+  "missing_values": 0,
+  "nonfinite_values": 0,
+  "target_min_K": 0.00021,
+  "target_max_K": 185.0,
+  "duplicate_extra_rows": 66,
+  "duplicate_feature_extra_rows": 6093,
+  "sha256": "0d2e3043c25debfe0fcb9caa329011da625827e285bfa2bb01a68f9c7c243862",
+  "duplicate_policy": "Keep all supplied rows; report cross-partition repeated features as a limitation."
+}

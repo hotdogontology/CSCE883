@@ -1,0 +1,40 @@
+{
+  "hypothesis": "Useful nonlinear relationships between features and critical temperature will allow an MLP to outperform ridge regression.",
+  "depth_prediction": "Two hidden layers will improve on one; a third may give diminishing returns.",
+  "challenge": "Ridge matches or outperforms the MLP, or added depth improves only training error.",
+  "investigation": "One, two (reference), and three 64-unit ReLU hidden layers; depth and parameter count both change.",
+  "held_fixed": "Splits, preprocessing, target treatment, Adam, learning rate, batch size, no dropout, zero weight decay, stopping rules.",
+  "split_seeds": [
+    11,
+    22,
+    33
+  ],
+  "split": "Test 20%, then validation 20% of development (64/16/20 overall).",
+  "initialization_seed": "s+1000",
+  "loader_seed": "s+2000",
+  "perturbation_seed": null,
+  "ridge_alphas": [
+    0.1,
+    1,
+    10,
+    100
+  ],
+  "ridge_selection": "Minimum validation MSE separately per split.",
+  "mlp_configurations": [
+    {
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "batch_size": 128
+    }
+  ],
+  "max_epochs": 100,
+  "patience": 10,
+  "checkpoint": "Minimum validation MSE separately for each depth and split.",
+  "feature_scaling": "StandardScaler fit on training features only, shared by all models.",
+  "target_scaling": "StandardScaler fit on training targets only for MLPs; inverse transform before metrics.",
+  "subgroup": "Target strictly above each split training-target median; fixed before test evaluation.",
+  "test_policy": "All training and model selection across all splits finish before any test evaluation.",
+  "additional_strategy": "Propose validation-tuned polynomial interaction features for ridge; do not run an additional experiment.",
+  "ai_suggestion": "Accepted Sol suggestion to use a capacity investigation; check parameter counts, training/validation behavior, and paired test results.",
+  "implementation_checks": "Train-only scaler moments and inverse transformation; hand-computed metrics; disjoint row splits."
+}
