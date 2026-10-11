@@ -60,6 +60,18 @@
 \rule[2ex]{\textwidth}{2pt}
 % ---
 
+\noindent\textit{AI-use disclosure for Questions 1--3:}
+I used OpenAI's GPT-6.1 Sol through the Codex interface for assistance
+with mathematical derivations and explanations, checking calculations,
+LaTeX formatting, and the network diagram. Sol also wrote and ran the
+Question 2C gradient-verification notebook and helped present its results.
+For Question 3, I supplied the initial answers, and Sol helped refine
+and formalize them. I reviewed and revised the responses through our
+discussion.
+
+\noindent AI-use disclosures for Questions 4 and 5 are included with
+those questions.
+
  
 \begin{enumerate}
    \item \emph{(Question 1.)} Gradient propagation and CNN dimensions.
@@ -604,7 +616,7 @@
        250 bases from A, C, G, T, and 10,000 records in each numeric class.
        There were no exact duplicate sequences or conflicting labels.
        Numeric labels were retained without assigning a biological identity
-       to either value. With each split seed $s\in\{11,22,33\}$, I first
+       to either value. With each split seed $s\in\{11,22,33\}$, we first
        held out 5,000 stratified test rows, then split the development rows
        into 12,000 training and 3,000 validation rows. The same indices
        were used for every compared model.
@@ -614,15 +626,15 @@
        Nucleotide frequencies are counts divided by 250; the additional
        16 dinucleotide frequencies are adjacent-pair counts divided by
        249. These deterministic features require no learned preprocessing,
-       and no scaling was applied. Pair order is AA, AC, AG, AT, CA, CC,
+       and we applied no scaling. Pair order is AA, AC, AG, AT, CA, CC,
        CG, CT, GA, GC, GG, GT, TA, TC, TG, TT.
 
        \item \emph{Models and shuffling control.}
-       Both logistic regressions use L2 regularization with $C=1$,
+       We used both logistic regressions with L2 regularization and $C=1$,
        an intercept, the \texttt{lbfgs} solver, and at most 1,000 solver
        iterations; all fits converged within that limit. The frequency
        model has 5 parameters, and the frequency-plus-pairs model has 21.
-       The neural architectures below include biases; ReLU, pooling,
+       We chose the neural architectures below, including biases; ReLU, pooling,
        and flattening have no trainable parameters.
        \begin{center}
        {\small
@@ -662,7 +674,7 @@
        and stride 2, no padding, and floor rounding. Similar parameter
        totals do not make the architectures equivalent in capacity.
 
-       Before fitting, I declared one training configuration for each
+       Before fitting, we declared one training configuration for each
        neural model: Adam, learning rate $0.001$, batch size 128, zero
        weight decay, and no dropout. The loss is binary cross-entropy
        computed directly from logits. Models train for at most 100 epochs
@@ -700,7 +712,8 @@
        to new genomic regions or sequence families.
 
        \item \emph{Neighboring-base investigation.}
-       I compared two feature settings: four nucleotide frequencies and
+       I chose the neighboring-base investigation. We compared two
+       feature settings: four nucleotide frequencies and
        those same four features plus 16 dinucleotide frequencies. Splits,
        logistic-regression settings, and evaluation were held fixed.
        This tests whether adjacent-pair statistics add predictive
@@ -816,16 +829,17 @@
        The seed-11 loss curves also show increasing MLP validation loss
        after its selected checkpoint, consistent with overfitting.
 
-       My strongest supported conclusion is that adjacent-pair statistics
+       Our strongest supported conclusion is that adjacent-pair statistics
        add substantial predictive information beyond nucleotide frequencies
        for these row splits, and the CNN uses information sensitive to
        position shuffling. These results do not establish that a model
        interprets biological instructions or that order is universally
-       more important than composition. A plausible alternative is that
-       class-specific collection or sequence-generation artifacts produce
-       the distinguishing statistics. The frozen CNN's deterioration may
-       also partly reflect distribution shift. A follow-up experiment
-       would retrain the same architecture on shuffled training sequences,
+       more important than composition. An alternative explanation for
+       part of the CNN's accuracy drop is that shuffling creates inputs
+       unlike those it saw during training. The drop may therefore reflect
+       difficulty with unfamiliar inputs as well as the removal of useful
+       order information. We propose a follow-up experiment that would
+       retrain the same architecture on shuffled training sequences,
        select checkpoints on shuffled validation sequences, and evaluate
        on shuffled test sequences. This would help distinguish information
        lost through shuffling from difficulty processing an unfamiliar
@@ -836,14 +850,22 @@
        Related or overlapping sequences could occur across partitions
        even without exact duplicates. A stronger evaluation would keep
        genomic regions or homologous sequence families in separate
-       partitions. It would require source provenance, reference genome
-       and assembly, chromosome and genomic coordinates, and identifiers
-       or similarity-based groupings for sequence families. The supplied
+       partitions. This would require metadata identifying the source
+       genomic region and sequence family of each record. The supplied
        sequence and label files do not provide those grouping annotations.
 
-       One consequential suggestion I accepted was to compare nucleotide
+       \noindent\textit{AI-use statement for Question 4:}
+       I used OpenAI's GPT-6.1 Sol through the Codex interface to help plan
+       the experiment, choose neural
+       architectures and training settings, write and debug the notebook,
+       run the experiments and implementation checks, and draft the
+       results and interpretation. I supplied the hypothesis and
+       predictions, chose the neighboring-base investigation, and
+       reviewed and revised the explanation of the results.
+
+       One consequential suggestion I accepted from Sol was to compare nucleotide
        frequencies with frequencies plus neighboring-base information.
-       I checked the feature implementation using ACGTA: its nucleotide
+       We checked the feature implementation using ACGTA: its nucleotide
        frequencies are $(0.4,0.2,0.2,0.2)$, and AC, CG, GT, and TA each
        have pair frequency $1/4$, with all other pairs zero.
        Additional checks confirmed one-hot reconstruction, disjoint
