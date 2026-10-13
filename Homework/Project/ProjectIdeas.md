@@ -17,7 +17,7 @@ E. "Peer Reviewer" -- AI that checks to make sure that the Agda version of a the
 4. https://arxiv.org/abs/2610.08144 
 5. https://huggingface.co/datasets/astral-expmath/agda-categories-informalized 
 6. https://github.com/GrammaticalFramework/informath 
-
-
+7. mathlib in lean
+8. imo problems in lean https://dwrensha.github.io/compfiles/imo.html 
 
 
