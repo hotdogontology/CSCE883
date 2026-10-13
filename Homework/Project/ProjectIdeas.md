@@ -19,5 +19,6 @@ E. "Peer Reviewer" -- AI that checks to make sure that the Agda version of a the
 6. https://github.com/GrammaticalFramework/informath 
 7. mathlib in lean
 8. imo problems in lean https://dwrensha.github.io/compfiles/imo.html 
+9. 1000+ theorems in Lean https://leanprover-community.github.io/1000.html — named theorems with formal statements and links to Lean documentation and source; candidate source for English/Lean pairs.
 
 
