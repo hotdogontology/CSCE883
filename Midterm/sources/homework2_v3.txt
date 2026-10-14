@@ -1,0 +1,97 @@
+CSCE883 Machine Learning
+
+Homework 2
+
+
+Q1: Maximum Likelihood Estimation
+
+
+
+
+hint: the first step is always to write out the expression of the probability to observe all the samples
+given the parameter.
+
+
+Q2:
+
+
+
+
+Q3: Use Maximal likelihood method to estimate the parameters μ and σ for the normal distribution
+density
+
+
+
+based on a random sample set {X1, X2, …, Xn)
+
+
+Q4:
+
+
+
+
+Q5: MLE applied to neural network based probabilistic regression
+
+
+In probabilistic regression, the model (e.g. neural network) output is modeled as a Gaussian
+distribution with both a mean and a standard deviation.
+CSCE883 Machine Learning
+
+
+
+
+Derive the loss function using Maximum Likelihood Estimation (MLE), which is used to maximize
+the probability to see data samples (Xi, Yi) for i = 1,2,…,N. Note that loss function is to be
+minimized rather than maximized.
+
+
+
+
+Q6. Stacked deep decision tree for higher classification performance (AI coding allowed)
+
+Standard decision trees/random forests have limited prediction power compared to deep neural
+network. But multi-layered random forests may get their performance increased by using a stacked
+layer of random forest layers. The structure of the idea is below. (1) describe how the multi-layer
+deep random forest works; (2) copy this architecture of deep random forest to codex, and ask it
+implement it for classification and compare its performance with the standard random forest on this
+dataset. https://archive.ics.uci.edu/dataset/240/human+activity+recognition+using+smartphones
+You can ask codex to download the dataset, and do 80:10:10 splitting and test the performance.
+
+
+
+
+Q7:
+For the following dataset, manually derive the decision tree using the information gain approach.
+CSCE883 Machine Learning
+
+
+
+
+Q8: The following page carries examples of using logistic regression and other classifiers and
+calculates the performance measures.
+https://machinelearningmastery.com/get-your-hands-dirty-with-scikit-learn-now/
+
+Modify the regression example to implement the following function for calculating performance
+measures of classification:
+
+1. Based on the predicted labels and expected labels for class 0, calculate
+the TP, FP, TN FN for class 0 and then to calculate accuracy, precision, recall. Your results should
+be the same as those got by calling print(metrics.classification_report(expected, predicted))
+You must write your OWN implementation of these calculation. Cannot use Scikiet-learn functions.
+
+
+2. Use the following statement to calculate the probability of each test sample
+   probs= model.predict_proba(dataset.data)
+   and then use the scikit-learn functions to calculate AUC, and plot ROC curve.
+
+   ROC cuve example is here http://thestatsgeek.com/2014/05/05/area-under-the-roc-curve-
+   assessing-discrimination-in-logistic-regression/
+
+
+3. Use scikit-learn package to calculate cross-validation error, leave-one-out cv error.
+
+
+You need to submit the source code of this question.
+
+Submit all the answers and code to http://dropbox.cse.sc.edu
+

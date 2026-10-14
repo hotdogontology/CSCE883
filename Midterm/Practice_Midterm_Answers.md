@@ -1,0 +1,109 @@
+# Practice midterm — worked answers
+
+Attempt the exam first. Credit should reflect the stated reasoning, not just matching final numbers. Point allocations below follow the question parts; equivalent correct notation or derivations earn credit.
+
+## Q1 — 10 points
+
+**a (6):** Features are independent **conditional on class**. Priors are 0.4 Yes and 0.6 No. Yes conditionals are 6/8=0.75, 2/8=0.25, 4/8=0.5. No conditionals are 3/12=0.25, 9/12=0.75, 8/12=2/3.
+
+Scores: $s_Y=(0.4)(0.75)(0.25)(0.5)=0.0375$; $s_N=(0.6)(0.25)(0.75)(2/3)=0.075$. Predict No under 0/1 loss. Suggested credit: assumption 1, priors/conditionals 3, scores/prediction 2.
+
+**b (3):** $P(Y|x)=0.0375/0.1125=1/3$, $P(N|x)=2/3$. Risk of predicting Yes is $1(2/3)=2/3$; risk of predicting No is $4(1/3)=4/3$. Predict Yes. Threshold is 1/(1+4)=0.2, so the posterior exceeds it. One point each for posterior, risks, decision.
+
+**c (1):** $(0+1)/(8+2)=0.1$. The denominator includes the two possible Type values, not the number of features.
+
+## Q2 — 14 points
+
+**a (6):**
+$$L(\theta)=(2\theta/3)^3(\theta/3)^3[2(1-\theta)/3]^1[(1-\theta)/3]^1=\frac{16}{3^8}\theta^6(1-\theta)^2.$$
+$$\ell=\log(16/3^8)+6\log\theta+2\log(1-\theta),\qquad \ell'=6/\theta-2/(1-\theta).$$
+Setting the derivative to zero gives $6(1-\theta)=2\theta$, so $\hat\theta=3/4$. $\ell''=-6/\theta^2-2/(1-\theta)^2<0$ on (0,1), and both endpoints give likelihood zero because both groups occur. Credit: likelihood 2, log/derivative 2, estimate/maximum check 2. A count-summary likelihood can contain an additional theta-independent multinomial coefficient without changing the estimate.
+
+**b (3):** $\ell=-N\log(2b)-S/b$ with $S=\sum|x_i|$. $\ell'=-N/b+S/b^2=0$ gives $\hat b=S/N$. Here S=8, N=4, so b=2. The derivative is $(S-Nb)/b^2$, positive below S/N and negative above, verifying the maximum. Credit: objective/derivative 1, estimator 1, calculation 1.
+
+**c (3):** With v=sigma², $\ell=-N\log(2\pi v)/2-\sum(x_i-\mu)^2/(2v)$. The derivatives are $\sum(x_i-\mu)/v$ and $-N/(2v)+\sum(x_i-\mu)^2/(2v^2)$. Thus mu=2, v=(1+0+1)/3=2/3. The likelihood optimization produces N; N−1 is an unbiased-variance correction rather than this MLE. Sigma would be $\sqrt{2/3}=0.816$. Credit: derivative reasoning 1, estimates 1, denominator explanation 1.
+
+**d (2):** $\ell=(\sum x_i)\log\lambda-N\lambda-\sum\log(x_i!)$. $\ell'=\sum x_i/\lambda-N=0$ gives lambda=8/4=2. Second derivative is −8/lambda²<0. Credit: log/derivative 1, rate 1.
+
+## Q3 — 12 points
+
+**a (4):** Product Gaussian density is $\prod_i(2\pi\sigma_i^2)^{-1/2}\exp[-(y_i-\mu_i)^2/(2\sigma_i^2)]$. Taking negative log:
+$$NLL=\frac12\sum_i[\log(2\pi)+s_i+(y_i-\mu_i)^2e^{-s_i}].$$
+The s term penalizes arbitrarily large variance; without it, increasing variance makes residual penalties approach zero. For fixed common variance, the variable objective is a positive constant times sum squared error, equivalent to MSE minimization. Credit: density/log derivation and expression 2, variance term 1, MSE condition 1.
+
+**b (5):** Class 0 positive: TP=30, FP=5, TN=55, FN=10. Accuracy=85/100=0.850. Precision=30/35=0.857; recall=30/40=0.750; F1=60/(60+5+10)=0.800. Class-1 F1=110/(110+10+5)=0.880. Macro-F1=(0.800+0.880)/2=0.840. Suggested credit: counts 1, accuracy 1, precision/recall 1, class-0 F1 1, macro-F1 1.
+
+**c (1):** ROC needs scores to sweep thresholds; hard labels supply only one operating point. Select the class-0 column according to `model.classes_` (first column when classes are [0,1]), and mark class 0 as positive consistently.
+
+**d (2):** Errors [1,0,−1], so MAE=2/3=0.667, RMSE=$\sqrt{2/3}=0.816$. SSE=2, SST=2, R²=0. Negative R² means SSE>SST: worse than predicting the evaluated targets' mean. It is not “negative squared error” or a negative correlation by definition. Credit: metrics 1, explanation 1.
+
+## Q4 — 10 points
+
+**a (6):** Parent entropy H(1/2)=1. A: weighted child entropy $\frac48(0.8113)+\frac48(0.8113)=0.8113$; IG(A)=0.1887. B: $\frac28(0)+\frac68(0.9183)=0.688725$; IG(B)=0.311275. Choose B. To three decimals: A entropy 0.811, gain 0.189; B entropy 0.689, gain 0.311. Credit: parent 1, A 2, B 2, root 1. Subtracting unweighted child entropies is incorrect.
+
+**b (2):** An ID isolates rows into pure singleton leaves and gets IG=1 on this training set, but does not provide reusable discrimination for unseen IDs. Use suitable feature selection, constraints/pruning, and held-out evaluation; gain ratio can reduce many-valued split preference. An unsplittable mixed leaf predicts majority class, with an explicit tie policy if necessary.
+
+**c (2):** RF aggregates independently grown randomized/bootstrap trees; a cascade feeds forest class-probability outputs into later layers, typically alongside original features. Out-of-fold training probabilities are produced by models that did not fit the example they predict, reducing leakage/overconfident self-prediction in the augmented representation. Validation chooses cascade depth. One point each for structure and OOF explanation.
+
+## Q5 — 14 points
+
+**a (6):**
+$$Y_{00}=1(1)+2(-1)+0(0)+1(2)+1=2,$$
+$$Y_{01}=2(1)+0(-1)+1(0)+3(2)+1=9,$$
+$$Y_{10}=0(1)+1(-1)+2(0)+1(2)+1=2,$$
+$$Y_{11}=1(1)+3(-1)+1(0)+0(2)+1=-1.$$
+Convolution output is $\begin{bmatrix}2&9\\2&-1\end{bmatrix}$, ReLU output $\begin{bmatrix}2&9\\2&0\end{bmatrix}$, pooled output [9] of shape 1×1×1. Credit: one per correctly demonstrated convolution entry, one ReLU, one pooling. Bias is added once per output cell.
+
+**b (6):** Conv spatial size $(8-3)/1+1=6$, output 3×6×6. Pool spatial size $\lfloor(6-2)/2\rfloor+1=3$, output 3×3×3. Flatten length=27; dense output length=4. Each convolution filter has 2×3×3=18 weights and 1 bias; total 3×19=57. Pool parameters=0. Dense parameters=27×4+4=112. Network total=169. Suggested credit: conv shape 1, pool/flatten/output shapes 2, conv per-filter/total 1, pool 0 and dense 1, total 1.
+
+**c (2):** Local receptive fields restrict each output to a patch; shared filter coefficients are reused at spatial positions instead of independently learning every spatial connection. Under groups=1, each output filter spans all input channels; channel contributions are summed. One point each.
+
+## Q6 — 16 points
+
+**a (6):**
+$$\frac{\partial L}{\partial p}=-\frac y p+\frac{1-y}{1-p},\quad \frac{\partial p}{\partial z}=p(1-p),\quad\delta=p-y.$$
+$$g_3=\delta h_1,\quad g_4=\delta h_2,\quad
+g_1=\delta w_3h_1(1-h_1)x,\quad g_2=\delta w_4h_2(1-h_2)x.$$
+Update all $w_i\leftarrow w_i-\eta g_i$ using pre-update weights. For half squared error, delta becomes $(p-y)p(1-p)$, while downstream chain-rule factors keep the same structure. Credit: BCE cancellation 1, output gradients 1, hidden gradients 2, update 1, squared-error delta 1.
+
+**b (4):** h1=h2=0.5, z=1(0.5)−1(0.5)=0, p=0.5, delta=−0.5. In weight order (1,2,3,4), gradients are (−0.125,+0.125,−0.25,−0.25). Updated weights are (0.0125,−0.0125,1.025,−0.975). Hidden gradients use the original +1 and −1 output weights. Credit: forward 1, hidden gradients 1, output gradients 1, simultaneous updates 1.
+
+**c (2):** $\phi'_k(u)=e^{2ku}/(1+e^{2ku})=\sigma(2ku)$. Replace hidden factors $h_j(1-h_j)$ by $\sigma(2kw_jx)$; output gradients still use the new hidden activations. As k increases, activation approaches max(0,u). ReLU is differentiable away from zero and uses a selected subgradient at zero, commonly 0. Scaled Softplus is not required to train ReLU networks.
+
+**d (3):** Chain rule gives $\partial h_L/\partial x=\prod_{l=1}^L[w_l\sigma'(w_lh_{l-1})]$, hence magnitude ≤$(1/4)^L$ under the weight bound. Residual block Jacobian is $I+J_F$. Without weight bounds, weights/matrix Jacobians can amplify or destabilize gradients. Residual identity paths help, but learned Jacobians may still cancel or amplify directions, and optimization/generalization problems remain. One point each for bound, residual Jacobian, qualifications.
+
+**e (1):** Subtracting almost equal floating-point losses incurs cancellation; division by tiny epsilon magnifies error. Reducing epsilon trades smaller truncation error against larger roundoff effects.
+
+## Q7 — 10 points
+
+**a (6):** Three central defects, two points each for defect plus explanation/correction:
+
+1. Fitting on stacked train/test learns test statistics. Split first, fit only on training features, then transform both with the same fitted scaler.
+2. `train_x` and `test_x` retain the final label column. Predictions use test labels in distances: direct target leakage. Separate last-column y and all preceding feature columns before fitting/transforming.
+3. `sum(train_x-test_x[0], axis=1)` is a signed feature-difference sum for each training row. It can be negative and cancels opposing differences. Use sum of squared feature differences, optionally square-rooted, over the feature axis.
+
+The code sorts these incorrect scores ascending, retrieves four training rows, and votes using their labels. It predicts only the first test row; that would also be incomplete if used to claim performance on the whole test set.
+
+**b (1):** `bincount` counts occurrences by nonnegative integer class value; `argmax` returns the first maximal index, so a 0/1 vote tie favors 0. HW1 requires the class of the nearest neighbor among tied classes. Valid categorical integer labels are assumed here.
+
+**c (3):** Test-based selection chooses favorable test noise and makes test performance optimistic; repetition preserves the defect. Use test holdout, training/validation separation, train-only preprocessing, validation tuning/early stopping, restore chosen checkpoint, freeze choices, then test. For unseen materials, keep all rows with a material ID in one partition, using identifying metadata; group-aware validation should follow the same objective. One point per bias, workflow, grouped split.
+
+## Q8 — 8 points
+
+**a (4):** Line 1 samples same-shaped standard Gaussian noise. Line 2 directly samples a noisy image at t using fixed cumulative schedule coefficients; it is forward corruption. Line 3 predicts noise from xt and t, learning model parameters. Line 4 averages squared predicted-minus-sampled noise across tensor elements. Target is the sampled epsilon, not x0 or a class label. The fixed schedule and sampled inputs/noise are not model parameters. Timesteps identify corruption strength. One point per line including these roles.
+
+**b (2):** sqrt(a)=0.8 and sqrt(1−a)=0.6. xt=0.8(2)+0.6(−1)=1.0. Loss=(0.5−(−1))²=2.25. Derivative=2(1.5)=3 for this single element; for M averaged elements, each derivative is divided by M. Clean estimate is $(1-0.6(0.5))/0.8=0.875$. Its mismatch with x0=2 reflects the incorrect noise prediction. Credit: noising/loss 1, derivative/recovery 1.
+
+**c (2):** Training uses clean data, sampled t/noise, and a supervised noise target; generation starts with Gaussian noise and repeatedly applies learned reverse-denoising steps without a known clean target. A vanilla GAN maps latent noise through a generator in a forward pass and trains adversarially against a discriminator; diffusion learns denoising using a fixed corruption process and usually generates through multiple reverse steps. One point each.
+
+## Q9 — 6 points
+
+**a (2):** RNN state carries information from earlier inputs; the same recurrent/input weights are reused across timesteps. LSTM forget gate controls old cell retention, input gate controls candidate writing, and output gate controls exposed cell information: $c_t=f_tc_{t-1}+i_t\tilde c_t$, $h_t=o_t\tanh c_t$ (elementwise products for vectors). Additive state evolution helps preserve dependencies. One point each for RNN and LSTM.
+
+**b (2):** Shuffling preserves nucleotide counts, so the frequency predictor is unchanged. CNN accuracy loss shows sensitivity to order-dependent structure under this perturbation, but does not prove biological motif learning, the necessity of order for any classifier, or generalization to unseen genomic families; distribution shift is an alternative explanation. Retraining on shuffled training data with shuffled validation evaluates what the architecture can learn without original order, rather than only the frozen model's robustness. Credit: supported observation 1, limitation/retraining interpretation 1.
+
+**c (2):** Mode collapse generates too few kinds of samples despite individual plausibility. Non-saturating generator loss is $-\mathbb E_z\log D(G(z))$, encouraging fake samples to be scored real and avoiding the original saturating objective's weak-gradient issue when D rejects fakes. Denoising AE targets clean x from corrupted input; this diffusion parameterization targets sampled epsilon at t. One point for GAN explanation, one for target distinction.
+
+## Diagnose your gaps
+
+Treat the score as a practice diagnostic, not a prediction of your course grade. Missing factors in Q6: redo HW3 Q2 symbolically before substituting numbers. Wrong counts/positive class in Q1/Q3: redraw labeled tables first. Wrong Q5 shapes/parameters: keep an activation-shape column separate from a parameter-count column. Weak Q7/Q9 answers: practice explaining what an experiment can establish, the control, and one alternative explanation. Weak Q8: name the exact model target and distinguish noising, training, and sampling.

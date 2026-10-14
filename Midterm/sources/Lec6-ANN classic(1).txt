@@ -1,0 +1,1096 @@
+﻿--- slide1.xml ---
+CSCE
+883
+
+Machine Learning
+Lecture 6 
+Neural Networks and Deep Learning 
+Jianjun Hu
+Department of Computer Science & Engineering
+University of South Carolina
+--- slide2.xml ---
+Artificial Neural Networks
+What are Neural Networks?
+Biological Neural Networks
+ANN – The basics
+Feed forward net
+Training-Back propagation algorithm
+Example – Voice recognition
+Applications – Feed forward nets
+Recurrency
+Elman nets
+Hopfield nets
+Central Pattern Generators
+Conclusion
+--- slide3.xml ---
+What are Neural Networks?
+Models of the brain and nervous system
+Highly parallel
+Process information much more like the brain than a serial computer
+Learning
+Very simple principles
+Very complex behaviours
+Applications
+As powerful problem solvers
+As biological models
+--- slide4.xml ---
+Neurone vs. Node
+--- slide5.xml ---
+ANNs – The basics
+ANNs incorporate the two fundamental components of biological neural nets:
+ Neurones (nodes)
+ Synapses (weights)
+--- slide6.xml ---
+Structure of a node:
+Squashing function limits node output:
+--- slide7.xml ---
+Synapse vs. weight
+--- slide8.xml ---
+Feed-forward nets
+ Information flow is unidirectional
+ Data is presented to 
+Input layer
+ Passed on to 
+Hidden Layer
+ Passed on to 
+Output layer
+ Information is distributed
+ Information processing is parallel
+Internal representation (interpretation) of data
+--- slide9.xml ---
+Feeding data through the net:
+(1 
+
+ 0.25) + (0.5 
+
+ (-1.5)) = 0.25 + (-0.75)   =  - 
+0.5
+
+Squashing:
+--- slide10.xml ---
+Data is presented to the network in the form of activations in the input layer
+Examples
+Pixel intensity (for pictures)
+Molecule concentrations (for artificial nose)
+Share prices (for stock market prediction)
+Data usually requires preprocessing
+Analogous to senses in biology
+How to represent more abstract data, e.g. a name?
+Choose a pattern, e.g.
+0-0-1 for “Chris”
+0-1-0 for “Becky”
+--- slide11.xml ---
+Weight settings determine the behaviour of a network
+
+ How can we find the right weights?
+--- slide12.xml ---
+Training the Network - Learning
+Backpropagation
+Requires training set (input / output pairs)
+Starts with small random weights
+Error is used to adjust weights (supervised learning)
+ Gradient descent on error landscape
+--- slide13.xml ---
+
+--- slide14.xml ---
+Advantages
+It works!
+Relatively fast
+Downsides
+Requires a training set
+Can be slow
+Probably not biologically realistic
+Alternatives to Backpropagation
+Hebbian
+ learning
+Not successful in feed-forward nets
+Reinforcement learning
+Only limited success
+Artificial evolution
+More general, but can be even slower than 
+backprop
+--- slide15.xml ---
+Example: Voice Recognition
+Task: Learn to discriminate between two different voices saying “Hello”
+Data 
+Sources
+Steve Simpson
+David 
+Raubenheimer
+Format
+Frequency distribution (60 bins)
+Analogy: cochlea
+--- slide16.xml ---
+Network architecture
+Feed forward network
+60 input (one for each frequency bin)
+6 hidden
+2 output (0-1 for “Steve”, 1-0 for “David”)
+--- slide17.xml ---
+Presenting the data
+Steve
+David
+--- slide18.xml ---
+Presenting the data (untrained network)
+Steve
+David
+0.43
+0.26
+0.73
+0.55
+--- slide19.xml ---
+Calculate error
+Steve
+David
+0.43 – 0 	= 0.43
+0.26 –1	= 0.74
+0.73 – 1	= 0.27
+0.55 – 0	= 0.55
+--- slide20.xml ---
+Backprop error and adjust weights
+Steve
+David
+0.43 – 0 	= 0.43
+0.26 – 1	= 0.74
+0.73 – 1	= 0.27
+0.55 – 0	= 0.55
+1.17
+0.82
+--- slide21.xml ---
+Repeat process (sweep) for all training pairs
+Present data
+Calculate error
+Backpropagate error
+Adjust weights
+Repeat process multiple times
+--- slide22.xml ---
+Presenting the data (trained network)
+Steve
+David
+0.01
+0.99
+0.99
+0.01
+--- slide23.xml ---
+Results – Voice Recognition
+Performance of trained network
+Discrimination accuracy between known “
+Hello”s
+100%
+Discrimination accuracy between new “
+Hello”’s
+100%
+--- slide24.xml ---
+Results – Voice Recognition (
+ctnd
+.)
+Network has learnt to generalise from original data
+Networks with different weight settings can have same functionality
+Trained networks ‘concentrate’ on lower frequencies
+Network is robust against non-functioning nodes
+--- slide25.xml ---
+Applications of Feed-forward nets
+Pattern
+
+recognition
+Character recognition
+Face Recognition
+Sonar mine/rock recognition 
+(Gorman & Sejnowksi, 1988)
+Navigation of a car 
+(Pomerleau, 1989)
+Stock-market prediction
+Pronunciation (NETtalk)
+	(Sejnowksi & Rosenberg, 1987)
+--- slide26.xml ---
+Recurrent Networks
+Feed forward networks:
+Information only flows one way
+One input pattern produces one output
+No sense of time (or memory of previous state)
+Recurrency
+Nodes connect back to other nodes or themselves
+Information flow is multidirectional
+Sense of time and memory of previous state(s)
+Biological nervous systems show high levels of recurrency (but feed-forward structures exists too)
+--- slide27.xml ---
+Hopfield Networks
+Sub-type of recurrent neural nets
+Fully recurrent
+Weights are symmetric
+Nodes can only be 
+on
+ or 
+off
+Random updating
+Learning: 
+Hebb rule
+
+(cells that fire together wire together)
+Biological equivalent to LTP and LTD
+Can recall a memory, if presented with a
+	corrupt or incomplete version
+
+	
+auto-associative
+ or
+
+content-addressable memory
+--- slide28.xml ---
+Recap – Neural Networks
+Components – biological plausibility
+Neurone / node
+Synapse / weight
+Feed forward networks
+Unidirectional flow of information
+Good at extracting patterns, generalisation and prediction
+Distributed representation of data
+Parallel processing of data
+Training: Backpropagation
+Not exact models, but good at demonstrating principles
+Recurrent networks
+Multidirectional flow of information
+Memory / sense of time
+Complex temporal dynamics (e.g. CPGs)
+Various training methods (Hebbian, evolution)
+Often better biological models than FFNs
+--- slide29.xml ---
+The Machine Learning Zoo
+--- slide30.xml ---
+Backpropagation Algorithm for Learning Feedforward Multilayer Networks
+Rumelhart
+, David E.; Hinton, Geoffrey E.; Williams, Ronald J. (8 October 1986). "Learning representations by back-propagating errors". 
+Nature
+. 
+323
+ (6088): 533–536. 
+Bibcode
+:
+1986Natur.323..533R
+. 
+doi
+:
+10.1038/323533a0
+.
+--- slide31.xml ---
+Backpropagation Learning
+Architecture
+: 
+Feedforward
+ network of at least one layer of 
+non-linear
+ hidden nodes, e.g., # of layers 
+L 
+≥ 2
+ (not counting the input layer)
+Node function is differentiable
+	most common: 
+sigmoid function
+Learning
+: supervised, error driven, 
+	generalized delta rule
+Call this type of nets BP nets
+The weight update rule 
+	(gradient descent approach)
+Practical considerations
+Variations of BP nets
+Applications
+--- slide32.xml ---
+BP Learning
+Notations
+: 
+Weights: two weight matrices:
+             from input layer (0) to hidden layer (1)
+             from hidden layer (1) to output layer (2)
+             weight from node 1 at layer 0 to node 2 in layer 1
+Training samples: pair of
+	so it is supervised learning 
+Input pattern: 
+Output pattern:
+Desired output:
+Error:                          error for output node 
+k
+ when 
+x
+p
+ is applied 
+	sum square error
+   This error drives learning (change           and           ) 
+--- slide33.xml ---
+BP Learning
+Sigmoid function again
+: 
+Differentiable: 
+When |
+net
+| is sufficiently large, it moves into one of the two saturation regions, behaving like a threshold or ramp function.
+Chain rule of differentiation
+Saturation
+region
+Saturation
+region
+--- slide34.xml ---
+BP Learning
+Forward computing
+:
+Apply an input vector 
+x
+ to input nodes
+Computing output vector 
+x
+(1)
+ on hidden layer 
+Computing the output vector 
+o
+ on output layer 
+The network is said to be a map from input 
+x 
+to output 
+o
+Objective of learning:
+Modify the 2 weight matrices to reduce sum square error 
+	                          for the given 
+P
+ training samples as much as possible (to zero if possible)
+--- slide35.xml ---
+BP Learning
+Idea of BP learning
+: 
+Update of weights in 
+w
+(2, 1)
+ (from hidden layer to output layer): 
+	delta rule as in a single layer net using sum square error
+Delta rule is not applicable to updating weights in 
+w
+(1, 0)
+ (from input and hidden layer) because we  don’t know the desired values for hidden nodes
+Solution
+: Propagating errors at output nodes down to hidden nodes, these computed errors on hidden nodes drives the update of weights in 
+w
+(1, 0)
+ (again by delta rule), thus called error 
+Back Propagation (BP) 
+learning
+How to compute errors on hidden nodes is the key
+Error backpropagation can be continued downward if the net has more than one hidden layer
+Proposed first by Werbos (1974), current formulation by Rumelhart, Hinton, and Williams (1986)
+--- slide36.xml ---
+BP Learning
+Generalized delta rule
+: 
+Consider sequential learning mode: for a given sample (
+x
+p
+, d
+p
+)
+Update weights by gradient descent
+	For weight in 
+w
+(2, 1)
+: 
+	For weight in 
+w
+(1, 0)
+:
+
+Derivation of update rule for 
+w
+(2, 1)
+: 
+	since 
+E
+ is a function of 
+l
+k
+ = d
+k
+ – o
+k
+, 
+o
+k
+ is a function of          , and 
+
+is a function of         ,  by chain rule 
+--- slide37.xml ---
+BP Learning
+Derivation of update rule for   
+	consider 
+hidden node 
+j
+: 
+	weight         influences  
+	it sends                to all output nodes
+ 
+all 
+K
+ terms in 
+E
+ are functions of 
+i
+j
+o
+k
+by chain rule
+--- slide38.xml ---
+Backpropagation Learning
+Update rules:
+	for outer layer weights 
+w
+(2, 1) 
+:
+                                                  where
+
+    for inner layer weights 
+w
+(1, 0) 
+:
+                                                 	where
+Weighted sum of errors from output layer
+--- slide39.xml ---
+Note: if S is a logistic function, then 
+S’
+(
+x
+)
+ = S
+(
+x
+)(1
+ – S
+(
+x
+))
+--- slide40.xml ---
+Search landscape
+--- slide41.xml ---
+BP Learning
+Pattern classification
+: 
+Two classes: 1 output node
+N classes: binary encoding (log N) output nodes
+	better using N output nodes, a class is represented as 
+		     (0,..., 0,1, 0,.., 0) 
+With sigmoid function, nodes at output layer will never be 1 or 0, but either 1 – 
+ε
+ or 
+ε
+. 
+Error reduction becomes slower when moving into saturation regions (when 
+ε
+ is small).
+For fast learning, for a given error bound 
+e
+, 
+	set error 
+l
+p,k
+ = 0 if |
+d
+p,k
+ – o
+p,k
+| ≤ 
+e
+When classifying a input 
+x
+ using a trained BP net, classify it to the 
+k
+th
+ class if  
+o
+k
+. > 
+o
+l
+ for all 
+l 
+!=
+ k
+--- slide42.xml ---
+BP Learning
+Pattern classification
+: an example
+Classification of myoelectric signals 
+Input pattern: 
+2
+ features
+,
+ normalized to real values between 
+-1
+ and 1
+Output patter
+n
+s: 
+3
+ classes
+Network structure: 2-5-3
+2
+ input nodes, 
+3
+ output nodes, 
+1 hidden layer of 5 nodes 
+η
+ = 0.95, 
+α
+ = 0.4 (momentum)
+Error bound 
+e
+ = 0.05
+332 training samples
+ (simplified from data set in Appendix B2)
+Maximum iteration = 20,000 
+When stopped, 38 patterns remain misclassified
+--- slide43.xml ---
+38 patterns misclassified
+--- slide44.xml ---
+
+--- slide45.xml ---
+BP Learning
+Function approximation:
+For the given 
+w
+ = (
+w
+(1, 0)
+, 
+w
+(2,1)
+), 
+o
+ = 
+f
+(
+x
+): it realizes a functional mapping from input vector 
+x
+ to 
+f 
+(
+x
+).
+Theoretically, feedforward nets with at least one hidden layer of non-linear nodes are able to approximate any L2 functions (all square-integral functions, including almost all commonly used math functions) to any given degree of accuracy, provided there are sufficient many hidden nodes
+Any L2 function 
+f
+ (
+x
+) can be approximated by a Fourier series
+
+	                                                            where 
+k
+ is a 
+N
+ dim vector
+	The MSE converges to 0 when N 
+→ 
+
+
+	It has been shown the Fourier series approximation can be realized with Feedforward net with one hidden layer of cosine node function
+Reading for grad students (Sec. 3.5) for more discussions
+--- slide46.xml ---
+Great representation power
+Any L2 function can be represented by a BP net
+Many such functions can be approximated by BP learning (gradient descent approach)
+Easy to apply
+Only requires that a good set of training samples is available
+
+Does not require substantial prior knowledge or deep understanding of the domain itself (ill structured problems)
+Tolerates noise and missing data in training samples (graceful degrading)
+Easy to implement
+ the core of the learning algorithm
+Good generalization power
+
+Often produce accurate results for inputs outside the training set
+Strengths of BP Learning
+--- slide47.xml ---
+Learning often takes a 
+long time
+ to converge
+Complex functions often need hundreds or thousands of 
+epochs
+The network is essentially a 
+black box
+
+It may provide a desired mapping between input and output vectors (
+x, o
+) but does not have the information of why a particular 
+x
+ is mapped to a particular 
+o. 
+It thus cannot provide an intuitive (e.g., causal) explanation for the computed result.
+This is because the hidden nodes and the learned weights do not have clear semantics. 
+What can be learned are operational parameters, not general, abstract knowledge of a domain
+Unlike many statistical methods, there is no theoretically well-founded way to 
+assess the quality
+ of BP learning
+What is the confidence level of 
+o
+ computed from input 
+x 
+using such net?
+What is the confidence level for a trained BP net, with the final 
+E
+ (which may or may not be close to zero)?
+Deficiencies of BP Learning
+--- slide48.xml ---
+Problem with gradient descent approach 
+only guarantees to reduce the total error to a 
+local minimum
+. (
+E
+ might not be reduced to zero)
+Cannot escape from the local minimum error state
+Not every function that is representable can be learned
+
+How bad: depends on the shape of the error surface. Too many valleys/wells will make it easy to be trapped in local minima
+Possible remedies:
+
+Try nets with different # of hidden layers and hidden nodes (they may lead to different error surfaces, some might be better than others)
+Try different initial weights (different starting points on the surface)
+Forced escape from local minima by random perturbation (e.g., 
+simulated annealing
+)
+--- slide49.xml ---
+Generalization
+ is not guaranteed even if the error is reduced to 0
+Over-fitting
+/over-training problem: trained net fits the training samples perfectly (
+E
+ reduced to 0) but it does not give accurate outputs for inputs not in the training set
+Possible remedies:
+More and better samples
+Using smaller net if possible
+Using larger error bound (forced early termination)
+Introducing noise into samples
+modify (
+x
+1
+,…, 
+x
+n
+) to (
+x
+1
++
+α
+1
+,
+…, 
+x
+n
++
+α
+n
+) where 
+α
+i 
+are small random displacements
+Cross-Validation
+leave some (~10%) samples as test data (not used for weight update)
+periodically check error on test data
+learning stops when error on test data starts to increase
+--- slide50.xml ---
+Network paralysis
+ with sigmoid activation function
+Saturation regions:
+Input to an node may fall into a saturation region when some of its incoming weights become very large during learning. Consequently, weights stop to change no matter how hard you try.
+Possible remedies:
+Use non-saturating activation functions
+Periodically normalize all weights
+--- slide51.xml ---
+The learning (accuracy, speed, and generalization) is highly dependent of a set of learning 
+parameters
+
+Initial weights, learning rate, # of hidden layers and # of nodes.
+Most of them can only be determined 
+empirically
+ (via experiments)
+--- slide52.xml ---
+A good BP net requires more than the core of the learning algorithms. Many parameters must be carefully selected to ensure a good performance.
+Although the deficiencies of BP nets cannot be completely cured, some of them can be eased by some practical means. 
+Initial weights (and biases)
+Random, [-0.05, 0.05], [-0.1, 0.1], [-1, 1]
+Avoid bias in weight initialization
+Normalize weights for hidden layer (
+w
+(1, 0)
+) 
+(Nguyen-Widrow)
+Random assign initial weights for all hidden nodes 
+For each hidden node 
+j
+, normalize its weight by
+
+
+Practical Considerations
+--- slide53.xml ---
+Training samples
+:
+Quality and quantity of training samples often determines the quality of learning results
+Samples must collectively represent well the problem space
+Random sampling
+Proportional sampling (with prior knowledge of the problem space)
+# of training patterns needed
+: 
+There is no theoretically idea number. 
+Baum and Haussler (1989): 
+P = W/e
+, where
+
+W: total # of weights to be trained (depends on net structure)
+	  e: acceptable classification error rate
+	If the net can be trained to correctly classify (1 – e/2)P of the P training samples, then classification accuracy of this net is 1 – e for input patterns drawn from the same sample space
+
+Example: W = 27, e = 0.05, P = 540. If we can successfully train the network to correctly classify (1 – 0.05/2)*540 = 526 of the samples, the net will work correctly 95% of time with other input.
+--- slide54.xml ---
+How many hidden layers and hidden nodes per layer
+:
+Theoretically, one hidden layer (possibly with many hidden nodes) is sufficient to represent any L2 functions
+There is no theoretical  results on minimum necessary # of hidden nodes
+Practical rule of thumb: 
+n =  # of input nodes; m = # of hidden nodes
+For binary/bipolar data: 
+m = 2n
+For real data: m >> 2n
+Multiple hidden layers with fewer nodes may be trained faster for similar quality in some applications
+--- slide55.xml ---
+Data representation
+:
+Binary vs bipolar
+Bipolar representation uses training samples more efficiently
+	no learning will occur when 		      with binary rep.
+# of patterns can be represented with n input nodes:
+	   binary: 2^n
+	   bipolar: 2^(n-1) if no biases used, this is due to (anti) symmetry 
+	   (if output for input 
+x 
+is
+ o
+, output for input 
+–x
+ will be –
+o
+ )
+Real value data
+Input nodes: real value nodes (may subject to normalization)
+Hidden nodes 
+with 
+sigmoid
+ or other non-linear function
+Node function for output nodes: 
+often linear (even identity)
+	   e.g., 
+Training may be much slower than with binary/bipolar data (some use binary encoding of real values)
+
+--- slide56.xml ---
+Variations of BP nets
+Adding momentum term 
+(to speedup learning)
+Weights update at time t+1 contains the momentum of the previous updates, e.g., 
+
+	an exponentially weighted sum of all previous updates
+Avoid sudden change of directions of weight update (smoothing the learning process)
+Error is no longer monotonically decreasing
+--- slide57.xml ---
+Batch mode
+ of weight update
+Weight update once per each epoch (cumulated over all P samples)
+Smoothing the training sample outliers
+Learning independent of the order of sample presentations
+May be slower than in sequential mode
+--- slide58.xml ---
+Variations on learning rate 
+η
+
+Fixed rate much smaller than 1
+Start with large 
+η
+, gradually decrease its value
+Start with a small 
+η
+, steadily double it until MSE start to increase
+Give known underrepresented samples higher rates
+Find the maximum safe step size at each stage of learning (to avoid overshoot the minimum E when increasing 
+η
+) 
+Adaptive learning rate
+ (delta-bar-delta method)
+Each weight 
+w
+k,j
+ has its own rate 
+η
+k,j
+If           remains in the same direction, increase 
+η
+k,j 
+(
+E
+ has a smooth curve in the vicinity of current 
+w
+)
+If           changes the direction, decrease 
+η
+k,j
+ (
+E
+ has a rough curve in the vicinity of current 
+w
+)
+--- slide59.xml ---
+Experimental comparison
+Training for XOR problem (batch mode)
+25 simulations with random initial weights: success if 
+E
+ averaged over 50 consecutive epochs is less than 0.04
+results
+method
+simulations
+success
+Mean epochs
+BP
+25
+24
+16,859.8
+BP with momentum
+25
+25
+2,056.3
+BP with delta-bar-delta
+25
+22
+447.3
+--- slide60.xml ---
+Quickprop
+If 
+E
+ is of paraboloid shape
+	if 
+∂
+E/ 
+∂
+w
+ changes sign from 
+t-
+1 to 
+t
+, then its (local) minimum is likely to lie between
+    and can be determined analytically as	
+--- slide61.xml ---
+Other node functions
+Change the range of the logistic function from (0,1) to (a, b)
+Change the slope of the logistic function
+Larger slope: 
+	quicker to move to saturation regions; faster convergence
+Smaller slope: slow to move to saturation regions, allows refined weight adjustment
+
+s
+ thus has a effect similar to the learning rate 
+η
+ (
+but more drastic)
+Adaptive slope (
+each node has a learned slope
+)
+--- slide62.xml ---
+Another sigmoid function with slower saturation speed
+	the derivative of logistic function
+A non-saturating function (also differentiable)
+--- slide63.xml ---
+A simple example: Learning XOR 
+Initial weights and other parameters
+weights
+: random numbers in [-0.5, 0.5]
+hidden
+ nodes: single layer of 4 nodes (A 2-4-1 net)
+biases
+ used;
+learning rate
+: 0.02
+ Variations tested
+binary vs. bipolar representation
+different stop criteria
+normalizing initial weights (Nguyen-Widrow)  
+Bipolar is faster than binary
+convergence: ~3000 epochs for binary, ~400 for bipolar
+Why?
+Applications of BP Nets
+--- slide64.xml ---
+Binary nodes
+Bipolar nodes
+--- slide65.xml ---
+Relaxing acceptable error range 
+may
+ speed up convergence
+
+is an asymptotic limits of sigmoid function, 
+When an output approaches          , it falls in a saturation region
+Use 
+Normalizing initial weights 
+may 
+also help
+Random
+Nguyen-Widrow
+Binary
+2,891
+1,935
+Bipolar
+387
+224
+Bipolar with
+264
+127
+--- slide66.xml ---
+Data compression 
+Autoassociation
+ of patterns (vectors) with themselves using a small number of hidden nodes:
+training samples:
+: 
+x
+:
+x 
+(
+x 
+has dimension 
+n
+)
+	hidden nodes
+: 
+m < n
+ (A 
+n-m-n 
+net)
+If training is successful, applying any vector 
+x 
+on input nodes will generate the same 
+x 
+on
+
+output nodes
+Pattern
+
+z 
+on hidden layer becomes a compressed representation of 
+x 
+(with smaller dimension 
+m < n
+)
+Application: reducing transmission cost
+n
+n
+m
+V
+W
+Communication 
+channel
+m
+n
+V
+n
+W
+m
+x
+x
+z
+z
+receiver
+sender
+--- slide67.xml ---
+Example: 
+compressing character bitmaps.
+Each character is represented by a
+
+7 by 9 pixel bitmap, or a binary vector of dimension 63
+10 characters (A – J) are used in experiment
+Error range: 
+
+tight:  0.1 (off: 0 – 0.1; on: 0.9 – 1.0)
+	loose: 0.2 (off: 0 – 0.2; on: 0.8 – 1.0)
+Relationship between # hidden nodes, error range, and convergence rate
+relaxing error range may speed up
+increasing # hidden nodes (to a point) may speed up 
+
+error range: 0.1 hidden nodes: 10  # epochs: 400+
+	error range: 0.2 hidden nodes: 10  # epochs: 200+
+	error range: 0.1 hidden nodes: 20  # epochs: 180+
+	error range: 0.2 hidden nodes: 20  # epochs: 90+
+	no noticeable speed up when # hidden nodes increases to beyond 22
+--- slide68.xml ---
+Other applications
+.
+Medical diagnosis
+Input: manifestation (symptoms, lab tests, etc.)
+	Output: possible disease(s)
+Problems: 
+no causal relations can be established
+hard to determine what should be included as inputs 
+
+Currently focus on more restricted diagnostic tasks
+e.g., predict prostate cancer or hepatitis B based on standard blood test
+Process control
+Input: environmental parameters
+	Output: control parameters
+Learn ill-structured control functions
+--- slide69.xml ---
+Stock market forecasting
+Input: financial factors (CPI, interest rate, etc.) and stock quotes of previous days (weeks)
+	Output: forecast of stock prices or stock indices (e.g., S&P 500)
+Training samples: stock market data of past few years
+Consumer credit evaluation
+Input: personal financial information (income, debt, payment history, etc.)
+Output: credit rating  
+And many more
+Key for successful application
+Careful design of input vector (including all 
+important
+ features): some domain knowledge 
+Obtain good training samples: time and other cost
+--- slide70.xml ---
+Architecture
+Multi-layer, feed-forward (full connection between nodes in adjacent layers, no connection within a layer)
+One or more hidden layers with non-linear activation function (most commonly used are sigmoid functions)
+
+BP learning algorithm
+Supervised learning (samples (
+x
+p
+, d
+p
+))
+Approach: 
+gradient descent
+ to reduce the total error 
+
+	(why it is also called generalized delta rule)
+Error terms at output nodes
+
+error terms at hidden nodes
+ (why it is called error BP)
+Ways to speed up the learning process
+Adding momentum terms
+Adaptive learning rate (delta-bar-delta)
+Quickprop
+Generalization (cross-validation test)
+Summary of BP Nets
+--- slide71.xml ---
+Strengths of BP learning
+Great representation power
+Wide practical applicability
+Easy to implement
+Good generalization power
+Problems of BP learning
+Learning often takes a long time to converge
+The net is essentially a black box 
+Gradient descent approach only guarantees a local minimum error
+Not every function that is representable can be learned
+Generalization is not guaranteed even if the error is reduced to zero
+No well-founded way to assess the quality of BP learning
+Network paralysis may occur (learning is stopped)
+Selection of learning parameters can only be done by trial-and-error
+BP learning is non-incremental (to include new training samples, the network must be re-trained with all old and new samples)
+--- slide72.xml ---
+Acknowledgements
+http://www.cmpe.boun.edu.tr/~ethem/i2ml3e
+https://users.cs.fiu.edu/~taoli/class/CAP4770-F10/class08.ppt

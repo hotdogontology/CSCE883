@@ -1,0 +1,633 @@
+﻿--- slide1.xml ---
+CSCE
+883
+
+Machine Learning
+Jianjun Hu
+Department of Computer Science & Engineering
+University of South Carolina
+--- slide2.xml ---
+About Hu
+Machine Learning and Evolution Laboratory
+http://mleg.cse.sc.edu
+Machine learning, evolutionary computation, data mining, 
+Bioinformatics,material
+ informatics, health informatics
+--- slide3.xml ---
+Objectives of CSCE883
+Exciting!
+Useful!
+Fun!
+Something to show
+--- slide4.xml ---
+Syllabus
+https://sites.google.com/view/csce883
+
+Office: 2240 innovation center
+Office Hours:  
+TTH 2:30PM-3:30PM or by Appointment  (via zoom online)
+4 homework, 1 mid-term exam, 1 final project
+Textbook-must have
+Introduction to Machine Learning by 
+Ethem
+
+Alpaydin
+(you can find cheap books at 
+http://www.addall.com
+) 
+https://github.com/janishar/mit-deep-learning-book-pdf
+Grading: A/B
+/C/D/F
+--- slide5.xml ---
+The deep learning revolution
+--- slide6.xml ---
+The AI revolution:  The Big Picture
+ChatGPT/Claude/AGI
+Self-driving Car
+Siri, Amazon Echo 
+Google Translation
+AlphaGo
+Robots
+…
+--- slide7.xml ---
+What is Deep Learning?
+12 October 2017
+Deep Learning
+ is a subfield of machine 
+learning
+ concerned with algorithms inspired by the structure and function of the brain called artificial neural networks
+--- slide8.xml ---
+How it works: 
+CNN+Backpropagation
+ Algorithm
+12 October 2017
+Representation Learning  vs  Feature Engineering
+--- slide9.xml ---
+Breakthroughs by Deep Learning
+Deep learning architectures such as 
+deep neural networks
+, 
+deep belief networks
+ and 
+recurrent neural networks
+ have been applied to fields including 
+computer vision
+, 
+speech recognition
+, 
+natural language processing
+, audio recognition, social network filtering, 
+machine translation
+, 
+bioinformatics
+ and 
+drug design
+[5]
+, where they have produced results comparable to and in some cases superior
+[6]
+ to human experts
+12 October 2017
+--- slide10.xml ---
+AI in China startups
+--- slide11.xml ---
+AI companies
+第四范式
+成规模的深度学习云平台
+思必驰
+实时、基于云的自动语音识别，用于车载、智能家居和机器人 
+UI
+寒武纪科技
+AI 
+设备及神经网络处理器
+格灵深瞳
+3D 
+计算机视觉和深度学习，用于人和车辆监测、追踪及识别
+深鉴科技
+压缩 
+CNN 
+网络和处理器
+竹间智能
+基于多模态的人机自然交互界面
+旷视科技
+人脸识别
+地平线机器人
+智能家居，自动驾驶和公共安全
+碳云智能
+基于机器的个性化健康分析和健康指数预测
+云天励飞
+基于云的深度学习，用于公共安全和工业监测
+Minieye
+ADAS 
+摄像头和软件
+出门问问
+智能手表，使用云进行语音搜索
+Momenta
+L5 
+无人驾驶 
+AI 
+平台
+摩图科技
+商业化计算机视觉和深度学习技术，用于低成本、低功耗平台
+Rokid
+家庭智能助理
+– 
+自动语音识别技术 
++ 
+face/gesture
+中科视拓
+赋能企业计算机视觉和机器学习的开源开发平台
+商汤科技
+计算机视觉
+图普科技
+图像识别技术和服务
+图森科技
+自动驾驶软件：检测和追踪，
+SLAM
+，图像分割、面部分析
+云知声
+基于 
+AI 
+的语音和文本识别
+依图科技
+用于安防、交通和医疗影像的计算机视觉
+零零无限
+智能无人机摄像头
+--- slide12.xml ---
+US startups
+--- slide13.xml ---
+Keywords in AI/Computer Vision
+Deep learning
+DNN
+CNN
+GAN
+RNN
+ImageNet
+Cifar
+Tensorflow
+Caffe
+Torch
+Theano
+MxNet
+USC CSE 768, Spring 2013
+Lecunn
+Hinton
+Feifei
+ Li
+Jian Sun
+Bengio
+Goodfellow
+OpenAI
+WaveNet
+AGI
+GRPO
+The Deep Learning Revolution
+--- slide14.xml ---
+What is Learning?
+“Learning denotes changes in a system that ... enable a system to do the same task … more efficiently the next time.”  - 
+Herbert Simon
+
+“Learning is constructing or modifying representations of what is being experienced.” - 
+Ryszard
+ Michalski
+
+“Learning is making useful changes in our minds.” - 
+Marvin Minsky
+
+	“Machine learning refers to a system capable of the autonomous acquisition and integration of knowledge.”
+--- slide15.xml ---
+How human/animal learns?
+Ride a bike
+Play chess
+Play piano
+Play Poke
+Recognize fruits
+reading
+speaking
+--- slide16.xml ---
+So What Is Machine Learning?
+Automating automation
+Getting computers to program themselves
+Writing software is the bottleneck
+Let the data do the work instead!
+--- slide17.xml ---
+Why Machine Learning?
+No human experts
+industrial/manufacturing control
+mass spectrometer analysis, drug design, astronomic discovery
+Black-box human expertise
+face/handwriting/speech recognition
+driving a car, flying a plane
+Rapidly changing phenomena
+credit scoring, financial modeling
+diagnosis, fraud detection
+Need for customization/personalization
+personalized news reader
+movie/book recommendation
+--- slide18.xml ---
+Related Fields
+Machine learning
+ is primarily concerned with the accuracy and effectiveness of the 
+computer system
+.
+psychological models
+data
+mining
+cognitive science
+decision theory
+information theory
+databases
+machine
+learning
+neuroscience
+statistics
+evolutionary
+models
+control theory
+--- slide19.xml ---
+Types of Learning
+Supervised (inductive) learning
+Training data includes desired outputs
+Unsupervised learning
+Training data does not include desired outputs
+Semi-supervised learning
+Training data includes a few desired outputs
+Reinforcement learning
+Rewards from sequence of actions
+--- slide20.xml ---
+Inductive Learning
+Given
+ examples of a function 
+(X, F(X))
+Predict
+ function
+ F(X) 
+for new examples
+ X
+Discrete 
+F(X)
+: Classification
+Continuous 
+F(X)
+: Regression
+F(X)
+ = Probability(
+X
+): Probability estimation
+--- slide21.xml ---
+Reinforcement Learning
+--- slide22.xml ---
+Classification: Applications
+22
+Aka Pattern recognition
+Face recognition: 
+Pose, lighting, occlusion (glasses, beard), make-up, hair style 
+Character recognition: 
+Different handwriting styles.
+Speech recognition: 
+Temporal dependency. 
+Medical diagnosis: 
+From symptoms to illnesses
+Biometrics: 
+Recognition/authentication using physical and/or behavioral characteristics: Face, iris, signature, etc
+Outlier/novelty detection:
+--- slide23.xml ---
+Face Recognition
+23
+Training examples of a person
+Test images
+ORL dataset,
+AT&T Laboratories, Cambridge UK
+--- slide24.xml ---
+Regression
+Example: Price of a used car
+x 
+: car attributes
+
+y 
+: price
+
+y 
+= 
+g 
+(
+x 
+| 
+q 
+)
+
+g 
+( ) model,
+
+ q 
+parameters
+24
+y 
+= 
+wx
++
+w
+0
+--- slide25.xml ---
+  Traditional Programming
+  Machine Learning
+Computer
+Data
+Program
+Output
+Computer
+Data
+Output
+Program
+--- slide26.xml ---
+Magic?
+
+No, more like gardening
+Seeds
+ = Algorithms
+Nutrients
+ = Data
+Gardener
+ = You
+Plants
+ = Programs
+--- slide27.xml ---
+Sample Applications
+Self-driving cars
+Voice recognition, machine translation
+Robotics
+Web search 
+Computational biology
+Finance
+E-commerce
+Space exploration
+Information extraction
+Social networks
+Debugging
+[Your favorite area]
+--- slide28.xml ---
+ML in a Nutshell
+Tens of thousands of machine learning algorithms
+Hundreds new every year
+Every machine learning algorithm has three components:
+Representation
+Evaluation
+Optimization
+--- slide29.xml ---
+Representation
+Decision trees
+Sets of rules / Logic programs
+Instances
+Graphical models (Bayes/Markov nets)
+Neural networks
+Support vector machines
+Model ensembles
+Etc.
+--- slide30.xml ---
+Evaluation
+Accuracy
+Precision and recall
+Squared error
+Likelihood
+Posterior probability
+Cost / Utility
+Margin
+Entropy
+K-L divergence
+Etc.
+--- slide31.xml ---
+Optimization
+Combinatorial optimization
+E.g.: Greedy search
+Convex optimization
+E.g.: Gradient descent
+Constrained optimization
+E.g.: Linear programming
+--- slide32.xml ---
+What We’ll Cover
+Supervised learning
+Decision tree induction
+Rule induction
+Instance-based learning
+Bayesian learning
+Neural networks (deep learning)
+Support vector machines
+Model ensembles
+Learning theory
+Unsupervised learning
+Clustering
+Dimensionality reduction
+Deep learning
+Reinforcement learning
+LLM learning and reasoning
+--- slide33.xml ---
+ML in Practice
+Understanding domain, prior knowledge, and goals
+Data integration, selection, cleaning,
+pre-processing, etc.
+Learning models
+Interpreting results
+Consolidating and deploying discovered knowledge
+Loop
+--- slide34.xml ---
+The machine learning framework
+Apply a prediction function to a feature representation of the image to get the desired output:
+
+f(    ) = “apple”
+			f(    ) = “tomato”
+			f(    ) = “cow”
+Slide credit: L. 
+Lazebnik
+--- slide35.xml ---
+The machine learning framework
+y = f(
+x
+)
+Training: 
+given a 
+training set 
+of labeled examples
+
+{(
+x
+1
+,y
+1
+), …, (
+x
+N
+,y
+N
+)}
+, estimate the prediction function 
+f 
+by minimizing the prediction error on the training set
+Testing:
+ apply 
+f
+ to a never before seen 
+test example
+
+x
+ and output the predicted value 
+y = f(
+x
+)
+output
+prediction function
+Image feature
+Slide credit: L. 
+Lazebnik
+--- slide36.xml ---
+Prediction
+Steps
+Training Labels
+Training Images
+Training
+Training
+Image Features
+Image Features
+Testing
+Test Image
+Learned model
+Learned model
+Slide credit: D. 
+Hoiem
+ and L. 
+Lazebnik
+--- slide37.xml ---
+Features
+Raw pixels
+Histograms
+GIST descriptors
+…
+Slide credit: L. 
+Lazebnik
+--- slide38.xml ---
+Classifiers: Nearest neighbor
+f(
+x
+) = label of the training example nearest to 
+x
+All we need is a distance function for our inputs
+No training required!
+Test example
+Training examples from class 1
+Training examples from class 2
+Slide credit: L. 
+Lazebnik
+--- slide39.xml ---
+Classifiers: Linear
+Find a 
+linear function 
+to separate the classes:
+	f(
+x
+) = sgn(
+w 
+ 
+x 
++ b)
+Slide credit: L. 
+Lazebnik
+--- slide40.xml ---
+Many classifiers to choose from
+SVM
+Neural networks
+Naïve Bayes
+Bayesian network
+Logistic regression
+Randomized Forests
+Boosted Decision Trees
+K-nearest neighbor
+RBMs
+Etc.
+Which is the best one?
+Slide credit: D. 
+Hoiem
+--- slide41.xml ---
+Images in the training set must be annotated with the “correct answer” that the model is expected to produce
+Contains a motorbike
+Recognition task and supervision
+--- slide42.xml ---
+Unsupervised
+“Weakly” supervised
+Fully supervised
+Definition depends on task
+Slide credit: L. 
+Lazebnik
+--- slide43.xml ---
+Generalization
+How well does a learned model generalize from the data it was trained on to a new test set?
+Training set (labels known)
+Test set (labels unknown)
+Slide credit: L. 
+Lazebnik
+--- slide44.xml ---
+Generalization
+Components of generalization error 
+Bias:
+ how much the average model over all training sets differ from the true model?
+Error due to inaccurate assumptions/simplifications made by the model
+Variance:
+ how much models estimated from different training sets differ from each other
+Underfitting:
+ model is too “simple” to represent all the relevant class characteristics
+High bias and low variance
+High training error and high test error
+Overfitting:
+ model is too “complex” and fits irrelevant characteristics (noise) in the data
+Low bias and high variance
+Low training error and high test error
+Slide credit: L. 
+Lazebnik
+--- slide45.xml ---
+Current Machine Learning Research
+Representation
+data sequences
+spatial/temporal data
+probabilistic relational models
+…
+Approaches
+ensemble methods
+cost-sensitive learning
+active learning
+semi-supervised learning
+collective classification
+…
+--- slide46.xml ---
+Take home homework
+Find 5 startup companies that use machine learning, and tell us why it is interesting
+Techcrunch.com
+Crunchbase.com
+--- slide47.xml ---
+Resources: Datasets
+47
+UCI Repository: 
+http://www.ics.uci.edu/~mlearn/MLRepository.html
+Statlib: 
+http://lib.stat.cmu.edu/
+--- slide48.xml ---
+Resources: Journals
+48
+Journal of Machine Learning Research 
+www.jmlr.org
+Machine Learning 
+Neural Computation
+Neural Networks
+IEEE Trans on Neural Networks and Learning Systems
+IEEE Trans on Pattern Analysis and Machine Intelligence
+Journals on Statistics/Data Mining/Signal Processing/Natural Language Processing/Bioinformatics/...
+--- slide49.xml ---
+Resources: Conferences
+49
+International Conference on Learning Representations (ICLR)
+CVPR/ICCV
+International Conference on Machine Learning (ICML) 
+European Conference on Machine Learning (ECML)
+Neural Information Processing Systems (NIPS)
+Uncertainty in Artificial Intelligence (UAI)
+Computational Learning Theory (COLT)
+International Conference on Artificial Neural Networks (ICANN) 
+International Conference on AI & Statistics (AISTATS)
+International Conference on Pattern Recognition (ICPR)
+...

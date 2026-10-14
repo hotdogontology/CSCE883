@@ -1,0 +1,821 @@
+Generative Adversarial
+  Networks (GANs)
+     From Ian Goodfellow et al.
+
+         A short tutorial by :-
+     Binglin, Shashank & Bhargav
+                  Outline
+• Part 1: Introduction to GANs
+
+• Part 2: Some challenges with GANs
+
+• Part 3: Applications of GANs
+                         Part 1
+•   Motivation for Generative Models
+•   From Adversarial Training to GANs
+•   GAN’s Architecture
+•   GAN’s objective
+•   DCGANs
+                                     GANs
+• Generative
+   • Learn a generative model
+
+
+• Adversarial
+   • Trained in an adversarial setting
+
+
+• Networks
+   • Use Deep Neural Networks
+                  Why Generative Models?
+• We’ve only seen discriminative models so far
+   • Given an image X, predict a label Y
+   • Estimates P(Y|X)
+
+
+• Discriminative models have several key limitations
+   • Can’t model P(X), i.e. the probability of seeing a certain image
+   • Thus, can’t sample from P(X), i.e. can’t generate new images
+
+
+• Generative models (in general) cope with all of above
+   • Can model P(X)
+   • Can generate new images
+                                              Magic of GANs…
+
+
+
+
+Lotter, William, Gabriel Kreiman, and David Cox. "Unsupervised learning of visual structure using predictive generative networks." arXiv preprint arXiv:1511.06380 (2015).
+                          Magic of GANs…
+               Which one is Computer generated?
+
+
+
+
+Ledig, Christian, et al. "Photo-realistic single image super-resolution using a generative adversarial network." arXiv preprint arXiv:1609.04802 (2016).
+Magic of GANs…
+
+
+
+
+             http://people.eecs.berkeley.edu/~junyanz/projects/gvm/
+                           Adversarial Training
+• In the last lecture, we saw:
+   • We can generate adversarial samples to fool a discriminative model
+   • We can use those adversarial samples to make models robust
+   • We then require more effort to generate adversarial samples
+   • Repeat this and we get better discriminative model
+
+• GANs extend that idea to generative models:
+   • Generator: generate fake samples, tries to fool the Discriminator
+   • Discriminator: tries to distinguish between real and fake samples
+   • Train them against each other
+   • Repeat this and we get better Generator and Discriminator
+                            GAN’s Architecture
+                                                x
+
+
+                                                                                  D                         D(x)
+
+
+                        G
+            z
+                                              G(z)
+                                                                                                            D(G(z))
+
+
+
+
+• Z is some random noise (Gaussian/Uniform).
+• Z can be thought as the latent representation of the image.
+                        https://www.slideshare.net/xavigiro/deep-learning-for-computer-vision-generative-models-and-adversarial-training-upc-2016
+Training Discriminator
+
+
+
+
+ https://www.slideshare.net/xavigiro/deep-learning-for-computer-vision-generative-models-and-adversarial-training-upc-2016
+Training Generator
+
+
+
+
+https://www.slideshare.net/xavigiro/deep-learning-for-computer-vision-generative-models-and-adversarial-training-upc-2016
+Generator in action
+
+
+
+
+                      https://openai.com/blog/generative-models/
+                            GAN’s formulation
+                                  min max 𝑉 𝐷, 𝐺
+                                    $    '
+
+
+• It is formulated as a minimax game, where:
+   • The Discriminator is trying to maximize its reward 𝑽 𝑫, 𝑮
+   • The Generator is trying to minimize Discriminator’s reward (or maximize its loss)
+
+        𝑉 𝐷, 𝐺 = 𝔼1∼3(1) log 𝐷 𝑥             + 𝔼;∼<(;) log 1 − 𝐷 𝐺(𝑧)
+
+• The Nash equilibrium of this particular game is achieved at:
+   • 𝑃ABCB 𝑥 = 𝑃DEF 𝑥 ∀𝑥
+            I
+   • D 𝑥 = J ∀𝑥
+Discriminator
+   updates
+
+
+
+
+ Generator
+  updates
+            Vanishing gradient strikes back again…
+                           min max 𝑉 𝐷, 𝐺
+                            $   '
+        𝑉 𝐷, 𝐺 = 𝔼1∼3(1) log 𝐷 𝑥 + 𝔼;∼<(;) log 1 − 𝐷 𝐺(𝑧)
+
+               𝛻LM 𝑉(𝐷, 𝐺) = 𝛻LM 𝔼;~<(;) log 1 − 𝐷 𝐺 𝑧
+
+                         QRS T(B)  QT B IQT B
+   • 𝛻B log 1 − 𝜎 𝑎    = IQ T(B) =                  = −𝜎 𝑎 = −𝐷 𝐺 𝑧
+                                      IQ T(B)
+
+
+   • Gradient goes to 0 if 𝐷 is confident, i.e. 𝐷 𝐺 𝑧   →0
+
+• Minimize −𝔼;~< ; log 𝐷 𝐺 𝑧         for Generator instead (keep Discriminator as it is)
+                 Faces
+
+
+
+
+Goodfellow, Ian, et al. "Generative adversarial nets." Advances in neural information processing systems. 2014.
+                 CIFAR
+
+
+
+
+Goodfellow, Ian, et al. "Generative adversarial nets." Advances in neural information processing systems. 2014.
+                                   DCGAN: Bedroom images
+
+
+
+
+Radford, Alec, Luke Metz, and Soumith Chintala. "Unsupervised representation learning with deep convolutional generative adversarial networks." arXiv:1511.06434 (2015).
+                       Deep Convolutional GANs (DCGANs)
+                                                                                                         Key ideas:
+                                                                                                         • Replace FC hidden layers with
+Generator Architecture                                                                                     Convolutions
+                                                                                                                • Generator: Fractional-Strided
+                                                                                                                  convolutions
+
+
+                                                                                                         • Use Batch Normalization after
+                                                                                                           each layer
+
+
+                                                                                                         • Inside Generator
+                                                                                                                • Use ReLU for hidden layers
+                                                                                                                • Use Tanh for the output layer
+
+
+
+
+  Radford, Alec, Luke Metz, and Soumith Chintala. "Unsupervised representation learning with deep convolutional generative adversarial networks." arXiv:1511.06434 (2015).
+    Latent vectors capture interesting patterns…
+
+
+
+
+Radford, Alec, Luke Metz, and Soumith Chintala. "Unsupervised representation learning with deep convolutional generative adversarial networks." arXiv:1511.06434 (2015).
+                          Part 2
+• Advantages of GANs
+• Training Challenges
+  • Non-Convergence
+  • Mode-Collapse
+• Proposed Solutions
+  • Supervision with Labels
+  • Mini-Batch GANs
+• Modification of GAN’s losses
+  • Discriminator (EB-GAN)
+  • Generator (InfoGAN)
+                       Advantages of GANs
+• Plenty of existing work on Deep Generative Models
+  • Boltzmann Machine
+  • Deep Belief Nets
+  • Variational AutoEncoders (VAE)
+
+
+• Why GANs?
+  • Sampling (or generation) is straightforward.
+  • Training doesn't involve Maximum Likelihood estimation.
+  • Robust to Overfitting since Generator never sees the training data.
+  • Empirically, GANs are good at capturing the modes of the distribution.
+
+
+
+                         Goodfellow, Ian. "NIPS 2016 Tutorial: Generative Adversarial Networks." arXiv preprint arXiv:1701.00160 (2016).
+                     Problems with GANs
+• Probability Distribution is Implicit
+  • Not straightforward to compute P(X).
+  • Thus Vanilla GANs are only good for Sampling/Generation.
+
+• Training is Hard
+  • Non-Convergence
+  • Mode-Collapse
+
+
+
+
+                      Goodfellow, Ian. "NIPS 2016 Tutorial: Generative Adversarial Networks." arXiv preprint arXiv:1701.00160 (2016).
+               Training Problems
+• Non-Convergence
+• Mode-Collapse
+• Deep Learning models (in general) involve a single player
+   • The player tries to maximize its reward (minimize its loss).
+   • Use SGD (with Backpropagation) to find the optimal parameters.
+   • SGD has convergence guarantees (under certain conditions).
+   • Problem: With non-convexity, we might converge to local optima.
+                                               min 𝐿 𝐺
+                                                 $
+
+
+• GANs instead involve two (or more) players
+   • Discriminator is trying to maximize its reward.
+   • Generator is trying to minimize Discriminator’s reward.
+                                        min max 𝑉 𝐷, 𝐺
+                                           $         '
+
+   • SGD was not designed to find the Nash equilibrium of a game.
+   • Problem: We might not converge to the Nash equilibrium at all.
+
+                            Salimans, Tim, et al. "Improved techniques for training gans." Advances in Neural Information Processing Systems. 2016.
+                          Non-Convergence
+                                  min max 𝑉 𝑥, 𝑦
+                                   1    X
+                             Let 𝑉 𝑥, 𝑦 = 𝑥𝑦
+
+• State 1:    x>0   y>0    V> 0                    Increase y   Decrease x
+
+
+• State 2:    x<0   y>0    V< 0                    Decrease y   Decrease x
+
+
+• State 3:    x<0   y<0    V> 0                    Decrease y   Increase x
+
+
+• State 4 :   x>0   y<0    V< 0                    Increase y   Increase x
+
+
+• State 5:    x>0   y>0    V> 0    == State 1      Increase y   Decrease x
+                              Non-Convergence
+                  min max 𝑥𝑦
+                   1    X
+
+  Z                Z
+• Z1 = −y     …       =x
+                   ZX
+
+   Z]   Z
+• ZX] = Z1 = −𝑦
+
+• Differential equation’s solution has sinusoidal
+  terms
+
+• Even with a small learning rate, it will not
+  converge
+
+                                Goodfellow, Ian. "NIPS 2016 Tutorial: Generative Adversarial Networks." arXiv preprint arXiv:1701.00160 (2016).
+             Problems with GANs
+• Non-Convergence
+• Mode-Collapse
+                       Mode-Collapse
+• Generator fails to output diverse samples
+
+
+
+                         Target
+
+
+
+Expected
+
+
+Output
+
+                             Metz, Luke, et al. "Unrolled Generative Adversarial Networks." arXiv preprint arXiv:1611.02163 (2016).
+Some real examples
+
+
+
+
+   Reed, S., et al. Generating interpretable images with controllable structure. Technical report, 2016. 2, 2016.
+                       Some Solutions
+• Mini-Batch GANs
+• Supervision with labels
+
+• Some recent attempts :-
+   • Unrolled GANs
+   • W-GANs
+                 Basic (Heuristic) Solutions
+• Mini-Batch GANs
+• Supervision with labels
+              How to reward sample diversity?
+• At Mode Collapse,
+   • Generator produces good samples, but a very few of them.
+   • Thus, Discriminator can’t tag them as fake.
+
+• To address this problem,
+   • Let the Discriminator know about this edge-case.
+
+• More formally,
+   • Let the Discriminator look at the entire batch instead of single examples
+   • If there is lack of diversity, it will mark the examples as fake
+
+• Thus,
+   • Generator will be forced to produce diverse samples.
+                        Salimans, Tim, et al. "Improved techniques for training gans." Advances in Neural Information Processing Systems. 2016.
+                                 Mini-Batch GANs
+• Extract features that capture diversity in the mini-batch
+   • For e.g. L2 norm of the difference between all pairs from the batch
+
+• Feed those features to the discriminator along with the image
+
+• Feature values will differ b/w diverse and non-diverse batches
+   • Thus, Discriminator will rely on those features for classification
+
+
+• This in turn,
+   • Will force the Generator to match those feature values with the real data
+   • Will generate diverse batches
+
+                        Salimans, Tim, et al. "Improved techniques for training gans." Advances in Neural Information Processing Systems. 2016.
+                 Basic (Heuristic) Solutions
+• Mini-Batch GANs
+• Supervision with labels
+                   Supervision with Labels
+• Label information of the real data might help
+                                                                                                             Car
+
+                                                                                                              Dog
+
+
+           Real
+
+ D                                                                                    D                      Human
+           Fake
+                                                                                                             Fake
+
+
+
+
+• Empirically generates much better samples
+
+                     Salimans, Tim, et al. "Improved techniques for training gans." Advances in Neural Information Processing Systems. 2016.
+                                 Alternate view of GANs
+                              min max 𝑉 𝐷, 𝐺
+                               $   '
+           𝑉 𝐷, 𝐺 = 𝔼1∼3(1) log 𝐷 𝑥 + 𝔼;∼<(;) log 1 − 𝐷 𝐺(𝑧)
+
+                    𝐷 ∗ = 𝑎𝑟𝑔max 𝑉 𝐷, 𝐺                                  𝐺 ∗ = 𝑎𝑟𝑔m𝑖𝑛 𝑉 𝐷, 𝐺
+                                           '                                                   $
+
+
+• In this formulation, Discriminator’s strategy was 𝐷 𝑥 → 1, 𝐷 𝐺 𝑧                                                           →0
+
+• Alternatively, we can flip the binary classification labels i.e. Fake = 1, Real = 0
+
+       𝑉 𝐷, 𝐺 = 𝔼1∼3(1) log 1 − 𝐷 𝑥                                         + 𝔼;∼<(;) log 𝐷 𝐺(𝑧)
+
+• In this new formulation, Discriminator’s strategy will be 𝐷 𝑥 → 0, 𝐷 𝐺 𝑧                                                                 →1
+
+                Zhao, Junbo, Michael Mathieu, and Yann LeCun. "Energy-based generative adversarial network." arXiv preprint arXiv:1609.03126 (2016)
+                          Alternate view of GANs (Contd.)
+ • If all we want to encode is 𝐷 𝑥 → 0, 𝐷 𝐺 𝑧                                             →1
+
+                  𝐷 ∗ = 𝑎𝑟𝑔𝑚𝑎𝑥' 𝔼1∼3(1) log 1 − 𝐷 𝑥                                   + 𝔼;∼<(;) log 𝐷 𝐺(𝑧)
+
+We can use this   𝐷 ∗ = 𝑎𝑟𝑔𝑚𝑖𝑛' 𝔼1∼3 1 log 𝐷 𝑥                             + 𝔼;∼<(;) log 1 − 𝐷 𝐺 𝑧
+
+
+ • Now, we can replace cross-entropy with any loss function (Hinge Loss)
+
+                  𝐷 ∗ = 𝑎𝑟𝑔𝑚𝑖𝑛' 𝔼1∼3 1 𝐷 𝑥 + 𝔼;∼< ; max 0, 𝑚 − 𝐷 𝐺 𝑧
+ • And thus, instead of outputting probabilities, Discriminator just has to output :-
+      • High values for fake samples
+      • Low values for real samples
+
+
+                      Zhao, Junbo, Michael Mathieu, and Yann LeCun. "Energy-based generative adversarial network." arXiv preprint arXiv:1609.03126 (2016)
+                                       Energy-Based GANs
+• Modified game plans
+   • Generator will try to generate samples with
+     low values                                                                          𝐷 𝑥 = ||𝐷𝑒𝑐 𝐸𝑛𝑐 𝑥                                − 𝑥||ijk
+   • Discriminator will try to assign high scores to
+     fake values
+
+
+• Use AutoEncoder inside the Discriminator
+
+• Use Mean-Squared Reconstruction error as 𝑫 𝒙
+   • High Reconstruction Error for Fake samples
+   • Low Reconstruction Error for Real samples
+
+
+
+                     Zhao, Junbo, Michael Mathieu, and Yann LeCun. "Energy-based generative adversarial network." arXiv preprint arXiv:1609.03126 (2016)
+              More Bedrooms…
+
+
+
+
+Zhao, Junbo, Michael Mathieu, and Yann LeCun. "Energy-based generative adversarial network." arXiv preprint arXiv:1609.03126 (2016)
+Celebs…
+                                                    The Cool Stuff…
+                                                                   3D Faces
+
+
+
+
+Chen, X., Duan, Y., Houthooft, R., Schulman, J., Sutskever, I., & Abbeel, P. InfoGAN: Interpretable Representation Learning by Information Maximization Generative
+                                                                                                                                      Adversarial Nets, NIPS (2016).
+                                                  Cool Stuff (contd.)
+                                                               3D Chairs
+
+
+
+
+Chen, X., Duan, Y., Houthooft, R., Schulman, J., Sutskever, I., & Abbeel, P. InfoGAN: Interpretable Representation Learning by Information Maximization Generative
+                                                                                                                                      Adversarial Nets, NIPS (2016).
+                               How to reward Disentanglement?
+• Disentanglement means individual dimensions
+  independently capturing key attributes of the image
+
+• Let’s partition the noise vector into 2 parts :-
+   • z vector will capture slight variations in the image
+   • c vector will capture the main attributes of the image
+         • For e.g. Digit, Angle and Thickness of images in MNIST
+
+
+
+• If c vector captures the key variations in the image,
+ Will c and 𝒙𝒇𝒂𝒌𝒆 be highly correlated or weakly correlated?
+
+   Chen, X., Duan, Y., Houthooft, R., Schulman, J., Sutskever, I., & Abbeel, P. InfoGAN: Interpretable Representation Learning by Information Maximization Generative Adversarial Nets
+                  Recap: Mutual Information
+• Mutual Information captures the mutual dependence between two variables
+
+
+• Mutual information between two variables 𝑿, 𝒀 is defined as:
+
+                                          𝑝 𝑥, 𝑦
+                   𝐼 𝑋; 𝑌 = v 𝑝 𝑥, 𝑦 log
+                                         𝑝 𝑥 𝑝 𝑦
+                              1,X
+
+                𝐼 𝑋; 𝑌 = 𝐻 𝑋 − 𝐻 𝑋 𝑌 = H Y − H(Y|X)
+                                                                  InfoGAN
+• We want to maximize the mutual information 𝐼
+  between 𝒄 and 𝐱 = 𝑮(𝒛, 𝒄)
+
+• Incorporate in the value function of the minimax
+  game.
+
+
+ min max 𝑉• 𝐷, 𝐺 = 𝑉 𝐷, 𝐺 − 𝜆 𝐼 𝑐; 𝐺 𝑧, 𝑐
+   $          '
+
+
+
+
+  Chen, X., Duan, Y., Houthooft, R., Schulman, J., Sutskever, I., & Abbeel, P. InfoGAN: Interpretable Representation Learning by Information Maximization Generative
+                                                                                                                                        Adversarial Nets, NIPS (2016).
+                                                                     InfoGAN
+Mutual Information’s Variational Lower bound
+                                                                                                                              𝐷                                   𝑄
+𝐼 𝑐; 𝐺 𝑧, 𝑐 = 𝐻 𝑐 − 𝐻 𝑐 𝐺 𝑧, 𝑐
+= 𝔼1 ~ $ ;,• 𝔼• ‚ ~ ƒ 𝑐 𝑥 log 𝑃 𝑐 „ 𝑥                                     + 𝐻(𝑐)
+= 𝔼1 ~ $ ;,• 𝐷…† (𝑃| 𝑄 + 𝔼• ‚ ~ ƒ 𝑐 𝑥 log 𝑄 𝑐 „ 𝑥                                                        + 𝐻(𝑐)
+≥ 𝔼1 ~ $ ;,•           𝔼• ‚ ~ ƒ 𝑐 𝑥 log 𝑄 𝑐 „ 𝑥                            + 𝐻(𝑐)
+
+≥ 𝔼•~ƒ • , 1 ~ $ ;,• 𝐥𝐨𝐠 𝑸(𝒄|𝒙) + 𝐻(𝑐)
+
+
+
+
+     Chen, X., Duan, Y., Houthooft, R., Schulman, J., Sutskever, I., & Abbeel, P. InfoGAN: Interpretable Representation Learning by Information Maximization Generative
+                                                                                                                                           Adversarial Nets, NIPS (2016).
+                         Part 3
+• Conditional GANs
+• Applications
+  • Image-to-Image Translation
+  • Text-to-Image Synthesis
+  • Face Aging
+• Advanced GAN Extensions
+  • Coupled GAN
+  • LAPGAN – Laplacian Pyramid of Adversarial Networks
+  • Adversarially Learned Inference
+• Summary
+                               Conditional GANs
+MNIST digits generated conditioned on their class label.
+1, 0, 0, 0, 0, 0, 0, 0, 0, 0
+0, 1, 0, 0, 0, 0, 0, 0, 0, 0
+0, 0, 1, 0, 0, 0, 0, 0, 0, 0
+0, 0, 0, 1, 0, 0, 0, 0, 0, 0                       MNIST digits
+0, 0, 0, 0, 1, 0, 0, 0, 0, 0
+0, 0, 0, 0, 0, 1, 0, 0, 0, 0
+0, 0, 0, 0, 0, 0, 1, 0, 0, 0
+0, 0, 0, 0, 0, 0, 0, 1, 0, 0
+0, 0, 0, 0, 0, 0, 0, 0, 1, 0
+0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+                                                                                                                Figure 2 in the original paper.
+
+
+                               Mirza, Mehdi, and Simon Osindero. Conditional generative adversarial nets. arXiv preprint arXiv:1411.1784 (2014).
+                                              Conditional GANs
+• Simple modification to the original GAN
+  framework that conditions the model on
+  additional information for better multi-modal
+  learning.
+
+• Lends to many practical applications of GANs
+  when we have explicit supervision available.
+
+    Image Credit: Figure 2 in Odena, A., Olah, C. and Shlens, J., 2016. Conditional image synthesis with auxiliary classifier GANs. arXiv preprint arXiv:1610.09585.
+
+
+
+
+                                            Mirza, Mehdi, and Simon Osindero. “Conditional generative adversarial nets”. arXiv preprint arXiv:1411.1784 (2014).
+                         Part 3
+• Conditional GANs
+• Applications
+  • Image-to-Image Translation
+  • Text-to-Image Synthesis
+  • Face Aging
+• Advanced GAN Extensions
+  • Coupled GAN
+  • LAPGAN – Laplacian Pyramid of Adversarial Networks
+  • Adversarially Learned Inference
+• Summary
+                         Image-to-Image Translation
+
+
+
+
+                                                                                                                               Figure 1 in the original paper.
+Link to an interactive demo of this paper
+
+       Isola, P., Zhu, J. Y., Zhou, T., & Efros, A. A. “Image-to-image translation with conditional adversarial networks”. arXiv preprint arXiv:1611.07004. (2016).
+                        Image-to-Image Translation
+• Architecture: DCGAN-based
+  architecture
+
+• Training is conditioned on the images
+  from the source domain.
+
+• Conditional GANs provide an effective
+  way to handle many complex domains
+  without worrying about designing                                                                                            Figure 2 in the original paper.
+
+  structured loss functions explicitly.
+      Isola, P., Zhu, J. Y., Zhou, T., & Efros, A. A. “Image-to-image translation with conditional adversarial networks”. arXiv preprint arXiv:1611.07004. (2016).
+                Text-to-Image Synthesis
+Motivation
+
+Given a text description, generate
+images closely associated.
+
+Uses a conditional GAN with the
+generator and discriminator being
+condition on “dense” text
+embedding.
+                                                                                                               Figure 1 in the original paper.
+
+                Reed, S., Akata, Z., Yan, X., Logeswaran, L., Schiele, B., & Lee, H. “Generative adversarial text to image synthesis”. ICML (2016).
+                    Text-to-Image Synthesis
+
+
+
+
+                                                                                                               Figure 2 in the original paper.
+
+
+Positive Example:                                                       Negative Examples:
+Real Image, Right Text                                                  Real Image, Wrong Text
+                                                                        Fake Image, Right Text
+                    Reed, S., Akata, Z., Yan, X., Logeswaran, L., Schiele, B., & Lee, H. “Generative adversarial text to image synthesis”. ICML (2016).
+             Face Aging with Conditional GANs
+• Differentiating Feature: Uses an Identity Preservation Optimization using an
+  auxiliary network to get a better approximation of the latent code (z*) for an
+  input image.
+• Latent code is then conditioned on a discrete (one-hot) embedding of age
+  categories.
+
+
+
+
+                                                                                                                          Figure 1 in the original paper.
+
+         Antipov, G., Baccouche, M., & Dugelay, J. L. (2017). “Face Aging With Conditional Generative Adversarial Networks”. arXiv preprint arXiv:1702.01983.
+    Face Aging with Conditional GANs
+
+
+
+
+                                                                                                                 Figure 3 in the original paper.
+
+
+
+Antipov, G., Baccouche, M., & Dugelay, J. L. (2017). “Face Aging With Conditional Generative Adversarial Networks”. arXiv preprint arXiv:1702.01983.
+                          Conditional GANs
+Conditional Model Collapse
+• Scenario observed when the
+  Conditional GAN starts ignoring
+  either the code (c) or the noise
+  variables (z).
+• This limits the diversity of
+  images generated.
+
+
+
+
+                                                                                                                                         Credit?
+
+                          Mirza, Mehdi, and Simon Osindero. Conditional generative adversarial nets. arXiv preprint arXiv:1411.1784 (2014).
+                         Part 3
+• Conditional GANs
+• Applications
+  • Image-to-Image Translation
+  • Text-to-Image Synthesis
+  • Face Aging
+• Advanced GAN Extensions
+  • Coupled GAN
+  • LAPGAN – Laplacian Pyramid of Adversarial Networks
+  • Adversarially Learned Inference
+• Summary
+                         Coupled GAN
+
+
+
+                                                                             Figure 2 in the original paper.
+
+
+• Learning a joint distribution of multi-domain images.
+• Using GANs to learn the joint distribution with samples drawn from
+  the marginal distributions.
+• Direct applications in domain adaptation and image translation.
+                                 Liu, Ming-Yu, and Oncel Tuzel. “Coupled generative adversarial networks”. NIPS (2016).
+                                    Coupled GANs
+• Architecture
+
+
+
+
+                                                                                                  Figure 1 of the original paper.
+
+
+ Weight-sharing constraints the network to learn a joint distribution without corresponding supervision.
+
+                                                   Liu, Ming-Yu, and Oncel Tuzel. “Coupled generative adversarial networks”. NIPS (2016).
+Coupled GANs                                                                                              Hair
+                                                                                                          Color
+
+
+• Some examples of
+  generating facial
+  images across                                                                                           Facial
+  different feature                                                                                       Expression
+
+  domains.
+
+• Corresponding images
+  in a column are                                                                                         Sunglasses
+
+  generate from the
+  same latent code 𝑧
+                                                              Figure 4 in the original paper.
+
+                         Liu, Ming-Yu, and Oncel Tuzel. “Coupled generative adversarial networks”. NIPS (2016).
+    Laplacian Pyramid of Adversarial Networks
+
+
+
+
+                                                                                              Figure 1 in the original paper. (Edited for simplicity)
+
+
+
+•   Based on the Laplacian Pyramid representation of images. (1983)
+•   Generate high resolution (dimension) images by using a hierarchical system of GANs
+•   Iteratively increase image resolution and quality.
+
+
+             Denton, E.L., Chintala, S. and Fergus, R., 2015. “Deep Generative Image Models using a Laplacian Pyramid of Adversarial Networks”. NIPS (2015)
+    Laplacian Pyramid of Adversarial Networks
+
+
+
+
+                                                                                                                          Figure 1 in the original paper.
+
+Image Generation using a LAPGAN
+•   Generator 𝐺• generates the base image 𝐼Ž• from random noise input 𝑧•.
+•   Generators (𝐺J , 𝐺I , 𝐺•) iteratively generate the difference image (ℎ‘ ) conditioned on previous
+    small image (𝑙).
+•   This difference image is added to an up-scaled version of previous smaller image.
+              Denton, E.L., Chintala, S. and Fergus, R., 2015. “Deep Generative Image Models using a Laplacian Pyramid of Adversarial Networks”. NIPS (2015)
+Laplacian Pyramid of Adversarial Networks
+
+
+
+
+                                                                                                                Figure 2 in the original paper.
+
+
+
+Training Procedure:
+Models at each level are trained independently to learn the required representation.
+          Denton, E.L., Chintala, S. and Fergus, R., 2015. “Deep Generative Image Models using a Laplacian Pyramid of Adversarial Networks”. NIPS (2015)
+           Adversarially Learned Inference
+• Basic idea is to learn an encoder/inference network along with the
+  generator network.
+
+• Consider the following joint distributions over 𝑥 (image) and 𝑧 (latent
+  variables) :
+                        𝑞 𝑥, 𝑧 = 𝑞 𝑥 𝑞(𝑧|𝑥)                                       encoder distribution
+
+
+                        𝑝 𝑥, 𝑧 = 𝑝 𝑧 𝑝(𝑥|𝑧)                                       generator distribution
+
+
+
+                             Dumoulin, Vincent, et al. “Adversarially learned inference”. arXiv preprint arXiv:1606.00704 (2016).
+          Adversarially Learned Inference
+
+
+
+                             Discriminator Network
+
+
+ Encoder/Inference Network                                            Generator Network
+                                                                  Figure 1 in the original paper.
+
+
+
+min max 𝔼< 1 [log 𝐷 𝑥, 𝐺; 𝑥                         + 𝔼3 1 log 1 − 𝐷 𝐺1 𝑧 , 𝑧
+ $    '
+
+                                 Dumoulin, Vincent, et al. “Adversarially learned inference”. arXiv preprint arXiv:1606.00704 (2016).
+            Adversarially Learned Inference
+• Nash equilibrium yields
+
+   • Joint:          𝑝 𝑥, 𝑧 ~ 𝑞 𝑥, 𝑧
+   • Marginals:      𝑝 𝑥 ~ 𝑞 𝑥 and 𝑝 𝑧 ~ 𝑞 𝑧
+   • Conditionals:   𝑝 𝑥|𝑧 ~ 𝑞(𝑥|𝑧) and 𝑝 𝑧|𝑥 ~ 𝑞 𝑧|𝑥
+
+
+• Inferred latent representation successfully reconstructed the original
+  image.
+• Representation was useful in the downstream semi-supervised task.
+
+                              Dumoulin, Vincent, et al. “Adversarially learned inference”. arXiv preprint arXiv:1606.00704 (2016).
+                            Summary
+• GANs are generative models that are implemented using two
+  stochastic neural network modules: Generator and Discriminator.
+• Generator tries to generate samples from random noise as input
+• Discriminator tries to distinguish the samples from Generator and
+  samples from the real data distribution.
+• Both networks are trained adversarially (in tandem) to fool the other
+  component. In this process, both models become better at their
+  respective tasks.
+           Why use GANs for Generation?
+• Can be trained using back-propagation for Neural Network based
+  Generator/Discriminator functions.
+• Sharper images can be generated.
+• Faster to sample from the model distribution: single forward pass
+  generates a single sample.
+                                                           Reading List
+•   Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., Courville, A. and Bengio, Y. Generative adversarial nets, NIPS (2014).
+•   Goodfellow, Ian NIPS 2016 Tutorial: Generative Adversarial Networks, NIPS (2016).
+•   Radford, A., Metz, L. and Chintala, S., Unsupervised representation learning with deep convolutional generative adversarial networks. arXiv preprint
+    arXiv:1511.06434. (2015).
+•   Salimans, T., Goodfellow, I., Zaremba, W., Cheung, V., Radford, A., & Chen, X. Improved techniques for training gans. NIPS (2016).
+•   Chen, X., Duan, Y., Houthooft, R., Schulman, J., Sutskever, I., & Abbeel, P. InfoGAN: Interpretable Representation Learning by Information Maximization
+    Generative Adversarial Nets, NIPS (2016).
+•   Zhao, Junbo, Michael Mathieu, and Yann LeCun. Energy-based generative adversarial network. arXiv preprint arXiv:1609.03126 (2016).
+•   Mirza, Mehdi, and Simon Osindero. Conditional generative adversarial nets. arXiv preprint arXiv:1411.1784 (2014).
+•   Liu, Ming-Yu, and Oncel Tuzel. Coupled generative adversarial networks. NIPS (2016).
+•   Denton, E.L., Chintala, S. and Fergus, R., 2015. Deep Generative Image Models using a Laplacian Pyramid of Adversarial Networks. NIPS (2015)
+•   Dumoulin, V., Belghazi, I., Poole, B., Lamb, A., Arjovsky, M., Mastropietro, O., & Courville, A. Adversarially learned inference. arXiv preprint
+    arXiv:1606.00704 (2016).
+
+
+Applications:
+•   Isola, P., Zhu, J. Y., Zhou, T., & Efros, A. A. Image-to-image translation with conditional adversarial networks. arXiv preprint arXiv:1611.07004. (2016).
+•   Reed, S., Akata, Z., Yan, X., Logeswaran, L., Schiele, B., & Lee, H. Generative adversarial text to image synthesis. JMLR (2016).
+•   Antipov, G., Baccouche, M., & Dugelay, J. L. (2017). Face Aging With Conditional Generative Adversarial Networks. arXiv preprint arXiv:1702.01983.
+Questions?
+

@@ -1,0 +1,942 @@
+﻿--- slide1.xml ---
+CSCE
+883
+
+Machine Learning
+Lecture 4  
+Maximum Likelihood Estimation and more
+Jianjun Hu
+Department of Computer Science & Engineering
+University of South Carolina
+--- slide2.xml ---
+The estimation problem
+Estimating the probability of a coin: head or tails…. To check if coin is modified
+0.3
+0.6
+0.1
+2
+3
+5
+--- slide3.xml ---
+Parametric Estimation
+3
+X
+
+= { 
+x
+t 
+}
+t 
+where
+ x
+t 
+~ 
+p 
+(
+x
+)
+Parametric estimation: 
+	Assume a form for 
+p 
+(
+x 
+|
+q
+
+) and estimate 
+q
+
+,
+
+its sufficient statistics, using X
+	e.g., N ( 
+μ
+, 
+σ
+2
+) where 
+q
+ = { 
+μ
+, 
+σ
+2
+}
+--- slide4.xml ---
+Maximum Likelihood Estimation
+4
+Likelihood
+
+of 
+q
+ given the sample 
+X
+
+l 
+(
+θ
+|
+X
+) = 
+p 
+(
+X
+
+|
+θ
+) = ∏
+t
+
+p 
+(
+x
+t
+|
+θ
+)
+Log likelihood
+
+L
+(
+θ
+|
+X
+) = 
+log
+
+l 
+(
+θ
+|
+X
+) = ∑
+t
+ log 
+p 
+(
+x
+t
+|
+θ
+)
+Maximum likelihood estimator (MLE)
+
+θ
+*
+ = 
+argmax
+θ
+
+L
+(
+θ
+|
+X
+)
+--- slide5.xml ---
+5
+The Likelihood 
+Function
+ How good is a particular 
+
+?
+It depends on how likely it is to generate the observed data
+The likelihood for the sequence H,T, T, H, H is
+0
+0.2
+0.4
+0.6
+0.8
+1
+
+L
+(
+
+)
+--- slide6.xml ---
+6
+Example: MLE in Binomial Data
+Taking derivative and equating it to 0,
+   we get
+0
+0.2
+0.4
+0.6
+0.8
+1
+L
+(
+
+)
+Example
+:
+
+(N
+H
+,N
+T
+ ) = (3,2)
+MLE estimate is 
+3/5 = 0.6
+
+(which coincides with what one would expect)
+--- slide7.xml ---
+7
+From Binomial to Multinomial
+Now suppose 
+X
+
+ can have the values 
+1,2,…,K
+
+(For example a die has 
+K=6
+ sides)
+We want to learn the parameters 
+
+1
+, 
+
+2
+. …, 
+
+K
+Sufficient statistics
+:
+N
+1
+, N
+2
+, …, N
+K
+ - the number of times each outcome is observed
+Likelihood function
+:
+MLE
+:                                  (proof @ assignment)
+--- slide8.xml ---
+8
+Example: Multinomial
+Let   		be a protein sequence
+We want to learn the parameters 
+q
+1
+, 
+q
+2
+,…,
+q
+20
+	corresponding to the frequencies of the 20 amino acids
+N
+1
+, N
+2
+, …, N
+20
+ - the number of times each amino acid is observed in the sequence
+Likelihood function
+:
+MLE
+:
+--- slide9.xml ---
+Examples: Bernoulli/Multinomial
+9
+Bernoulli:
+
+Two states, failure/success, 
+x
+ in {0,1} 
+P 
+(
+x
+) = 
+p
+o
+x
+
+(1 – 
+p
+o 
+)
+
+(1 – 
+x
+)
+				L 
+(
+p
+o
+|
+X
+) = log ∏
+t
+
+p
+o
+x
+t
+
+(1 – 
+p
+o 
+)
+
+(1 – 
+x
+t
+) 
+MLE
+: 
+p
+o 
+= ∑
+t
+
+x
+t 
+/ 
+N
+
+Multinomial: 
+K
+>2 states, 
+x
+i
+ in {0,1}
+P 
+(
+x
+1
+,
+x
+2
+,...,
+x
+K
+) = ∏
+i
+
+p
+i
+x
+i
+				L
+(
+p
+1
+,
+p
+2
+,...,
+p
+K
+|
+X
+) = log ∏
+t 
+∏
+i
+
+p
+i
+x
+i
+t
+
+MLE
+: 
+p
+i 
+= ∑
+t
+
+x
+i
+t 
+/ 
+N
+--- slide10.xml ---
+Gaussian (Normal) Distribution
+p
+(
+x
+) = 
+N 
+( 
+μ
+, 
+σ
+2
+)
+
+MLE for 
+μ
+
+and
+
+σ
+2
+:
+10
+μ
+σ
+--- slide11.xml ---
+Bias and Variance
+11
+Unknown parameter 
+q
+Estimator 
+d
+i
+ = d 
+(X
+i
+) on 
+sample
+ set 
+X
+i
+
+Bias: 
+b
+q
+(
+d
+) = 
+E 
+[
+d
+] – 
+q
+Variance: 
+E 
+[(
+d
+–
+E 
+[
+d
+])
+2
+]
+Mean square error: 
+r 
+(
+d
+,
+q
+) = 
+E 
+[(
+d
+–
+q
+)
+2
+]
+	= (
+E 
+[
+d
+] – 
+q
+)
+2
+ + 
+E 
+[(
+d
+–
+E 
+[
+d
+])
+2
+]
+	= 
+Bias
+2
+ + 
+Variance
+
+q
+--- slide12.xml ---
+Bayes’ Estimator
+12
+Treat
+
+θ
+
+as a random var with prior 
+p 
+(
+θ
+)
+Bayes’ rule
+: 
+p 
+(
+θ
+|
+X
+) = 
+p
+(
+X
+|
+θ
+) 
+p
+(
+θ
+) / 
+p
+(
+X
+) 
+Full:
+
+p
+(
+x
+|
+X
+) = 
+∫
+
+p
+(
+x
+|
+θ
+) 
+p
+(
+θ
+|
+X
+) 
+d
+θ
+Maximum a Posteriori (MAP):
+
+θ
+MAP
+ = 
+argmax
+θ
+
+p
+(
+θ
+|
+X
+)
+Maximum Likelihood (ML): 
+θ
+ML
+ = 
+argmax
+θ
+
+p
+(
+X
+|
+θ
+)
+Bayes’: 
+θ
+Bayes’
+ = E[
+θ
+|
+X
+] = 
+∫
+
+θ
+
+p
+(
+θ
+|
+X
+) 
+d
+θ
+
+--- slide13.xml ---
+Bayes’ Estimator: Example
+x
+t 
+~ 
+N 
+(
+θ
+, σ
+o
+2
+) 
+and
+
+θ
+ ~ 
+N 
+( 
+μ
+, 
+σ
+2
+)
+θ
+ML
+ = 
+m
+θ
+MAP
+ = 
+θ
+Bayes’
+ =
+13
+--- slide14.xml ---
+Parametric Classification
+14
+--- slide15.xml ---
+15
+Given the sample
+ML estimates are
+Discriminant
+--- slide16.xml ---
+16
+Equal variances
+Single boundary at
+halfway between means
+--- slide17.xml ---
+17
+Variances are different
+Two boundaries
+--- slide18.xml ---
+18
+--- slide19.xml ---
+Regression
+19
+--- slide20.xml ---
+Regression: From LogL to Error
+20
+--- slide21.xml ---
+Linear Regression
+21
+--- slide22.xml ---
+Polynomial Regression
+22
+--- slide23.xml ---
+Other Error Measures
+23
+Square Error: 
+Relative Square Error:
+Absolute Error: 
+E 
+(
+θ 
+|X) = 
+∑
+t
+ |
+r
+t 
+–
+
+g
+(
+x
+t
+|
+ θ
+)|
+ε-sensitive Error: 
+
+E 
+(
+θ 
+|X) = 
+∑
+
+t
+ 1(|
+r
+t 
+–
+
+g
+(
+x
+t
+|
+ θ
+)|>ε) (|
+r
+t 
+–
+
+g
+(
+x
+t
+|
+θ
+)| – ε)
+--- slide24.xml ---
+Bias and Variance
+24
+bias
+variance
+noise
+squared error
+--- slide25.xml ---
+Estimating Bias and Variance
+25
+M
+ samples X
+i
+={
+x
+t
+i 
+, 
+r
+t
+i
+}, 
+i
+=1,...,
+M 
+	are used to fit 
+g
+i 
+(
+x
+), 
+i 
+=1,...,
+N
+--- slide26.xml ---
+Bias/Variance Dilemma
+26
+Example: 
+g
+i
+(
+x
+)=2 has no variance and high bias
+	g
+i
+(
+x
+)= 
+∑
+t
+
+r
+t
+i
+/N has lower bias with variance
+As we increase complexity, 
+		bias decreases (a better fit to data) and 
+		variance increases (fit varies more with data)
+Bias/Variance dilemma: (Geman et al., 1992)
+--- slide27.xml ---
+27
+bias
+variance
+f
+g
+i
+g
+f
+--- slide28.xml ---
+Polynomial Regression
+28
+Best fit “min error”
+--- slide29.xml ---
+29
+Best fit, “elbow”
+--- slide30.xml ---
+Model Selection
+30
+Cross-validation: 
+Measure generalization accuracy by testing on data unused during training
+Regularization:
+ Penalize complex models
+		E’=error on data + λ model complexity
+	Akaike’s information criterion (AIC), Bayesian information criterion (BIC)
+Minimum description length (MDL): 
+Kolmogorov complexity, shortest description of data
+Structural risk minimization (SRM)
+--- slide31.xml ---
+Bayesian Model Selection
+31
+Prior on models, 
+p
+(model)
+Regularization, when prior favors simpler models
+Bayes, MAP of the posterior, 
+p
+(model|data)
+Average over a number of models with high posterior (voting, ensembles: Chapter 17)
+--- slide32.xml ---
+Regression example
+32
+Coefficients increase in magnitude as order increases:
+1: [-0.0769, 0.0016]
+2: [0.1682, -0.6657, 0.0080]
+3: [0.4238, -2.5778, 3.4675, -0.0002
+4: [-0.1093, 1.4356, 
+-5.5007, 6.0454, -0.0019]
+Regularization (L2):
+--- slide33.xml ---
+CHAPTER 5:
+
+Multivariate Methods
+--- slide34.xml ---
+Multivariate Data
+34
+Multiple measurements (sensors)
+d
+ inputs/features/attributes: 
+d
+-variate 
+N
+ instances/observations/examples
+--- slide35.xml ---
+Multivariate Parameters
+35
+--- slide36.xml ---
+Parameter Estimation
+36
+--- slide37.xml ---
+Estimation of Missing Values
+37
+What to do if certain instances have missing attributes?
+Ignore those instances: not a good idea if the sample is small
+Use ‘missing’ as an attribute: may give information
+Imputation:
+ Fill in the missing value
+Mean imputation: Use the most likely value (e.g., mean)
+Imputation by regression: Predict based on other attributes
+--- slide38.xml ---
+Multivariate Normal Distribution
+38
+--- slide39.xml ---
+Multivariate Normal Distribution
+39
+Mahalanobis distance: (
+x 
+– 
+μ
+)
+T
+
+∑
+–
+1
+
+(
+x 
+– 
+μ
+) 
+
+measures the distance from 
+x
+ to 
+μ
+ in terms of 
+∑
+ (normalizes for difference in variances and correlations)
+Bivariate: 
+d 
+= 2
+--- slide40.xml ---
+Bivariate Normal
+40
+--- slide41.xml ---
+41
+--- slide42.xml ---
+Independent Inputs: Naive Bayes
+42
+If 
+x
+i
+ are independent, offdiagonals of 
+∑
+ are 0, Mahalanobis distance reduces to weighted (by 1/
+σ
+i
+) Euclidean distance:
+If variances are also equal, reduces to Euclidean distance
+--- slide43.xml ---
+Parametric Classification
+If 
+p 
+(
+x
+
+| 
+C
+i 
+) ~ N ( 
+μ
+i
+ , 
+∑
+i 
+)
+Discriminant functions
+43
+--- slide44.xml ---
+Estimation of Parameters
+44
+--- slide45.xml ---
+Discrete Features
+45
+Binary 
+features:
+		if 
+x
+j
+ are independent (Naive Bayes’)
+		the discriminant is linear
+
+Estimated parameters
+--- slide46.xml ---
+Discrete Features
+46
+Multinomial
+ (1-of-
+n
+j
+) features: 
+x
+j
+ Î {
+v
+1
+, 
+v
+2
+,..., 
+v
+n
+j
+}
+	if 
+x
+j
+ are independent
+--- slide47.xml ---
+Acknowledgements
+http://www.cmpe.boun.edu.tr/~ethem/i2ml3e
+https://users.cs.fiu.edu/~taoli/class/CAP4770-F10/class08.ppt

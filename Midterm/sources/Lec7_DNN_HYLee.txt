@@ -1,0 +1,4002 @@
+    Deep Learning
+        DNN Training --- CNN --- LSTM
+
+
+
+
+Modified from Prof. Hung-yi Lee’s
+         Tutorial Slides
+Deep learning
+attracts lots of attention.
+
+• I believe you have seen lots of exciting results
+  before.
+Deep learning enabled AI
+applications
+Outline
+
+Lecture I: Introduction of Deep Learning
+
+
+
+Lecture II: Variants of Neural Network
+
+
+
+Lecture III: Beyond Supervised Learning
+   Lecture I:
+Introduction of
+Deep Learning
+Outline
+
+Introduction of Deep Learning
+
+
+“Hello World” for Deep Learning
+
+
+Tips for Deep Learning
+Machine Learning
+≈ Looking for a Function
+• Speech Recognition
+         f(                         ) = “How are you”
+• Image Recognition
+               f(                         ) = “Cat”
+
+• Playing Go
+               f(                          ) = “5-5”
+                                                       (next move)
+• Dialogue System
+                    f(          “Hi”            )=    “Hello”
+                         (what the user said)    (system response)
+                           Image Recognition:
+
+Framework                        f(             ) = “cat”
+
+
+   A set of   Model
+  function    f1 , f 2 
+
+
+
+    f1 (         ) = “cat”      f2 (            ) = “money”
+
+
+    f1 (         ) = “dog”      f2 (            ) = “snake”
+                            Image Recognition:
+
+Framework                         f(             ) = “cat”
+
+
+    A set of   Model
+   function    f1 , f 2          Better!
+
+
+ Goodness of
+  function f
+                            Supervised Learning
+
+   Training     function input:
+     Data
+               function output: “monkey”     “cat”      “dog”
+                                    Image Recognition:
+
+ Framework                                 f(            ) = “cat”
+
+                                           Training      Testing
+          A set of    Model
+         function     f1 , f 2                             “cat”
+Step 1
+
+    Goodness of          Pick the “Best” Function
+                                                          Using f 
+     function f                      f*
+Step 2                  Step 3
+
+         Training
+           Data
+                     “monkey”      “cat”    “dog”
+Three Steps for Deep Learning
+
+     Step 1: define a set of function
+                              Neural Network
+
+
+      Step 2: goodness of function
+
+
+      Step 3: pick the best function
+Neural Network
+Neuron
+    z = a1w1 +  + ak wk +  + aK wK + b
+      a1    w1            A simple function
+      …
+
+             …
+
+
+            wk
+      ak               + z  (z )             a
+             …
+
+
+
+
+                               Activation
+      …
+
+
+
+
+            wK                  function
+      aK   weights    b     bias
+Neural Network
+Neuron              Sigmoid Function       (z )
+
+                     (z ) =
+                               1
+                                  −z
+                             1+ e                         z
+     2
+            1
+
+
+                                        (z )
+                                4
+     -1     -2             +                       0.98
+
+                                  Activation
+            -1
+                                   function
+     1    weights          1   bias
+   Neural Network
+Different connections lead to
+different network structures
+
+           +      (z )
+
+                                 +    (z )       +    (z )
+
+
+           +      (z )
+                          The neurons have different values of
+                          weights and biases.
+               Weights and biases are network parameters 𝜃
+Fully Connect Feedforward
+Network
+     1        4    0.98
+1
+         -2
+               1
+         -1   -2   0.12
+-1
+     1
+               0
+                          Sigmoid Function    (z )
+
+                           (z ) =
+                                     1
+                                        −z
+                                   1+ e               z
+Fully Connect Feedforward
+Network
+     1        4    0.98 2            0.86 3             0.62
+1
+         -2                 -1                -1
+              1                  0                 -2
+         -1   -2   0.12     -2       0.11     -1        0.83
+-1
+     1                    -1                4
+               0                 0                 2
+ Fully Connect Feedforward
+ Network
+          1            0.73 2             0.72   3                 0.51
+   0
+              -2                -1                   -1
+                   1                  0                       -2
+              -1       0.5      -2        0.12       -1            0.85
+  0
+          1                  -1                  4
+                   0                  0                       2
+This is a function.                   1     0.62               0       0.51
+                            𝑓             =               𝑓        =
+Input vector, output vector          −1     0.83               0       0.85
+  Given parameters 𝜃, define a function
+          Given network structure, define a function set
+Fully Connect Feedforward
+Network            neuron
+  Input   Layer 1   Layer 2        Layer L   Output
+   x1                         ……               y1
+   x2                         ……              y2
+
+
+
+
+                                     ……
+   ……
+
+
+            ……
+
+
+                      ……
+
+
+
+
+                                               ……
+   xN                         ……              yM
+  Input                            Output
+  Layer       Hidden Layers         Layer
+
+          Deep means many hidden layers
+Why Deep? Universality Theorem
+  Any continuous function f
+
+        f : R N → RM
+  Can be realized by a network
+  with one hidden layer
+                                 Reference for the reason:
+  (given enough hidden           http://neuralnetworksandde
+  neurons)                       eplearning.com/chap4.html
+
+
+
+Why “Deep” neural network not “Fat” neural network?
+Why Deep? Analogy
+        Logic circuits                 Neural network
+ • Logic circuits consists of    • Neural network consists of
+   gates                           neurons
+ • A two layers of logic gates   • A hidden layer network can
+   can represent any Boolean       represent any continuous
+   function.                       function.
+ • Using multiple layers of      • Using multiple layers of
+   logic gates to build some       neurons to represent some
+   functions are much simpler      functions are much simpler
+           less gates needed                less             less
+                                         parameters         data?
+                      More reason:
+                      https://www.youtube.com/watch?v=XsC9byQk
+                      UH8&list=PLJV_el3uVTsPy9oCRY30oBPNLCo89y
+                      u49&index=13
+    Deep = Many hidden layers
+                                                        22 layers
+
+http://cs231n.stanford.e
+du/slides/winter1516_le            19 layers
+cture8.pdf
+
+
+
+              8 layers
+                                               6.7%
+                           7.3%
+      16.4%
+
+
+
+
+        AlexNet (2012)        VGG (2014)        GoogleNet (2014)
+  Deep = Many hidden layers
+                                                      101 layers
+                                152 layers
+
+
+  Special
+ structure
+
+
+                                      3.57%
+
+
+              7.3%       6.7%
+16.4%
+    AlexNet      VGG      GoogleNet    Residual Net     Taipei
+    (2012)      (2014)     (2014)         (2015)         101
+     Output Layer
+     • Softmax layer as the output layer
+
+      Ordinary Layer
+
+z1                          ( )
+                       y1 =  z1
+                                    In general, the output of
+z2                           ( )
+                       y2 =  z 2
+                                    network can be any value.
+
+                                    May not be easy to interpret
+z3                           ( )
+                       y3 =  z 3
+     Output Layer
+                                                                Probability:
+     • Softmax layer as the output layer                        ◼ 1 > 𝑦𝑖 > 0
+                                                                ◼ σ𝑖 𝑦𝑖 = 1
+                          Softmax Layer
+
+     3                                                         0.88                3
+
+                                                                                  
+                          20
+z1        e      e   z1
+                                                                   y1 = e   z1
+                                                                                    e j  z
+
+                                                                                  j =1
+                                                               0.12                3
+z2
+     1
+          e                e   z 2 2.7
+                                                                y2 = e      z2
+                                                                                  e
+                                                                                         zj
+
+                                                                                  j =1
+                                            0.05               ≈0
+z3 -3
+                                                                                  3
+          e                        e   z3
+                                                                y3 = e      z3
+                                                                                   e j  z
+
+                                   3                                              j =1
+
+                           + e             zj
+
+                                  j =1
+Example Application
+
+Input                     Output
+
+                            y
+                            0.1     is 1
+                   x1
+                   x2       y2
+                            0.7     is 2
+                                           The image
+                                             is “2”
+
+
+
+
+                                     ……
+                            ……
+                   ……
+
+
+
+                   x256     y10
+                            0.2     is 0
+   16 x 16 = 256
+    Ink → 1                 Each dimension represents
+    No ink → 0              the confidence of a digit.
+Example Application
+• Handwriting Digit Recognition
+
+             x1                                    y1    is 1
+             x2
+                                                   y2    is 2
+                             Neural
+                            Machine               “2”
+             ……
+
+
+
+
+                                                          ……
+                                                   ……
+                            Network
+            x256                                   y10   is 0
+                        What is needed is a
+                          function ……
+           Input:                                output:
+       256-dim vector                         10-dim vector
+Example Application
+  Input   Layer 1   Layer 2        Layer L   Output
+   x1                         ……               y1     is 1
+   x2                    ……
+          A function set containing the       y2      is 2
+                 candidates for               “2”
+
+
+
+
+                                     ……
+   ……
+
+
+            ……
+
+
+                      ……
+
+
+
+
+                                                      ……
+                                               ……
+          Handwriting Digit Recognition
+   xN                    ……                   y10     is 0
+  Input                            Output
+  Layer       Hidden Layers         Layer
+
+   You need to decide the network structure to
+   let a good function in your function set.
+FAQ
+
+
+• Q: How many layers? How many neurons for each
+  layer?
+           Trial and Error +      Intuition
+• Q: Can we design the network structure?
+             Convolutional Neural Network (CNN)
+                      in the next lecture
+• Q: Can the structure be automatically determined?
+   • Yes, but not widely studied yet.
+ Highway Network
+ • Residual Network                   • Highway Network
+
+            +
+
+
+                          copy       Gate
+                                   controller                           copy
+
+
+
+
+Deep Residual Learning for Image          Training Very Deep Networks
+Recognition                               https://arxiv.org/pdf/1507.06228v
+http://arxiv.org/abs/1512.03385           2.pdf
+output layer            output layer      output layer
+
+
+
+
+               Highway Network automatically
+               determines the layers needed!
+Input layer              Input layer       Input layer
+Three Steps for Deep Learning
+
+     Step 1: define a set of function
+
+
+      Step 2: goodness of function
+
+
+      Step 3: pick the best function
+Training Data
+• Preparing training data: images and their labels
+
+
+           “5”        “0”         “4”         “1”
+
+
+           “9”        “2”         “1”         “3”
+
+
+          The learning target is defined on
+                 the training data.
+ Learning Target
+                 x1                   ……              y1    is 1
+
+
+
+
+                                            Softmax
+                  x2                  ……
+                 ……                                   y2    is 2
+
+
+
+                            ……
+
+
+
+
+                                                      ……
+                 x256                 ……              y10   is 0
+16 x 16 = 256
+Ink → 1         The learning target is ……
+No ink → 0
+                   Input:           y1 has the maximum value
+
+                   Input:           y2 has the maximum value
+               A good function should make the loss
+Loss           of all examples as small as possible.
+
+
+                              “1”
+
+       x1                ……              y1 As close as 1
+       x2                                      possible
+
+
+                               Softmax
+              Given a set ……
+                          of             y2                 0
+               parameters
+       ……
+
+
+
+
+                                    ……
+                ……
+
+
+
+
+                                         ……
+
+
+
+
+                                                            ……
+                                                Loss
+       x256              ……              y10      𝑙         0
+
+ Loss can be square error or cross entropy                target
+ between the network output and target
+                                           Total Loss:
+Total Loss                                               𝑅
+
+                                                   𝐿 = ෍ 𝑙𝑟
+For all training data …                                  𝑟=1
+
+         x1     NN        y1        𝑦ො 1
+                               𝑙1           As small as possible
+         x2     NN        y2        𝑦ො 2
+                               𝑙2          Find a function in
+                                           function set that
+        x3      NN        y3        𝑦ො 3   minimizes total loss L
+                               𝑙3
+                ……
+        ……
+
+
+
+
+                                    ……
+                          ……
+
+
+
+                                           Find the network
+        xR      NN        yR        𝑦ො 𝑅
+                                           parameters 𝜽∗ that
+                               𝑙𝑅          minimize total loss L
+Three Steps for Deep Learning
+
+     Step 1: define a set of function
+
+
+      Step 2: goodness of function
+
+
+      Step 3: pick the best function
+ How to pick the best function
+
+Find network parameters 𝜽∗ that minimize total loss L
+                                           Layer l         Layer l+1
+  Enumerate all possible values
+
+   Network parameters 𝜃 =
+                                                      106
+    𝑤1 , 𝑤2 , 𝑤3 , ⋯ , 𝑏1 , 𝑏2 , 𝑏3 , ⋯
+                                                     weights
+
+
+
+
+                                                                 ……
+                                             ……
+       Millions of parameters
+
+   E.g. speech recognition: 8 layers and
+                                            1000                1000
+   1000 neurons each layer
+                                           neurons             neurons
+                                   Network parameters 𝜃 =
+  Gradient Descent                  𝑤1 , 𝑤2 , ⋯ , 𝑏1 , 𝑏2 , ⋯
+
+Find network parameters 𝜽∗ that minimize total loss L
+                ➢ Pick an initial value for w
+ Total
+                    Random, RBM pre-train
+Loss 𝐿
+                           Usually good enough
+
+
+
+
+                                                         w
+                                            Network parameters 𝜃 =
+  Gradient Descent                           𝑤1 , 𝑤2 , ⋯ , 𝑏1 , 𝑏2 , ⋯
+
+Find network parameters 𝜽∗ that minimize total loss L
+                     ➢ Pick an initial value for w
+ Total               ➢ Compute 𝜕𝐿Τ𝜕𝑤
+Loss 𝐿                                  Negative            Increase w
+
+                                        Positive            Decrease w
+
+
+
+
+                                                                    w
+         http://chico386.pixnet.net/album/photo/171572850
+                                   Network parameters 𝜃 =
+  Gradient Descent                  𝑤1 , 𝑤2 , ⋯ , 𝑏1 , 𝑏2 , ⋯
+
+Find network parameters 𝜽∗ that minimize total loss L
+                ➢ Pick an initial value for w
+ Total          ➢ Compute 𝜕𝐿Τ𝜕𝑤
+Loss 𝐿                   𝑤 ← 𝑤 − 𝜂𝜕𝐿Τ𝜕𝑤
+                    Repeat
+
+
+
+
+                          η is called
+           −𝜂𝜕𝐿Τ𝜕𝑤        “learning rate”                w
+                                   Network parameters 𝜃 =
+  Gradient Descent                  𝑤1 , 𝑤2 , ⋯ , 𝑏1 , 𝑏2 , ⋯
+
+Find network parameters 𝜽∗ that minimize total loss L
+                ➢ Pick an initial value for w
+ Total          ➢ Compute 𝜕𝐿Τ𝜕𝑤
+Loss 𝐿                   𝑤 ← 𝑤 − 𝜂𝜕𝐿Τ𝜕𝑤
+                    Repeat Until 𝜕𝐿Τ𝜕𝑤 is approximately small
+                                        (when update is little)
+
+
+
+
+                                                          w
+Gradient Descent
+
+
+
+                                         Color: Value of
+  𝑤2                                      Total Loss L
+
+
+
+
+        Randomly pick a starting point
+
+                      𝑤1
+Gradient Descent         Hopfully, we would reach
+                              a minima …..
+
+
+
+
+                                   Color: Value of
+  𝑤2                                Total Loss L
+
+
+            (−𝜂 𝜕𝐿Τ𝜕𝑤1 , −𝜂 𝜕𝐿Τ𝜕𝑤2 )
+
+         Compute 𝜕𝐿Τ𝜕𝑤1 , 𝜕𝐿Τ𝜕𝑤2
+
+                    𝑤1
+Local Minima
+Total
+Loss    Very slow at the
+            plateau
+                       Stuck at saddle point
+
+                                   Stuck at local minima
+
+
+            𝜕𝐿 ∕ 𝜕𝑤      𝜕𝐿 ∕ 𝜕𝑤         𝜕𝐿 ∕ 𝜕𝑤
+              ≈0           =0              =0
+
+         The value of a network parameter w
+    Local Minima
+    • Gradient descent never guarantee global minima
+
+                                   Different initial point
+
+
+
+𝐿
+
+
+                                   Reach different minima,
+                                   so different results
+      𝑤1                    𝑤2
+Gradient Descent
+This is the “learning” of machines in deep
+learning ……
+                  Even alpha go using this approach.
+People image ……            Actually …..
+
+
+
+
+      I hope you are not too disappointed :p
+Backpropagation
+• Backpropagation: an efficient way to compute 𝜕𝐿Τ𝜕𝑤 in
+  neural network
+
+
+
+
+                                           libdnn
+                                            台大周伯威
+                                             同學開發
+
+    Ref: https://www.youtube.com/watch?v=ibJpTrp5mcE
+Three Steps for Deep Learning
+
+   Step 1:             Step 2:          Step 3: pick
+ define a set       goodness of           the best
+ of function          function            function
+
+Deep Learning is so simple ……
+
+   Now If you want to find a function
+   If you have lots of function input/output (?) as
+   training data
+                            You can use deep learning
+For example, you can do …….
+• Image Recognition
+                      “monkey”
+                                 “monkey”
+                        “cat”
+          Network
+                                 “cat”
+                       “dog”
+
+                                 “dog”
+For example, you can do …….
+             “Talk” in e-mail
+Spam
+filtering                                      Network          1/0
+                                                             (Yes/No)
+             “free” in e-mail
+                                              1 (Yes)
+
+
+
+
+                                                         0 (No)
+
+
+        (http://spam-filter-review.toptenreviews.com/)
+For example, you can do …….
+                                                   政治
+ “stock” in document
+                                                     經濟
+                                 Network
+
+                                                     體育
+                                 “president” in document
+
+
+
+
+                                 體育        政治      財經
+ http://top-breaking-news.com/
+Outline
+
+Introduction of Deep Learning
+
+
+“Hello World” for Deep Learning
+
+
+Tips for Deep Learning
+Deep learning libraries
+Pytorch MLP
+Keras MLP code
+ Example MLP with Keras
+ • Handwriting Digit Recognition
+
+
+
+                                         Machine              “1”
+
+                   28 x 28
+
+     MNIST Data: http://yann.lecun.com/exdb/mnist/
+     “Hello world” for deep learning
+Keras provides data sets loading function: http://keras.io/datasets/
+  Keras
+                   ……
+28x28
+
+
+                   ……
+  500
+
+
+                   ……
+  500
+
+
+             Softmax
+
+        y1    y2
+               ……       y10
+Keras
+ Keras
+
+Step 3.1: Configuration
+
+
+
+
+                                  𝑤 ← 𝑤 − 𝜂𝜕𝐿Τ𝜕𝑤
+                                          0.1
+Step 3.2: Find the optimal network parameters
+
+
+
+  Training data           Labels
+    (Images)              (digits)
+   Keras
+ Step 3.2: Find the optimal network parameters
+
+
+
+
+             numpy array                         numpy array
+
+
+28 x 28                       ……          10                               ……
+ =784
+
+
+   Number of training examples                 Number of training examples
+   https://www.tensorflow.org/versions/r0.8/tutorials/mnist/beginners/index.html
+ Keras
+
+
+Save and load models
+http://keras.io/getting-started/faq/#how-can-i-save-a-keras-model
+
+How to use the neural network (testing):
+
+ case 1:
+
+
+ case 2:
+Three Steps for Deep Learning
+
+   Step 1:             Step 2:    Step 3: pick
+ define a set       goodness of     the best
+ of function          function      function
+
+Deep Learning is so simple ……
+Outline
+
+Introduction of Deep Learning
+
+
+“Hello World” for Deep Learning
+
+
+Tips for Deep Learning
+Recipe of Deep Learning
+                                               YES
+
+   Step 1: define a       NO
+                                     Good Results on
+   set of function
+                                      Testing Data?
+                      Overfitting!
+  Step 2: goodness
+     of function                               YES
+
+                          NO
+   Step 3: pick the                  Good Results on
+                                      Training Data?
+    best function
+
+                        Neural
+                       Network
+Do not always blame Overfitting
+
+          Not well trained
+
+
+
+
+                                             Overfitting?
+
+
+    Training Data                           Testing Data
+
+       Deep Residual Learning for Image Recognition
+       http://arxiv.org/abs/1512.03385
+Recipe of Deep Learning
+                                                 YES
+
+                                       Good Results on
+ Different approaches for               Testing Data?
+ different problems.
+
+ e.g. dropout for good results                   YES
+ on testing data
+                                       Good Results on
+                                        Training Data?
+
+
+                              Neural
+                             Network
+Recipe of Deep Learning
+                                      YES
+
+  Choosing proper loss      Good Results on
+                             Testing Data?
+  Mini-batch
+                                      YES
+  New activation function
+                            Good Results on
+  Adaptive Learning Rate     Training Data?
+
+  Momentum
+Choosing Proper Loss
+                                    “1”
+
+         x1                    ……              y1 1             𝑦ො1 1
+
+         x2
+
+
+
+
+                                     Softmax
+                               ……              y2 0             𝑦ො2 0
+         ……
+
+
+
+
+                                          ……
+                   ……
+
+
+
+
+                                                                ……
+                                                                ……
+                                               ……
+                                                       loss
+         x256              ……                  y10 0           𝑦ො10 0
+         Which one is better?
+              10                               10             target
+Square                     2    Cross
+ Error        ෍ 𝑦𝑖 − 𝑦ෝ𝑖       Entropy − ෍ 𝑦ෝ𝑖 𝑙𝑛𝑦𝑖
+              𝑖=1     =0                       𝑖=1       =0
+Demo
+ Square Error
+
+
+
+
+ Cross Entropy
+
+
+
+
+  Several alternatives: https://keras.io/objectives/
+  Choosing Proper Loss
+ When using softmax output layer,
+ choose cross entropy
+                               Cross
+                              Entropy
+
+               Total
+               Loss
+                                             Square
+                                              Error
+http://jmlr.org/procee
+dings/papers/v9/gloro
+                         w1             w2
+t10a/glorot10a.pdf
+Recipe of Deep Learning
+                                      YES
+
+  Choosing proper loss      Good Results on
+                             Testing Data?
+  Mini-batch
+                                      YES
+  New activation function
+                            Good Results on
+  Adaptive Learning Rate     Training Data?
+
+  Momentum
+                          We do not really minimize total loss!
+             Mini-batch                         ➢ Randomly initialize
+                                                  network parameters
+
+               x1    NN   y1           𝑦ො   1   ➢ Pick the 1st batch
+Mini-batch
+
+
+
+
+                                𝑙1                𝐿′ = 𝑙1 + 𝑙 31 + ⋯
+               x31   NN   y31          𝑦ො 31      Update parameters once
+                                𝑙 31            ➢ Pick the 2nd batch
+                     ……
+
+
+                                                  𝐿′′ = 𝑙 2 + 𝑙16 + ⋯
+                                                  Update parameters once
+               x2    NN   y2           𝑦ො 2
+Mini-batch
+
+
+
+
+                                                          …
+                                𝑙2              ➢ Until all mini-batches
+                                                  have been picked
+               x16   NN   y16          𝑦ො 16
+                                𝑙16                    one epoch
+                     ……
+
+
+
+
+                                                Repeat the above process
+             Mini-batch
+
+                                                    ➢ Pick the 1st batch
+                 x1     NN     y1           𝑦ො 1
+                                                      𝐿′ = 𝑙1 + 𝑙 31 + ⋯
+Mini-batch
+
+
+
+
+                                     𝑙1
+                                                      Update parameters once
+                 x31    NN     y31          𝑦ො 31
+                                     𝑙 31           ➢ Pick the 2nd batch
+                         ……
+
+
+
+
+                                                      𝐿′′ = 𝑙 2 + 𝑙16 + ⋯
+                                                      Update parameters once
+             100 examples in a mini-batch
+
+
+
+                                                             …
+                                         ➢ Until all mini-batches
+                         Repeat 20 times   have been picked
+                                                 one epoch
+Mini-batch
+Original Gradient Descent             With Mini-batch
+
+
+
+                                        Unstable!!!
+
+
+
+
+             The colors represent the total loss.
+                                                Not always true with
+ Mini-batch is Faster                           parallel computing.
+
+Original Gradient Descent                      With Mini-batch
+Update after seeing all                  If there are 20 batches, update
+examples                                 20 times in one epoch.
+
+
+        See all                         See only one
+       examples Can have the same speed batch
+                  (not super large data set)
+
+
+
+                                               1 epoch
+
+           Mini-batch has better performance!
+             Shuffle the training examples for each epoch
+                    Epoch 1                                        Epoch 2
+
+             x1    NN      y1           𝑦ො 1                 x1    NN    y1          𝑦ො 1
+
+
+
+
+                                                Mini-batch
+Mini-batch
+
+
+
+
+                                 𝑙1                                           𝑙1
+             x31   NN      y31          𝑦ො 31                x17   NN   y17          𝑦ො 17
+                                 𝑙 31                                         𝑙17
+
+
+
+
+                                                                   ……
+                    ……
+
+
+
+
+                   Don’t worry. This is the default of Keras.
+             x2    NN      y2           𝑦ො 2                 x2    NN    y2          𝑦ො 2
+                                                Mini-batch
+Mini-batch
+
+
+
+
+                                 𝑙2                                           𝑙2
+
+             x16   NN      y16          𝑦ො 16                x26   NN   y26          𝑦ො 26
+                                 𝑙16                                          𝑙 26
+
+                                                                   ……
+                    ……
+Recipe of Deep Learning
+                                      YES
+
+  Choosing proper loss      Good Results on
+                             Testing Data?
+  Mini-batch
+                                      YES
+  New activation function
+                            Good Results on
+  Adaptive Learning Rate     Training Data?
+
+  Momentum
+Hard to get the power of Deep …
+
+
+
+        Results on Training Data
+
+
+
+     Deeper usually does not imply better.
+Vanishing Gradient Problem
+      x1                    ……                y1
+      x2                    ……                y2
+      ……
+
+
+
+
+                                        ……
+                 ……
+
+
+                      ……
+
+
+
+
+                                              ……
+      xN                    ……                yM
+
+  Smaller gradients        Larger gradients
+
+  Learn very slow          Learn very fast
+
+  Almost random        Already converge
+                                        based on random!?
+Vanishing Gradient Problem
+Smaller gradients
+
+x1                          ……                    𝑦1            𝑦ො1
+x2                                       Small
+                            ……          output 𝑦2               𝑦ො2
+……
+
+
+
+
+                                        ……
+             ……
+
+
+                       ……
+
+
+
+
+                                                  ……
+
+
+
+                                                                ……
+                                                        𝑙
+                                                       +∆𝑙
+xN                          ……                    𝑦𝑀            𝑦ො𝑀
+                                                        Large
+     +∆𝑤
+                                                        input
+     Intuitive way to compute the derivatives …
+                                                  𝜕𝑙    ∆𝑙
+                                                     =?
+                                                  𝜕𝑤    ∆𝑤
+Hard to get the power of Deep …
+
+
+
+
+     In 2006, people used RBM pre-training.
+     In 2015, people use ReLU.
+ReLU
+• Rectified Linear Unit (ReLU)
+                                       Reason:
+                 𝑎
+   𝜎 𝑧                                   1. Fast to compute
+                         𝑎=𝑧
+                                         2. Biological reason
+         𝑎=0                             3. Infinite sigmoid
+                                   𝑧
+                                         with different biases
+                                         4. Vanishing gradient
+     [Xavier Glorot, AISTATS’11]
+     [Andrew L. Maas, ICML’13]           problem
+     [Kaiming He, arXiv’15]
+                     𝑎
+                         𝑎=𝑧
+ReLU
+               𝑎=0
+                              𝑧
+           0
+
+
+ x1                      y1
+
+           0             y2
+ x2
+       0
+
+
+       0
+                                       𝑎
+                                           𝑎=𝑧
+ReLU
+      A Thinner linear network   𝑎=0
+                                                𝑧
+
+
+
+ x1                                        y1
+
+                                           y2
+ x2
+        Do not have
+      smaller gradients
+ReLU - variant
+
+     𝐿𝑒𝑎𝑘𝑦 𝑅𝑒𝐿𝑈         𝑃𝑎𝑟𝑎𝑚𝑒𝑡𝑟𝑖𝑐 𝑅𝑒𝐿𝑈
+             𝑎                  𝑎
+                 𝑎=𝑧                 𝑎=𝑧
+
+
+                   𝑧                         𝑧
+ 𝑎 = 0.01𝑧             𝑎 = 𝛼𝑧
+
+                         α also learned by
+                         gradient descent
+  Maxout                 ReLU is a special cases of Maxout
+
+  • Learnable activation function [Ian J. Goodfellow, ICML’13]
+
+             +    5     neuron               +    1
+Input
+                           Max    7                        Max   2
+ x1          +    7                          +    2
+
+ x2          +    −1                         +    4
+                           Max    1                        Max   4
+             +    1                          +    3
+
+        You can have more than 2 elements in a group.
+Maxout                 ReLU is a special cases of Maxout
+
+• Learnable activation function [Ian J. Goodfellow, ICML’13]
+   • Activation function in maxout network can be
+     any piecewise linear convex function
+   • How many pieces depending on how many
+     elements in a group
+
+  2 elements in a group             3 elements in a group
+Recipe of Deep Learning
+                                      YES
+
+  Choosing proper loss      Good Results on
+                             Testing Data?
+  Mini-batch
+                                      YES
+  New activation function
+                            Good Results on
+  Adaptive Learning Rate     Training Data?
+
+  Momentum
+                        Set the learning
+Learning Rates          rate η carefully
+
+                      If learning rate is too large
+
+
+                      Total loss may not decrease
+                      after each update
+  𝑤2
+
+
+
+
+                 𝑤1
+                        Set the learning
+Learning Rates          rate η carefully
+
+                      If learning rate is too large
+
+
+                      Total loss may not decrease
+                      after each update
+  𝑤2
+                      If learning rate is too small
+
+
+                      Training would be too slow
+
+
+                 𝑤1
+Learning Rates
+• Popular & Simple Idea: Reduce the learning rate by
+  some factor every few epochs.
+   • At the beginning, we are far from the destination, so we
+     use larger learning rate
+   • After several epochs, we are close to the destination, so
+     we reduce the learning rate
+   • E.g. 1/t decay: 𝜂 𝑡 = 𝜂 Τ 𝑡 + 1
+• Learning rate cannot be one-size-fits-all
+   • Giving different parameters different learning
+     rates
+Adagrad
+   Original: 𝑤 ← 𝑤 − 𝜂𝜕𝐿 ∕ 𝜕𝑤
+  Adagrad: w ← 𝑤 − 𝜂𝑤 𝜕𝐿 ∕ 𝜕𝑤
+                           Parameter dependent
+                           learning rate
+
+            𝜂             constant
+ 𝜂𝑤 =
+         σ𝑡𝑖=0 𝑔𝑖 2         𝑔𝑖 is 𝜕𝐿 ∕ 𝜕𝑤 obtained
+                            at the i-th update
+Summation of the square of the previous derivatives
+                                                   𝜂
+                                        𝜂𝑤 =
+  Adagrad                                       σ𝑡𝑖=0 𝑔𝑖 2
+
+       g0        g1    ……         g0      g1     ……
+𝑤1                          𝑤2
+       0.1       0.2   ……        20.0    10.0    ……
+Learning rate:               Learning rate:
+       𝜂            𝜂               𝜂          𝜂
+         2
+                 =                           =
+      0.1          0.1              202        20
+           𝜂         𝜂                 𝜂        𝜂
+                 =                           =
+         2
+      0.1 + 0.22   0.22            202 + 102   22
+Observation: 1. Learning rate is smaller and
+             smaller for all parameters
+             2. Smaller derivatives, larger
+                                             Why?
+             learning rate, and vice versa
+   Larger
+ derivatives
+
+   Smaller
+Learning Rate
+
+
+
+                               Smaller Derivatives
+
+                               Larger Learning Rate
+
+
+                2. Smaller derivatives, larger
+                                                      Why?
+                learning rate, and vice versa
+Not the whole story ……
+• Adagrad [John Duchi, JMLR’11]
+• RMSprop
+    • https://www.youtube.com/watch?v=O3sxAc4hxZU
+
+• Adadelta [Matthew D. Zeiler, arXiv’12]
+• “No more pesky learning rates” [Tom Schaul, arXiv’12]
+• AdaSecant [Caglar Gulcehre, arXiv’14]
+• Adam [Diederik P. Kingma, ICLR’15]
+• Nadam
+    • http://cs229.stanford.edu/proj2015/054_report.pdf
+Recipe of Deep Learning
+                                      YES
+
+  Choosing proper loss      Good Results on
+                             Testing Data?
+  Mini-batch
+                                      YES
+  New activation function
+                            Good Results on
+  Adaptive Learning Rate     Training Data?
+
+  Momentum
+Hard to find
+optimal network parameters
+ Total
+ Loss    Very slow at the
+             plateau
+                        Stuck at saddle point
+
+                                    Stuck at local minima
+
+
+             𝜕𝐿 ∕ 𝜕𝑤      𝜕𝐿 ∕ 𝜕𝑤         𝜕𝐿 ∕ 𝜕𝑤
+               ≈0           =0              =0
+
+          The value of a network parameter w
+In physical world ……
+• Momentum
+
+             How about put this phenomenon
+             in gradient descent?
+               Still not guarantee reaching
+ Momentum      global minima, but give some
+               hope ……
+cost
+            Movement =
+            Negative of 𝜕𝐿∕𝜕𝑤 + Momentum
+                 Negative of 𝜕𝐿 ∕ 𝜕𝑤
+                 Momentum
+                 Real Movement
+
+
+
+
+                   𝜕𝐿∕𝜕𝑤 = 0
+Adam RMSProp (Advanced Adagrad) + Momentum
+Recipe of Deep Learning
+                                    YES
+
+  Early Stopping          Good Results on
+                           Testing Data?
+
+  Regularization
+                                    YES
+
+  Dropout                 Good Results on
+                           Training Data?
+
+  Network Structure
+Panacea for Overfitting
+• Have more training data
+• Create more training data (?)
+
+Handwriting recognition:
+
+ Original                  Created
+ Training Data:            Training Data:
+
+                           Shift 15。
+Recipe of Deep Learning
+                                    YES
+
+  Early Stopping          Good Results on
+                           Testing Data?
+
+  Regularization
+                                    YES
+
+  Dropout                 Good Results on
+                           Training Data?
+
+  Network Structure
+ Dropout
+Training:
+
+
+
+
+   ➢ Each time before updating the parameters
+      ⚫ Each neuron has p% to dropout
+ Dropout
+Training:
+
+
+
+
+                                       Thinner!
+
+   ➢ Each time before updating the parameters
+      ⚫ Each neuron has p% to dropout
+                The structure of the network is changed.
+      ⚫ Using the new network for training
+    For each mini-batch, we resample the dropout neurons
+ Dropout
+Testing:
+
+
+
+
+ ➢ No dropout
+      ⚫ If the dropout rate at training is p%,
+        all the weights times 1-p%
+      ⚫ Assume that the dropout rate is 50%.
+        If a weight w = 1 by training, set 𝑤 = 0.5 for testing.
+Dropout - Intuitive Reason
+                           Testing
+                          No dropout
+                       (拿下重物後就變很強)
+  Training
+     Dropout (腳上綁重物)
+Dropout - Intuitive Reason
+• Why the weights should multiply (1-p)% (dropout
+  rate) when testing?
+Training of Dropout          Testing of Dropout
+Assume dropout rate is 50%    No dropout
+                                          Weights from training
+          𝑤1                   0.5 × 𝑤1          𝑧 ′ ≈ 2𝑧
+           𝑤2   𝑧              0.5 × 𝑤2 𝑧 ′
+           𝑤3                  0.5 × 𝑤3
+           𝑤4                  0.5 × 𝑤4
+                                       Weights multiply 1-p%
+                                                𝑧′ ≈ 𝑧
+Dropout is a kind of ensemble.
+                           Training
+Ensemble                     Set
+
+
+     Set 1         Set 2              Set 3      Set 4
+
+
+   Network       Network         Network       Network
+      1             2               3             4
+
+    Train a bunch of networks with different structures
+Dropout is a kind of ensemble.
+Ensemble
+               Testing data x
+
+
+
+   Network   Network      Network   Network
+      1         2            3         4
+
+
+      y1       y2             y3      y4
+
+                    average
+  Dropout is a kind of ensemble.
+minibatch   minibatch   minibatch   minibatch    Training of
+    1           2           3           4         Dropout
+
+                                                 M neurons
+
+
+
+
+                                                ……
+                                                 2M possible
+                                                  networks
+
+     ➢Using one mini-batch to train one network
+     ➢Some parameters in the network are shared
+  Dropout is a kind of ensemble.
+Testing of Dropout    testing data x
+
+
+
+
+                                           All the
+                                           weights
+
+
+                                ……
+                                           multiply
+                                           1-p%
+
+
+   y1           y2        y3
+                               ?????
+            average              ≈     y
+More about dropout
+• More reference for dropout [Nitish Srivastava, JMLR’14] [Pierre Baldi,
+  NIPS’13][Geoffrey E. Hinton, arXiv’12]
+• Dropout works better with Maxout [Ian J. Goodfellow, ICML’13]
+• Dropconnect [Li Wan, ICML’13]
+    • Dropout delete neurons
+    • Dropconnect deletes the connection between neurons
+• Annealed dropout [S.J. Rennie, SLT’14]
+    • Dropout rate decreases by epochs
+• Standout [J. Ba, NISP’13]
+    • Each neural has different dropout rate
+Demo
+                 ……
+
+
+                 ……
+500
+                            model.add( dropout(0.8) )
+                 ……
+500
+                            model.add( dropout(0.8) )
+           Softmax
+
+      y1    y2
+             ……       y10
+Recipe of Deep Learning
+                                            YES
+
+  Early Stopping                  Good Results on
+                                   Testing Data?
+
+  Regularization
+                                            YES
+
+  Dropout                         Good Results on
+                                   Training Data?
+
+  Network Structure
+    CNN is a very good example!
+    (next lecture)
+Recipe of Deep Learning
+                                          YES
+
+   Step 1: define a       NO
+                                Good Results on
+   set of function
+                                 Testing Data?
+
+  Step 2: goodness
+     of function                          YES
+
+                          NO
+   Step 3: pick the             Good Results on
+                                 Training Data?
+    best function
+
+                       Neural
+                      Network
+     Lecture II:
+ Variants of Neural
+Networks: CNN, RNN,
+       LSTM
+Variants of Neural Networks
+
+Convolutional Neural
+Network (CNN)       Widely used in
+                       image processing
+
+
+Recurrent Neural Network
+(RNN)
+Why CNN for Image?                          [Zeiler, M. D., ECCV 2014]
+
+
+
+
+                 x1                                           ……
+                 x2
+                 ……                                           ……
+
+
+
+
+                                                   ……
+                            ……
+
+
+                                       ……
+Represented
+as pixels        xN                                           ……
+
+The most basic        Use 1st layer as module     Use 2nd layer as
+  classifiers           to build classifiers       module ……
+
+          Can the network be simplified by
+        considering the properties of images?
+Why CNN for Image
+• Some patterns are much smaller than the whole
+  image
+ A neuron does not have to see the whole image
+ to discover the pattern.
+       Connecting to small region with less parameters
+
+
+
+
+                                      “beak” detector
+Why CNN for Image
+• The same patterns appear in different regions.
+                                   “upper-left
+                                  beak” detector
+
+
+                          Do almost the same thing
+                                 They can use the same
+                                 set of parameters.
+
+
+                                  “middle beak”
+                                    detector
+Why CNN for Image
+• Subsampling the pixels will not change the object
+            bird
+                                                bird
+
+
+
+                           subsampling
+
+ We can subsample the pixels to make image smaller
+         Less parameters for the network to process the image
+Three Steps for Deep Learning
+
+    Step 1:               Step 2:    Step 3: pick
+ define a set
+ Convolutional         goodness of     the best
+  of function
+Neural Network           function      function
+
+Deep Learning is so simple ……
+The whole CNN
+     cat dog ……
+                                Convolution
+
+
+                                Max Pooling
+                                              Can repeat
+  Fully Connected                             many times
+Feedforward network             Convolution
+
+
+                                Max Pooling
+
+                      Flatten
+  The whole CNN
+Property 1
+ ➢ Some patterns are much           Convolution
+   smaller than the whole image
+Property 2
+                                    Max Pooling
+➢ The same patterns appear in
+                                                  Can repeat
+  different regions.
+                                                  many times
+Property 3                          Convolution
+ ➢ Subsampling the pixels will
+   not change the object
+                                    Max Pooling
+
+                          Flatten
+The whole CNN
+     cat dog ……
+                                Convolution
+
+
+                                Max Pooling
+                                              Can repeat
+  Fully Connected                             many times
+Feedforward network             Convolution
+
+
+                                Max Pooling
+
+                      Flatten
+CNN – Convolution Those are the network
+                                      parameters to be learned.
+
+                                       1    -1 -1
+  1   0   0   0   0   1                -1   1    -1   Filter 1
+  0   1   0   0   1   0                -1 -1     1    Matrix
+  0   0   1   1   0   0
+  1   0   0   0   1   0                -1   1    -1
+                                       -1   1    -1   Filter 2
+  0   1   0   0   1   0
+                                                      Matrix
+  0   0   1   0   1   0                -1   1    -1
+
+
+                                            ……
+      6 x 6 image
+                                     Each filter detects a small
+                          Property 1
+                                     pattern (3 x 3).
+                              1 -1 -1
+CNN – Convolution            -1 1 -1    Filter 1
+                             -1 -1 1
+  stride=1
+
+ 1   0   0   0   0   1
+ 0   1   0   0   1   0   3   -1
+ 0   0   1   1   0   0
+ 1   0   0   0   1   0
+ 0   1   0   0   1   0
+ 0   0   1   0   1   0
+
+     6 x 6 image
+                                    1 -1 -1
+CNN – Convolution                  -1 1 -1      Filter 1
+                                   -1 -1 1
+  If stride=2
+
+ 1   0   0      0   0   1
+ 0   1   0      0   1   0   3      -3
+ 0   0   1      1   0   0
+ 1   0   0      0   1   0
+ 0   1   0      0   1   0
+                                We set stride=1 below
+ 0   0   1      0   1   0
+
+      6 x 6 image
+                               1 -1 -1
+CNN – Convolution             -1 1 -1      Filter 1
+                              -1 -1 1
+  stride=1
+
+ 1   0   0   0   0   1
+ 0   1   0   0   1   0   3    -1    -3     -1
+ 0   0   1   1   0   0
+ 1   0   0   0   1   0   -3   1      0     -3
+ 0   1   0   0   1   0
+ 0   0   1   0   1   0   -3   -3     0     1
+
+     6 x 6 image         3    -2    -2     -1
+
+                              Property 2
+                                 -1     1     -1
+CNN – Convolution                -1     1     -1    Filter 2
+                                 -1     1     -1
+  stride=1               Do the same process for
+ 1   0   0   0   0   1   every filter
+ 0   1   0   0   1   0     3     -1         -3     -1
+                            -1     -1         -1     -1
+ 0   0   1   1   0   0
+ 1   0   0   0   1   0    -3     1          0      -3
+                            -1    -1         -2      1
+ 0   1   0   0   1   0            Feature
+ 0   0   1   0   1   0    -3     -3 Map0           1
+                            -1    -1         -2        1
+     6 x 6 image           3     -2         -2     -1
+                            -1     0          -4     3
+                                 4 x 4 image
+                                     1 -1 -1
+CNN – Zero Padding                  -1 1 -1      Filter 1
+                                    -1 -1 1
+0 0 0
+0 1 0 0 0 0 1
+0 0 1 0 0 1 0
+  0   0   1   1   0   0     You will get another 6 x 6
+  1   0   0   0   1   0     images in this way
+  0   1   0   0   1   0 0
+  0   0   1   0   1   0 0                Zero padding
+                  0 0 0
+      6 x 6 image
+  CNN – Colorful image
+                  11 -1-1 -1-1        -1-1 11 -1-1
+                     1 -1 -1              -1 1 -1
+                 -1-1 11 -1-1         -1-1-1 111 -1-1-1 Filter 2
+                     -1 1 -1 Filter 1 -1 1 -1
+                 -1 -1 1                -1-1 11 -1-1
+                   -1-1 -1-1 11
+Colorful image
+                                 1  0 0 0 0 1
+                                  1 0 0 0 0 1
+                                 0 11 00 00 01 00 1
+                                  0 1 0 0 1 0
+                                 0 00 11 01 00 10 0
+                                  0 0 1 1 0 0
+                                 1 00 00 10 11 00 0
+                                  1 0 0 0 1 0
+                                 0 11 00 00 01 10 0
+                                  0 1 0 0 1 0
+                                 0 00 11 00 01 10 0
+                                  0 0 1 0 1 0
+                                   0 0 1 0 1 0
+Convolution v.s. Fully Connected
+
+      1   0    0   0   0   1       1 -1 -1      -1   1   -1
+      0   1    0   0   1   0       -1 1 -1      -1   1   -1
+      0   0    1   1   0   0       -1 -1 1      -1   1   -1
+      1   0    0   0   1   0
+      0   1    0   0   1   0
+      0   0    1   0   1   0         convolution
+              image
+
+
+                                                          x1
+                               1    0   0   0   0    1
+                               0    1   0   0   1    0    x2
+      Fully-                   0    0   1   1   0    0
+                               1    0   0   0   1    0
+      connected                                           ……
+
+
+
+                                                               ……
+                               0    1   0   0   1    0
+                               0    0   1   0   1    0
+                                                         x36
+1  -1 -1 Filter 1        1: 1
+-1 1 -1                  2: 0
+-1 -1   1                3: 0
+                         4: 0            3
+
+
+
+
+                        …
+1   0   0   0   0   1
+0   1   0   0   1   0    7: 0
+0   0   1   1   0   0    8: 1
+1   0   0   0   1   0    9: 0
+0   1   0   0   1   0   10: 0
+
+
+
+
+                        …
+0   0   1   0   1   0
+                        13: 0
+    6 x 6 image
+                        14: 0
+ Less parameters!       15: 1   Only connect to 9
+                        16: 1   input, not fully
+                                connected
+                        …
+1     -1 -1                    1: 1
+-1    1   -1       Filter 1    2: 0
+-1 -1     1                    3: 0
+                               4: 0            3
+
+
+
+
+                              …
+1     0   0    0    0   1
+0     1   0    0    1   0      7: 0
+0     0   1    1    0   0      8: 1
+1     0   0    0    1   0      9: 0           -1
+0     1   0    0    1   0     10: 0
+
+
+
+
+                              …
+0     0   1    0    1   0
+                              13: 0
+       6 x 6 image
+                              14: 0
+ Less parameters!             15: 1
+                              16: 1   Shared weights
+    Even less parameters!
+                              …
+The whole CNN
+     cat dog ……
+                                Convolution
+
+
+                                Max Pooling
+                                              Can repeat
+  Fully Connected                             many times
+Feedforward network             Convolution
+
+
+                                Max Pooling
+
+                      Flatten
+CNN – Max Pooling
+      1    -1 -1                    -1        1   -1
+      -1   1   -1   Filter 1        -1        1   -1   Filter 2
+      -1 -1     1                   -1        1   -1
+
+ 3    -1       -3   -1         -1        -1       -1      -1
+
+ -3    1       0    -3         -1        -1       -2      1
+
+ -3   -3       0    1          -1        -1       -2      1
+
+ 3    -2       -2   -1         -1        0        -4      3
+    CNN – Max Pooling
+
+                                   New image
+1    0   0   0   0   1             but smaller
+0    1   0   0   1   0    Conv
+                                    3       0
+0    0   1   1   0   0               -1         1
+1    0   0   0   1   0
+0    1   0   0   1   0    Max       3       1
+                                        0       3
+0    0   1   0   1   0   Pooling
+                                    2 x 2 image
+     6 x 6 image
+                                    Each filter
+                                   is a channel
+The whole CNN
+        3       0
+         -1         1       Convolution
+
+        3       1
+            0       3
+                            Max Pooling
+                                          Can repeat
+     A new image                          many times
+Smaller than the original   Convolution
+image
+The number of the channel   Max Pooling
+is the number of filters
+The whole CNN
+     cat dog ……
+                                Convolution
+
+
+                                Max Pooling
+                                       A new image
+  Fully Connected
+Feedforward network             Convolution
+
+
+                                Max Pooling
+                                      A new image
+                      Flatten
+                          3
+    Flatten
+                          0
+
+                          1
+3       0
+ -1         1             3
+
+3       1                 -1
+    0       3   Flatten
+                          1      Fully Connected
+                               Feedforward network
+                          0
+
+                          3
+Convolutional Neural Network
+
+    Step 1:              Step 2:           Step 3: pick
+ define a set
+ Convolutional        goodness of            the best
+  of function
+Neural Network          function             function
+
+                                        “monkey”     0
+                                         “cat”       1
+                      CNN
+
+
+
+
+                                                     ……
+                                        “dog”        0
+               Convolution, Max                    target
+             Pooling, fully connected
+ Learning: Nothing special, just gradient descent ……
+                       Only modified the network structure and
+CNN in Keras
+                       input format (vector -> 3-D tensor)
+                                                   input
+
+
+                                               Convolution
+  1    -1   -1
+          -1 1   -1
+  -1    1 -1
+          -1 1   -1   …… There are 25
+  -1   -1 1                3x3 filters.
+          -1 1   -1                            Max Pooling
+Input_shape = ( 1 , 28 , 28 )
+1: black/weight, 3: RGB 28 x 28 pixels         Convolution
+
+
+            3    -1            3               Max Pooling
+
+            -3   1
+                      Only modified the network structure and
+   CNN in Keras
+                      input format (vector -> 3-D tensor)
+                                                  input
+                            1 x 28 x 28
+                                              Convolution
+How many parameters
+                       9    25 x 26 x 26
+for each filter?
+                                              Max Pooling
+                            25 x 13 x 13
+                                              Convolution
+How many parameters
+                    225     50 x 11 x 11
+for each filter?
+                                              Max Pooling
+                             50 x 5 x 5
+   CNN in Keras Fill the dimensions of all feature maps and
+                   filter parameters
+                                                 input
+                   input       3 x 24 x 24
+                    convolution2D(12,3,3)     Convolution
+How many parameters
+for each filter?
+                      MaxPooling2D(2,2)       Max Pooling
+
+
+                   convolution2D(128,3,3)     Convolution
+How many parameters
+for each filter?
+                      MaxPooling2D(2,2)       Max Pooling
+                   Only modified the network structure and
+CNN in Keras
+                   input format (vector -> 3-D tensor)
+                                                  input
+                                    1 x 28 x 28
+      output                                Convolution
+                                   25 x 26 x 26
+  Fully Connected                           Max Pooling
+Feedforward network
+                                   25 x 13 x 13
+                                            Convolution
+                                   50 x 11 x 11
+                                            Max Pooling
+            1250                    50 x 5 x 5
+                      Flatten
+What does CNN learn?
+The output of the k-th filter is a                       x
+11 x 11 matrix.                                        input
+Degree of the activation       11 11
+of the k-th filter:   𝑎𝑘 = ෍ ෍ 𝑎𝑖𝑗   𝑘
+                                           25 3x3
+                                                   Convolution
+                                 𝑖=1 𝑗=1   filters
+𝑥 ∗ = 𝑎𝑟𝑔 max 𝑎𝑘 (gradient ascent)
+              𝑥
+                       11                           Max Pooling
+
+          3       -1        ……   -1
+                        𝑘                  50 3x3
+                       𝑎𝑖𝑗                           Convolution
+                                            filters
+          -3      1         ……   -3
+  11                                       50 x 11 x 11
+           ……
+
+                  ……
+
+
+
+                                  ……
+
+
+
+
+                                                     Max Pooling
+
+          3       -2        ……   -1
+What does CNN learn?
+The output of the k-th filter is a
+11 x 11 matrix.                                           input
+Degree of the activation       11 11
+of the k-th filter:   𝑎𝑘 = ෍ ෍ 𝑎𝑖𝑗   𝑘
+                                          25 3x3
+                                                  Convolution
+                           𝑖=1 𝑗=1        filters
+𝑥 ∗ = 𝑎𝑟𝑔 max 𝑎𝑘 (gradient ascent)
+            𝑥
+                                                       Max Pooling
+
+                                          50 3x3
+                                                    Convolution
+                                           filters
+                                          50 x 11 x 11
+                                                    Max Pooling
+
+                                     For each filter
+What does CNN learn?                                    input
+
+    𝑥 ∗ = 𝑎𝑟𝑔 max 𝑦 𝑖      Can we see digits?        Convolution
+                 𝑥
+
+                                                     Max Pooling
+           0          1          2
+                                                     Convolution
+
+                                                     Max Pooling
+           3          4          5
+                                                       flatten
+
+           6          7          8
+
+
+ Deep Neural Networks are Easily Fooled
+ https://www.youtube.com/watch?v=M2IebCN9Ht4
+                                                𝑦𝑖
+What does CNN learn?                       Over all
+                                         pixel values
+
+    𝑥 ∗ = 𝑎𝑟𝑔 max 𝑦 𝑖   𝑥 ∗ = 𝑎𝑟𝑔 max 𝑦 𝑖 + ෍ 𝑥𝑖𝑗
+               𝑥                  𝑥
+                                           𝑖,𝑗
+
+
+
+
+0        1         2      0       1        2
+
+
+
+
+3        4         5      3       4        5
+
+
+
+
+6        7         8      6       7        8
+Deep Style
+• Given a photo, make its style like famous paintings
+
+
+
+
+                  https://dreamscopeapp.com/
+Deep Style
+• Given a photo, make its style like famous paintings
+
+
+
+
+                  https://dreamscopeapp.com/
+Deep Style
+
+
+
+
+                             CNN            CNN
+
+A Neural                    content         style
+Algorithm of
+Artistic Style
+https://arxiv.org/abs/150
+8.06576
+                                      CNN
+
+
+                                      ?
+More Application: Playing Go
+
+                                      Next move
+                       Network        (19 x 19
+                                      positions)
+
+   19 x 19 matrix                    19 x 19 vector
+    19(image)
+       x 19 vector
+      Black: 1        Fully-connected feedforward
+      white: -1           network can be used
+      none: 0        But CNN performs much better.
+More Application: Playing Go
+              record of
+Training:                  黑: 5之五   白: 天元     黑: 五之5 …
+            previous plays
+
+                                            Target:
+                           CNN              “天元” = 1
+                                            else = 0
+
+
+                                            Target:
+                           CNN              “五之 5” = 1
+                                            else = 0
+Why CNN for playing Go?
+• Some patterns are much smaller than the whole
+  image
+
+     Alpha Go uses 5 x 5 for first layer
+
+• The same patterns appear in different regions.
+Why CNN for playing Go?
+• Subsampling the pixels will not change the object
+           Max Pooling How to explain this???
+
+
+
+
+      Alpha Go does not use Max Pooling ……
+Variants of Neural Networks
+
+Convolutional Neural
+Network (CNN)
+
+Recurrent Neural Network
+(RNN)    Neural Network with Memory
+Example Application
+• Slot Filling
+
+                 I would like to arrive Taipei on November 2nd.
+
+
+
+                             ticket booking system
+
+
+
+                        Destination:       Taipei
+           Slot
+                        time of arrival:   November 2nd
+Example Application
+                                  y1   y2
+Solving slot filling by
+Feedforward network?
+Input: a word
+      (Each word is represented
+      as a vector)
+
+
+
+
+                      Taipei      x1   x2
+   1-of-N encoding
+   word2vec
+How to represent each word as a vector?
+1-of-N Encoding lexicon = {apple, bag, cat, dog, elephant}
+ The vector is lexicon size.       apple = [ 1 0 0 0 0]
+ Each dimension corresponds        bag = [ 0 1 0 0 0]
+ to a word in the lexicon           cat = [ 0 0 1 0 0]
+ The dimension for the word         dog = [ 0 0 0 1 0]
+ is 1, and others are 0     elephant = [ 0 0 0 0 1]
+ Beyond 1-of-N encoding
+Dimension for “Other”               Word hashing
+
+      apple         0          a-a-a    0
+        bag         0          a-a-b    0
+
+
+
+
+                                       …
+                                …
+         cat        0          a-p-p    1
+        dog         0
+
+
+                                …
+
+                                       …
+                                             26 X 26 X 26
+   elephant         0          p-l-e    1
+
+
+
+
+                                       …
+                                …
+                …
+
+
+
+
+                               p-p-l    1
+    “other”         1
+
+                                       …
+                                …
+                                             w = “apple”
+
+w = “Gandalf”   w = “Sauron”
+                                                    164
+Example Application                        time of
+                                    dest   departure
+                                     y1      y2
+Solving slot filling by
+Feedforward network?
+Input: a word
+      (Each word is represented
+      as a vector)
+Output:
+    Probability distribution that
+    the input word belonging to
+    the slots
+                      Taipei        x1       x2
+  Example Application                             time of
+                                           dest   departure
+                                            y1      y2
+arrive   Taipei    on   November    2nd
+
+
+other     dest other      time     time
+Problem?
+ leave    Taipei   on   November     2nd
+
+   place of departure
+
+  Neural network          Taipei           x1       x2
+  needs memory!
+Three Steps for Deep Learning
+
+   Step 1:                Step 2:    Step 3: pick
+ define a set
+  Recurrent            goodness of     the best
+ of function
+Neural Network           function      function
+
+Deep Learning is so simple ……
+Recurrent Neural Network (RNN)
+                             y1   y2
+
+The output of hidden layer
+are stored in the memory.
+             store
+
+        a1           a2
+
+
+
+Memory can be considered     x1   x2
+as another input.
+RNN                   The same network is used again and again.
+
+Probability of                Probability of               Probability of
+“arrive” in each slot         “Taipei” in each slot        “on” in each slot
+         y1                            y2                           y3
+                      store                        store
+              a1                            a2                           a3
+                        a1                          a2
+
+
+         x1                            x2                           x3
+
+
+                   arrive     Taipei   on        November     2nd
+     RNN                                  Different
+
+Prob of “leave”       Prob of “Taipei”   Prob of “arrive” Prob of “Taipei”
+in each slot          in each slot       in each slot     in each slot
+   y1                      y2 ……            y1                 y2 ……
+              store                                   store
+        a1                     a2                a1                  a2
+                a1                  ……                 a1                 ……
+
+
+   x1                     x2        ……      x1                  x2        ……
+ leave                  Taipei           arrive               Taipei
+
+             The values stored in the memory is different.
+     Of course it can be deep …
+           yt        yt+1     yt+2
+
+……                                       ……
+
+
+
+
+                                  ……
+                     ……
+           ……
+
+
+
+
+……                                       ……
+
+……                                       ……
+
+           xt        xt+1         xt+2
+     Bidirectional RNN
+           xt        xt+1          xt+2
+
+……                                               ……
+
+
+                yt          yt+1          yt+2
+
+
+……                                               ……
+
+           xt        xt+1          xt+2
+     Long Short-term Memory (LSTM)
+                  Other part of the network
+                                                   Special Neuron:
+Signal control
+                        Output Gate
+                                                      4 inputs,
+the output gate                                       1 output
+(Other part of
+ the network)
+                          Memory              Forget    Signal control
+                           Cell                Gate     the forget gate
+                                                        (Other part of
+                                                         the network)
+Signal control
+                         Input Gate           LSTM
+the input gate
+(Other part of
+ the network)
+                  Other part of the network
+                  𝑎 = ℎ 𝑐 ′ 𝑓 𝑧𝑜
+
+𝑧𝑜                multiply
+                                   Activation function f is
+     𝑓 𝑧𝑜     ℎ 𝑐′                 usually a sigmoid function
+                                     Between 0 and 1
+                                     Mimic open and close gate
+                      𝑐 𝑓 𝑧𝑓
+            𝑐c′                     𝑧𝑓
+                      𝑐𝑓 𝑧𝑓
+              𝑔 𝑧 𝑓 𝑧𝑖
+                               𝑐 ′ = 𝑔 𝑧 𝑓 𝑧𝑖 + 𝑐𝑓 𝑧𝑓
+     𝑓 𝑧𝑖
+𝑧𝑖
+              multiply
+              𝑔 𝑧
+
+
+
+                  𝑧
+                0
+      ≈0
+-10
+                10
+
+
+
+
+            7
+           10             10
+                     ≈1
+      ≈1        3
+10
+                3
+
+
+
+           3
+               -3
+     ≈1
+10
+               -3
+
+
+
+
+          10
+          -3
+           7             -10
+                    ≈0
+     ≈1        -3
+10
+               -3
+
+
+
+          -3
+       LSTM
+
+ct-1
+                                             ……
+vector
+
+
+
+
+         zf   zi        z   zo   4 vectors
+
+
+                   xt
+       LSTM
+                            yt
+                                 zo
+ct-1
+
+        ×          ＋        ×
+
+
+
+                   ×
+                                          zf
+
+                                 zi
+        zf    zi        z   zo
+
+
+                   xt
+                                      z
+                                          Extension: “peephole”
+       LSTM
+                                    yt                                       yt+1
+
+ct-1                                     ct                                         ct+1
+
+              ×            ＋        ×              ×               ＋         ×
+
+
+
+                           ×                                       ×
+
+
+
+              zf      zi        z   zo             zf        zi          z   zo
+
+
+       ct-1        ht-1    xt                 ct        ht        xt+1
+Multiple-layer
+LSTM
+
+
+
+
+        Don’t worry if you cannot understand this.
+                   Keras can handle it.
+                        Keras supports
+              “LSTM”, “GRU”, “SimpleRNN” layers
+
+  This is quite
+  standard now.
+
+         https://img.komicolle.org/2015-09-20/src/14426967627131.gif
+Three Steps for Deep Learning
+
+   Step 1:                Step 2:    Step 3: pick
+ define a set          goodness of     the best
+ of function             function      function
+
+Deep Learning is so simple ……
+Learning Target
+                other                        dest                       other
+       0 … 1 … 0                     0 … 1 … 0                   0 … 1 … 0
+
+
+               y1                           y2                          y3
+                            copy                        copy
+                    a1                           a2                          a3
+                              a1                         a2
+
+                                                                             Wi
+               x1                           x2                          x3
+
+  Training
+  Sentences:             arrive    Taipei   on        November    2nd
+                         other      dest    other       time     time
+Three Steps for Deep Learning
+
+   Step 1:                Step 2:    Step 3: pick
+ define a set          goodness of     the best
+ of function             function      function
+
+Deep Learning is so simple ……
+Learning                         y1         y2
+
+   Backpropagation
+   through time (BPTT)
+            copy
+
+       a1          a2
+
+                        𝑤
+𝑤 ← 𝑤 − 𝜂𝜕𝐿 ∕ 𝜕𝑤                x1          x2
+
+    RNN Learning is very difficult in practice.
+                                                感謝 曾柏翔 同學
+                                                 提供實驗結果
+
+Unfortunately ……
+• RNN-based network is not always easy to learn
+              Real experiments on Language modeling
+
+
+
+                                          sometimes
+ Total Loss
+
+
+
+
+                                                 Lucky
+
+
+
+
+                              Epoch
+The error surface is rough.
+                   The error surface is either
+                   very flat or very steep.
+
+
+
+
+                                             Total
+                Clipping
+
+
+
+
+                                               CostLoss
+ w2
+
+                  w1           [Razvan Pascanu, ICML’13]
+ Why?
+𝑤=1                𝑦1000 = 1                Large              Small
+ 𝑤 = 1.01          𝑦1000 ≈ 20000           𝜕𝐿Τ𝜕𝑤           Learning rate?
+ 𝑤 = 0.99         𝑦1000 ≈ 0                 small              Large
+ 𝑤 = 0.01         𝑦1000 ≈ 0                𝜕𝐿Τ𝜕𝑤           Learning rate?
+                                                                 =w999
+              y1               y2             y3                 y1000
+Toy Example
+               1                1              1                   1
+                                                      ……
+                      w                w                    w
+                  1                1              1                   1
+              1                0              0                   0
+  Helpful Techniques
+  • Long Short-term Memory (LSTM)
+     • Can deal with gradient vanishing (not gradient
+       explode)
+      ➢ Memory and input are
+        added
+      ➢ The influence never disappears
+        unless forget gate is closed
+            No Gradient vanishing              add
+            (If forget gate is opened.)
+Gated Recurrent Unit (GRU):
+    simpler than LSTM       [Cho, EMNLP’14]
+ Helpful Techniques
+                                           Structurally Constrained
+       Clockwise RNN
+                                          Recurrent Network (SCRN)
+
+
+
+
+                 [Jan Koutnik, JMLR’14]            [Tomas Mikolov, ICLR’15]
+
+
+Vanilla RNN Initialized with Identity matrix + ReLU activation
+function [Quoc V. Le, arXiv’15]
+➢ Outperform or be comparable with LSTM in 4 different tasks
+More Applications ……
+Probability of           Probability of          Probability of
+“arrive” in each slot    “Taipei” in each slot   “on” in each slot
+         y1                       y2                      y3
+                    and output are both
+              Input store                sequences
+                                       store
+              a1       with the   a2 length
+                                same               a3
+                     a 1
+                                            a2
+                  RNN can do more than that!
+         x1                       x2                      x3
+
+
+                arrive   Taipei   on   November     2nd
+Many to one
+• Input is a vector sequence, but output is only one vector
+
+Sentiment Analysis                                        超好雷
+                                                          好雷
+ 看了這部電影覺         這部電影太糟了            這部電影很
+  得很高興 …….          …….              棒 …….
+                                                          普雷
+                                                          負雷
+Positive (正雷) Negative (負雷) Positive (正雷)                 超負雷
+
+
+                            ……
+
+
+     我       覺       得       ……       太       糟       了
+Many to one                                                  [Shen & Lee, Interspeech 16]
+
+
+
+
+• Input is a vector sequence, but output is only one vector
+                                                        OT
+
+Key Term                                      …
+                                                                     Key Terms:
+Extraction                                                           DNN, LSTN
+                    V1        V2    V3   V4   …        VT
+                                                                      Output Layer
+                               Embedding Layer
+        document    x1        x2 x3 x4       …         xT
+                                                                     Hidden Layer
+                               Embedding Layer
+
+                    V1        V2    V3   V4   …        VT                ΣαiVi
+
+
+
+                         α1    α2   α3   α4   …   αT
+Many to Many (Output is shorter)
+• Both input and output are both sequences, but the output
+  is shorter.
+    • E.g. Speech Recognition
+
+                   Output: “好棒” (character sequence)
+                                   Trimming
+Problem?
+ Why can’t it be             好好好棒棒棒棒棒
+  “好棒棒”
+                                                     (vector
+                    Input:
+                                                     sequence)
+Many to Many (Output is shorter)
+• Both input and output are both sequences, but the output
+  is shorter.
+• Connectionist Temporal Classification (CTC) [Alex Graves,
+ ICML’06][Alex Graves, ICML’14][Haşim Sak, Interspeech’15][Jie Li,
+ Interspeech’15][Andrew Senior, ASRU’15]
+
+
+        “好棒”           Add an extra symbol “φ”               “好棒棒”
+                       representing “null”
+
+好 φ φ 棒 φ φ φ φ                                   好 φ φ 棒 φ 棒 φ φ
+Many to Many (No Limitation)
+• Both input and output are both sequences with different
+  lengths. → Sequence to sequence learning
+    • E.g. Machine Translation (machine learning→機器學習)
+  machine
+
+
+            learning
+
+
+
+
+                          Containing all
+                       information about
+                         input sequence
+Many to Many (No Limitation)
+• Both input and output are both sequences with different
+  lengths. → Sequence to sequence learning
+    • E.g. Machine Translation (machine learning→機器學習)
+
+            機          器   學    習      慣      性 ……
+
+
+                                                     ……
+  machine
+
+
+            learning
+
+
+
+
+                           Don’t know when to stop
+Many to Many (No Limitation)
+
+
+
+
+ 推 tlkagk:       =========斷==========
+    Ref:http://zh.pttpedia.wikia.com/wiki/%E6%8E%A5%E9%BE%8D%
+    E6%8E%A8%E6%96%87 (鄉民百科)
+Many to Many (No Limitation)
+• Both input and output are both sequences with different
+  lengths. → Sequence to sequence learning
+    • E.g. Machine Translation (machine learning→機器學習)
+
+
+
+
+                                                 ===
+            機          器    學          習
+  machine
+
+
+            learning
+
+
+
+
+                                     Add a symbol “===“ (斷)
+                           [Ilya Sutskever, NIPS’14][Dzmitry Bahdanau, arXiv’15]
+Image Caption Generation
+• Input an image, but output a sequence of words
+                               [Kelvin Xu, arXiv’15][Li Yao, ICCV’15]
+        A vector
+        for whole                                                ===
+        image          a    woman        is
+
+
+  CNN                                               ……
+
+
+            Input
+            image                  Caption Generation
+Image Caption Generation
+• Can machine describe what it see from image?
+• Demo:台大電機系 大四 蘇子睿、林奕辰、徐翊
+  祥、陳奕安
+
+
+
+
+                                   MTK 產學大聯盟
+Attention-based Model
+                    What you learned                  Breakfast
+                    in these lectures                 today
+
+   What is deep
+    learning?
+
+                                                           summer
+                                                           vacation 10
+Answer       Organize                                      years ago
+
+
+
+     http://henrylo1605.blogspot.tw/2015/05/blog-post_56.html
+Attention-based Model
+       Input                   DNN/RNN                      output
+
+
+              Reading Head
+               Controller
+
+                                                   Reading Head
+
+         ……                                                    ……
+                            Machine’s Memory
+Ref:
+http://speech.ee.ntu.edu.tw/~tlkagk/courses/MLDS_2015_2/Lecture/Attain%20(v3).e
+cm.mp4/index.html
+Attention-based Model v2
+
+  Input              DNN/RNN            output
+
+          Reading Head           Writing Head
+           Controller             Controller
+
+          Writing Head           Reading Head
+
+   ……                                     ……
+                  Machine’s Memory
+
+                               Neural Turing Machine
+Concluding Remarks
+
+Convolutional Neural
+Network (CNN)
+
+Recurrent Neural Network
+(RNN)
+   Lecture III:
+Beyond Supervised
+    Learning
+Outline
+
+Unsupervised Learning
+• 化繁為簡
+ • Auto-encoder
+ • Word Vector and Audio Word Vector
+• 無中生有
+Reinforcement Learning
+   Unsupervised Learning
+   • 化繁為簡                    • 無中生有
+
+
+   only having
+function input
+                                only having
+                 function
+                            function output
+                                              function
+
+
+                                               code
+Outline
+
+Unsupervised Learning
+• 化繁為簡
+ • Auto-encoder
+ • Word Vector and Audio Word Vector
+• 無中生有
+Reinforcement Learning
+Motivation
+• In MNIST, a digit is 28 x 28 dims.
+    • Most 28 x 28 dim vectors are not digits
+
+
+
+                                     3
+
+                       -20。   -10。   0。    10。 20。
+Outline
+
+Unsupervised Learning
+• 化繁為簡
+ • Auto-encoder
+ • Word Vector and Audio Word Vector
+• 無中生有
+Reinforcement Learning
+Auto-encoder
+                           Usually <784
+                                                 Compact
+                   NN              code      representation of
+                 Encoder                      the input object
+ 28 X 28 = 784
+                       Learn together
+
+                   NN                         Can reconstruct
+   code                                      the original object
+                 Decoder
+
+                  As close as possible
+
+               NN                    NN
+                           𝑐
+             Encoder               Decoder
+Deep Auto-encoder
+• NN encoder + NN decoder = a deep network
+
+                                    As close as possible
+
+
+
+
+                                                                                      Output Layer
+  Input Layer
+
+
+
+
+                                               bottle
+
+
+                                                        Layer
+
+
+
+
+                                                                      Layer
+
+
+                                                                              Layer
+                                      Layer
+                Layer
+
+
+                        Layer
+
+
+
+
+                                …                                 …
+
+
+                        Encoder                                 Decoder
+    𝑥                                         Code                                        𝑥ො
+ Reference: Hinton, Geoffrey E., and Ruslan R. Salakhutdinov. "Reducing the
+ dimensionality of data with neural networks." Science 313.5786 (2006): 504-507
+   Deep Auto-encoder
+  Original
+   Image
+
+
+
+
+                                             784
+
+
+
+
+                                                                 784
+                                                         30
+    PCA
+
+    Deep
+Auto-encoder
+                      500
+
+
+                            250
+
+
+
+
+                                       250
+
+
+                                                   500
+                                  30
+               1000
+
+
+
+
+                                                          1000
+     784
+
+
+
+
+                                                                 784
+784   784
+      1000
+ 2
+      500
+784
+      250
+       2
+      250
+      500
+      1000
+      784
+                                More: Contractive auto-encoder
+                                      Ref: Rifai, Salah, et al. "Contractive
+Auto-encoder                          auto-encoders: Explicit invariance
+                                      during feature extraction.“ Proceedings
+                                      of the 28th International Conference on
+                                      Machine Learning (ICML-11). 2011.
+• De-noising auto-encoder
+                             As close as possible
+
+
+
+                               encode                 decode
+                                              𝑐
+      𝑥                 𝑥′                                            𝑥ො
+           Add
+          noise
+
+       Vincent, Pascal, et al. "Extracting and composing robust features
+       with denoising autoencoders." ICML, 2008.
+Auto-encoder – Pre-training DNN
+• Greedy Layer-wise Pre-training again
+     output       10
+
+                  500
+ Target
+
+
+
+
+                  1000                   784           𝑥ො
+                                                W1 ’
+                  1000                   1000
+                                                W1
+          Input   784        Input       784           𝑥
+Auto-encoder – Pre-training DNN
+• Greedy Layer-wise Pre-training again
+     output       10
+
+                  500                      1000              𝑎ො1
+                                                  W2 ’
+ Target
+
+
+
+
+                  1000                     1000
+                                                  W2
+                  1000                     1000              𝑎1
+                                     fix          W1
+          Input   784        Input         784           𝑥
+Auto-encoder – Pre-training DNN
+• Greedy Layer-wise Pre-training again
+     output       10                       1000             𝑎ො 2
+                                                  W3’
+                  500                      500
+                                                  W3
+ Target
+
+
+
+
+                  1000                     1000             𝑎2
+                                     fix          W2
+                  1000                     1000             𝑎1
+                                     fix          W1
+          Input   784        Input         784          𝑥
+Auto-encoder – Pre-training DNN
+                                            Find-tune by
+• Greedy Layer-wise Pre-training again    backpropagation
+     output       10        output       10
+                                                     Random
+                                                W4     init
+                  500                    500
+                                                W3
+ Target
+
+
+
+
+                  1000                   1000
+                                                W2
+                  1000                   1000
+                                                W1
+          Input   784        Input       784         𝑥
+Outline
+
+Unsupervised Learning
+• 化繁為簡
+ • Auto-encoder
+ • Word Vector and Audio Word Vector
+• 無中生有
+Reinforcement Learning
+Word Vector/Embedding
+• Machine learn the meaning of words from reading
+  a lot of documents without supervision
+
+
+             tree
+            flower
+
+
+           dog         rabbit
+    run
+  jump           cat
+Word Embedding
+• Machine learn the meaning of words from reading
+  a lot of documents without supervision
+• A word can be understood by its context
+                             You shall know a word
+ 蔡英文、馬英九 are
+                            by the company it keeps
+something very similar
+
+    馬英九 520宣誓就職
+
+    蔡英文 520宣誓就職
+How to exploit the context?
+• Count based
+   • If two words wi and wj frequently co-occur, V(wi) and
+     V(wj) would be close to each other
+   • E.g. Glove Vector:
+     http://nlp.stanford.edu/projects/glove/
+
+   V(wi) . V(wj)                  Ni,j
+   Inner product                 Number of times wi and wj
+                                 in the same document
+
+• Prediction based
+                                                                 wi
+                                                   …… wi-2 wi-1 ___
+  Prediction-based
+            0           z1
+ 1-of-N
+            1           z2                              The probability
+encoding
+            0                                           for each word as
+ of the
+
+
+
+
+                                               …
+                             ……
+                  ……
+                                                        the next word wi
+word wi-1
+            ……
+
+
+
+
+➢ Take out the input of the       z2                    tree
+  neurons in the first layer                          flower
+➢ Use it to represent a                dog         rabbit         run
+  word w                                                        jump
+                                             cat
+➢ Word vector, word
+  embedding feature: V(w)                                        z1   224
+                             Minimizing
+ Prediction-based           cross entropy
+
+                      Neural
+                潮水                      退了
+                     Network
+
+Collect data:         Neural
+                退了                      就
+潮水 退了 就 知道 …         Network
+不爽 不要 買 …
+                      Neural
+公道價 八萬 一 …      就                       知道
+                     Network
+………
+                      Neural
+                不爽                      不要
+                     Network
+                       ……
+                               You shall know a word
+ Prediction-based             by the company it keeps
+
+         0          z1
+         1          z2                 The probability
+         0                             for each word as
+
+
+
+
+                                 …
+                         ……
+              ……
+蔡英文                                    the next word wi
+         ……
+
+
+
+ or
+                                       “宣誓就職”
+馬英九
+                                       should have large
+                z2                     probability
+Training text:
+ …… 蔡英文 宣誓就職 ……                    蔡英文
+      wi-1     wi
+                                     馬英九
+…… 馬英九 宣誓就職 ……
+      wi-1     wi                            z1
+ Prediction-based
+ – Various Architectures
+ • Continuous bag of word (CBOW) model
+
+                       wi-1
+…… wi-1 ____ wi+1 ……            Neural
+                                                 wi
+                       wi+1    Network
+
+                predicting the word given its context
+ • Skip-gram
+…… ____ wi ____ …… w                             wi-1
+                                Neural
+                    i
+                               Network
+                                                 wi+1
+
+                predicting the context given a word
+                                                227
+Word Embedding
+
+
+
+
+   Source: http://www.slideshare.net/hustwj/cikm-keynotenov2014
+                                                                  228
+Word Embedding
+                                  𝑉 𝐺𝑒𝑟𝑚𝑎𝑛𝑦
+• Characteristics       ≈ 𝑉 𝐵𝑒𝑟𝑙𝑖𝑛 − 𝑉 𝑅𝑜𝑚𝑒 + 𝑉 𝐼𝑡𝑎𝑙𝑦
+
+        𝑉 ℎ𝑜𝑡𝑡𝑒𝑟 − 𝑉 ℎ𝑜𝑡 ≈ 𝑉 𝑏𝑖𝑔𝑔𝑒𝑟 − 𝑉 𝑏𝑖𝑔
+       𝑉 𝑅𝑜𝑚𝑒 − 𝑉 𝐼𝑡𝑎𝑙𝑦 ≈ 𝑉 𝐵𝑒𝑟𝑙𝑖𝑛 − 𝑉 𝐺𝑒𝑟𝑚𝑎𝑛𝑦
+       𝑉 𝑘𝑖𝑛𝑔 − 𝑉 𝑞𝑢𝑒𝑒𝑛 ≈ 𝑉 𝑢𝑛𝑐𝑙𝑒 − 𝑉 𝑎𝑢𝑛𝑡
+
+• Solving analogies
+
+               Rome : Italy = Berlin : ?
+      Compute 𝑉 𝐵𝑒𝑟𝑙𝑖𝑛 − 𝑉 𝑅𝑜𝑚𝑒 + 𝑉 𝐼𝑡𝑎𝑙𝑦
+             Find the word w with the closest V(w)
+                                                     229
+Demo
+• Machine learn the meaning of words from reading
+  a lot of documents without supervision
+Demo
+• Model used in demo is provided by 陳仰德
+   • Part of the project done by 陳仰德、林資偉
+   • TA: 劉元銘
+   • Training data is from PTT (collected by 葉青峰)
+
+
+
+
+                                                    231
+Document to Vector
+• Paragraph Vector: Le, Quoc, and Tomas Mikolov. "Distributed Representations of
+  Sentences and Documents.“ ICML, 2014
+• Seq2seq Auto-encoder: Li, Jiwei, Minh-Thang Luong, and Dan Jurafsky. "A
+  hierarchical neural autoencoder for paragraphs and documents." arXiv preprint,
+  2015
+• Skip Thought: Ryan Kiros, Yukun Zhu, Ruslan Salakhutdinov, Richard S.
+  Zemel, Antonio Torralba, Raquel Urtasun, Sanja Fidler, “Skip-Thought Vectors”
+  arXiv preprint, 2015.
+• Exploiting other kind of labels:
+    • Huang, Po-Sen, et al. "Learning deep structured semantic models for web
+       search using clickthrough data." ACM, 2013.
+    • Shen, Yelong, et al. "A latent semantic model with convolutional-pooling
+       structure for information retrieval." ACM, 2014.
+    • Socher, Richard, et al. "Recursive deep models for semantic
+       compositionality over a sentiment treebank." EMNLP, 2013.
+    • Tai, Kai Sheng, Richard Socher, and Christopher D. Manning. "Improved
+       semantic representations from tree-structured long short-term memory
+       networks." arXiv preprint, 2015.
+Audio Word to Vector
+
+
+                 Machine does not have
+                 any prior knowledge
+
+                 Machine listens to lots of
+                 audio book
+
+                            Like an infant
+
+
+                             [Chung, Interspeech 16)
+ Audio Word to Vector
+ • Dimension reduction for a sequence with variable length
+        audio segments (word-level)                 Fixed-length vector
+    dog
+                                                             never
+ dog
+              Yu-An Chung, Chao-Chung Wu, Chia-Hao Shen,          never
+               Hung-Yi Lee, Lin-Shan Lee, Audio Word2Vec:
+dogs           Unsupervised Learning of Audio Segment
+               Representations using Sequence-to-sequence
+                                                                   never
+               Autoencoder, Interspeech 2016
+
+
+
+
+                   ever                ever
+Sequence-to-sequence
+Auto-encoder
+                                           vector
+        audio segment
+
+      RNN Encoder             The values in the memory
+                              represent the whole audio
+                              segment
+                                  The vector we want
+
+                              How to train RNN Encoder?
+
+ x1     x2    x3    x4 acoustic features
+
+                        audio segment
+Sequence-to-sequence
+                  Input acoustic features
+Auto-encoder
+                                  x1         x2      x3   x4
+  The RNN encoder and
+decoder are jointly trained.
+                                  y1     y2          y3   y4
+        RNN Encoder
+
+
+
+
+                                                  RNN Decoder
+   x1     x2   x3     x4 acoustic features
+
+                         audio segment
+Sequence-to-sequence
+Auto-encoder
+• Visualizing embedding vectors of the words
+
+         fear
+
+                fame
+
+
+
+                       name         near
+ Audio Word to Vector
+ –Application
+                       “US President”
+             spoken
+              query
+
+                                                      user
+
+“US President”                               “US President”
+
+
+
+                      Spoken Content
+
+      Compute similarity between spoken queries and audio
+      files on acoustic level, and find the query term
+Audio Word to Vector
+–Application
+Audio archive divided into variable-            Off-line
+length audio segments
+
+                             Audio
+                           Segment to
+                             Vector
+
+
+
+                   Audio
+                 Segment to               Similarity
+ Spoken            Vector
+ Query
+            On-line                     Search Result
+      Experimental Results
+      • Query-by-Example Spoken Term Detection
+
+                                         SA: sequence
+                                         auto-encoder
+
+                                         DSA: de-noising
+MAP
+
+
+
+
+                                         sequence auto-encoder
+                                          Input: clean speech +
+                                          noise
+                                          output: clean speech
+         training epochs for sequence
+                 auto-encoder
+ Next Step ……
+ • Can we include semantics?
+    walk
+                                      dog
+walked
+                                            cat
+
+
+           run                                    cats
+
+
+
+
+                 flower        tree
+Outline
+
+Unsupervised Learning
+• 化繁為簡
+ • Auto-encoder
+ • Word Vector and Audio Word Vector
+• 無中生有
+Reinforcement Learning
+Creation
+
+
+
+
+Draw something!
+Creation
+• Generative Models:
+  https://openai.com/blog/generative-models/
+
+
+                                             What I cannot create,
+                                             I do not understand.
+                                                  Richard Feynman
+
+
+https://www.quora.com/What-did-Richard-Feynman-mean-when-he-said-What-I-
+cannot-create-I-do-not-understand
+                           Ref: Aaron van den Oord, Nal Kalchbrenner, Koray
+ PixelRNN                  Kavukcuoglu, Pixel Recurrent Neural Networks,
+                           arXiv preprint, 2016
+
+
+ • To create an image, generating a pixel each time
+
+   E.g. 3 x 3 images
+                                                    NN
+
+
+                                                    NN
+
+
+                                                    NN
+
+Can be trained just with a large collection          ……
+of images without any annotation
+              Ref: Aaron van den Oord, Nal Kalchbrenner, Koray
+PixelRNN      Kavukcuoglu, Pixel Recurrent Neural Networks,
+              arXiv preprint, 2016
+
+
+
+
+           Real
+           World
+PixelRNN – beyond Image
+
+
+
+
+ Audio: Aaron van den Oord, Sander Dieleman, Heiga Zen, Karen Simonyan, Oriol
+ Vinyals, Alex Graves, Nal Kalchbrenner, Andrew Senior, Koray Kavukcuoglu,
+ WaveNet: A Generative Model for Raw Audio, arXiv preprint, 2016
+ Video: Nal Kalchbrenner, Aaron van den Oord, Karen Simonyan, Ivo
+ Danihelka, Oriol Vinyals, Alex Graves, Koray Kavukcuoglu, Video Pixel Networks ,
+ arXiv preprint, 2016
+Auto-encoder
+                    As close as possible
+
+
+
+
+                              code
+               NN                       NN
+             Encoder                  Decoder
+                       code
+
+Randomly generate                  NN
+a vector as code                 Decoder
+                                            Image ?
+
+  Variation Auto-encoder (VAE)
+         Ref: Auto-Encoding Variational Bayes,
+         https://arxiv.org/abs/1312.6114
+  Auto-encoder
+
+                   NN                    NN
+        input                                        output
+                 Encoder               Decoder
+                            code
+  VAE
+                                            Minimize
+                       m1                   reconstruction error
+                       m2
+             NN        m3              𝑐1
+input                                              NN
+           Encoder     𝜎1 exp      +   𝑐2                      output
+                                                 Decoder
+                       𝜎2              𝑐3
+                       𝜎3
+                            X          𝑐𝑖 = 𝑒𝑥𝑝 𝜎𝑖 × 𝑒𝑖 + 𝑚𝑖
+                       𝑒
+         From a normal 1
+                       𝑒2               Minimize
+         distribution  𝑒3          3
+
+                                ෍ 𝑒𝑥𝑝 𝜎𝑖 − 1 + 𝜎𝑖 + 𝑚𝑖 2
+                                𝑖=1
+ Why VAE?
+
+         ?
+
+decode
+code
+
+encode
+    VAE
+
+
+
+                 Cifar-10
+
+
+
+
+https://github.com/openai/iaf
+
+                   Source of image: https://arxiv.org/pdf/1606.04934v1.pdf
+VAE - Writing Poetry
+
+sentence            NN                                       NN
+                                                                                 sentence
+                  Encoder                                  Decoder
+                                               code
+ Code Space
+                                    i went to the store to buy some groceries.
+                                        i store to buy some groceries.
+                                            i were to buy any groceries.
+
+
+
+
+                                                          ……
+                                              "come with me," she said.
+                                                 "talk to me," she said.
+                                                       "don’t worry about it," she said.
+
+
+  Ref: http://www.wired.co.uk/article/google-artificial-intelligence-poetry
+  Samuel R. Bowman, Luke Vilnis, Oriol Vinyals, Andrew M. Dai, Rafal Jozefowicz, Samy
+  Bengio, Generating Sentences from a Continuous Space, arXiv prepring, 2015
+   Problems of VAE
+   • It does not really try to simulate real images
+     code
+                NN                            As close as
+                                   Output
+              Decoder                          possible
+
+
+
+One pixel difference                               One pixel difference
+from the target                                    from the target
+
+                       Realistic            Fake
+   Generative Adversarial Network
+   (GAN)
+
+
+
+
+Ref: Generative Adversarial Networks, http://arxiv.org/abs/1406.2661
+         http://peellden.pixnet.net/blog/post/40406899-
+         2013-
+擬態的演化    %E7%AC%AC%E5%9B%9B%E5%AD%A3%EF%BC%8C
+         %E5%86%AC%E8%9D%B6%E5%AF%82%E5%AF%A5
+
+
+
+
+         棕色                         葉脈
+
+蝴蝶不是棕色   蝴蝶沒有葉脈                          ……..
+  The evolution of generation
+         NN                    NN          NN
+      Generator             Generator   Generator
+         v1                    v2          v3
+
+
+
+
+       Discri-               Discri-     Discri-
+       minator               minator     minator
+         v1                    v2          v3
+ Binary
+Classifier   Real images:
+Cifar-10
+• Which one is machine-generated?
+
+
+
+
+    Ref: https://openai.com/blog/generative-models/
+畫漫畫
+• Ref: https://github.com/mattya/chainer-DCGAN
+畫漫畫
+• Ref: http://qiita.com/mattya/items/e5bfe5e04b9d2f0bbd47
+ Want to practice
+Generation Models?
+Pokémon Creation
+• Small images of 792 Pokémon's
+   • Can machine learn to create new Pokémons?
+
+       Don't catch them! Create them!
+
+• Source of image:
+  http://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A
+  9mon_by_base_stats_(Generation_VI)
+
+ Original image is 40 x 40
+ Making them into 20 x 20
+Pokémon Creation
+
+➢ Each pixel is represented by 3 numbers (corresponding
+  to RGB)
+                                      R=50, G=150, B=100
+
+➢ Each pixel is represented by a 1-of-N encoding feature
+
+                    0      0     1     0      0    ……
+
+
+
+  Clustering the similar color          167 colors in total
+   Real
+ Pokémon
+Never seen
+by machine!
+
+
+Cover 50%
+              It is difficult to evaluate generation.
+
+
+
+
+ Cover 75%
+                   Drawing from scratch
+Pokémon Creation   Need some randomness
+Pokémon Creation
+                        m1
+                        m2
+             NN         m3                 𝑐1
+input                                                 NN
+           Encoder      𝜎1 exp        +    𝑐2                 output
+                                                    Decoder
+                        𝜎2                 𝑐3
+                        𝜎3                10-dim
+                             X
+                        𝑒1
+                        𝑒2
+   Pick two dim, and    𝑒3
+   fix the rest eight
+
+
+                              𝑐1            NN
+                              𝑐2                          ?
+                                          Decoder
+                              𝑐3
+                             10-dim
+  Pokémon Creation - Data
+  • Original image (40 x 40):
+    http://speech.ee.ntu.edu.tw/~tlkagk/courses/ML_2016/Pokemon_creation/ima
+    ge.rar
+  • Pixels (20 x 20):
+    http://speech.ee.ntu.edu.tw/~tlkagk/courses/ML_2016/Pokemon_creation/pixe
+    l_color.txt
+       • Each line corresponds to an image, and each number corresponds to a pixel
+            • http://speech.ee.ntu.edu.tw/~tlkagk/courses/ML_2016/Pokemon_cre
+                ation/colormap.txt
+                                                        0
+                                                        1
+                                                        2
+                                              ……
+
+
+
+
+You can use the data without permission
+
+                                                                     …
+Outline
+
+Unsupervised Learning
+• 化繁為簡
+ • Example: Word Vector and Audio Word Vector
+• 無中生有
+
+Reinforcement Learning
+Scenario of Reinforcement
+Learning
+      Observation              Action
+
+
+
+            Agent
+
+
+
+           Don’t do   Reward
+             that
+
+
+                         Environment
+     Scenario of Reinforcement
+     Learning         Agent learns to take actions to
+                                      maximize expected reward.
+                   Observation                  Action
+
+
+
+                           Agent
+
+
+
+                         Thank you.    Reward
+
+
+
+http://www.sznews.com/news/conte           Environment
+nt/2013-11/26/content_8800180.htm
+ Supervised v.s. Reinforcement
+ • Supervised                   “Hello”      Say “Hi”
+  Learning from
+     teacher                   “Bye bye”     Say “Good bye”
+
+ • Reinforcement
+
+            …….                  …….          ……
+
+                  Hello ☺              ……               Bad
+Learning from
+    critics            Agent               Agent
+Scenario of Reinforcement
+Learning         Agent learns to take actions to
+                          maximize expected reward.
+         Observation                    Action
+
+
+
+
+                            Reward          Next Move
+
+                  If win, reward = 1
+                 If loss, reward = -1
+                Otherwise, reward = 0
+                                Environment
+ Supervised v.s. Reinforcement
+ • Supervised:
+
+                   Next move:                Next move:
+                     “5-5”                     “3-3”
+
+ • Reinforcement Learning
+
+      First move    …… many moves ……         Win!
+
+
+Alpha Go is supervised learning + reinforcement learning.
+Difficulties of Reinforcement
+Learning
+• It may be better to sacrifice immediate reward to
+  gain more long-term reward
+    • E.g. Playing Go
+• Agent’s actions affect the subsequent data it
+  receives
+    • E.g. Exploration
+Deep Reinforcement Learning
+                         DNN
+Observation                                       Action
+                          ……
+
+
+
+
+                                     …
+ Function                                         Function
+  Input                                            Output
+
+
+              Used to pick the
+               best function     Reward
+
+
+
+                                    Environment
+Application: Interactive Retrieval
+• Interactive retrieval is helpful.     [Wu & Lee, INTERSPEECH 16]
+
+
+
+         “Deep Learning”
+
+
+
+
+  user
+
+
+
+         “Deep Learning” related to Machine Learning?
+            “Deep Learning” related to Education?
+     Deep Reinforcement Learning
+     • Different network depth
+                                      Some depth is needed.
+
+
+Better retrieval
+                                                 The task cannot be addressed
+performance,
+Less user labor                                  by linear model.
+
+
+
+
+                   More Interaction
+More applications
+• Alpha Go, Playing Video Games, Dialogue
+• Flying Helicopter
+    • https://www.youtube.com/watch?v=0JL04JJjocc
+• Driving
+    • https://www.youtube.com/watch?v=0xo1Ldx3L
+      5Q
+• Google Cuts Its Giant Electricity Bill With
+  DeepMind-Powered AI
+  • http://www.bloomberg.com/news/articles/2016-07-
+    19/google-cuts-its-giant-electricity-bill-with-deepmind-
+    powered-ai
+To learn deep reinforcement
+learning ……
+• Lectures of David Silver
+   • http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Te
+     aching.html
+   • 10 lectures (1:30 each)
+• Deep Reinforcement Learning
+   • http://videolectures.net/rldm2015_silver_reinfo
+     rcement_learning/
+Conclusion
+

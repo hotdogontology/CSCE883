@@ -1,0 +1,438 @@
+﻿--- slide1.xml ---
+CSCE
+883
+
+Machine Learning
+Lecture 3  
+Bayes+Evaluation
+Jianjun Hu
+Department of Computer Science & Engineering
+University of South Carolina
+--- slide2.xml ---
+Classification
+Credit scoring: Inputs are income and savings. 
+		Output is low-risk vs high-risk
+Input: 
+x 
+= [
+x
+1
+,
+x
+2
+]
+T
+
+,Output: C Î
+
+{0,1}
+Prediction: 	
+2
+--- slide3.xml ---
+Bayes’ Rule
+3
+posterior
+likelihood
+prior
+evidence
+--- slide4.xml ---
+Bayes’ Rule: 
+K
+>2 Classes
+4
+--- slide5.xml ---
+Losses and Risks
+Actions: 
+α
+i
+
+Loss of 
+α
+i
+ when the state is C
+k
+ : λ
+ik
+
+Expected risk (Duda and Hart, 1973)
+5
+--- slide6.xml ---
+Losses and Risks: 0/1 Loss
+6
+For minimum risk, choose the most probable class
+--- slide7.xml ---
+Losses and Risks: Reject
+7
+--- slide8.xml ---
+Different Losses and Reject
+8
+Equal losses
+Unequal losses
+With reject
+--- slide9.xml ---
+Discriminant Functions
+9
+K
+
+decision regions 
+R
+1
+,...,
+R
+K
+--- slide10.xml ---
+K
+=2 Classes
+Dichotomizer (
+K
+=2) vs Polychotomizer (
+K
+>2)
+g
+(
+x
+) = 
+g
+1
+(
+x
+) – 
+g
+2
+(
+x
+)
+Log odds:
+
+10
+--- slide11.xml ---
+Utility Theory
+
+(in Reinforcement 
+learning)
+Prob of state 
+k
+ given exidence 
+x
+: P 
+(
+S
+k
+|
+x
+)
+Utility of 
+α
+i
+ when state is 
+k: U
+ik
+Expected utility:
+11
+--- slide12.xml ---
+Model Selection & Generalization
+12
+Learning is an 
+ill-posed problem
+;
+ data is not sufficient to find a unique solution
+The need for 
+inductive bias
+,
+
+assumptions about 
+H
+Generalization: 
+How well a model performs on new data
+Overfitting: 
+H
+ more complex than 
+C
+ or 
+f 
+Underfitting: 
+H
+ less complex than 
+C
+ or 
+f
+--- slide13.xml ---
+Triple Trade-Off
+13
+There is a trade-off between three factors (Dietterich, 2003):
+Complexity of 
+H
+, c 
+(
+H
+),
+Training set size, 
+N, 
+Generalization error, 
+E
+, on new data
+As 
+N
+­, 
+E
+¯
+As 
+c 
+(
+H
+)
+­, 
+first 
+E
+¯ 
+and then 
+E
+­
+--- slide14.xml ---
+Evaluation of Classifiers
+--- slide15.xml ---
+Evaluating classification algorithms
+ You have designed a new classifier.
+You give it to me, and I try it on my image 	dataset
+--- slide16.xml ---
+Evaluating classification algorithms
+I tell you that it achieved 95% accuracy on 	my data.
+ Is your technique a success?
+--- slide17.xml ---
+Types of errors
+But suppose that
+The 95% is the correctly classified pixels
+Only 5% of the pixels are actually edges
+It misses all the edge pixels
+How do we count the effect of different types of error?
+class imbalance affects
+--- slide18.xml ---
+Types of errors
+Prediction
+Edge            Not edge
+True
+Positive
+False 
+Negative
+False
+Positive
+True Negative
+Ground Truth
+Not Edge    Edge
+--- slide19.xml ---
+True  Positive
+Two parts to each:  whether you got it correct or not, and what you guessed.  For example for a particular pixel, our guess might be labelled…
+Did we get it correct? True, we did get it correct.
+False  Negative
+Did we get it correct?         False, we did not get it correct.
+or maybe it was labelled as one of the others, maybe…
+What did we say?                   We said ‘positive’, i.e. edge.
+What did we say?                   We said ‘negative, i.e. not edge.
+--- slide20.xml ---
+Sensitivity and Specificity
+Count up the total number of each label (TP, FP, TN, FN) over a large dataset. In ROC analysis, we use two statistics:
+Sensitivity
+ = 
+TP
+TP+FN
+Specificity
+ = 
+TN
+TN+FP
+Can be thought of as the likelihood of spotting a positive case when presented with one.
+Or… the proportion of edges we find.
+Can be thought of as the likelihood of spotting a negative case when presented with one.
+Or… the proportion of non-edges that we find
+--- slide21.xml ---
+Sensitivity =                       = ? 
+TP
+TP+FN
+Specificity =                       =  ? 
+TN
+TN+FP
+Prediction
+Ground Truth
+1
+1
+0
+0
+60
+30
+20
+80
+80+20 = 100 cases in the dataset were class 0 (non-edge)
+60+30 = 90 cases in the dataset were class 1 (edge)
+90+100 = 190 examples (pixels) in the data overall
+--- slide22.xml ---
+Precision and Recall &
+F1-score
+Precision, recall and F1 use only three of the values in the confusion matrix: TP, FP, and FN
+--- slide23.xml ---
+MCC
+Matthews Correlation Coefficient i
+s The Best Classification Metric You’ve Never Heard Of
+--- slide24.xml ---
+The ROC space
+1 - Specificity
+Sensitivity
+This is edge detector B
+This is edge detector A
+1.0
+0.0
+1.0
+Note
+--- slide25.xml ---
+The ROC Curve
+Draw a ‘convex hull’ around many points:
+1 - Specificity
+Sensitivity
+This point is not on the convex hull.
+--- slide26.xml ---
+ROC curve.  AUC
+True Positive Rate = True Positives / (True Positives + False Negatives)
+False Positive Rate = False Positives / (False Positives + True Negatives)
+--- slide27.xml ---
+
+--- slide28.xml ---
+
+--- slide29.xml ---
+ROC Analysis
+1 - specificity
+sensitivity
+All the optimal detectors lie on the convex hull.
+Which of these is best depends on the ratio of edges to non-edges, and  the different cost of misclassification
+Any detector on this side can lead to a better detector by flipping its output.
+Take-home point :
+ You should always quote sensitivity and specificity for your algorithm, if possible plotting an ROC graph.  Remember also though, 
+any
+ statistic you quote should be an average over a suitable range of tests for your algorithm.
+--- slide30.xml ---
+Compute Area Under the Receiver Operating Characteristic Curve (ROC AUC) from prediction scores
+sklearn.metrics.
+roc_auc_score
+(
+y_true
+, 
+y_score
+, 
+*
+, 
+average
+='macro'
+, 
+sample_weight
+=None
+, 
+max_fpr
+=None
+, 
+multi_class
+='raise'
+, 
+labels
+=None
+Note: this implementation can be used with binary, multiclass and multilabel classification, but some restrictions apply (see Parameters).
+--- slide31.xml ---
+
+--- slide32.xml ---
+Classification Performances
+--- slide33.xml ---
+Regression Metrics
+--- slide34.xml ---
+
+--- slide35.xml ---
+Clustering Metrics
+--- slide36.xml ---
+Holdout estimation 
+(random splitting)
+What to do if the amount of data is limited?
+The 
+holdout
+ method reserves a certain amount for testing and uses the remainder for training
+
+Usually: one third for testing, the rest for training
+--- slide37.xml ---
+Holdout estimation
+Problem: the samples might not be representative
+Example: class might be missing in the test data
+Advanced version uses 
+stratification
+Ensures that each class is represented with approximately equal proportions in both subsets
+--- slide38.xml ---
+Repeated holdout method
+Repeat process with different subsamples
+ more reliable
+In each iteration, a certain proportion is randomly selected for training (possibly with 
+stratificiation
+)
+The error rates on the different iterations are averaged to yield an overall error rate
+--- slide39.xml ---
+Repeated holdout method
+Still not optimum: the different test sets overlap
+Can we prevent overlapping?
+Of course!
+--- slide40.xml ---
+Cross-validation
+Cross-validation
+ avoids overlapping test sets
+First step: split data into 
+k
+ subsets of equal size
+Second step: use each subset in turn for testing, the remainder for training
+Called 
+k-fold cross-validation
+--- slide41.xml ---
+K-fold cross-validation
+--- slide42.xml ---
+Cross-validation
+Often the subsets are stratified before the cross-validation is performed
+The error estimates are averaged to yield an overall error estimate
+--- slide43.xml ---
+More on cross-validation
+Standard method for evaluation: stratified ten-fold cross-validation
+Why ten?
+Empirical evidence supports this as a good choice to get an accurate estimate
+There is also some theoretical evidence for this
+Stratification reduces the estimate’s variance
+Even better: repeated stratified cross-validation
+E.g. ten-fold cross-validation is repeated ten times and results are averaged (reduces the variance)
+--- slide44.xml ---
+Leave-One-Out cross-validation
+Leave-One-Out:
+a particular form of cross-validation:
+Set number of folds to number of training instances
+I.e., for 
+n
+ training instances, build classifier 
+n
+ times
+Makes best use of the data
+Involves no random subsampling 
+Very computationally expensive
+(exception: NN)
+--- slide45.xml ---
+Leave-One-Out-CV and stratification
+Disadvantage of Leave-One-Out-CV: stratification is not possible
+It 
+guarantees
+ a non-stratified sample because there is only one instance in the test set!
+--- slide46.xml ---
+Cross-Validation
+46
+To estimate generalization error, we need data unseen during training. We split the data as
+Training set (50%)
+Validation set (25%)
+Test (publication) set (25%)
+Resampling when there is few data
+--- slide47.xml ---
+Limitation of Hold-out and CV
+The high redundancy or similarity among training samples leads to over-estimation of 
+performance
+Low
+ performance on extrapolation
+--- slide48.xml ---
+Low extrapolation performance
+--- slide49.xml ---
+Acknowledgements
+http://www.cmpe.boun.edu.tr/~ethem/i2ml3e
+https://users.cs.fiu.edu/~taoli/class/CAP4770-F10/class08.ppt

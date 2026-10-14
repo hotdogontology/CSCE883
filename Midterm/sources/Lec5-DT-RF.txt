@@ -1,0 +1,841 @@
+﻿--- slide1.xml ---
+CSCE
+883
+
+Machine Learning
+Lecture 5 
+Linear Discriminant, Logistic Regression, Decision Tree, Random Forest 
+Jianjun Hu
+Department of Computer Science & Engineering
+University of South Carolina
+--- slide2.xml ---
+Likelihood- vs. Discriminant-based Classification
+2
+Likelihood-based:
+ Assume a model for 
+p
+(
+x
+|C
+i
+), use Bayes’ rule to calculate 
+P
+(C
+i
+|
+x
+) 
+		g
+i
+(
+x
+) = log 
+P
+(C
+i
+|
+x
+)
+Discriminant-based:
+ Assume a model for 
+g
+i
+(
+x
+|
+Φ
+i
+); no density estimation
+Estimating the boundaries is enough; no need to accurately estimate the densities inside the boundaries
+--- slide3.xml ---
+Linear discriminant:
+Advantages:
+Simple: O(
+d
+) space/computation 
+Knowledge extraction: Weighted sum of attributes; positive/negative weights, magnitudes (credit scoring)
+Optimal when 
+p
+(
+x
+|C
+i
+) are Gaussian with shared cov matrix; useful when classes are (almost) linearly separable
+Linear Discriminant
+3
+--- slide4.xml ---
+Quadratic discriminant:
+Higher-order (product) terms:
+
+	Map from 
+x
+ to 
+z
+ using 
+nonlinear basis functions 
+and use a linear discriminant in 
+z
+-space
+Generalized Linear Model
+4
+--- slide5.xml ---
+Two Classes
+5
+--- slide6.xml ---
+Geometry
+6
+--- slide7.xml ---
+Multiple Classes
+7
+Classes are
+linearly separable
+--- slide8.xml ---
+Pairwise Separation
+8
+--- slide9.xml ---
+From Discriminants to Posteriors 
+9
+When 
+p 
+(
+x
+
+| 
+C
+i 
+) ~ N ( 
+μ
+i
+ , 
+∑
+)
+--- slide10.xml ---
+10
+--- slide11.xml ---
+Sigmoid (Logistic) Function
+11
+--- slide12.xml ---
+Gradient-Descent
+12
+E(
+w
+|X) is error with parameters 
+w
+ on sample X
+
+w
+*=arg min
+w
+
+E
+(
+w 
+| X)
+Gradient
+Gradient-descent: 
+
+Starts from random 
+w
+ and updates 
+w
+ iteratively in the negative direction of gradient
+
+--- slide13.xml ---
+Gradient-Descent
+13
+w
+t
+w
+t
++1
+η
+E 
+(
+w
+t
+)
+E 
+(
+w
+t
++1
+)
+--- slide14.xml ---
+Logistic
+
+Regression(
+Discrimination
+)
+14
+Two classes: Assume log likelihood ratio is linear
+--- slide15.xml ---
+Training: Two Classes
+15
+--- slide16.xml ---
+Training: Gradient-Descent
+16
+--- slide17.xml ---
+17
+--- slide18.xml ---
+18
+10
+100
+1000
+--- slide19.xml ---
+K
+>2 Classes
+19
+softmax
+--- slide20.xml ---
+20
+--- slide21.xml ---
+Example
+21
+--- slide22.xml ---
+Quadratic:
+Sum of basis functions:
+	where 
+φ
+(
+x
+) are basis functions. Examples: 
+Hidden units in neural networks (Chapters 11 and 12)
+Kernels in SVM (Chapter 13)
+Generalizing the Linear Model
+22
+--- slide23.xml ---
+Discrimination by Regression
+23
+Classes are NOT mutually exclusive and exhaustive
+--- slide24.xml ---
+Learning to Rank
+24
+Ranking: A different problem than classification or regression
+Let us say 
+x
+u
+ and 
+x
+v
+ are two instances, e.g., two movies 
+	We prefer 
+u
+ to 
+v
+ implies that 
+g
+(
+x
+u
+)>
+g
+(
+x
+v
+)
+	where 
+g
+(
+x
+) is a score function, here linear:
+
+g
+(
+x
+)=
+w
+T
+x
+
+Find a direction 
+w
+ such that we get the desired ranks when instances are projected along 
+w
+--- slide25.xml ---
+Ranking Error
+25
+We prefer 
+u
+ to 
+v
+ implies that 
+g
+(
+x
+u
+)>
+g
+(
+x
+v
+), so 
+	error is 
+g
+(
+x
+v
+)
+-g
+(
+x
+u
+), if 
+g
+(
+x
+u
+)<
+g
+(
+x
+v
+) 
+--- slide26.xml ---
+Decision
+
+Tree
+What is Decision Tree?
+Information Theory
+How to build Decision Tree
+Summary
+--- slide27.xml ---
+Review of Classification
+Given a set of attributes (X1,X2, …, Xn) of an object, predict its label/class (C) based on training examples
+Three types of attributes:
+Numerical/continuous
+: Domain is ordered and can be represented on the real line (e.g., age, income)
+(0.3, 0.4, 0. 5, …)
+Ordinal
+: Domain is ordered, but absolute differences between values is unknown (e.g., preference scale, severity of an injury)  
+Grade: (A, B, C, D)
+Nominal
+ or 
+categorical
+: Domain is a finite set without any natural ordering (e.g., occupation, marital status, race)
+Color: (red, blue, yellow)
+--- slide28.xml ---
+What is Decision Tree? 
+REGA HIV-1 Subtying Decision Tree Classifier
+--- slide29.xml ---
+What is Decision Tree?
+They do 
+classification
+: predict a categorical output from categorical and/or real inputs
+Decision trees are the single 
+most popular data mining tool
+Easy to understand
+Easy to implement
+Easy to use
+Computationally cheap
+Mature, Easy-to-use software package freely available 
+(used for the assignment 2)
+NO programming needed!
+--- slide30.xml ---
+What is Decision Tree?
+Extremely popular method
+Credit risk assessment
+Medical diagnosis
+Market analysis
+Bioinformatics
+Chemistry
+A literature search in pubmed.org retrieves 
+6906
+ papers related to decision trees!
+Good at dealing with symbolic feature
+--- slide31.xml ---
+Each 
+branch
+ corresponds to attribute value
+Each 
+internal node 
+has a splitting predicate
+Each 
+leaf node 
+assigns a classification
+Decision Tree Representation
+Classify instances by sorting them down the tree from the root to some leaf node
+--- slide32.xml ---
+Internal Nodes
+Each internal node has an associated 
+splitting predicate
+. Most common are binary predicates.
+Example predicates:
+Age <= 20
+Profession in {student, teacher}
+5000*Age + 3*Salary – 10000 > 0
+--- slide33.xml ---
+Internal Nodes: Splitting Predicates
+Binary Univariate splits:
+Numerical or ordered X: X <= c, c in dom(X)
+Categorical X: X 
+in
+ A, A subset dom(X)
+Binary Multivariate splits:
+Linear combination split on numerical variables:
+Σ
+ a
+i
+X
+i
+ <= c
+k-ary (k>2) splits analogous
+--- slide34.xml ---
+Building Decision Tree Classifiers for DELL 
+to Predict if a customer would buy a computer
+Training Data
+--- slide35.xml ---
+Output: A Decision Tree for “
+buys_computer
+”
+September 8, 2026
+Data Mining: Concepts and Techniques
+35
+age?
+overcast
+student?
+credit rating?
+<=30
+>40
+no
+yes
+yes
+yes
+31..40
+no
+fair
+excellent
+yes
+no
+Homogeneous: All  labels of the instances are YES
+Majority Voting 4/5
+--- slide36.xml ---
+TDIDT Algorithm
+Also known as ID3 (Quinlan)
+To construct decision tree T from learning set S:
+If
+ all examples in S belong to some class C 
+Then
+make leaf labeled C
+Otherwise
+select the “most informative” attribute A
+partition S according to A’s values
+recursively construct subtrees T1, T2, ..., for the subsets of S
+--- slide37.xml ---
+Algorithm for Decision Tree Induction
+Basic algorithm (a greedy algorithm)
+Tree is constructed in a 
+top-down recursive divide-and-conquer manner
+At start, all the training examples are at the root
+Attributes are categorical (if continuous-valued, they are discretized in advance)
+Examples are partitioned recursively based on selected attributes
+Test attributes are selected on the basis of a heuristic or statistical measure (e.g., 
+information gain
+)
+Conditions for 
+stopping partitioning
+All samples for a given node belong to the same class
+There are no remaining attributes for further partitioning – 
+majority voting
+ is employed for classifying the leaf
+There are no samples left
+September 8, 2026
+Data Mining: Concepts and Techniques
+37
+--- slide38.xml ---
+Design Issues of Decision Trees
+age?
+overcast
+student?
+credit rating?
+<=30
+>40
+no
+yes
+yes
+yes
+31..40
+no
+fair
+excellent
+yes
+no
+Which decision tree is the best?
+Which attributes to check first? How to split?
+How to decide the split values of real-value attributes (e.g. age)?
+When to stop splitting?
+How to evaluate decision trees?
+--- slide39.xml ---
+Which Decision Tree is the Best?
+Occam’s razor
+: (year 1320)
+Prefer the simplest hypothesis that fits the data.
+The principle states that the explanation of any 
+phenomenon
+ should make as few assumptions as possible, eliminating those that make no difference in the observable predictions of the explanatory 
+hypothesis
+ or 
+theory
+Albert Einstein
+: Make everything as simple as possible, but not simpler. 
+Why? 
+It’s a philosophical problem.
+Simple explanation/classifiers are more robust
+Simple classifiers are more understandable
+--- slide40.xml ---
+How To Build a Simple Decision Tree?: Attribute Selection
+Intuitively
+ (as in the game):
+We want to reduce the search space (ambiguity) ASAP by asking each question 
+Scientifically
+:
+Test attributes that 
+gain most information
+.
+Remember: The splitting process of decision tree stops only when the labels of all instances in a node becomes pure (homogeneous) except other special cases. 
+--- slide41.xml ---
+How To Build a Simple Decision Tree
+Objective: Shorter trees are preferred over larger Trees 
+Idea: want attributes that classifies examples well. The best attribute is selected.
+Select attribute which partitions the learning set into subsets as “pure” as possible
+ How well an attribute alone classifies the training data?
+--- slide42.xml ---
+Information Theory
+Claude E. Shannon
+'s classic paper "
+A Mathematical Theory of Communication
+" in the 
+Bell System Technical Journal
+ in July and October of 1948.
+Key Concepts:
+Entropy
+, 
+H
+, of a discrete random variable 
+X
+ is a measure of the amount of 
+uncertainty
+ associated with the value of 
+X
+. 
+Information (Gain)
+: reduction of entropy (uncertainty)
+Mutual Information: 
+measures the amount of information that can be obtained about one random variable by observing another. (can be used for 
+feature selection
+)
+--- slide43.xml ---
+Measuring Entropy
+Entropy
+, 
+H
+, of a discrete random variable 
+X
+ is a measure of the amount of 
+uncertainty
+ associated with the value of 
+X
+. 
+In our case:  the random variable is the class label of an instance (C) 
+For two training data with 10 instances at the root node
+Data 1:    9 positive,  1 negative
+Data 2:    5 positive,  5 negative
+For objects of Data 1 and 2, whose label is more uncertain? 
+--- slide44.xml ---
+Measuring Mutual Information
+measures the amount of information that can be obtained about one random variable by observing another.
+Exercise: calculate the mutual information between the class label and an attribute
+Mutual information in feature selection:
+Input Feature Selection by Mutual Information Based on Parzen Windows
+Mutual information functions versus correlation functions. Journal of Statistical Physics, 2005
+--- slide45.xml ---
+Information Gain ( used in ID3)
+What is the uncertainty removed by splitting on the value of 
+A
+?
+The information gain of 
+S 
+relative to attribute 
+A 
+is the expected reduction in entropy caused by knowing the value of 
+A
+   : the set of examples in 
+S 
+where attribute 
+A 
+has value 
+v
+--- slide46.xml ---
+Play Tennis Example
+--- slide47.xml ---
+Which attribute is the best classifier?
+--- slide48.xml ---
+
+--- slide49.xml ---
+See/C 5.0
+A1 = overcast: + (4.0)
+A1 = sunny:
+| A3 = high: - (3.0)
+| A3 = normal: + (2.0)
+A1 = rain:
+| A4 = weak: + (3.0)
+| A4 = strong: - (2.0)
+--- slide50.xml ---
+Gain Ratio (used in C4.5)
+Limitation of Information Gain
+Biased towards attributes with many outcomes: not robust
+Example: suppose an attribute  A has 14 distinct values (
+product_id
+), splitting on A, will result maximum information gain.  H(Di)=0. 
+Gain Ratio: normalization applied to information gain
+Normalized by the split information (penalize multiple-valued attributes/splits)
+J.R. Quinlan (1986). Induction of Decision Trees, Machine Learning, (1), 81-106
+--- slide51.xml ---
+Gini Index (CART, IBM IntelligentMiner)
+Another sensible measure of impurity
+(i and j are classes)  
+a function the maximize when x=y? f=xy  given x+y=1 
+After applying attribute A, the resulting Gini index is
+Gini can be interpreted as expected error rate
+--- slide52.xml ---
+Gini Index
+.
+.
+.
+.
+.
+.
+--- slide53.xml ---
+Gini Index for Color
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+Color
+?
+red
+yellow
+green
+--- slide54.xml ---
+Gain of Gini Index
+--- slide55.xml ---
+Comparing Attribute Selection Measures
+The three measures, in general, return good results but
+Information gain: 
+biased towards multivalued attributes
+Gain ratio: 
+tends to prefer unbalanced splits in which one partition is much smaller than the others
+Gini index: 
+biased to multivalued attributes
+has difficulty when # of classes is large
+tends to favor tests that result in equal-sized partitions and purity in both partitions
+September 8, 2026
+--- slide56.xml ---
+Computing Information-Gain for Continuous-Value Attributes
+Let attribute A be a continuous-valued attribute
+Must determine the 
+best split point
+ for A
+Sort the value A in increasing order
+Typically, the midpoint between each pair of adjacent values is considered as a possible 
+split point
+(a
+i
++a
+i+1
+)/2 is the midpoint between the values of a
+i
+ and a
+i+1
+The point with the 
+minimum expected information requirement
+ for A is selected as the split-point for A
+Split:
+D1 is the set of tuples in D satisfying A ≤ split-point, and D2 is the set of tuples in D satisfying A > split-point
+September 8, 2026
+--- slide57.xml ---
+Other Attribute Selection Measures
+CHAID: a popular decision tree algorithm, measure based on 
+χ
+2
+ test for independence
+C-SEP: performs better than info. gain and gini index in certain cases
+G-statistics: has a close approximation to 
+χ
+2
+ distribution 
+MDL (Minimal Description Length) principle (i.e., the simplest solution is preferred): 
+The best tree as the one that requires the fewest # of bits to both (1) encode the tree, and (2) encode the exceptions to the tree
+Multivariate splits (partition based on multiple variable combinations)
+CART: finds multivariate splits based on a linear comb. of attrs.
+Which attribute selection measure is the best?
+ Most give good results, none is significantly superior than others
+September 8, 2026
+--- slide58.xml ---
+Issues in Decision Tree
+Overfiting
+Tree Pruning
+Cross-validation
+Model Evaluation
+Advanced Decision Tree
+C4.5 Software Package
+--- slide59.xml ---
+Random Forests
+T
+ree
+
+1
+Tree
+
+2
+Tree
+
+N
+Random Forest
+--- slide60.xml ---
+Random Forests Algorithm 
+For b = 1 to B: 
+(a) Draw a bootstrap sample Z∗ of size 
+N
+ from the training data. 
+(b) Grow a random-forest tree  to the bootstrapped data, by recursively repeating the following steps for each terminal node of the tree, until the minimum node size 
+n
+min
+ is reached. 
+i
+. Select 
+m
+ variables at random from the 
+p
+ variables. 
+ii. Pick the best variable/split-point among the 
+m
+.
+iii. Split the node into two daughter nodes. 
+Output the ensemble of trees. 
+To make a prediction at a new point 
+x
+ we do:
+For regression: average the results 
+For classification: majority vote 
+--- slide61.xml ---
+Some
+
+unique
+
+designs
+1
+. Out-of-Bag (OOB) Error Estimation
+Concept:
+ During training, not all data points are used for training a particular tree; some are left out of the bootstrap sample. These left-out data points are called out-of-bag samples.
+Advantage:
+ OOB samples can be used to estimate the model’s performance and provide a form of internal cross-validation, which saves computation time and provides an unbiased error estimate.
+2
+. Feature Importance Measurement
+Concept:
+ Random Forest can evaluate the importance of each feature by measuring how much including a feature improves the model's performance, typically using metrics like mean decrease in impurity (Gini importance) or permutation importance.
+Advantage:
+ This helps in understanding which features are most influential for predictions and can guide feature selection and data analysis.
+3
+. Handling Missing Values
+Concept:
+ Random Forest can handle missing values by using surrogate splits, where if the primary split feature has missing values, a secondary (surrogate) split is used to make the decision.
+Advantage:
+ This ability helps maintain predictive power even when dealing with incomplete datasets.
+--- slide62.xml ---
+Random Forest
+random forest
+ is a 
+classifier
+ that consists of many 
+decision trees
+ and outputs the class that is the 
+mode
+ of the classes output by individual trees
+For many data sets, it produces a highly accurate classifier.
+It handles a very large number of input variables.
+It estimates the importance of variables in determining classification.
+It generates an internal unbiased estimate of the generalization error as the forest building progresses.
+It includes a good method for estimating missing data and maintains accuracy when a large proportion of the data are missing.
+It provides an experimental way to detect variable interactions.
+It can balance error in class population unbalanced data sets.
+It computes proximities between cases, useful for 
+clustering
+, detecting 
+outliers
+, and (by scaling) visualizing the data.
+Using the above, it can be extended to unlabeled data, leading to unsupervised clustering, outlier detection and data views.
+Learning is fast.
+--- slide63.xml ---
+Scikit-learn
+
+code
+from 
+sklearn.ensemble
+ import 
+RandomForestClassifier
+feature_names
+ = [
+f"feature
+ {
+i
+}" for 
+i
+ in range(
+X.shape
+[1])]
+forest = 
+RandomForestClassifier
+(
+random_state
+=0)
+forest.fit
+(
+X_train
+, 
+y_train
+)
+import time
+import 
+numpy
+ as np
+start_time
+ = 
+time.time
+()
+importances = 
+forest.feature_importances
+_
+std = 
+np.std
+([
+tree.feature_importances
+_ for tree in 
+forest.estimators
+_], axis=0)
+--- slide64.xml ---
+Summary: Advantages of Decision Trees
+
+and
+
+RF
+Simple to understand and interpret.
+ People are able to understand decision tree models after a brief explanation. 
+Have value even with little hard data.
+ Important insights can be generated based on experts describing a situation (its alternatives, probabilities, and costs) and their preferences for outcomes. 
+Use a 
+white box
+ model.
+ If a given result is provided by a model, the explanation for the result is easily replicated by simple math. 
+Can be combined with other decision techniques.
+--- slide65.xml ---
+Acknowledgements
+http://www.cmpe.boun.edu.tr/~ethem/i2ml3e
+https://users.cs.fiu.edu/~taoli/class/CAP4770-F10/class08.ppt

@@ -1,0 +1,1188 @@
+              Diffusion
+                EECS 442 Fall 2023
+Presenters: Sarah Jabbour, Yiming Dou, Daniel Geng
+Recall: Data Synthesis
+Lets say we have some
+training set of data following
+some distribution pdata(x):
+
+
+
+The goal of generative machine      We generate new data
+learning models is to learn this    by sampling from the
+distribution to the best of their   learned distribution
+ability
+2 Methods for Learning Data Distribution
+(1) We want to train models that maximize the expected log likelihood
+of !! " #$I.e., If I sample from the distribution and get a
+●   high likelihood à likely the sample came from the training
+    distribution
+●   low likelihood à the sample probably didn’t come from the training
+    distribution
+
+(2) We want to minimize some divergence metrics between the training
+data distribution, and the distribution that the model learns
+Sampling from Noise
+GANs
+●   Convert latent noise vector to target distribution in one step
+
+
+
+
+●   Lots of issues with training:
+     ○   Vanishing gradients: if discriminator is too good, gradients go to zero
+     ○   Mode collapse: if the generator learns to generate an exceptionally
+         plausible output, it will just continue generating it. Then the discriminator
+         will learn to always reject it, and then the generator will produce the same
+         outputs, which the discriminator will then reject… bad loop!
+Diffusion
+•   Idea: Estimating and analyzing small step sizes is more tractable/easier than a single
+    step from random noise to the learned distribution
+•   Convert a well-known and simple base distribution (like a Gaussian) to the target
+    (data) distribution iteratively, with small step sizes, via a Markov chain:
+
+
+
+
+•   Markov chain: outlines the probability associated with a sequence of events occurring
+    based on the state in the previous event.
+Forward Process
+
+
+
+●   Noise added can be parameterized by:
+
+
+
+
+      Vary the parameters of the Gaussian according to a noise schedule
+●   You can prove with some math that as T approaches infinity, you eventually end up with an Isotropic
+    Gaussian (i.e. pure random noise)
+●   Note: forward process is fixed
+Reparameterization trick
+Do you have to add noise iteratively to get to some timestep !? Nope!
+
+Reverse process can be written in one step:
+
+
+
+This will be useful during training!
+Implementing Forward Process
+
+1. Sample an image from the dataset:
+2. Sample noise % & ' () * (from a standard normal distribution)
+3. Scale the image by   +" ,   +" $"#
+where
+                                                    "!
+
+
+4. Add - . +" $%: +" $"# + - . +" $%
+Reverse Process
+Reverse Process
+Reverse Process
+Reverse Process
+
+
+
+
+●   The goal of a diffusion model is to learn the reverse denoising process to
+    iteratively undo the forward process
+●   In this way, the reverse process appears as if it is generating new data from
+    random noise!
+What should the distribution look like?
+Turns out that for small enough forward steps, i.e.
+
+
+the reverse process step                can be estimated as a Gaussian distribution too
+
+
+Therefore, we can parametrize the learned reverse process as
+
+
+
+In practice, # is just the identify matrix, so we only need to learn the mean of the
+distribution
+Preliminary objective
+When we write out the loss function, we get something that looks like this:
+Middle Loss Term - Intuition
+
+KL Divergence: measures distance between two distributions
+à If high, very dissimilar distributions
+
+à   If low, very similar distributions
+
+Goal: drive this very low
+Final Loss
+Recall, our goal was to learn the following /! (network that
+parameterizes the mean of the data distribution):
+
+So we minimize:
+                         MSE(/! ("" ) 0), ""$% 1
+How do we do this in practice?
+                               ""   "!
+
+ Step 1: Sample image from
+ the dataset, generate noisy
+ image using forward
+ process
+
+
+                               "!   "!#$
+
+ Step 2: Given noisy image,
+ generate slightly noisier
+ image
+How do we do this in practice?
+            "!"#               "!!
+
+
+
+
+                 Loss: MSE(!! " !#! $
+Neural Network that predicts noise
+      Input         U-net            Output
+Training
+Forward process:
+converting the image
+distribution to pure
+noise
+
+
+
+
+Reverse process:
+sampling from the
+image distribution,
+starting with pure
+noise
+Diffusion Models Beats GANs
+
+  BigGAN           Diffusion   Training Set
+Diffusion Models Beats GANs
+
+  BigGAN           Diffusion   Training Set
+U-net Problem
+          Input                    U-net                       Output
+
+
+
+
+       1024x1024                                             1024x1024
+ Problem: operating in the input space is very computationally expensive!
+Option #1: Generate Low-Resolution + Upsample
+
+        Input                U-net                Output
+
+
+
+
+                   256x256           256x256
+       1024x1024                                1024x1024
+
+            Downsample                     Upsample
+Option #2: Generate in Latent Space
+
+           Input                U-net              Output
+
+
+
+
+                      Encoder
+
+
+
+
+                                        Decoder
+          1024x1024                               1024x1024
+
+         Downsample                               Upsample
+Stable Diffusion   What’s going on here?
+Guided/Conditioned Diffusion
+Lets say we train a diffusion model on images of cats and dogs:
+
+
+
+
+If we start from random noise, and generate a new image, what will
+the model generate?
+
+                                        ?
+Leveraging Diffusion Models for
+Visual-Tactile Cross Generation
+            EECS 442 Team
+Contents
+
+1. Background
+
+2. Previous Methods
+
+3. Learning to Read Braille (Vision-to-Touch)
+
+4. Generating Visual Scenes from Touch (Touch-to-Vision)
+1 Background: Tactile Sensor & Touch Images
+         2 Previous Methods
+
+
+
+
+           VisGel [1]: GAN-based exocentric generation                                              ObjectFolder [2]: GAN-based egocentric generation
+
+
+
+[1]: Li, Yunzhu, Jun-Yan Zhu, Russ Tedrake, and Antonio Torralba. “Connecting Touch and Vision via Cross-Modal
+Prediction.” In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 10609–18, 2019.
+[2]: Gao, Ruohan, Yiming Dou, Hao Li, Tanmay Agarwal, Jeannette Bohg, Yunzhu Li, Li Fei-Fei, and Jiajun Wu. “The ObjectFolder
+Benchmark: Multisensory Learning with Neural and Real Objects.” arXiv, June 1, 2023. https://doi.org/10.48550/arXiv.2306.00956.
+             3 Learning to Read Braille (Vision-to-Touch)
+
+
+
+
+Higuera, Carolina, Byron Boots, and Mustafa Mukadam. “Learning to Read Braille: Bridging the Tactile
+Reality Gap with Diffusion Models.” arXiv, April 3, 2023. http://arxiv.org/abs/2304.01182.
+3 Learning to Read Braille (Vision-to-Touch)
+
+
+
+
+Data: Simulated local depth map & Real tactile images collected on YCB dataset
+     3.1 Training Tactile Diffusion
+• Data:
+    Simulated local depth map & Real tactile images
+    collected on YCB dataset
+• Diffusion decoder:
+    Conditional U-Net backbone that takes depth map as
+    input and renders colorful tactile images
+• Evaluation:
+    SSIM (structural similarity) & MSE (mean squared
+    error)
+3.1 Training Tactile Diffusion
+
+
+
+
+            Simulation, real, tactile diffusion results
+                (SSIM is generally above 0.80)
+   3.2 Training Braille Classifier in Simulator
+
+• Sim2Real Transfer:
+    Train a classifier to detect real-world braille letters with
+    DIGIT sensor
+• Comparison:
+    Compare results from Sim / cGAN / Diffusion / Real data.
+3.3 Reading Braille with Real-World Sensor
+3.3 Reading Braille with Real-World Sensor
+           4 Generating Visual Scenes from Touch (Touch-to-
+           Vision)
+
+
+
+
+Yang, Fengyu, Jiacheng Zhang, and Andrew Owens. “Generating Visual Scenes from Touch.”
+arXiv, September 26, 2023. https://doi.org/10.48550/arXiv.2309.15117.
+4.1 Contrastive Visuo-tactile Pretraining (CVTP)
+
+Given N visual-tactile image pairs,
+sample K from them and perform
+contrastive learning (mapping them into
+the uniform hidden space) using InfoNCE
+Loss:
+4.2 Touch-conditioned Image Generation
+
+• Touch signal is represented by
+  multi-frames from tactile sensor
+• The diffusion process is
+  conditioned on the touch signal.
+  The loss function is:
+4.3 Qualitative Results: Tactile-driven Image
+Stylization
+Touch and Go: An indoor-outdoor dataset with
+humans holding DIGIT sensor to touch objects
+4.4 Qualitative Results: Visual-Tactile Cross
+Generation
+VisGel: A dataset that collects paired touch
+videos and third-view robot arms.
+Impressive Results
+
+
+
+
+        2        Slide Credit: CVPR 2023 Diﬀusion Models Tutorial
+How to Control Diﬀusion Models
+
+
+
+  Explicit     ClassiÞer   ClassiÞer-Free
+Conditioning   Guidance      Guidance
+
+
+
+
+                   3       Slide Credit: CVPR 2023 Diﬀusion Models Tutorial
+How to Control Diﬀusion Models
+
+
+
+  Explicit     ClassiÞer   ClassiÞer-Free
+Conditioning   Guidance      Guidance
+
+
+
+
+                   4       Slide Credit: CVPR 2023 Diﬀusion Models Tutorial
+Explicit Conditioning
+ Òa young schoolboy in a red shirtÓ
+
+
+
+
+                 5               Slide Credit: CVPR 2023 Diﬀusion Models Tutorial
+Explicit Conditioning
+ Òa young schoolboy in a red shirtÓ
+
+
+
+
+                 5               Slide Credit: CVPR 2023 Diﬀusion Models Tutorial
+          Explicit Conditioning
+How do we train this?
+
+
+
+
+                        6
+          Explicit Conditioning
+How do we train this?
+
+Use an Image-Text dataset (for example, LAION 5B)
+
+
+
+
+                           6
+          Explicit Conditioning
+How do we train this?
+
+Use an Image-Text dataset (for example, LAION 5B)
+
+
+
+
+                           6
+How to Control Diﬀusion Models
+
+
+
+  Explicit     ClassiÞer   ClassiÞer-Free
+Conditioning   Guidance      Guidance
+
+
+
+
+                   7       Slide Credit: CVPR 2023 Diﬀusion Models Tutorial
+       ClassiÞer Guidance
+Diffusion goes from noise to real images step-by-step
+
+
+
+
+                          8              Image Credit: CVPR 2023 Diﬀusion Models Tutorial
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ClassiÞer Guidance
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Diffusion goes from noise to real images step-by-step
+
+
+
+
+<latexit sha1_base64="slyFlkoR4BgwhPc1WDfDuSbPIxk=">AAAB83icbVDLSsNAFL3xWeur6tLNYBFclUR8LYtuXFboC5pQJtNJO3QyCfMQS+hvuHGhiFt/xp1/46TNQlsPDBzOuZd75oQpZ0q77rezsrq2vrFZ2ipv7+zu7VcODtsqMZLQFkl4IrshVpQzQVuaaU67qaQ4DjnthOO73O88UqlYIpp6ktIgxkPBIkawtpLvx1iPwih7mvab/UrVrbkzoGXiFaQKBRr9ypc/SIiJqdCEY6V6npvqIMNSM8LptOwbRVNMxnhIe5YKHFMVZLPMU3RqlQGKEmmf0Gim/t7IcKzUJA7tZJ5RLXq5+J/XMzq6CTImUqOpIPNDkeFIJygvAA2YpETziSWYSGazIjLCEhNtayrbErzFLy+T9nnNu6pdPlxU67dFHSU4hhM4Aw+uoQ730IAWEEjhGV7hzTHOi/PufMxHV5xi5wj+wPn8AWKske0=</latexit>
+
+
+
+
+xT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               <latexit sha1_base64="HXfO7+v6I/ST4J9vIwJ1ZeU8GrQ=">AAAB83icbVDLSgMxFL1TX7W+qi7dBIvgqsyIr2XRjcsK9gGdoWTSTBuaSYYkI5ahv+HGhSJu/Rl3/o2ZdhbaeiBwOOde7skJE860cd1vp7Syura+Ud6sbG3v7O5V9w/aWqaK0BaRXKpuiDXlTNCWYYbTbqIojkNOO+H4Nvc7j1RpJsWDmSQ0iPFQsIgRbKzk+zE2ozDKnqZ9t1+tuXV3BrRMvILUoECzX/3yB5KkMRWGcKx1z3MTE2RYGUY4nVb8VNMEkzEe0p6lAsdUB9ks8xSdWGWAIqnsEwbN1N8bGY61nsShncwz6kUvF//zeqmJroOMiSQ1VJD5oSjlyEiUF4AGTFFi+MQSTBSzWREZYYWJsTVVbAne4peXSfus7l3WL+7Pa42boo4yHMExnIIHV9CAO2hCCwgk8Ayv8Oakzovz7nzMR0tOsXMIf+B8/gAsHJHJ</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                x0
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               8              Image Credit: CVPR 2023 Diﬀusion Models Tutorial
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ClassiÞer Guidance
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Diffusion goes from noise to real images step-by-step
+
+
+
+
+<latexit sha1_base64="slyFlkoR4BgwhPc1WDfDuSbPIxk=">AAAB83icbVDLSsNAFL3xWeur6tLNYBFclUR8LYtuXFboC5pQJtNJO3QyCfMQS+hvuHGhiFt/xp1/46TNQlsPDBzOuZd75oQpZ0q77rezsrq2vrFZ2ipv7+zu7VcODtsqMZLQFkl4IrshVpQzQVuaaU67qaQ4DjnthOO73O88UqlYIpp6ktIgxkPBIkawtpLvx1iPwih7mvab/UrVrbkzoGXiFaQKBRr9ypc/SIiJqdCEY6V6npvqIMNSM8LptOwbRVNMxnhIe5YKHFMVZLPMU3RqlQGKEmmf0Gim/t7IcKzUJA7tZJ5RLXq5+J/XMzq6CTImUqOpIPNDkeFIJygvAA2YpETziSWYSGazIjLCEhNtayrbErzFLy+T9nnNu6pdPlxU67dFHSU4hhM4Aw+uoQ730IAWEEjhGV7hzTHOi/PufMxHV5xi5wj+wPn8AWKske0=</latexit>
+
+
+
+
+xT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               <latexit sha1_base64="HXfO7+v6I/ST4J9vIwJ1ZeU8GrQ=">AAAB83icbVDLSgMxFL1TX7W+qi7dBIvgqsyIr2XRjcsK9gGdoWTSTBuaSYYkI5ahv+HGhSJu/Rl3/o2ZdhbaeiBwOOde7skJE860cd1vp7Syura+Ud6sbG3v7O5V9w/aWqaK0BaRXKpuiDXlTNCWYYbTbqIojkNOO+H4Nvc7j1RpJsWDmSQ0iPFQsIgRbKzk+zE2ozDKnqZ9t1+tuXV3BrRMvILUoECzX/3yB5KkMRWGcKx1z3MTE2RYGUY4nVb8VNMEkzEe0p6lAsdUB9ks8xSdWGWAIqnsEwbN1N8bGY61nsShncwz6kUvF//zeqmJroOMiSQ1VJD5oSjlyEiUF4AGTFFi+MQSTBSzWREZYYWJsTVVbAne4peXSfus7l3WL+7Pa42boo4yHMExnIIHV9CAO2hCCwgk8Ayv8Oakzovz7nzMR0tOsXMIf+B8/gAsHJHJ</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                x0
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Idea: Perturb the Denoising Trajectory
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               8              Image Credit: CVPR 2023 Diﬀusion Models Tutorial
+ClassiÞer Guidance
+ How do we get this perturbation?
+
+
+
+
+                9
+ClassiÞer Guidance
+  How do we get this perturbation?
+                                <latexit sha1_base64="awccdyb+pofppMMIhgQPMs5usWg=">AAAB7XicbVDLTgJBEOzFF+IL9ehlIjHBC9k1vo5ELx4xkUcCGzI7zMLI7MxmZtZIVv7BiweN8er/ePNvHGAPClbSSaWqO91dQcyZNq777eSWlldW1/LrhY3Nre2d4u5eQ8tEEVonkkvVCrCmnAlaN8xw2ooVxVHAaTMYXk/85gNVmklxZ0Yx9SPcFyxkBBsrNeLy49PouFssuRV3CrRIvIyUIEOtW/zq9CRJIioM4VjrtufGxk+xMoxwOi50Ek1jTIa4T9uWChxR7afTa8foyCo9FEplSxg0VX9PpDjSehQFtjPCZqDnvYn4n9dOTHjpp0zEiaGCzBaFCUdGosnrqMcUJYaPLMFEMXsrIgOsMDE2oIINwZt/eZE0TireeeXs9rRUvcriyMMBHEIZPLiAKtxADepA4B6e4RXeHOm8OO/Ox6w152Qz+/AHzucPP76O7g==</latexit>
+
+
+
+
+LetÕs take an image classiÞer                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        p(x|y)
+
+
+
+
+                  9
+     ClassiÞer Guidance
+        How do we get this perturbation?
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       <latexit sha1_base64="awccdyb+pofppMMIhgQPMs5usWg=">AAAB7XicbVDLTgJBEOzFF+IL9ehlIjHBC9k1vo5ELx4xkUcCGzI7zMLI7MxmZtZIVv7BiweN8er/ePNvHGAPClbSSaWqO91dQcyZNq777eSWlldW1/LrhY3Nre2d4u5eQ8tEEVonkkvVCrCmnAlaN8xw2ooVxVHAaTMYXk/85gNVmklxZ0Yx9SPcFyxkBBsrNeLy49PouFssuRV3CrRIvIyUIEOtW/zq9CRJIioM4VjrtufGxk+xMoxwOi50Ek1jTIa4T9uWChxR7afTa8foyCo9FEplSxg0VX9PpDjSehQFtjPCZqDnvYn4n9dOTHjpp0zEiaGCzBaFCUdGosnrqMcUJYaPLMFEMXsrIgOsMDE2oIINwZt/eZE0TireeeXs9rRUvcriyMMBHEIZPLiAKtxADepA4B6e4RXeHOm8OO/Ox6w152Qz+/AHzucPP76O7g==</latexit>
+
+
+
+
+      LetÕs take an image classiÞer                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         p(x|y)
+                                  <latexit sha1_base64="lpIZMz8rRNKUSSWgYvNh0AvWfu8=">AAAB/XicbVDLSsNAFJ34rPUVHzs3g0Wom5KIr2XRjcsK9gFNCJPppB06mQkzE2msxV9x40IRt/6HO//GaZuFth64cDjnXu69J0wYVdpxvq2FxaXlldXCWnF9Y3Nr297ZbSiRSkzqWDAhWyFShFFO6ppqRlqJJCgOGWmG/eux37wnUlHB73SWED9GXU4jipE2UmDvexyFDAUD6DHRhUl58JgdB3bJqTgTwHni5qQEctQC+8vrCJzGhGvMkFJt10m0P0RSU8zIqOiliiQI91GXtA3lKCbKH06uH8Ejo3RgJKQpruFE/T0xRLFSWRyazhjpnpr1xuJ/XjvV0aU/pDxJNeF4uihKGdQCjqOAHSoJ1iwzBGFJza0Q95BEWJvAiiYEd/bledI4qbjnlbPb01L1Ko+jAA7AISgDF1yAKrgBNVAHGDyAZ/AK3qwn68V6tz6mrQtWPrMH/sD6/AGqHZS6</latexit>
+
+
+
+
+And look at itÕs gradients (w.r.t. x) rx log p(x|y)
+
+
+
+
+                        9
+     ClassiÞer Guidance
+        How do we get this perturbation?
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <latexit sha1_base64="awccdyb+pofppMMIhgQPMs5usWg=">AAAB7XicbVDLTgJBEOzFF+IL9ehlIjHBC9k1vo5ELx4xkUcCGzI7zMLI7MxmZtZIVv7BiweN8er/ePNvHGAPClbSSaWqO91dQcyZNq777eSWlldW1/LrhY3Nre2d4u5eQ8tEEVonkkvVCrCmnAlaN8xw2ooVxVHAaTMYXk/85gNVmklxZ0Yx9SPcFyxkBBsrNeLy49PouFssuRV3CrRIvIyUIEOtW/zq9CRJIioM4VjrtufGxk+xMoxwOi50Ek1jTIa4T9uWChxR7afTa8foyCo9FEplSxg0VX9PpDjSehQFtjPCZqDnvYn4n9dOTHjpp0zEiaGCzBaFCUdGosnrqMcUJYaPLMFEMXsrIgOsMDE2oIINwZt/eZE0TireeeXs9rRUvcriyMMBHEIZPLiAKtxADepA4B6e4RXeHOm8OO/Ox6w152Qz+/AHzucPP76O7g==</latexit>
+
+
+
+
+      LetÕs take an image classiÞer                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           p(x|y)
+                                    <latexit sha1_base64="lpIZMz8rRNKUSSWgYvNh0AvWfu8=">AAAB/XicbVDLSsNAFJ34rPUVHzs3g0Wom5KIr2XRjcsK9gFNCJPppB06mQkzE2msxV9x40IRt/6HO//GaZuFth64cDjnXu69J0wYVdpxvq2FxaXlldXCWnF9Y3Nr297ZbSiRSkzqWDAhWyFShFFO6ppqRlqJJCgOGWmG/eux37wnUlHB73SWED9GXU4jipE2UmDvexyFDAUD6DHRhUl58JgdB3bJqTgTwHni5qQEctQC+8vrCJzGhGvMkFJt10m0P0RSU8zIqOiliiQI91GXtA3lKCbKH06uH8Ejo3RgJKQpruFE/T0xRLFSWRyazhjpnpr1xuJ/XjvV0aU/pDxJNeF4uihKGdQCjqOAHSoJ1iwzBGFJza0Q95BEWJvAiiYEd/bledI4qbjnlbPb01L1Ko+jAA7AISgDF1yAKrgBNVAHGDyAZ/AK3qwn68V6tz6mrQtWPrMH/sD6/AGqHZS6</latexit>
+
+
+
+
+And look at itÕs gradients (w.r.t. x) rx log p(x|y)
+
+
+ Intuitively: how to change x so it looks like a ÒyÓ
+
+
+
+                          9
+ClassiÞer Guidance
+Perturb using gradients of a classiÞer:
+
+
+
+
+                  10
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ClassiÞer Guidance
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Perturb using gradients of a classiÞer:
+
+
+
+
+<latexit sha1_base64="slyFlkoR4BgwhPc1WDfDuSbPIxk=">AAAB83icbVDLSsNAFL3xWeur6tLNYBFclUR8LYtuXFboC5pQJtNJO3QyCfMQS+hvuHGhiFt/xp1/46TNQlsPDBzOuZd75oQpZ0q77rezsrq2vrFZ2ipv7+zu7VcODtsqMZLQFkl4IrshVpQzQVuaaU67qaQ4DjnthOO73O88UqlYIpp6ktIgxkPBIkawtpLvx1iPwih7mvab/UrVrbkzoGXiFaQKBRr9ypc/SIiJqdCEY6V6npvqIMNSM8LptOwbRVNMxnhIe5YKHFMVZLPMU3RqlQGKEmmf0Gim/t7IcKzUJA7tZJ5RLXq5+J/XMzq6CTImUqOpIPNDkeFIJygvAA2YpETziSWYSGazIjLCEhNtayrbErzFLy+T9nnNu6pdPlxU67dFHSU4hhM4Aw+uoQ730IAWEEjhGV7hzTHOi/PufMxHV5xi5wj+wPn8AWKske0=</latexit>
+
+
+
+
+xT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             <latexit sha1_base64="HXfO7+v6I/ST4J9vIwJ1ZeU8GrQ=">AAAB83icbVDLSgMxFL1TX7W+qi7dBIvgqsyIr2XRjcsK9gGdoWTSTBuaSYYkI5ahv+HGhSJu/Rl3/o2ZdhbaeiBwOOde7skJE860cd1vp7Syura+Ud6sbG3v7O5V9w/aWqaK0BaRXKpuiDXlTNCWYYbTbqIojkNOO+H4Nvc7j1RpJsWDmSQ0iPFQsIgRbKzk+zE2ozDKnqZ9t1+tuXV3BrRMvILUoECzX/3yB5KkMRWGcKx1z3MTE2RYGUY4nVb8VNMEkzEe0p6lAsdUB9ks8xSdWGWAIqnsEwbN1N8bGY61nsShncwz6kUvF//zeqmJroOMiSQ1VJD5oSjlyEiUF4AGTFFi+MQSTBSzWREZYYWJsTVVbAne4peXSfus7l3WL+7Pa42boo4yHMExnIIHV9CAO2hCCwgk8Ayv8Oakzovz7nzMR0tOsXMIf+B8/gAsHJHJ</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               x0
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       10
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ClassiÞer Guidance
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Perturb using gradients of a classiÞer:
+
+
+
+
+<latexit sha1_base64="slyFlkoR4BgwhPc1WDfDuSbPIxk=">AAAB83icbVDLSsNAFL3xWeur6tLNYBFclUR8LYtuXFboC5pQJtNJO3QyCfMQS+hvuHGhiFt/xp1/46TNQlsPDBzOuZd75oQpZ0q77rezsrq2vrFZ2ipv7+zu7VcODtsqMZLQFkl4IrshVpQzQVuaaU67qaQ4DjnthOO73O88UqlYIpp6ktIgxkPBIkawtpLvx1iPwih7mvab/UrVrbkzoGXiFaQKBRr9ypc/SIiJqdCEY6V6npvqIMNSM8LptOwbRVNMxnhIe5YKHFMVZLPMU3RqlQGKEmmf0Gim/t7IcKzUJA7tZJ5RLXq5+J/XMzq6CTImUqOpIPNDkeFIJygvAA2YpETziSWYSGazIjLCEhNtayrbErzFLy+T9nnNu6pdPlxU67dFHSU4hhM4Aw+uoQ730IAWEEjhGV7hzTHOi/PufMxHV5xi5wj+wPn8AWKske0=</latexit>
+
+
+
+
+xT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       <latexit sha1_base64="IAD4vAOluAV946BdPTzZsl6lQCk=">AAACCnicbZC5TgMxEIa94QrhClDSGCKk0ES7iKuMoKEMEjmkbLSadZzEiu1d2V5EtKSm4VVoKECIlieg421wjgISfsnSp39mNJ4/jDnTxnW/nczC4tLySnY1t7a+sbmV396p6ShRhFZJxCPVCEFTziStGmY4bcSKggg5rYf9q1G9fkeVZpG8NYOYtgR0JeswAsZaQX7f74IQgH0JIYcgvQ/MEPs86uK4aPlhcBTkC27JHQvPgzeFApqqEuS//HZEEkGlIRy0bnpubFopKMMIp8Ocn2gaA+lDlzYtShBUt9LxKUN8aJ027kTKPmnw2P09kYLQeiBC2ynA9PRsbWT+V2smpnPRSpmME0MlmSzqJBybCI9ywW2mKDF8YAGIYvavmPRAATE2vZwNwZs9eR5qxyXvrHR6c1IoX07jyKI9dICKyEPnqIyuUQVVEUGP6Bm9ojfnyXlx3p2PSWvGmc7soj9yPn8AzwmaWQ==</latexit>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <latexit sha1_base64="HXfO7+v6I/ST4J9vIwJ1ZeU8GrQ=">AAAB83icbVDLSgMxFL1TX7W+qi7dBIvgqsyIr2XRjcsK9gGdoWTSTBuaSYYkI5ahv+HGhSJu/Rl3/o2ZdhbaeiBwOOde7skJE860cd1vp7Syura+Ud6sbG3v7O5V9w/aWqaK0BaRXKpuiDXlTNCWYYbTbqIojkNOO+H4Nvc7j1RpJsWDmSQ0iPFQsIgRbKzk+zE2ozDKnqZ9t1+tuXV3BrRMvILUoECzX/3yB5KkMRWGcKx1z3MTE2RYGUY4nVb8VNMEkzEe0p6lAsdUB9ks8xSdWGWAIqnsEwbN1N8bGY61nsShncwz6kUvF//zeqmJroOMiSQ1VJD5oSjlyEiUF4AGTFFi+MQSTBSzWREZYYWJsTVVbAne4peXSfus7l3WL+7Pa42boo4yHMExnIIHV9CAO2hCCwgk8Ayv8Oakzovz7nzMR0tOsXMIf+B8/gAsHJHJ</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  x0
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              γrxt log p(xt |y)
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          10
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ClassiÞer Guidance
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Perturb using gradients of a classiÞer:
+
+
+
+
+<latexit sha1_base64="slyFlkoR4BgwhPc1WDfDuSbPIxk=">AAAB83icbVDLSsNAFL3xWeur6tLNYBFclUR8LYtuXFboC5pQJtNJO3QyCfMQS+hvuHGhiFt/xp1/46TNQlsPDBzOuZd75oQpZ0q77rezsrq2vrFZ2ipv7+zu7VcODtsqMZLQFkl4IrshVpQzQVuaaU67qaQ4DjnthOO73O88UqlYIpp6ktIgxkPBIkawtpLvx1iPwih7mvab/UrVrbkzoGXiFaQKBRr9ypc/SIiJqdCEY6V6npvqIMNSM8LptOwbRVNMxnhIe5YKHFMVZLPMU3RqlQGKEmmf0Gim/t7IcKzUJA7tZJ5RLXq5+J/XMzq6CTImUqOpIPNDkeFIJygvAA2YpETziSWYSGazIjLCEhNtayrbErzFLy+T9nnNu6pdPlxU67dFHSU4hhM4Aw+uoQ730IAWEEjhGV7hzTHOi/PufMxHV5xi5wj+wPn8AWKske0=</latexit>
+
+
+
+
+xT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <latexit sha1_base64="IAD4vAOluAV946BdPTzZsl6lQCk=">AAACCnicbZC5TgMxEIa94QrhClDSGCKk0ES7iKuMoKEMEjmkbLSadZzEiu1d2V5EtKSm4VVoKECIlieg421wjgISfsnSp39mNJ4/jDnTxnW/nczC4tLySnY1t7a+sbmV396p6ShRhFZJxCPVCEFTziStGmY4bcSKggg5rYf9q1G9fkeVZpG8NYOYtgR0JeswAsZaQX7f74IQgH0JIYcgvQ/MEPs86uK4aPlhcBTkC27JHQvPgzeFApqqEuS//HZEEkGlIRy0bnpubFopKMMIp8Ocn2gaA+lDlzYtShBUt9LxKUN8aJ027kTKPmnw2P09kYLQeiBC2ynA9PRsbWT+V2smpnPRSpmME0MlmSzqJBybCI9ywW2mKDF8YAGIYvavmPRAATE2vZwNwZs9eR5qxyXvrHR6c1IoX07jyKI9dICKyEPnqIyuUQVVEUGP6Bm9ojfnyXlx3p2PSWvGmc7soj9yPn8AzwmaWQ==</latexit>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <latexit sha1_base64="HXfO7+v6I/ST4J9vIwJ1ZeU8GrQ=">AAAB83icbVDLSgMxFL1TX7W+qi7dBIvgqsyIr2XRjcsK9gGdoWTSTBuaSYYkI5ahv+HGhSJu/Rl3/o2ZdhbaeiBwOOde7skJE860cd1vp7Syura+Ud6sbG3v7O5V9w/aWqaK0BaRXKpuiDXlTNCWYYbTbqIojkNOO+H4Nvc7j1RpJsWDmSQ0iPFQsIgRbKzk+zE2ozDKnqZ9t1+tuXV3BrRMvILUoECzX/3yB5KkMRWGcKx1z3MTE2RYGUY4nVb8VNMEkzEe0p6lAsdUB9ks8xSdWGWAIqnsEwbN1N8bGY61nsShncwz6kUvF//zeqmJroOMiSQ1VJD5oSjlyEiUF4AGTFFi+MQSTBSzWREZYYWJsTVVbAne4peXSfus7l3WL+7Pa42boo4yHMExnIIHV9CAO2hCCwgk8Ayv8Oakzovz7nzMR0tOsXMIf+B8/gAsHJHJ</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          x0
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   γrxt log p(xt |y)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <latexit sha1_base64="I7rq54Fa38PZjhoynYYamuXoJ2Q=">AAACQnicbVBBTxNBGJ1FECwoVY9eJjQkNNFmlwB6MSF48VgSC5hus/l2+rWdMDO7mfmWuFn727z4C7j5A7x40BCuHJy2G4Lgy0zy8t778s28NFfSURj+CJYeLa88Xl170ljfePpss/n8xYnLCiuwJzKV2bMUHCppsEeSFJ7lFkGnCk/T8w8z//QCrZOZ+URljgMNYyNHUgB5KWl+jkmqIcaYO6m8QDtfEnrN/Snb/D2/1WOaIEFttvkbHo9Ba+CxgVRBUnljymOVjXk+C30t20mzFXbCOfhDEtWkxWp0k+ZlPMxEodGQUOBcPwpzGlRgSQqF00ZcOMxBnMMY+54a0OgG1byCKd/2ypCPMuuvIT5X705UoJ0rdeqTGmji7nsz8X9ev6DRu0ElTV4QGrFYNCoUp4zP+uRDaVGQKj0BYaV/KxcTsCDIt97wJUT3v/yQnOx2ooPO/vFe6/CormONvWJbbIdF7C07ZB9Zl/WYYN/YT/ab/Qm+B7+Cq+B6EV0K6pmX7B8EN38Br/avrg==</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ✏˜t (xt , t, y) = ✏θ (xt , t)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     rxt log p(xt |y)
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               10
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ClassiÞer Guidance
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Perturb using gradients of a classiÞer:
+
+
+
+
+<latexit sha1_base64="slyFlkoR4BgwhPc1WDfDuSbPIxk=">AAAB83icbVDLSsNAFL3xWeur6tLNYBFclUR8LYtuXFboC5pQJtNJO3QyCfMQS+hvuHGhiFt/xp1/46TNQlsPDBzOuZd75oQpZ0q77rezsrq2vrFZ2ipv7+zu7VcODtsqMZLQFkl4IrshVpQzQVuaaU67qaQ4DjnthOO73O88UqlYIpp6ktIgxkPBIkawtpLvx1iPwih7mvab/UrVrbkzoGXiFaQKBRr9ypc/SIiJqdCEY6V6npvqIMNSM8LptOwbRVNMxnhIe5YKHFMVZLPMU3RqlQGKEmmf0Gim/t7IcKzUJA7tZJ5RLXq5+J/XMzq6CTImUqOpIPNDkeFIJygvAA2YpETziSWYSGazIjLCEhNtayrbErzFLy+T9nnNu6pdPlxU67dFHSU4hhM4Aw+uoQ730IAWEEjhGV7hzTHOi/PufMxHV5xi5wj+wPn8AWKske0=</latexit>
+
+
+
+
+xT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <latexit sha1_base64="IAD4vAOluAV946BdPTzZsl6lQCk=">AAACCnicbZC5TgMxEIa94QrhClDSGCKk0ES7iKuMoKEMEjmkbLSadZzEiu1d2V5EtKSm4VVoKECIlieg421wjgISfsnSp39mNJ4/jDnTxnW/nczC4tLySnY1t7a+sbmV396p6ShRhFZJxCPVCEFTziStGmY4bcSKggg5rYf9q1G9fkeVZpG8NYOYtgR0JeswAsZaQX7f74IQgH0JIYcgvQ/MEPs86uK4aPlhcBTkC27JHQvPgzeFApqqEuS//HZEEkGlIRy0bnpubFopKMMIp8Ocn2gaA+lDlzYtShBUt9LxKUN8aJ027kTKPmnw2P09kYLQeiBC2ynA9PRsbWT+V2smpnPRSpmME0MlmSzqJBybCI9ywW2mKDF8YAGIYvavmPRAATE2vZwNwZs9eR5qxyXvrHR6c1IoX07jyKI9dICKyEPnqIyuUQVVEUGP6Bm9ojfnyXlx3p2PSWvGmc7soj9yPn8AzwmaWQ==</latexit>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <latexit sha1_base64="HXfO7+v6I/ST4J9vIwJ1ZeU8GrQ=">AAAB83icbVDLSgMxFL1TX7W+qi7dBIvgqsyIr2XRjcsK9gGdoWTSTBuaSYYkI5ahv+HGhSJu/Rl3/o2ZdhbaeiBwOOde7skJE860cd1vp7Syura+Ud6sbG3v7O5V9w/aWqaK0BaRXKpuiDXlTNCWYYbTbqIojkNOO+H4Nvc7j1RpJsWDmSQ0iPFQsIgRbKzk+zE2ozDKnqZ9t1+tuXV3BrRMvILUoECzX/3yB5KkMRWGcKx1z3MTE2RYGUY4nVb8VNMEkzEe0p6lAsdUB9ks8xSdWGWAIqnsEwbN1N8bGY61nsShncwz6kUvF//zeqmJroOMiSQ1VJD5oSjlyEiUF4AGTFFi+MQSTBSzWREZYYWJsTVVbAne4peXSfus7l3WL+7Pa42boo4yHMExnIIHV9CAO2hCCwgk8Ayv8Oakzovz7nzMR0tOsXMIf+B8/gAsHJHJ</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          x0
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   γrxt log p(xt |y)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <latexit sha1_base64="I7rq54Fa38PZjhoynYYamuXoJ2Q=">AAACQnicbVBBTxNBGJ1FECwoVY9eJjQkNNFmlwB6MSF48VgSC5hus/l2+rWdMDO7mfmWuFn727z4C7j5A7x40BCuHJy2G4Lgy0zy8t778s28NFfSURj+CJYeLa88Xl170ljfePpss/n8xYnLCiuwJzKV2bMUHCppsEeSFJ7lFkGnCk/T8w8z//QCrZOZ+URljgMNYyNHUgB5KWl+jkmqIcaYO6m8QDtfEnrN/Snb/D2/1WOaIEFttvkbHo9Ba+CxgVRBUnljymOVjXk+C30t20mzFXbCOfhDEtWkxWp0k+ZlPMxEodGQUOBcPwpzGlRgSQqF00ZcOMxBnMMY+54a0OgG1byCKd/2ypCPMuuvIT5X705UoJ0rdeqTGmji7nsz8X9ev6DRu0ElTV4QGrFYNCoUp4zP+uRDaVGQKj0BYaV/KxcTsCDIt97wJUT3v/yQnOx2ooPO/vFe6/CormONvWJbbIdF7C07ZB9Zl/WYYN/YT/ab/Qm+B7+Cq+B6EV0K6pmX7B8EN38Br/avrg==</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ✏˜t (xt , t, y) = ✏θ (xt , t)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     rxt log p(xt |y)
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ThereÕs a small problem thoughÉ
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               10
+         ClassiÞer Guidance
+Problem: ClassiÞer isnÕt trained on noisy images!
+
+
+
+
+                            11
+         ClassiÞer Guidance
+Problem: ClassiÞer isnÕt trained on noisy images!
+
+Solution: Finetune the classiÞer on noisy images
+
+
+
+
+                            11
+         ClassiÞer Guidance
+Problem: ClassiÞer isnÕt trained on noisy images!
+
+Solution: Finetune the classiÞer on noisy images
+
+
+
+
+( , )        Labrador
+             Retriever
+
+
+
+                            11
+         ClassiÞer Guidance
+Problem: ClassiÞer isnÕt trained on noisy images!
+
+Solution: Finetune the classiÞer on noisy images
+
+
+
+
+( , )        Labrador
+             Retriever
+                         Augment
+                                   ( , )       Labrador
+                                               Retriever
+
+
+
+                            11
+       ClassiÞer Guidance
+
+
+
+
+Guidance Weight 1.0        Guidance Weight 10.0
+
+
+                      12   Dhariwal and Nichol, ÒDiﬀusion Models Beat GANs on Image SynthesisÓ
+Problems with ClassiÞer Guidance
+
+
+
+
+               13
+  Problems with ClassiÞer Guidance
+
+¥ Need to Þne-tune or re-train a classiÞer on noisy data
+
+
+
+
+                                       13
+  Problems with ClassiÞer Guidance
+
+¥ Need to Þne-tune or re-train a classiÞer on noisy data
+¥ Need a pre-trained classiÞcation model
+
+
+
+
+                                       13
+  Problems with ClassiÞer Guidance
+
+¥ Need to Þne-tune or re-train a classiÞer on noisy data
+¥ Need a pre-trained classiÞcation model
+  ¥ What if we want to use any text prompt as input?
+
+
+
+
+                                       13
+  Problems with ClassiÞer Guidance
+
+¥ Need to Þne-tune or re-train a classiÞer on noisy data
+¥ Need a pre-trained classiÞcation model
+  ¥ What if we want to use any text prompt as input?
+¥ ClassiÞer gradients are poor. They can suffer from ÒshortcutsÓ
+
+
+
+                                       13
+How to Control Diﬀusion Models
+
+
+
+  Explicit     ClassiÞer   ClassiÞer-Free
+Conditioning   Guidance      Guidance
+
+
+
+
+                  14       Slide Credit: CVPR 2023 Diﬀusion Models Tutorial
+ClassiÞer Free Guidance
+  Idea: Use the diffusion model itself to
+  get perturbations for guidance
+
+
+
+
+                     15
+         ClassiÞer Free Guidance
+              Idea: Use the diffusion model itself to
+              get perturbations for guidance
+                                                   <latexit sha1_base64="plAspc4voa6zsc/5IorWsw+lCCo=">AAACA3icbZDLSgMxFIYz9VbrbdSdboJFqCBlRrwti25cVrAX6Awlk562oZkLyRmxlIIbX8WNC0Xc+hLufBvTy0JbDwl8/P85JOcPEik0Os63lVlYXFpeya7m1tY3Nrfs7Z2qjlPFocJjGat6wDRIEUEFBUqoJwpYGEioBb3rkV+7B6VFHN1hPwE/ZJ1ItAVnaKSmvedBooU06GEXkBUemnhMzekfNe28U3TGRefBnUKeTKvctL+8VszTECLkkmndcJ0E/QFTKLiEYc5LNSSM91gHGgYjFoL2B+MdhvTQKC3ajpW5EdKx+ntiwEKt+2FgOkOGXT3rjcT/vEaK7Ut/IKIkRYj45KF2KinGdBQIbQkFHGXfAONKmL9S3mWKcTSx5UwI7uzK81A9KbrnxbPb03zpahpHluyTA1IgLrkgJXJDyqRCOHkkz+SVvFlP1ov1bn1MWjPWdGaX/Cnr8wfawZcB</latexit>
+
+
+
+
+Train an explicitly conditioned diffusion model:   ✏θ (xt , t, y)
+
+
+
+
+                                  15
+         ClassiÞer Free Guidance
+              Idea: Use the diffusion model itself to
+              get perturbations for guidance
+                                                   <latexit sha1_base64="plAspc4voa6zsc/5IorWsw+lCCo=">AAACA3icbZDLSgMxFIYz9VbrbdSdboJFqCBlRrwti25cVrAX6Awlk562oZkLyRmxlIIbX8WNC0Xc+hLufBvTy0JbDwl8/P85JOcPEik0Os63lVlYXFpeya7m1tY3Nrfs7Z2qjlPFocJjGat6wDRIEUEFBUqoJwpYGEioBb3rkV+7B6VFHN1hPwE/ZJ1ItAVnaKSmvedBooU06GEXkBUemnhMzekfNe28U3TGRefBnUKeTKvctL+8VszTECLkkmndcJ0E/QFTKLiEYc5LNSSM91gHGgYjFoL2B+MdhvTQKC3ajpW5EdKx+ntiwEKt+2FgOkOGXT3rjcT/vEaK7Ut/IKIkRYj45KF2KinGdBQIbQkFHGXfAONKmL9S3mWKcTSx5UwI7uzK81A9KbrnxbPb03zpahpHluyTA1IgLrkgJXJDyqRCOHkkz+SVvFlP1ov1bn1MWjPWdGaX/Cnr8wfawZcB</latexit>
+
+
+
+
+Train an explicitly conditioned diffusion model:   ✏θ (xt , t, y)
+But also train it to be unconditional
+
+
+
+
+                                  15
+         ClassiÞer Free Guidance
+              Idea: Use the diffusion model itself to
+              get perturbations for guidance
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <latexit sha1_base64="plAspc4voa6zsc/5IorWsw+lCCo=">AAACA3icbZDLSgMxFIYz9VbrbdSdboJFqCBlRrwti25cVrAX6Awlk562oZkLyRmxlIIbX8WNC0Xc+hLufBvTy0JbDwl8/P85JOcPEik0Os63lVlYXFpeya7m1tY3Nrfs7Z2qjlPFocJjGat6wDRIEUEFBUqoJwpYGEioBb3rkV+7B6VFHN1hPwE/ZJ1ItAVnaKSmvedBooU06GEXkBUemnhMzekfNe28U3TGRefBnUKeTKvctL+8VszTECLkkmndcJ0E/QFTKLiEYc5LNSSM91gHGgYjFoL2B+MdhvTQKC3ajpW5EdKx+ntiwEKt+2FgOkOGXT3rjcT/vEaK7Ut/IKIkRYj45KF2KinGdBQIbQkFHGXfAONKmL9S3mWKcTSx5UwI7uzK81A9KbrnxbPb03zpahpHluyTA1IgLrkgJXJDyqRCOHkkz+SVvFlP1ov1bn1MWjPWdGaX/Cnr8wfawZcB</latexit>
+
+
+
+
+Train an explicitly conditioned diffusion model:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ✏θ (xt , t, y)
+But also train it to be unconditional
+                                               <latexit sha1_base64="H6EFQDRN3/v30M0kXYqCg22ZPVs=">AAACDXicbZDLSgMxFIYz9VbrrerSTbAKFaTMiLdl0Y3LCvYCnVIy6WkbmskMyZliKX0BN76KGxeKuHXvzrcxvSy0ekjg4//PITl/EEth0HW/nNTC4tLySno1s7a+sbmV3d6pmCjRHMo8kpGuBcyAFArKKFBCLdbAwkBCNehdj/1qH7QRkbrDQQyNkHWUaAvO0ErN7IEPsRHSoo9dQJa/b+IxtcfvM60i7ArVOWpmc27BnRT9C94McmRWpWb2029FPAlBIZfMmLrnxtgYMo2CSxhl/MRAzHiPdaBuUbEQTGM42WZED63Sou1I26uQTtSfE0MWGjMIA9sZMuyaeW8s/ufVE2xfNoZCxQmC4tOH2omkGNFxNLQlNHCUAwuMa2H/SnmXacbRBpixIXjzK/+FyknBOy+c3Z7milezONJkj+yTPPHIBSmSG1IiZcLJA3kiL+TVeXSenTfnfdqacmYzu+RXOR/fBkqbiA==</latexit>
+
+
+
+
+We can do this with conditioning dropout:      ✏θ (xt , t, ∅)
+
+                                  15
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ClassiÞer Free Guidance
+
+<latexit sha1_base64="plAspc4voa6zsc/5IorWsw+lCCo=">AAACA3icbZDLSgMxFIYz9VbrbdSdboJFqCBlRrwti25cVrAX6Awlk562oZkLyRmxlIIbX8WNC0Xc+hLufBvTy0JbDwl8/P85JOcPEik0Os63lVlYXFpeya7m1tY3Nrfs7Z2qjlPFocJjGat6wDRIEUEFBUqoJwpYGEioBb3rkV+7B6VFHN1hPwE/ZJ1ItAVnaKSmvedBooU06GEXkBUemnhMzekfNe28U3TGRefBnUKeTKvctL+8VszTECLkkmndcJ0E/QFTKLiEYc5LNSSM91gHGgYjFoL2B+MdhvTQKC3ajpW5EdKx+ntiwEKt+2FgOkOGXT3rjcT/vEaK7Ut/IKIkRYj45KF2KinGdBQIbQkFHGXfAONKmL9S3mWKcTSx5UwI7uzK81A9KbrnxbPb03zpahpHluyTA1IgLrkgJXJDyqRCOHkkz+SVvFlP1ov1bn1MWjPWdGaX/Cnr8wfawZcB</latexit>
+
+
+
+
+✏θ (xt , t, y)
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <latexit sha1_base64="H6EFQDRN3/v30M0kXYqCg22ZPVs=">AAACDXicbZDLSgMxFIYz9VbrrerSTbAKFaTMiLdl0Y3LCvYCnVIy6WkbmskMyZliKX0BN76KGxeKuHXvzrcxvSy0ekjg4//PITl/EEth0HW/nNTC4tLySno1s7a+sbmV3d6pmCjRHMo8kpGuBcyAFArKKFBCLdbAwkBCNehdj/1qH7QRkbrDQQyNkHWUaAvO0ErN7IEPsRHSoo9dQJa/b+IxtcfvM60i7ArVOWpmc27BnRT9C94McmRWpWb2029FPAlBIZfMmLrnxtgYMo2CSxhl/MRAzHiPdaBuUbEQTGM42WZED63Sou1I26uQTtSfE0MWGjMIA9sZMuyaeW8s/ufVE2xfNoZCxQmC4tOH2omkGNFxNLQlNHCUAwuMa2H/SnmXacbRBpixIXjzK/+FyknBOy+c3Z7milezONJkj+yTPPHIBSmSG1IiZcLJA3kiL+TVeXSenTfnfdqacmYzu+RXOR/fBkqbiA==</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ✏θ (xt , t, ∅)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 16
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ClassiÞer Free Guidance
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <latexit sha1_base64="guHfPJtHH5li1Jv2nDN13jc4WBU=">AAACKnicdZDLSgMxFIYzXmu9VV26CRZBQcuMeFtW3bhUsFXoDCWTnrahmcyQnCmW0udx46u46UIpbn0Q0zoLrXpI4OP/zyE5f5hIYdB1R87M7Nz8wmJuKb+8srq2XtjYrJo41RwqPJaxfgiZASkUVFCghIdEA4tCCfdh52rs33dBGxGrO+wlEESspURTcIZWqhcufEiMkBZ9bAOyvcc6HlB7evv0kP5n+l2mVYxtoVr79ULRLbmTor/By6BIsrqpF4Z+I+ZpBAq5ZMbUPDfBoM80Ci5hkPdTAwnjHdaCmkXFIjBBf7LqgO5apUGbsbZXIZ2o3yf6LDKmF4W2M2LYNtPeWPzLq6XYPA/6QiUpguJfDzVTSTGm49xoQ2jgKHsWGNfC/pXyNtOMo003b0Pwplf+DdWjkndaOrk9LpYvszhyZJvskD3ikTNSJtfkhlQIJ0/khbySN+fZGToj5/2rdcbJZrbIj3I+PgHzSKZf</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ✏θ (xt , t, y) − ✏θ (xt , t, ∅)
+<latexit sha1_base64="plAspc4voa6zsc/5IorWsw+lCCo=">AAACA3icbZDLSgMxFIYz9VbrbdSdboJFqCBlRrwti25cVrAX6Awlk562oZkLyRmxlIIbX8WNC0Xc+hLufBvTy0JbDwl8/P85JOcPEik0Os63lVlYXFpeya7m1tY3Nrfs7Z2qjlPFocJjGat6wDRIEUEFBUqoJwpYGEioBb3rkV+7B6VFHN1hPwE/ZJ1ItAVnaKSmvedBooU06GEXkBUemnhMzekfNe28U3TGRefBnUKeTKvctL+8VszTECLkkmndcJ0E/QFTKLiEYc5LNSSM91gHGgYjFoL2B+MdhvTQKC3ajpW5EdKx+ntiwEKt+2FgOkOGXT3rjcT/vEaK7Ut/IKIkRYj45KF2KinGdBQIbQkFHGXfAONKmL9S3mWKcTSx5UwI7uzK81A9KbrnxbPb03zpahpHluyTA1IgLrkgJXJDyqRCOHkkz+SVvFlP1ov1bn1MWjPWdGaX/Cnr8wfawZcB</latexit>
+
+
+
+
+✏θ (xt , t, y)
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <latexit sha1_base64="H6EFQDRN3/v30M0kXYqCg22ZPVs=">AAACDXicbZDLSgMxFIYz9VbrrerSTbAKFaTMiLdl0Y3LCvYCnVIy6WkbmskMyZliKX0BN76KGxeKuHXvzrcxvSy0ekjg4//PITl/EEth0HW/nNTC4tLySno1s7a+sbmV3d6pmCjRHMo8kpGuBcyAFArKKFBCLdbAwkBCNehdj/1qH7QRkbrDQQyNkHWUaAvO0ErN7IEPsRHSoo9dQJa/b+IxtcfvM60i7ArVOWpmc27BnRT9C94McmRWpWb2029FPAlBIZfMmLrnxtgYMo2CSxhl/MRAzHiPdaBuUbEQTGM42WZED63Sou1I26uQTtSfE0MWGjMIA9sZMuyaeW8s/ufVE2xfNoZCxQmC4tOH2omkGNFxNLQlNHCUAwuMa2H/SnmXacbRBpixIXjzK/+FyknBOy+c3Z7milezONJkj+yTPPHIBSmSG1IiZcLJA3kiL+TVeXSenTfnfdqacmYzu+RXOR/fBkqbiA==</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ✏θ (xt , t, ∅)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 16
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ClassiÞer Free Guidance
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <latexit sha1_base64="guHfPJtHH5li1Jv2nDN13jc4WBU=">AAACKnicdZDLSgMxFIYzXmu9VV26CRZBQcuMeFtW3bhUsFXoDCWTnrahmcyQnCmW0udx46u46UIpbn0Q0zoLrXpI4OP/zyE5f5hIYdB1R87M7Nz8wmJuKb+8srq2XtjYrJo41RwqPJaxfgiZASkUVFCghIdEA4tCCfdh52rs33dBGxGrO+wlEESspURTcIZWqhcufEiMkBZ9bAOyvcc6HlB7evv0kP5n+l2mVYxtoVr79ULRLbmTor/By6BIsrqpF4Z+I+ZpBAq5ZMbUPDfBoM80Ci5hkPdTAwnjHdaCmkXFIjBBf7LqgO5apUGbsbZXIZ2o3yf6LDKmF4W2M2LYNtPeWPzLq6XYPA/6QiUpguJfDzVTSTGm49xoQ2jgKHsWGNfC/pXyNtOMo003b0Pwplf+DdWjkndaOrk9LpYvszhyZJvskD3ikTNSJtfkhlQIJ0/khbySN+fZGToj5/2rdcbJZrbIj3I+PgHzSKZf</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ✏θ (xt , t, y) − ✏θ (xt , t, ∅)
+<latexit sha1_base64="plAspc4voa6zsc/5IorWsw+lCCo=">AAACA3icbZDLSgMxFIYz9VbrbdSdboJFqCBlRrwti25cVrAX6Awlk562oZkLyRmxlIIbX8WNC0Xc+hLufBvTy0JbDwl8/P85JOcPEik0Os63lVlYXFpeya7m1tY3Nrfs7Z2qjlPFocJjGat6wDRIEUEFBUqoJwpYGEioBb3rkV+7B6VFHN1hPwE/ZJ1ItAVnaKSmvedBooU06GEXkBUemnhMzekfNe28U3TGRefBnUKeTKvctL+8VszTECLkkmndcJ0E/QFTKLiEYc5LNSSM91gHGgYjFoL2B+MdhvTQKC3ajpW5EdKx+ntiwEKt+2FgOkOGXT3rjcT/vEaK7Ut/IKIkRYj45KF2KinGdBQIbQkFHGXfAONKmL9S3mWKcTSx5UwI7uzK81A9KbrnxbPb03zpahpHluyTA1IgLrkgJXJDyqRCOHkkz+SVvFlP1ov1bn1MWjPWdGaX/Cnr8wfawZcB</latexit>
+
+
+
+
+✏θ (xt , t, y)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ÒDirectionÓ from unconditional
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           sample to conditional sample
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <latexit sha1_base64="H6EFQDRN3/v30M0kXYqCg22ZPVs=">AAACDXicbZDLSgMxFIYz9VbrrerSTbAKFaTMiLdl0Y3LCvYCnVIy6WkbmskMyZliKX0BN76KGxeKuHXvzrcxvSy0ekjg4//PITl/EEth0HW/nNTC4tLySno1s7a+sbmV3d6pmCjRHMo8kpGuBcyAFArKKFBCLdbAwkBCNehdj/1qH7QRkbrDQQyNkHWUaAvO0ErN7IEPsRHSoo9dQJa/b+IxtcfvM60i7ArVOWpmc27BnRT9C94McmRWpWb2029FPAlBIZfMmLrnxtgYMo2CSxhl/MRAzHiPdaBuUbEQTGM42WZED63Sou1I26uQTtSfE0MWGjMIA9sZMuyaeW8s/ufVE2xfNoZCxQmC4tOH2omkGNFxNLQlNHCUAwuMa2H/SnmXacbRBpixIXjzK/+FyknBOy+c3Z7milezONJkj+yTPPHIBSmSG1IiZcLJA3kiL+TVeXSenTfnfdqacmYzu+RXOR/fBkqbiA==</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ✏θ (xt , t, ∅)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 16
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ClassiÞer Free Guidance
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <latexit sha1_base64="guHfPJtHH5li1Jv2nDN13jc4WBU=">AAACKnicdZDLSgMxFIYzXmu9VV26CRZBQcuMeFtW3bhUsFXoDCWTnrahmcyQnCmW0udx46u46UIpbn0Q0zoLrXpI4OP/zyE5f5hIYdB1R87M7Nz8wmJuKb+8srq2XtjYrJo41RwqPJaxfgiZASkUVFCghIdEA4tCCfdh52rs33dBGxGrO+wlEESspURTcIZWqhcufEiMkBZ9bAOyvcc6HlB7evv0kP5n+l2mVYxtoVr79ULRLbmTor/By6BIsrqpF4Z+I+ZpBAq5ZMbUPDfBoM80Ci5hkPdTAwnjHdaCmkXFIjBBf7LqgO5apUGbsbZXIZ2o3yf6LDKmF4W2M2LYNtPeWPzLq6XYPA/6QiUpguJfDzVTSTGm49xoQ2jgKHsWGNfC/pXyNtOMo003b0Pwplf+DdWjkndaOrk9LpYvszhyZJvskD3ikTNSJtfkhlQIJ0/khbySN+fZGToj5/2rdcbJZrbIj3I+PgHzSKZf</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ✏θ (xt , t, y) − ✏θ (xt , t, ∅)
+<latexit sha1_base64="plAspc4voa6zsc/5IorWsw+lCCo=">AAACA3icbZDLSgMxFIYz9VbrbdSdboJFqCBlRrwti25cVrAX6Awlk562oZkLyRmxlIIbX8WNC0Xc+hLufBvTy0JbDwl8/P85JOcPEik0Os63lVlYXFpeya7m1tY3Nrfs7Z2qjlPFocJjGat6wDRIEUEFBUqoJwpYGEioBb3rkV+7B6VFHN1hPwE/ZJ1ItAVnaKSmvedBooU06GEXkBUemnhMzekfNe28U3TGRefBnUKeTKvctL+8VszTECLkkmndcJ0E/QFTKLiEYc5LNSSM91gHGgYjFoL2B+MdhvTQKC3ajpW5EdKx+ntiwEKt+2FgOkOGXT3rjcT/vEaK7Ut/IKIkRYj45KF2KinGdBQIbQkFHGXfAONKmL9S3mWKcTSx5UwI7uzK81A9KbrnxbPb03zpahpHluyTA1IgLrkgJXJDyqRCOHkkz+SVvFlP1ov1bn1MWjPWdGaX/Cnr8wfawZcB</latexit>
+
+
+
+
+✏θ (xt , t, y)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ÒDirectionÓ from unconditional
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           sample to conditional sample
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Use this as our
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <latexit sha1_base64="H6EFQDRN3/v30M0kXYqCg22ZPVs=">AAACDXicbZDLSgMxFIYz9VbrrerSTbAKFaTMiLdl0Y3LCvYCnVIy6WkbmskMyZliKX0BN76KGxeKuHXvzrcxvSy0ekjg4//PITl/EEth0HW/nNTC4tLySno1s7a+sbmV3d6pmCjRHMo8kpGuBcyAFArKKFBCLdbAwkBCNehdj/1qH7QRkbrDQQyNkHWUaAvO0ErN7IEPsRHSoo9dQJa/b+IxtcfvM60i7ArVOWpmc27BnRT9C94McmRWpWb2029FPAlBIZfMmLrnxtgYMo2CSxhl/MRAzHiPdaBuUbEQTGM42WZED63Sou1I26uQTtSfE0MWGjMIA9sZMuyaeW8s/ufVE2xfNoZCxQmC4tOH2omkGNFxNLQlNHCUAwuMa2H/SnmXacbRBpixIXjzK/+FyknBOy+c3Z7milezONJkj+yTPPHIBSmSG1IiZcLJA3kiL+TVeXSenTfnfdqacmYzu+RXOR/fBkqbiA==</latexit>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                guidance perturbation
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ✏θ (xt , t, ∅)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 16
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ClassiÞer Free Guidance
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Our new noise estimate will then be:
+<latexit sha1_base64="OjRtM85Tn8ELP81aTXB/aFDH2/k=">AAACdXicjVFdaxNBFJ1dq7bxo9G+FIowpioJ1bgrqH0pBH3xsYJpC9mw3J3cJEPnY5m5W1xC/0Ef/WW+9W/0xVcnSSvaKniZgcM592Pm3KJU0lOSnEfxrZXbd+6urjXu3X/wcL356PGBt5UT2BdWWXdUgEclDfZJksKj0iHoQuFhcfxxrh+eoPPSmi9UlzjUMDFyLAVQoPLmWUZSjTDD0ktlTftrTi95OHWH7/ErNs9oigS/xOwEnLE0lWbS4Ts8m4DW0P5Xdmj16r9adfLmdtJNFsFvgvQSbPda2c638169nze/ZyMrKo2GhALvB2lS0nAGjqRQeNrIKo8liGOY4CBAAxr9cLZw7ZQ/D8yIj60L1xBfsL9XzEB7X+siZGqgqb+uzcm/aYOKxrvDmTRlRWjEctC4Upwsn6+Aj6RDQaoOAIST4a1cTMGBoLCoRjAhvf7lm+DgTTd91337ObjxgS1jlW2xFmuzlL1nPfaJ7bM+E+wi2oyeRq3oR/wkfha/WKbG0WXNBvsj4tc/AfrBv0c=</latexit>
+
+
+
+
+✏˜(xt , t, y) = ✏θ (xt , t, ∅) + (✏θ (xt , t, y) − ✏θ (xt , t, ∅))
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ÒDirectionÓ from unconditional to conditional
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            17
+ClassiÞer Free Guidance
+      ÒA stained glass window of a panda eating bambooÓ
+
+
+
+
+              <latexit sha1_base64="FqRLPh0cNTb49hLwxsK69n5HiM0=">AAAB8XicbVDJSgNBEO1xjXGLelSkMQiewozgchGCXjwmYBZMhlDT6UmadPcM3T1CGHL0D7x4UMSrP5Dv8OY3+BN2loMmPih4vFdFVb0g5kwb1/1yFhaXlldWM2vZ9Y3Nre3czm5VR4kitEIiHql6AJpyJmnFMMNpPVYURMBpLejdjPzaA1WaRfLO9GPqC+hIFjICxkr3zQ4IAfgKe61c3i24Y+B54k1JvngwLH8/Hg5Lrdxnsx2RRFBpCAetG54bGz8FZRjhdJBtJprGQHrQoQ1LJQiq/XR88QAfW6WNw0jZkgaP1d8TKQit+yKwnQJMV896I/E/r5GY8NJPmYwTQyWZLAoTjk2ER+/jNlOUGN63BIhi9lZMuqCAGBtS1obgzb48T6qnBe+8cFa2aVyjCTJoHx2hE+ShC1REt6iEKoggiZ7QC3p1tPPsvDnvk9YFZzqzh/7A+fgBHTqTnA==</latexit>
+
+
+
+
+              γ=1
+Equivalent to explicit conditioning.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Nichol et al. ÒGLIDE: Towards Photorealistic Image
+          No guidance                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              18   Generation and Editing with Text-Guided Diﬀusion ModelsÓ
+ClassiÞer Free Guidance
+      ÒA stained glass window of a panda eating bambooÓ
+
+
+
+
+              <latexit sha1_base64="FqRLPh0cNTb49hLwxsK69n5HiM0=">AAAB8XicbVDJSgNBEO1xjXGLelSkMQiewozgchGCXjwmYBZMhlDT6UmadPcM3T1CGHL0D7x4UMSrP5Dv8OY3+BN2loMmPih4vFdFVb0g5kwb1/1yFhaXlldWM2vZ9Y3Nre3czm5VR4kitEIiHql6AJpyJmnFMMNpPVYURMBpLejdjPzaA1WaRfLO9GPqC+hIFjICxkr3zQ4IAfgKe61c3i24Y+B54k1JvngwLH8/Hg5Lrdxnsx2RRFBpCAetG54bGz8FZRjhdJBtJprGQHrQoQ1LJQiq/XR88QAfW6WNw0jZkgaP1d8TKQit+yKwnQJMV896I/E/r5GY8NJPmYwTQyWZLAoTjk2ER+/jNlOUGN63BIhi9lZMuqCAGBtS1obgzb48T6qnBe+8cFa2aVyjCTJoHx2hE+ShC1REt6iEKoggiZ7QC3p1tPPsvDnvk9YFZzqzh/7A+fgBHTqTnA==</latexit>        <latexit sha1_base64="CLJkU1XRLCvYCtGfnox0f9dNgG4=">AAAB8XicbVDJSgNBEO2JW4xb1KMijUHwFGYUl4sQ9OIxAbNgMoSaTk/SpLtn6O4RQsjRP/DiQRGv/kC+w5vf4E/YWQ6a+KDg8V4VVfWCmDNtXPfLSS0sLi2vpFcza+sbm1vZ7Z2KjhJFaJlEPFK1ADTlTNKyYYbTWqwoiIDTatC9GfnVB6o0i+Sd6cXUF9CWLGQEjJXuG20QAvAVPm1mc27eHQPPE29KcoX9Yen78WBYbGY/G62IJIJKQzhoXffc2Ph9UIYRTgeZRqJpDKQLbVq3VIKg2u+PLx7gI6u0cBgpW9Lgsfp7og9C654IbKcA09Gz3kj8z6snJrz0+0zGiaGSTBaFCccmwqP3cYspSgzvWQJEMXsrJh1QQIwNKWND8GZfnieVk7x3nj8r2TSu0QRptIcO0THy0AUqoFtURGVEkERP6AW9Otp5dt6c90lrypnO7KI/cD5+ACBCk54=</latexit>
+
+
+
+
+              γ=1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       γ=3
+Equivalent to explicit conditioning.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Nichol et al. ÒGLIDE: Towards Photorealistic Image
+          No guidance                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              18                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Generation and Editing with Text-Guided Diﬀusion ModelsÓ
+              ClassiÞer Free Guidance
+ÒA cozy living room with a painting of a corgi on the wall above a couch and a round coffee
+              table in front of a couch and a vase of ßowers on a coffee table.Ó
+
+
+
+
+                            <latexit sha1_base64="FqRLPh0cNTb49hLwxsK69n5HiM0=">AAAB8XicbVDJSgNBEO1xjXGLelSkMQiewozgchGCXjwmYBZMhlDT6UmadPcM3T1CGHL0D7x4UMSrP5Dv8OY3+BN2loMmPih4vFdFVb0g5kwb1/1yFhaXlldWM2vZ9Y3Nre3czm5VR4kitEIiHql6AJpyJmnFMMNpPVYURMBpLejdjPzaA1WaRfLO9GPqC+hIFjICxkr3zQ4IAfgKe61c3i24Y+B54k1JvngwLH8/Hg5Lrdxnsx2RRFBpCAetG54bGz8FZRjhdJBtJprGQHrQoQ1LJQiq/XR88QAfW6WNw0jZkgaP1d8TKQit+yKwnQJMV896I/E/r5GY8NJPmYwTQyWZLAoTjk2ER+/jNlOUGN63BIhi9lZMuqCAGBtS1obgzb48T6qnBe+8cFa2aVyjCTJoHx2hE+ShC1REt6iEKoggiZ7QC3p1tPPsvDnvk9YFZzqzh/7A+fgBHTqTnA==</latexit>
+
+
+
+
+                            γ=1
+              Equivalent to explicit conditioning.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Nichol et al. ÒGLIDE: Towards Photorealistic Image
+                        No guidance                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              19   Generation and Editing with Text-Guided Diﬀusion ModelsÓ
+              ClassiÞer Free Guidance
+ÒA cozy living room with a painting of a corgi on the wall above a couch and a round coffee
+              table in front of a couch and a vase of ßowers on a coffee table.Ó
+
+
+
+
+                            <latexit sha1_base64="FqRLPh0cNTb49hLwxsK69n5HiM0=">AAAB8XicbVDJSgNBEO1xjXGLelSkMQiewozgchGCXjwmYBZMhlDT6UmadPcM3T1CGHL0D7x4UMSrP5Dv8OY3+BN2loMmPih4vFdFVb0g5kwb1/1yFhaXlldWM2vZ9Y3Nre3czm5VR4kitEIiHql6AJpyJmnFMMNpPVYURMBpLejdjPzaA1WaRfLO9GPqC+hIFjICxkr3zQ4IAfgKe61c3i24Y+B54k1JvngwLH8/Hg5Lrdxnsx2RRFBpCAetG54bGz8FZRjhdJBtJprGQHrQoQ1LJQiq/XR88QAfW6WNw0jZkgaP1d8TKQit+yKwnQJMV896I/E/r5GY8NJPmYwTQyWZLAoTjk2ER+/jNlOUGN63BIhi9lZMuqCAGBtS1obgzb48T6qnBe+8cFa2aVyjCTJoHx2hE+ShC1REt6iEKoggiZ7QC3p1tPPsvDnvk9YFZzqzh/7A+fgBHTqTnA==</latexit>        <latexit sha1_base64="CLJkU1XRLCvYCtGfnox0f9dNgG4=">AAAB8XicbVDJSgNBEO2JW4xb1KMijUHwFGYUl4sQ9OIxAbNgMoSaTk/SpLtn6O4RQsjRP/DiQRGv/kC+w5vf4E/YWQ6a+KDg8V4VVfWCmDNtXPfLSS0sLi2vpFcza+sbm1vZ7Z2KjhJFaJlEPFK1ADTlTNKyYYbTWqwoiIDTatC9GfnVB6o0i+Sd6cXUF9CWLGQEjJXuG20QAvAVPm1mc27eHQPPE29KcoX9Yen78WBYbGY/G62IJIJKQzhoXffc2Ph9UIYRTgeZRqJpDKQLbVq3VIKg2u+PLx7gI6u0cBgpW9Lgsfp7og9C654IbKcA09Gz3kj8z6snJrz0+0zGiaGSTBaFCccmwqP3cYspSgzvWQJEMXsrJh1QQIwNKWND8GZfnieVk7x3nj8r2TSu0QRptIcO0THy0AUqoFtURGVEkERP6AW9Otp5dt6c90lrypnO7KI/cD5+ACBCk54=</latexit>
+
+
+
+
+                            γ=1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       γ=3
+              Equivalent to explicit conditioning.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Nichol et al. ÒGLIDE: Towards Photorealistic Image
+                        No guidance                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              19                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Generation and Editing with Text-Guided Diﬀusion ModelsÓ
+                      More Resources
+
+
+¥ Lilian Weng Tutorial: https://lilianweng.github.io/posts/2021-07-11-diffusion-
+  models/
+
+¥ Guidance Tutorial by Sander Dieleman: https://sander.ai/2022/05/26/
+  guidance.html
+
+
+
+
+                                        20
+Image Editing with Diffusion Models
+
+
+
+
+                 21
+            SDEdit
+Idea: Add noise to an image, and
+then remove it with a diffusion model
+
+
+
+
+                               Meng et al. ÒSDEdit: Guided Image Synthesis and Editing
+                  22                    with Stochastic Diﬀerential EquationsÓ
+               SDEdit
+Idea: Add noise to an image, and
+then remove it with a diffusion model
+
+
+
+
+                                           <latexit sha1_base64="rl1lkV7jzXj6yGXrFPl8i1/oSJU=">AAAB8XicbVDJSgNBEK1xjXGLevTSJAgRIcwILsegF48RzILJMPR0epImPT1jd49kiPmLXDwo4tW/8Za/sbMcNPFBweO9Kqrq+TFnStv22FpZXVvf2MxsZbd3dvf2cweHNRUlktAqiXgkGz5WlDNBq5ppThuxpDj0Oa37vduJX3+mUrFIPOg0pm6IO4IFjGBtpMenYt/TL33PPvVyBbtkT4GWiTMnhXK+dTYal9OKl/tutSOShFRowrFSTceOtTvAUjPC6TDbShSNMenhDm0aKnBIlTuYXjxEJ0ZpoyCSpoRGU/X3xACHSqWhbzpDrLtq0ZuI/3nNRAfX7oCJONFUkNmiIOFIR2jyPmozSYnmqSGYSGZuRaSLJSbahJQ1ITiLLy+T2nnJuSxd3Js0bmCGDBxDHorgwBWU4Q4qUAUCAkbwBu+Wsl6tD+tz1rpizWeO4A+srx8SfJOD</latexit>
+
+
+
+
+ Add noise by running the forward process q(xt |x0 )
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Meng et al. ÒSDEdit: Guided Image Synthesis and Editing
+                         22                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      with Stochastic Diﬀerential EquationsÓ
+SDEdit
+
+
+
+
+         Meng et al. ÒSDEdit: Guided Image Synthesis and Editing
+  23              with Stochastic Diﬀerential EquationsÓ
+SDEdit
+
+
+
+
+         Meng et al. ÒSDEdit: Guided Image Synthesis and Editing
+  23              with Stochastic Diﬀerential EquationsÓ
+SDEdit
+
+
+
+
+         Meng et al. ÒSDEdit: Guided Image Synthesis and Editing
+  24              with Stochastic Diﬀerential EquationsÓ
+SDEdit
+
+
+
+
+         Meng et al. ÒSDEdit: Guided Image Synthesis and Editing
+  24              with Stochastic Diﬀerential EquationsÓ
+SDEdit
+
+
+
+
+         Meng et al. ÒSDEdit: Guided Image Synthesis and Editing
+  24              with Stochastic Diﬀerential EquationsÓ
+Prompt-to-Prompt
+
+
+
+
+                   Hertz et al. ÒPrompt-to-Prompt Image
+       25          Editing with Cross-Attention ControlÓ
+Prompt-to-Prompt
+
+
+
+
+                   Hertz et al. ÒPrompt-to-Prompt Image
+       26          Editing with Cross-Attention ControlÓ
+        Prompt-to-Prompt
+(High Level) Idea: Features inside diffusion models encode very
+  high level information such as: style, content, and structure
+
+
+
+
+                                                        Hertz et al. ÒPrompt-to-Prompt Image
+                              27                        Editing with Cross-Attention ControlÓ
+        Prompt-to-Prompt
+(High Level) Idea: Features inside diffusion models encode very
+  high level information such as: style, content, and structure
+
+
+
+
+Reuse (copy and paste) the features from the previous prompt
+
+
+                                                        Hertz et al. ÒPrompt-to-Prompt Image
+                              27                        Editing with Cross-Attention ControlÓ
+Motion Guidance
+
+
+
+
+       28
+Motion Guidance
+ Earlier: We saw we can do classiÞer
+ guidance with an ImageNet classiÞer
+
+
+
+
+                 28
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Motion Guidance
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Earlier: We saw we can do classiÞer
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          guidance with an ImageNet classiÞer
+
+
+
+
+<latexit sha1_base64="slyFlkoR4BgwhPc1WDfDuSbPIxk=">AAAB83icbVDLSsNAFL3xWeur6tLNYBFclUR8LYtuXFboC5pQJtNJO3QyCfMQS+hvuHGhiFt/xp1/46TNQlsPDBzOuZd75oQpZ0q77rezsrq2vrFZ2ipv7+zu7VcODtsqMZLQFkl4IrshVpQzQVuaaU67qaQ4DjnthOO73O88UqlYIpp6ktIgxkPBIkawtpLvx1iPwih7mvab/UrVrbkzoGXiFaQKBRr9ypc/SIiJqdCEY6V6npvqIMNSM8LptOwbRVNMxnhIe5YKHFMVZLPMU3RqlQGKEmmf0Gim/t7IcKzUJA7tZJ5RLXq5+J/XMzq6CTImUqOpIPNDkeFIJygvAA2YpETziSWYSGazIjLCEhNtayrbErzFLy+T9nnNu6pdPlxU67dFHSU4hhM4Aw+uoQ730IAWEEjhGV7hzTHOi/PufMxHV5xi5wj+wPn8AWKske0=</latexit>
+
+
+
+
+xT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <latexit sha1_base64="IAD4vAOluAV946BdPTzZsl6lQCk=">AAACCnicbZC5TgMxEIa94QrhClDSGCKk0ES7iKuMoKEMEjmkbLSadZzEiu1d2V5EtKSm4VVoKECIlieg421wjgISfsnSp39mNJ4/jDnTxnW/nczC4tLySnY1t7a+sbmV396p6ShRhFZJxCPVCEFTziStGmY4bcSKggg5rYf9q1G9fkeVZpG8NYOYtgR0JeswAsZaQX7f74IQgH0JIYcgvQ/MEPs86uK4aPlhcBTkC27JHQvPgzeFApqqEuS//HZEEkGlIRy0bnpubFopKMMIp8Ocn2gaA+lDlzYtShBUt9LxKUN8aJ027kTKPmnw2P09kYLQeiBC2ynA9PRsbWT+V2smpnPRSpmME0MlmSzqJBybCI9ywW2mKDF8YAGIYvavmPRAATE2vZwNwZs9eR5qxyXvrHR6c1IoX07jyKI9dICKyEPnqIyuUQVVEUGP6Bm9ojfnyXlx3p2PSWvGmc7soj9yPn8AzwmaWQ==</latexit>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <latexit sha1_base64="HXfO7+v6I/ST4J9vIwJ1ZeU8GrQ=">AAAB83icbVDLSgMxFL1TX7W+qi7dBIvgqsyIr2XRjcsK9gGdoWTSTBuaSYYkI5ahv+HGhSJu/Rl3/o2ZdhbaeiBwOOde7skJE860cd1vp7Syura+Ud6sbG3v7O5V9w/aWqaK0BaRXKpuiDXlTNCWYYbTbqIojkNOO+H4Nvc7j1RpJsWDmSQ0iPFQsIgRbKzk+zE2ozDKnqZ9t1+tuXV3BrRMvILUoECzX/3yB5KkMRWGcKx1z3MTE2RYGUY4nVb8VNMEkzEe0p6lAsdUB9ks8xSdWGWAIqnsEwbN1N8bGY61nsShncwz6kUvF//zeqmJroOMiSQ1VJD5oSjlyEiUF4AGTFFi+MQSTBSzWREZYYWJsTVVbAne4peXSfus7l3WL+7Pa42boo4yHMExnIIHV9CAO2hCCwgk8Ayv8Oakzovz7nzMR0tOsXMIf+B8/gAsHJHJ</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            x0
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     γrxt log p(xt |y)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <latexit sha1_base64="I7rq54Fa38PZjhoynYYamuXoJ2Q=">AAACQnicbVBBTxNBGJ1FECwoVY9eJjQkNNFmlwB6MSF48VgSC5hus/l2+rWdMDO7mfmWuFn727z4C7j5A7x40BCuHJy2G4Lgy0zy8t778s28NFfSURj+CJYeLa88Xl170ljfePpss/n8xYnLCiuwJzKV2bMUHCppsEeSFJ7lFkGnCk/T8w8z//QCrZOZ+URljgMNYyNHUgB5KWl+jkmqIcaYO6m8QDtfEnrN/Snb/D2/1WOaIEFttvkbHo9Ba+CxgVRBUnljymOVjXk+C30t20mzFXbCOfhDEtWkxWp0k+ZlPMxEodGQUOBcPwpzGlRgSQqF00ZcOMxBnMMY+54a0OgG1byCKd/2ypCPMuuvIT5X705UoJ0rdeqTGmji7nsz8X9ev6DRu0ElTV4QGrFYNCoUp4zP+uRDaVGQKj0BYaV/KxcTsCDIt97wJUT3v/yQnOx2ooPO/vFe6/CormONvWJbbIdF7C07ZB9Zl/WYYN/YT/ab/Qm+B7+Cq+B6EV0K6pmX7B8EN38Br/avrg==</latexit>
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ✏˜t (xt , t, y) = ✏θ (xt , t)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       rxt log p(xt |y)
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                28
+Motion Guidance
+  We can use other models besides
+image classiÞers for classiÞer guidance
+
+
+
+
+                                           Teed and Deng. ÒRAFT: Recurrent All
+                  29                      Pairs Field Transforms for Optical FlowÓ
+Motion Guidance
+  We can use other models besides
+image classiÞers for classiÞer guidance
+
+ Idea: LetÕs do classiÞer guidance with a
+Òmotion estimatorÓ (optical ßow network)
+
+
+
+
+                                             Teed and Deng. ÒRAFT: Recurrent All
+                   29                       Pairs Field Transforms for Optical FlowÓ
+Motion Guidance
+  We can use other models besides
+image classiÞers for classiÞer guidance
+
+ Idea: LetÕs do classiÞer guidance with a
+Òmotion estimatorÓ (optical ßow network)
+
+
+
+
+                                             Teed and Deng. ÒRAFT: Recurrent All
+                   29                       Pairs Field Transforms for Optical FlowÓ
+Motion    Guidance
+  b) Òa photo of a catÓ
+
+
+
+
+   e) Òa photo of topiaryÓ
+             30
+Motion    Guidance
+  b) Òa photo of a catÓ
+
+
+
+
+   e) Òa photo of topiaryÓ
+             30
+        Motion Guidance
+   ce
+Image
+                                         Motion
+                                         Guided
+  get
+Flow
+
+        a) Òa teapot ßoating in waterÓ
+                     31
+        Motion Guidance
+   ce
+Image
+                                         Motion
+                                         Guided
+  get
+Flow
+
+        a) Òa teapot ßoating in waterÓ
+                     31
+                    Motion Guidance
+
+a)                          b)
+
+
+
+                                 [real image]
+
+
+
+
+c)                          d)
+
+
+
+     [real image]                [real image]
+                           32
+                    Motion Guidance
+
+a)                          b)
+
+
+
+                                 [real image]
+
+
+
+
+c)                          d)
+
+
+
+     [real image]                [real image]
+                           32
+

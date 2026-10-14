@@ -1,0 +1,182 @@
+                                                                                                 CSCE 883 | Homework 1
+
+
+
+CSCE 883 — Homework 1
+K-Nearest Neighbors and Naive Bayes
+
+Learning goals. Implement and evaluate KNN, explain the effect of feature scaling, calculate a Naive Bayes
+prediction by hand, evaluate a scikit-learn classifier, and audit an imperfect ML pipeline.
+
+
+
+General requirements
+ • Submit one compressed folder containing your code, report (PDF preferred), and any required AI-use
+   disclosure. Your code must run from the submitted folder with relative paths.
+ • Unless a question explicitly permits a library implementation, write the requested algorithm yourself. You may
+   use standard libraries for data loading, numerical arrays, plotting, and metrics.
+ • AI coding assistants are permitted. You remain responsible for every line submitted. For Question 5, disclose
+   the tool(s) and prompts used; for all questions, cite any external sources beyond the supplied files.
+ • Report numerical results to three decimal places. Explain results in your own words; code output alone does
+   not earn full credit.
+
+
+Question 1 — KNN and feature scaling
+Files: Q1_train.csv and Q1_test.csv. Each file contains four numeric features followed by a binary class label in the
+final column.
+ • Implement a K-nearest-neighbors binary classifier from scratch using Euclidean distance. Do not use
+   sklearn.neighbors.KNeighborsClassifier.
+ • Train on Q1_train.csv and evaluate once on Q1_test.csv for K = 1, 2, …, 9. Record the number of correct
+   predictions and accuracy.
+ • When a vote is tied, predict the class of the single nearest tied neighbor. State this policy in your report.
+
+K                             1         2        3         4         5        6        7         8        9
+
+Correct predictions
+
+Accuracy
+
+
+
+
+                                               Graduate Machine Learning
+                                                                                               CSCE 883 | Homework 1
+
+
+ • Repeat the experiment after min–max normalization and after standardization. Fit each transformation using
+   only the training features, then transform the test features with those same training-set parameters. Do not
+   use any test-set statistics while fitting the transformation.
+
+K                             1        2        3         4         5       6         7        8        9
+
+Correct predictions
+
+Accuracy:
+normalization
+
+Accuracy:
+standardization
+
+
+ • In 150–200 words, identify the best configuration and explain why feature scale can change Euclidean-
+   distance KNN performance. Comment on whether the result is stable across nearby K values.
+Definitions. For feature x, min–max normalization is (x − min_train)/(max_train − min_train).
+Standardization is (x − mean_train)/standard_deviation_train. Handle a zero-variance training feature
+explicitly.
+
+
+
+Question 2 — Selected research papers on KNN
+Select any two of the following papers. These are selected historical papers, not necessarily the latest work on
+KNN.
+ • Papernot, N., & McDaniel, P. (2018). Deep k-nearest neighbors: Towards confident, interpretable and robust
+   deep learning. arXiv:1803.04765.
+ • Jiang, W. (2020). Time series classification: nearest neighbor versus deep learning models. SN Applied
+   Sciences, 2, 1–17.
+ • Bergman, L., Cohen, N., & Hoshen, Y. (2020). Deep nearest neighbor anomaly detection. arXiv:2002.10445.
+ • Yang, X., Nan, X., & Song, B. (2020). D2N4: A discriminative deep nearest neighbor neural network for few-
+   shot space target recognition. IEEE Transactions on Geoscience and Remote Sensing, 58(5), 3667–3676.
+
+   For each selected paper, write a 250–350 word summary in your own words. State the problem, the main
+   KNN-related idea, the evidence used to evaluate it, and one limitation or open question.
+ • Include a full citation and a working DOI, arXiv, or publisher link for each paper. You may include one original
+   figure or a clearly attributed/adapted figure with a caption.
+ • Propose one KNN improvement of your own (150–200 words). Specify the problem it addresses, the
+   mechanism, and an experiment that could falsify or support the idea.
+
+
+
+
+                                              Graduate Machine Learning
+                                                                                               CSCE 883 | Homework 1
+
+
+
+Question 3 — Manual Naive Bayes calculation
+Use the car-theft dataset below to classify a Red, Domestic, SUV. Treat Color, Type, and Origin as conditionally
+independent given the class label (the Naive Bayes assumption).
+
+  Example            Color                Type                   Origin            Stolen?
+
+      1               Red                 Sports               Domestic               Yes
+
+      2               Red                 Sports               Domestic               No
+
+      3               Red                 Sports               Domestic               Yes
+
+      4              Yellow               Sports               Domestic               No
+
+      5              Yellow               Sports               Imported               Yes
+
+      6              Yellow                SUV                 Imported               No
+
+      7              Yellow                SUV                 Imported               Yes
+
+      8              Yellow                SUV                 Domestic               No
+
+      9               Red                  SUV                 Imported               No
+
+      10              Red                 Sports               Imported               Yes
+
+ •   Show P(Yes) and P(No).
+ •   Show each conditional likelihood needed for P(Red, Domestic, SUV | Yes) and P(Red, Domestic, SUV | No).
+ •   Calculate and compare the two unnormalized posterior scores. Then state the predicted class.
+ •   Use no smoothing for the main calculation. In one or two sentences, explain what Laplace smoothing would
+     do if a required conditional count were zero.
+
+
+
+
+                                              Graduate Machine Learning
+                                                                                                CSCE 883 | Homework 1
+
+
+
+Question 4 — Scikit-learn Naive Bayes on German credit data
+Use Q4-train.csv for training and Q4-test.csv for testing. These are comma-separated CSV files with no header row.
+Each row contains 24 encoded input attributes followed by the class label in the final column. The source files
+german_credit_data.csv, german.data-numeric.csv, and german.doc are background/reference materials only.
+ • Load the files correctly, separate the final column as y, and verify the number of rows and columns after
+   loading.
+ • Choose one scikit-learn Naive Bayes implementation. State which implementation you selected and justify
+   whether its distributional assumptions are a reasonable approximation for these encoded attributes.
+ • Fit only on Q4-train.csv. Report test-set accuracy, macro-precision, macro-recall, macro-F1, and a labeled
+   confusion matrix for Q4-test.csv.
+ • Inspect at least five misclassified test examples. Briefly discuss a possible reason for each error based on the
+   encoded-feature representation; do not claim that an encoded number necessarily has continuous numeric
+   meaning.
+ • Submit reproducible code and its text output. Screenshots alone are not acceptable evidence.
+
+
+
+
+                                               Graduate Machine Learning
+                                                                                                 CSCE 883 | Homework 1
+
+
+
+
+Question 5 — Debugging and validating a classification pipeline
+The file q5_starter_classifier.py is supplied with this homework. It runs on the Question 1 data, but its results
+and/or methodology are not fully reliable. You may use AI tools to investigate and repair it; you must
+independently validate every conclusion.
+ • Identify and correct at least three substantive problems in the starter pipeline. A substantive problem affects
+   correctness, evaluation validity, or the interpretation of results; style-only changes do not count.
+ • For each problem, report the affected code location, why it is incorrect or methodologically invalid, your
+   correction, and evidence that demonstrates the impact or validity of the correction.
+ • After fixing the pipeline, compare a corrected KNN model and a justified Naive Bayes model on the same held-
+   out test data. Report accuracy, macro-F1, and labeled confusion matrices.
+ • Write a 200–500 word reflection: what the starter code did correctly, what was wrong or underspecified,
+   what evidence justified each repair, and which model you would recommend for this dataset and why.
+ • Append an AI-use disclosure listing the tool(s), prompts or prompt summaries, and how you checked AI-
+   provided claims. Unsupported AI output receives no credit.
+Examples of valid investigations. Potential issues may concern data leakage, feature/label separation,
+distance computation, voting ties, model assumptions, metric calculations, or interpretation. This list is
+illustrative, not a checklist of required answers. The goal is to learn the traps in applying KNN or Naïve
+Bayes Classifier to real problems.
+
+
+
+
+                                               Graduate Machine Learning
+

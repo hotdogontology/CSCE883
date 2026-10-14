@@ -1,0 +1,942 @@
+﻿--- slide1.xml ---
+CSCE
+883
+
+Machine Learning
+Lecture 2  
+SL+KNN+Bayes
+Jianjun Hu
+Department of Computer Science & Engineering
+University of South Carolina
+--- slide2.xml ---
+Learning a Class from Examples
+2
+Class C of a “family car”
+Prediction:
+ Is car 
+x
+ a family car?
+Input representation: 
+		x
+1
+: price, 
+x
+2
+ : engine power
+Output: 
+		Positive (+) and negative (–) examples
+--- slide3.xml ---
+Training set 
+X
+3
+--- slide4.xml ---
+Class 
+C
+4
+--- slide5.xml ---
+Hypothesis class 
+H
+5
+Error of 
+h 
+on
+
+H
+--- slide6.xml ---
+S, G, and the Version Space
+6
+most specific hypothesis, 
+S
+most general hypothesis, 
+G
+h 
+Î 
+H, between 
+S
+ and 
+G
+ is
+consistent 
+and make up the 
+version space
+(Mitchell, 1997)
+--- slide7.xml ---
+Margin
+7
+Choose 
+h
+ with largest margin
+--- slide8.xml ---
+Noise and Model Complexity
+8
+Use the simpler one because
+Simpler to use 
+	(lower computational 
+	complexity)
+Easier to train (lower 
+	space complexity)
+Easier to explain 
+	(more interpretable)
+Generalizes better (lower 
+	variance - Occam’s razor)
+--- slide9.xml ---
+Multiple Classes
+, 
+C
+i
+ i=1,...,K
+9
+Train hypotheses 
+h
+i
+(
+x
+), 
+i 
+=1,...,
+K
+:
+[0.1, 0.3, 0.5….]      [1, 0, 0, 0]
+[0.3, 0.4, 0.5…]       [0, 1, 0, 0]
+--- slide10.xml ---
+Regression
+10
+--- slide11.xml ---
+Dimensions of a Supervised Learner
+Model: 
+
+Loss function:
+
+Optimization procedure:
+
+11
+--- slide12.xml ---
+K-Nearest Neighbor Classifiers
+--- slide13.xml ---
+8/27/24
+Data Mining: Concepts and Techniques
+13
+Nearest Neighbor Classifiers
+Basic idea:
+If it walks like a duck, quacks like a duck, then it
+’
+s probably a duck
+Training Records
+Test Record
+Compute Distance
+Choose k of the “nearest” records
+--- slide14.xml ---
+8/27/24
+Data Mining: Concepts and Techniques
+14
+Nearest neighbor method
+Majority vote within the k nearest neighbors
+
+K= 1:  
+brown
+K= 3:  
+green
+new
+--- slide15.xml ---
+8/27/24
+Data Mining: Concepts and Techniques
+15
+Nearest-Neighbor Classifiers
+Requires three things
+The set of stored records
+Distance Metric to compute distance between records
+The value of 
+k
+, the number of nearest neighbors to retrieve
+To classify an unknown record:
+Compute distance to other training records
+Identify 
+k
+ nearest neighbors 
+Use class labels of nearest neighbors to determine the class label of unknown record (e.g., by taking majority vote)
+--- slide16.xml ---
+8/27/24
+Data Mining: Concepts and Techniques
+16
+Definition of Nearest Neighbor
+
+K-nearest neighbors of a record x are data points that have the k smallest distance to x
+--- slide17.xml ---
+8/27/24
+Data Mining: Concepts and Techniques
+17
+1 nearest-neighbor
+Voronoi
+ Diagram
+--- slide18.xml ---
+8/27/24
+Data Mining: Concepts and Techniques
+18
+Nearest Neighbor Classification
+Compute distance between two points:
+Euclidean distance 
+Determine the class from nearest neighbor list
+take the majority vote of class labels among the k-nearest neighbors
+Weigh the vote according to distance
+ weight factor, w = 1/d
+2
+--- slide19.xml ---
+8/27/24
+Data Mining: Concepts and Techniques
+19
+Nearest Neighbor Classification…
+Choosing the value of k:
+If k is too small, sensitive to noise points
+If k is too large, neighborhood may include points from other classes
+--- slide20.xml ---
+8/27/24
+Data Mining: Concepts and Techniques
+20
+Nearest Neighbor Classification…
+Scaling issues
+Attributes may have to be scaled to prevent distance measures from being 
+dominated by one of the attributes
+Example:
+ height of a person may vary from 1.5m to 1.8m
+ weight of a person may vary from 90lb to 300lb
+ income of a person may vary from $10K to $1M
+--- slide21.xml ---
+8/27/24
+Data Mining: Concepts and Techniques
+21
+Nearest Neighbor Classification…
+Problem with Euclidean measure:
+High dimensional data 
+
+curse of dimensionality
+Can produce counter-intuitive results
+1 1 1 1 1 1 1 1 1 1 1 0
+0 1 1 1 1 1 1 1 1 1 1 1
+1 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 1
+vs
+d = 1.4142
+d = 1.4142
+
+
+Solution: Normalize the vectors to unit length
+--- slide22.xml ---
+8/27/24
+Data Mining: Concepts and Techniques
+22
+Nearest neighbor Classification…
+k-NN classifiers are lazy learners 
+It does not build models explicitly
+Unlike eager learners such as decision tree induction and rule-based systems
+Classifying unknown records are relatively expensive
+--- slide23.xml ---
+8/27/24
+Data Mining: Concepts and Techniques
+23
+Discussion on the 
+k
+-NN Algorithm
+The k-NN algorithm for continuous-valued target functions
+Calculate the mean values of the
+ k
+ nearest neighbors
+Distance-weighted nearest neighbor algorithm
+Weight the contribution of each of the k neighbors according to their distance to the query point
+ x
+q
+giving greater weight to closer neighbors
+Similarly, for real-valued target functions
+Robust to noisy data by averaging k-nearest neighbors
+Curse of dimensionality: distance between neighbors could be dominated by irrelevant attributes.   
+To overcome it, axes stretch or elimination of the least relevant attributes.
+--- slide24.xml ---
+8/27/24
+Data Mining: Concepts and Techniques
+24
+Lazy vs. Eager Learning
+Lazy vs. eager learning
+Lazy learning (e.g., instance-based learning): Simply stores training data (or only minor processing) and waits until it is given a test tuple
+Eager learning (the above discussed methods): Given a set of training set, constructs a classification model before receiving new (e.g., test) data to classify
+Lazy: less time in training but more time in predicting
+Accuracy
+Lazy method effectively uses a richer hypothesis space since it uses many local linear functions to form its implicit global approximation to the target function
+Eager: must commit to a single hypothesis that covers the entire instance space
+--- slide25.xml ---
+8/27/24
+Data Mining: Concepts and Techniques
+25
+Lazy Learner: Instance-Based Methods
+Instance-based learning: 
+Store training examples and delay the processing (“lazy evaluation”) until a new instance must be classified
+Typical approaches
+k
+-nearest neighbor approach
+Instances represented as points in a Euclidean space.
+Locally weighted regression
+Constructs local approximation
+Case-based reasoning
+Uses symbolic representations and knowledge-based inference
+--- slide26.xml ---
+8/27/24
+Data Mining: Concepts and Techniques
+26
+Case-Based Reasoning (CBR)
+CBR: Uses a database of problem solutions to solve new problems
+Store 
+symbolic description
+ (tuples or cases)—not points in a Euclidean space
+Applications:
+ Customer-service (product-related diagnosis), legal ruling
+Methodology
+Instances represented by rich symbolic descriptions (e.g., function graphs)
+Search for similar cases, multiple retrieved cases may be combined
+Tight coupling between case retrieval, knowledge-based reasoning, and problem solving
+Challenges
+Find a good similarity metric 
+Indexing based on syntactic similarity measure,  and when failure, backtracking, and adapting to additional cases
+--- slide27.xml ---
+Naïve Bayes Classifier
+--- slide28.xml ---
+Probability and Inference
+28
+Result of tossing a coin is 
+Î 
+{Heads,Tails}
+Random var 
+X
+
+Î
+{1,0}
+		Bernoulli: 
+P 
+{
+X
+=1} = 
+p
+o
+X 
+(1 ‒ 
+p
+o
+)
+(1 
+‒
+ X)
+Sample: 
+X 
+= {
+x
+t 
+}
+N
+t 
+=1
+	Estimation: 
+p
+o
+ = # {Heads}/#{Tosses} = ∑
+t
+
+x
+t 
+/ 
+N
+Prediction of next toss:
+		Heads if 
+p
+o
+
+> ½, Tails otherwise
+--- slide29.xml ---
+29
+Background	
+There are three methods to establish a classifier
+
+a
+) Model a classification rule directly
+
+Examples: k-NN, decision trees, perceptron, SVM
+
+
+b
+) Model the probability of class memberships given input data
+
+Example: multi-layered perceptron with the cross-entropy cost
+
+c
+) 
+Make a probabilistic model of data within each class
+
+Examples: naive Bayes, model based classifiers
+a
+) and 
+b
+) are examples of 
+discriminative 
+classification
+c
+) is an example of 
+generative
+ classification
+b
+) and 
+c
+) are both examples of 
+probabilistic
+ classification
+--- slide30.xml ---
+Things We’d Like to Do
+Spam Classification
+Given an email, predict whether it is spam or not
+Medical Diagnosis
+Given a list of symptoms, predict whether a patient has disease X or not
+Weather
+Based on temperature, humidity, etc… predict if it will rain tomorrow
+--- slide31.xml ---
+Bayesian Classification
+Problem statement:
+Given features X
+1
+,X
+2
+,…,X
+n
+Predict a label Y
+--- slide32.xml ---
+Another Application
+Digit Recognition
+X
+1
+,…,X
+n
+
+
+ {0,1} (Black vs. White pixels)
+Y 
+
+ {5,6} (predict whether a digit is a 5 or a 6)
+Classifier
+5
+--- slide33.xml ---
+The Bayes Classifier
+A good strategy is to predict:
+(for example: what is the probability that the image represents a 5 given its pixels?)
+So … How do we compute that?
+--- slide34.xml ---
+The Bayes Classifier
+Use Bayes Rule!
+Why did this help?  Well, we think that we might be able to specify how features are “generated” by the class label
+Normalization Constant
+Likelihood
+Prior
+--- slide35.xml ---
+The Bayes Classifier
+Let’s expand this for our digit recognition task:
+To classify, we’ll simply compute these two probabilities and predict based on which one is greater
+--- slide36.xml ---
+Model Parameters
+For the Bayes classifier, we need to “learn” two functions, the likelihood and the prior
+How many parameters are required to specify the prior for our digit recognition example?
+--- slide37.xml ---
+Model Parameters
+How many parameters are required to specify the likelihood?
+(Supposing that each image is 30x30 pixels)
+					?
+--- slide38.xml ---
+Model Parameters
+The problem with explicitly modeling P(X
+1
+,…,X
+n
+|Y) is that there are usually way too many parameters:
+We’ll run out of space
+We’ll run out of time
+And we’ll need tons of training data (which is usually not available)
+--- slide39.xml ---
+The Naïve Bayes Model
+The 
+Naïve Bayes Assumption
+: Assume that all features are independent 
+given the class label Y
+Equationally speaking:
+(We will discuss the validity of this assumption later)
+--- slide40.xml ---
+Why is this useful?
+# of parameters for modeling P(X
+1
+,…,X
+n
+|Y):
+2(2
+n
+-1)
+# of parameters for modeling P(X
+1
+|Y),…,P(X
+n
+|Y)
+2n
+--- slide41.xml ---
+Naïve Bayes Training
+Now that we’ve decided to use a Naïve Bayes classifier, we need to train it with some data:
+MNIST Training Data
+--- slide42.xml ---
+Naïve Bayes Training
+Training in Naïve Bayes is 
+easy
+:
+Estimate P(Y=v) as the fraction of records with Y=v
+Estimate P(X
+i
+=u|Y=v) as the fraction of records with Y=v for which X
+i
+=u
+(This corresponds to Maximum Likelihood estimation of model parameters)
+--- slide43.xml ---
+Naïve Bayes Training
+In practice, some of these counts can be zero
+Fix this by adding “virtual” counts:
+(This is like putting a prior on parameters and doing MAP estimation instead of MLE)
+This is called 
+Smoothing
+--- slide44.xml ---
+Naïve Bayes Training
+For binary digits, training amounts to averaging all of the training fives together and all of the training sixes together.
+--- slide45.xml ---
+Naïve Bayes Classification
+--- slide46.xml ---
+46
+Example	
+
+Example: Play Tennis
+--- slide47.xml ---
+47
+Example	
+
+Learning Phase
+Outlook
+Play=
+Yes
+Play=
+No
+Sunny
+2/9
+3/5
+Overcast
+4/9
+0/5
+Rain
+3/9
+2/5
+Temperature
+Play=
+Yes
+Play=
+No
+Hot
+2/9
+2/5
+Mild
+4/9
+2/5
+Cool
+3/9
+1/5
+Humidity
+Play=
+Yes
+Play=N
+o
+High
+3/9
+4/5
+Normal
+6/9
+1/5
+Wind
+Play=
+Yes
+Play=
+No
+Strong
+3/9
+3/5
+Weak
+6/9
+2/5
+P
+(Play
+=Yes) = 
+9/14
+P
+(Play
+=No) = 
+5/14
+--- slide48.xml ---
+48
+Example	
+
+Test Phase
+Given a new instance, 
+
+x
+’=(Outlook=
+Sunny, 
+Temperature=
+Cool, 
+Humidity
+=High, 
+Wind=
+Strong
+)
+Look up tables
+MAP rule
+P(Outlook=S
+unny
+|Play=
+No
+) = 3/5
+P(Temperature=
+Cool
+|Play=
+=No
+) = 1/5
+P(Huminity=
+High
+|Play=
+No
+) = 4/5
+P(Wind=
+Strong
+|Play=
+No
+) = 3/5
+P(Play=
+No
+) = 5/14
+P(Outlook=
+Sunny
+|Play=
+Yes
+) = 2/9
+P(Temperature=
+Cool
+|Play=
+Yes
+) = 3/9
+P(Huminity=
+High
+|Play=
+Yes
+) = 3/9
+P(Wind=
+Strong
+|Play=
+Yes
+) = 3/9
+P(Play=
+Yes
+) = 9/14
+P(
+Yes
+|
+x
+’):
+ [P(
+Sunny
+|Y
+es
+)P(
+Cool
+|
+Yes
+)P(
+High
+|Y
+es
+)P(
+Strong
+|
+Yes
+)]P(Play=
+Yes
+) = 0.0053
+
+P(
+No
+|
+x
+’):
+ [P(
+Sunny
+|N
+o
+) P(
+Cool
+|N
+o
+)P(
+High
+|
+No
+)P(
+Strong
+|
+No
+)]P(Play=
+No
+) = 0.0206
+         Given the fact
+
+P(
+Yes
+|
+x
+’) < P(
+No
+|
+x
+’), we label 
+x
+’ to be “
+No
+”.
+
+--- slide49.xml ---
+The Naive Bayes Classifier for Data Sets with Numerical Attribute Values
+One common practice to handle numerical attribute values is to assume normal distributions for numerical attributes.
+--- slide50.xml ---
+The numeric weather data with summary statistics
+outlook
+temperature
+humidity
+windy
+play
+yes
+no
+yes
+no
+yes
+no
+yes
+no
+yes
+no
+sunny
+2
+3
+83
+85
+86
+85
+false
+6
+2
+9
+5
+overcast
+4
+0
+70
+80
+96
+90
+true
+3
+3
+rainy
+3
+2
+68
+65
+80
+70
+64
+72
+65
+95
+69
+71
+70
+91
+75
+80
+75
+70
+72
+90
+81
+75
+sunny
+2/9
+3/5
+mean
+73
+74.6
+mean
+79.1
+86.2
+false
+6/9
+2/5
+9/14
+5/14
+overcast
+4/9
+0/5
+std dev
+6.2
+7.9
+std dev
+10.2
+9.7
+true
+3/9
+3/5
+rainy
+3/9
+2/5
+--- slide51.xml ---
+Let 
+x
+1
+, 
+x
+2
+, …, 
+x
+n
+ be the values of a numerical attribute in the training data set.
+--- slide52.xml ---
+For examples, 
+Likelihood of Yes =
+Likelihood of No =  
+--- slide53.xml ---
+Outputting Probabilities
+What’s nice about Naïve Bayes (and generative models in general) is that it returns probabilities
+These probabilities can tell us how confident the algorithm is
+So… don’t throw away those probabilities!
+--- slide54.xml ---
+Performance on a Test Set
+Naïve Bayes is often a good choice if you don’t have much training data!
+--- slide55.xml ---
+Naïve Bayes Assumption
+Recall the Naïve Bayes assumption:
+that all features are independent 
+given the class label Y
+Does this hold for the digit recognition problem?
+--- slide56.xml ---
+Exclusive-OR Example
+For an example where conditional independence fails:
+Y=XOR(X
+1
+,X
+2
+)
+X
+1
+X
+2
+P(Y=0|X
+1
+,X
+2
+)
+P(Y=1|X
+1
+,X
+2
+)
+0
+0
+1
+0
+0
+1
+0
+1
+1
+0
+0
+1
+1
+1
+1
+0
+--- slide57.xml ---
+Actually, the Naïve Bayes assumption is almost never true
+Still… Naïve Bayes often performs surprisingly well even when its assumptions do not hold
+--- slide58.xml ---
+Numerical Stability
+It is often the case that machine learning algorithms need to work with very small numbers
+Imagine computing the probability of 2000 independent coin flips
+MATLAB thinks that (.5)
+2000
+=0
+--- slide59.xml ---
+Underflow Prevention
+Multiplying lots of probabilities
+ 
+floating-point underflow.
+Recall:  
+log(
+xy
+) = log(x) + log(y),
+
+ better to sum logs of probabilities rather than multiplying probabilities.
+--- slide60.xml ---
+Underflow Prevention
+Class with highest final un-normalized log probability score is still the most probable.
+--- slide61.xml ---
+Numerical Stability
+Instead of comparing P(Y=5|X
+1
+,…,X
+n
+) with P(Y=6|X
+1
+,…,X
+n
+),
+Compare their logarithms
+--- slide62.xml ---
+Recovering the Probabilities
+What if we want the probabilities though??
+Suppose that for some constant K, we have:
+And
+How would we recover the original probabilities?
+--- slide63.xml ---
+Recovering the Probabilities	
+Given:
+Then for any constant C: 
+One suggestion: set C such that the greatest 
+
+i
+ is shifted to zero:
+See https://stats.stackexchange.com/questions/105602/example-of-how-the-log-sum-exp-trick-works-in-naive-bayes?noredirect=1&lq=1
+--- slide64.xml ---
+Recap
+We defined a 
+Bayes classifier
+ but saw that it’s intractable to compute P(X
+1
+,…,X
+n
+|Y)
+We then used the 
+Naïve Bayes assumption
+ – that everything is independent given the class label Y
+A natural question:  is there some happy compromise where we only assume that 
+some
+ features are conditionally independent?
+Stay Tuned…
+--- slide65.xml ---
+Conclusions
+Naïve Bayes is: 
+Really easy to implement and often works well
+Often a good first thing to try
+Commonly used as a “punching bag” for smarter algorithms
+--- slide66.xml ---
+Acknowledgements
+http://www.cmpe.boun.edu.tr/~ethem/i2ml3e
+https://users.cs.fiu.edu/~taoli/class/CAP4770-F10/class08.ppt
