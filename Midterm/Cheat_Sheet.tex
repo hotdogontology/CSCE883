@@ -1,0 +1,180 @@
+\documentclass[9pt]{extarticle}
+\usepackage[letterpaper,margin=0.35in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,multicol,xcolor}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlength{\columnsep}{0.18in}
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+\newcommand{\topic}[1]{\par\vspace{4pt}{\color{blue!45!black}\bfseries #1}\par\vspace{1pt}\hrule\vspace{3pt}}
+\newcommand{\E}{\mathbb E}
+\begin{document}
+\begin{center}
+{\large\bfseries CSCE 883 --- Midterm Formula Sheet}\\[-1pt]
+{\footnotesize Suggested handwritten-sheet content $\cdot$ HW1--3 / lectures 1--9 $\cdot$ $\log=\ln$ except entropy}
+\end{center}
+\vspace{-8pt}
+\begin{multicols*}{3}
+\topic{Bayes / Naive Bayes / KNN}
+$P(c\mid x)=\dfrac{P(x\mid c)P(c)}{\sum_k P(x\mid k)P(k)}$.
+
+NB assumes features independent \emph{given class}:\\
+$s_c=P(c)\prod_j P(x_j\mid c)$; $\hat c=\arg\max_c s_c$.\\
+$P(c\mid x)=s_c/\sum_k s_k$; use log scores.\\
+$P(c)=n_c/N$; categorical smoothing:\\
+$P(x_j=v\mid c)=\dfrac{n_{j,v,c}+1}{n_c+V_j}$.
+
+Risk: $R(a\mid x)=\sum_c\lambda_{a,c}P(c\mid x)$.\\
+Choose $+$ if $P(+\mid x)>\dfrac{C_{FP}}{C_{FP}+C_{FN}}$ (zero correct-class cost).
+
+MLE: maximize likelihood. MAP: maximize likelihood $\times$ prior.
+
+KNN: $d^2(x,q)=\sum_j(x_j-q_j)^2$.\\
+Vote among $K$ nearest; HW1 tie: nearest neighbor among tied classes.\\
+Scale: $(x_j-\mu_{tr,j})/s_{tr,j}$ or\\
+$(x_j-\min_{tr,j})/(\max_{tr,j}-\min_{tr,j})$.
+
+\topic{MLE: write, log, differentiate, check}
+$L=\prod_i p(x_i\mid\theta)$; $\ell=\sum_i\log p(x_i\mid\theta)$. Solve $\ell'=0$; check maximum and boundaries. Drop only parameter-independent terms.
+
+\textbf{Bernoulli / grouped HW2 PMF:}\\
+$\ell=A\log\theta+B\log(1-\theta)+C$\\
+$\ell'=A/\theta-B/(1-\theta)$\\
+$\hat\theta=A/(A+B)$; $\ell''\leq0$.\\
+HW2: $A=n_0+n_1$, $B=n_2+n_3$.
+
+\textbf{Laplace (location 0, scale $b$):}\\
+$p(x\mid b)=e^{-|x|/b}/(2b)$\\
+$\ell=-N\log(2b)-\sum_i|x_i|/b$\\
+$\ell'=-N/b+\sum_i|x_i|/b^2$\\
+$\boxed{\hat b=N^{-1}\sum_i|x_i|}$.
+
+\textbf{Poisson:} $p(x\mid\lambda)=\lambda^x e^{-\lambda}/x!$\\
+$\ell=(\sum_i x_i)\log\lambda-N\lambda+C$\\
+$\ell'=\sum_i x_i/\lambda-N$; $\boxed{\hat\lambda=\bar x}$.
+
+\textbf{Gaussian ($v=\sigma^2$):}\\
+$\ell=-\frac N2\log(2\pi v)-\frac{\sum_i(x_i-\mu)^2}{2v}$\\
+$\partial_\mu\ell=\sum_i(x_i-\mu)/v$\\
+$\partial_v\ell=-N/(2v)+\sum_i(x_i-\mu)^2/(2v^2)$\\
+$\boxed{\hat\mu=\bar x,\quad\hat v=\frac1N\sum_i(x_i-\bar x)^2}$.\\
+MLE uses $N$; unbiased variance uses $N-1$. Zero spread: no positive-variance maximizer; all-zero Laplace likewise for $b>0$.
+
+\textbf{Gaussian regression NLL:}\\
+$\sum_i[\frac12\log(2\pi)+\log\sigma_i+\frac{(y_i-\mu_i)^2}{2\sigma_i^2}]$.\\
+If $s_i=\log\sigma_i^2$, variable part is\\
+$\frac12\sum_i[s_i+(y_i-\mu_i)^2e^{-s_i}]$.\\
+Fixed variance $\Rightarrow$ squared error; learned variance requires log term.
+
+\columnbreak
+\topic{Metrics / trees / evaluation}
+Rows=true, columns=predicted, order $[0,1]$:
+\[
+\begin{array}{c|cc}
+\text{positive}&\multicolumn{2}{c}{\text{matrix roles}}\\\hline
+1&TN&FP\\[-2pt]
+ &FN&TP\\\hline
+0&TP&FN\\[-2pt]
+ &FP&TN
+\end{array}
+\]
+$\mathrm{Acc}=(TP+TN)/N$\\
+$P=TP/(TP+FP)$; $R=TPR=TP/(TP+FN)$\\
+$F1=2TP/(2TP+FP+FN)$\\
+$FPR=FP/(FP+TN)$; $TNR=1-FPR$.\\
+Macro: average per-class metrics; macro-F1 averages \emph{class F1s}. ROC: TPR vs FPR; use positive-class \emph{scores}.\\
+AUC $=P(s_+>s_-)+\frac12P(s_+=s_-)$.
+
+$MSE=\frac1N\sum_i(y_i-\hat y_i)^2$; $RMSE=\sqrt{MSE}$\\
+$MAE=\frac1N\sum_i|y_i-\hat y_i|$\\
+$R^2=1-\dfrac{\sum_i(y_i-\hat y_i)^2}{\sum_i(y_i-\bar y_{test})^2}$.\\
+Negative $R^2$: worse than test-set mean.
+
+$H(S)=-\sum_c p_c\log_2p_c$; $0\log0=0$\\
+$IG(S,A)=H(S)-\sum_v\frac{|S_v|}{|S|}H(S_v)$\\
+Gini $=1-\sum_c p_c^2$. Pick max gain; recompute in each child. Pure: $H=0$; balanced binary: $H=1$. Unsplittable leaf: majority.
+
+RF: bootstrap rows + random features per split. Cascade: append forest probabilities; use out-of-fold training predictions.
+
+\textbf{No leakage:} split first; fit transforms on training features only. Tune/early stop on validation; freeze, then test. Refit transforms inside each CV fold. Group related rows if deployment needs unseen groups.
+
+\topic{CNN: hand calculation + sizes}
+NN convention: \textbf{do not flip kernel}. For stride $S$, padding $P$ (dilation 1):
+\[
+Y_{oij}=b_o+\sum_{c,u,v}K_{ocuv}X_{c,iS+u-P,jS+v-P}.
+\]
+Add bias once per cell, sum \emph{all} input channels. Zero padding outside image. ReLU after sum; pooling after activation if specified.
+
+Per spatial dimension, dilation $D$:\\
+$N_{out}=\left\lfloor\dfrac{N_{in}+2P-D(K-1)-1}{S}\right\rfloor+1$.\\
+Apply to height and width separately.\\
+Conv params (groups 1, biases):\\
+$C_{out}(C_{in}K_HK_W+1)$.\\
+Per filter: $C_{in}K_HK_W$ weights + 1 bias.\\
+Pool params: 0. Flatten: $CHW$.\\
+Dense params: $(n_{in}+1)n_{out}$.
+
+HW3 shapes: $3\!\times\!24\!\times\!24\to12\!\times\!22\!\times\!22$\\
+$\to12\!\times\!11\!\times\!11\to128\!\times\!9\!\times\!9$\\
+$\to128\!\times\!4\!\times\!4\to2048\to10$.\\
+Params: $336+13{,}952+20{,}490$.
+
+\columnbreak
+\topic{Neural nets / backpropagation}
+$z^l=W^la^{l-1}+b^l$; $a^l=\phi(z^l)$.\\
+$\sigma(u)=(1+e^{-u})^{-1}$; $\sigma'=\sigma(1-\sigma)\leq1/4$\\
+$\tanh'=1-\tanh^2u$; ReLU$'=\mathbf1_{u>0}$\\
+(at 0 choose subgradient, commonly 0).\\
+$\phi_k(u)=\log(1+e^{2ku})/(2k)$, $k>0$\\
+$\phi'_k(u)=\sigma(2ku)$; $k\to\infty$: ReLU.
+
+BCE: $L=-y\log p-(1-y)\log(1-p)$,\\
+$p=\sigma(z)\Rightarrow\boxed{\partial L/\partial z=p-y}$.\\
+Half squared error: $L=\frac12(p-y)^2$\\
+$\Rightarrow\partial L/\partial z=(p-y)p(1-p)$.\\
+Softmax: $p_k=e^{z_k}/\sum_j e^{z_j}$;\\
+cross-entropy: $\partial L/\partial z_k=p_k-y_k$.\\
+Subtract $\max z$ before exponentiating.
+
+\textbf{HW3 four-weight template:}\\
+$h_1=\phi(w_1x)$, $h_2=\phi(w_2x)$,\\
+$z=w_3h_1+w_4h_2$, $p=\sigma(z)$, $\delta=p-y$.\\
+$\partial_{w_3}L=\delta h_1$; $\partial_{w_4}L=\delta h_2$\\
+$\partial_{w_1}L=\delta w_3\phi'(w_1x)x$\\
+$\partial_{w_2}L=\delta w_4\phi'(w_2x)x$.\\
+$\boxed{w_i\leftarrow w_i-\eta\partial_{w_i}L}$: all gradients from \emph{old} weights.
+
+$\delta^l=((W^{l+1})^T\delta^{l+1})\odot\phi'(z^l)$\\
+$\partial_{W^l}L=\delta^l(a^{l-1})^T$; $\partial_{b^l}L=\delta^l$.\\
+Average gradients for mean batch loss.\\
+Scalar sigmoid chain, $|w_l|\leq1$:\\
+$|\partial h_L/\partial x|\leq(1/4)^L$.\\
+Residual $h'=h+F(h)$: $J=I+J_F$.\\
+Gradient check:\\
+$\partial_iL\approx\dfrac{L(w+\epsilon e_i)-L(w-\epsilon e_i)}{2\epsilon}$.\\
+Tiny $\epsilon$: roundoff; large $\epsilon$: truncation.
+
+\topic{Diffusion / GAN / sequence models}
+$\alpha_t=1-\beta_t$; $\bar\alpha_t=\prod_{s=1}^t\alpha_s$.\\
+$\boxed{x_t=\sqrt{\bar\alpha_t}x_0+\sqrt{1-\bar\alpha_t}\epsilon}$\\
+$\epsilon\sim\mathcal N(0,I)$; predict $\epsilon_\theta(x_t,t)$.\\
+$L=\E\|\epsilon-\epsilon_\theta(x_t,t)\|^2$.\\
+Elementwise mean: gradient $2(\hat\epsilon-\epsilon)/M$.\\
+$\hat x_0=\dfrac{x_t-\sqrt{1-\bar\alpha_t}\epsilon_\theta(x_t,t)}{\sqrt{\bar\alpha_t}}$.\\
+Train: random $t$, fixed noise schedule. Generate: start Gaussian, denoise iteratively.
+
+GAN: $\min_G\max_D\{\E_x\log D(x)$\\
+$\qquad+\E_z\log[1-D(G(z))]\}$.\\
+Minimize $L_D=-\E\log D(x)-\E\log(1-D(G(z)))$;\\
+non-saturating $L_G=-\E\log D(G(z))$.\\
+Detach fake for D step; pass gradients through D for G. Mode collapse: low diversity.
+
+RNN: $h_t=\phi(W_xx_t+W_hh_{t-1}+b)$.\\
+LSTM: $c_t=f_t\odot c_{t-1}+i_t\odot\tilde c_t$;\\
+$h_t=o_t\odot\tanh c_t$. Gates $f,i,o$: sigmoid; candidate $\tilde c$: tanh. Weights shared over time.
+
+\textbf{Code:} zero gradients $\to$ forward $\to$ loss $\to$ backward $\to$ optimizer step. Eval disables dropout; no-grad disables gradient tracking.
+\end{multicols*}
+\end{document}
