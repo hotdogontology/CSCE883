@@ -25,3 +25,31 @@
 # Python bytecode
 __pycache__/
 *.py[cod]
+
+# Local Python environments and tool caches
+.venv/
+venv/
+.conda/
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+*.egg-info/
+
+# Lean dependencies and compiled files (keep toolchain and Lake manifests)
+.lake/
+*.olean
+*.ilean
+
+# Local credentials (keep example configuration files available)
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+Desktop.ini

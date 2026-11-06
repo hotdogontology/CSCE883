@@ -1,0 +1,119 @@
+{
+  "purpose": "qualitative statement screening, not labeled accuracy test",
+  "pretraining_overlap": "unknown",
+  "herald_contest_exclusion": "name/import heuristic only",
+  "cases": [
+    {
+      "id": "Imo2024P1",
+      "source_url": "https://github.com/dwrensha/compfiles/blob/1745e6ced3e671bd74417548494b034eb2c87da8/Compfiles/Imo2024P1.lean",
+      "source_revision": "1745e6ced3e671bd74417548494b034eb2c87da8",
+      "unit_note": "Published determine-all question versus proposed solution-set theorem; a NO can reflect question/answer scope."
+    },
+    {
+      "id": "Imo2023P1",
+      "source_url": "https://github.com/dwrensha/compfiles/blob/1745e6ced3e671bd74417548494b034eb2c87da8/Compfiles/Imo2023P1.lean",
+      "source_revision": "1745e6ced3e671bd74417548494b034eb2c87da8",
+      "unit_note": "Published determine-all question versus proposed solution-set theorem; a NO can reflect question/answer scope."
+    },
+    {
+      "id": "Imo2022P2",
+      "source_url": "https://github.com/dwrensha/compfiles/blob/1745e6ced3e671bd74417548494b034eb2c87da8/Compfiles/Imo2022P2.lean",
+      "source_revision": "1745e6ced3e671bd74417548494b034eb2c87da8",
+      "unit_note": "Published determine-all question versus proposed solution-set theorem; a NO can reflect question/answer scope."
+    },
+    {
+      "id": "openai-binary-counting",
+      "source_url": "https://github.com/openai/math/blob/4eaee87548250b2682affda7d05d947c05554bae/lean/OAI/Computability/MatchingCount/BinarySolve.lean",
+      "source_revision": "4eaee87548250b2682affda7d05d947c05554bae",
+      "unit_note": "Theorem 1.2; PDF text extraction loses superscript formatting: the approximation factor is 512^n."
+    },
+    {
+      "id": "openai-matching-entropy",
+      "source_url": "https://github.com/openai/math/blob/4eaee87548250b2682affda7d05d947c05554bae/lean/OAI/Combinatorics/PerfectMatching/Main.lean",
+      "source_revision": "4eaee87548250b2682affda7d05d947c05554bae",
+      "unit_note": "Theorem 1.1 versus catalogued entropy_main; version/strength alignment needs review. PDF fractions may be flattened."
+    },
+    {
+      "id": "openai-binpacking-results",
+      "source_url": "https://github.com/openai/math/blob/4eaee87548250b2682affda7d05d947c05554bae/lean/OAI/Computability/BinPacking/Main.lean",
+      "source_revision": "4eaee87548250b2682affda7d05d947c05554bae",
+      "unit_note": "Results section versus aggregate main_results; formal theorem includes additional guarantees and construction details."
+    }
+  ],
+  "local_sources": [
+    {
+      "path": "data/external-two-pass/math/binpacking.pdf",
+      "sha256": "cf1e9b383ad38a1c6b8d0117e1e6f485a482480d05471d11de02c81020cbb9e6"
+    },
+    {
+      "path": "data/external-two-pass/math/binpacking.txt",
+      "sha256": "fd16508208371f1899b09e136224e91a74d11e51e01845c0b3aad4fe6027f48b"
+    },
+    {
+      "path": "data/external-two-pass/math/formalization.yaml",
+      "sha256": "b8e7072ab9ac195a290110d78c3a3497608ce76ac5b67d307685f38408299b39"
+    },
+    {
+      "path": "data/external-two-pass/compfiles/Compfiles/Imo2022P2.lean",
+      "sha256": "e9ffc04624b41e708f853e134f1fee45b5e49037839067b21ab29607363b3fbd"
+    },
+    {
+      "path": "data/external-two-pass/compfiles/Compfiles/Imo2023P1.lean",
+      "sha256": "cd363540e72806e53a7a1a2ea0f18e6ca4c41a0f4aef6b55ae13bf7c7e0ba94c"
+    },
+    {
+      "path": "data/external-two-pass/compfiles/Compfiles/Imo2024P1.lean",
+      "sha256": "d30783d08489afd8e1b5b3373cbd8d3ad6f172ce5b2a510e386623317f7b4858"
+    },
+    {
+      "path": "data/external-two-pass/math/lean/README.md",
+      "sha256": "292ff9d539f494158dfbf68d989ba85a82782a4343b2fe43088f8fa62525bf1b"
+    },
+    {
+      "path": "data/external-two-pass/math/lean/ComparatorChallenges/BalancedRyser.lean",
+      "sha256": "e7a164e1e36001b7ff280526d8b312734833bb7ada33f33b8978c9fdac2a8e66"
+    },
+    {
+      "path": "data/external-two-pass/math/lean/ComparatorChallenges/BallPacking.lean",
+      "sha256": "d41c4adfa2551c169f61eccb913cfa48a4dacfbc4dbd43c3ba1ee2de96940f71"
+    },
+    {
+      "path": "data/external-two-pass/math/lean/ComparatorChallenges/BinaryMatching.lean",
+      "sha256": "05f2ae77b70ff97e2f9cd960662a68fb3664ffae184d2c36bbd6c330955dd090"
+    },
+    {
+      "path": "data/external-two-pass/math/lean/ComparatorChallenges/BinPackingGap.lean",
+      "sha256": "f72d9643f0dab3bdb18876f54b072f9720fc99491e3801f2a46214e90f7e2e50"
+    },
+    {
+      "path": "data/external-two-pass/math/lean/ComparatorChallenges/MatchingEntropy.lean",
+      "sha256": "5e8aacabca23f0b2852ffd7e58c1a87a8e94eec7abb8d5f354d787472d6749db"
+    },
+    {
+      "path": "data/external-two-pass/math/lean/OAI/Combinatorics/PerfectMatching/Main.lean",
+      "sha256": "c986879d1e060ab63989c6f21ab9e8a58d7a341364dc36bd31ea85f12637ab0d"
+    },
+    {
+      "path": "data/external-two-pass/math/lean/OAI/Computability/BinPacking/Main.lean",
+      "sha256": "a61c56a63fd72264e61ce9a83b3e9671b7a41ac4da214836c68dc0c2fc9b7d46"
+    },
+    {
+      "path": "data/external-two-pass/math/lean/OAI/Computability/MatchingCount/BinarySolve.lean",
+      "sha256": "299750c99714c599fb9dd9d988bbc20c0ba617b9aad8be4f05da8cc43bd36eb0"
+    },
+    {
+      "path": "data/external-two-pass/math/lean/OAI/Computability/BinPacking/Results/Aggregate.lean",
+      "sha256": "4fcb6ab4d0d64533f527843e283065a30ba86143e54585a38894408c4759eaca"
+    },
+    {
+      "path": "data/external-two-pass/math/preprints/Entropy-and-Face-Dimension-of-the-Perfect-Matching-Polytope-September-23-2026/main.pdf",
+      "sha256": "c0b726a089502900b6b0c6b26b3d024cc55c440ce5d4abc71584b2c9ffe2fae4"
+    },
+    {
+      "path": "data/external-two-pass/math/preprints/Entropy-and-Face-Dimension-of-the-Perfect-Matching-Polytope-September-23-2026/main.txt",
+      "sha256": "a2257f3325ffde8f2c51e24180ec22c70015fef773e1f21dcfb819a5a2d082b5"
+    }
+  ],
+  "independent_semantic_review": false,
+  "lean_replay": false
+}

@@ -1,0 +1,16 @@
+# Install GPU torch separately from https://download.pytorch.org/whl/cu128
+transformers
+accelerate
+peft
+trl
+bitsandbytes
+datasets
+huggingface-hub
+safetensors
+sentencepiece
+scikit-learn
+pandas
+matplotlib
+jupyterlab
+ipykernel
+pypdf

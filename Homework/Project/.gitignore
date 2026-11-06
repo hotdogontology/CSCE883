@@ -1,0 +1,29 @@
+# Downloaded corpora and reference papers; keep curated labels outside data/.
+/data/
+/downloads/
+
+# Generated experiment output, training runs, and model checkpoints
+/artifacts/
+/checkpoints/
+/outputs/
+/results/
+/runs/
+wandb/
+mlruns/
+lightning_logs/
+tensorboard/
+
+# Model weights and downloaded dataset shards, even outside the directories above
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.gguf
+*.onnx
+pytorch_model*.bin
+adapter_model*.bin
+*.parquet
+*.arrow
+
+# Generated Lean replay probes; source, toolchain, and manifest remain trackable.
+/lean/generated/

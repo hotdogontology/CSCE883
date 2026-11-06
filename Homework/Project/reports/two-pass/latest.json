@@ -1,0 +1,148 @@
+{
+  "observed_utc": "2026-11-06T21:41:37.369707+00:00",
+  "scope": "statement_fidelity_only",
+  "job": {
+    "status": "running",
+    "current_stage": "untuned-herald",
+    "stages": [
+      {
+        "name": "untuned-validation",
+        "status": "previously_complete"
+      },
+      {
+        "name": "first-pass-validation",
+        "status": "complete"
+      }
+    ],
+    "updated_utc": "2026-11-06T21:36:31.948834+00:00"
+  },
+  "runs": {
+    "first-pass-validation": {
+      "status": "complete",
+      "rows": 112,
+      "accuracy": 0.7053571428571429,
+      "labeled_coverage": 112,
+      "confusion": {
+        "false_negative": 7,
+        "true_positive": 66,
+        "true_negative": 13,
+        "false_positive": 26
+      },
+      "status_counts": {
+        "predicted": 112
+      },
+      "predictions": {
+        "False": 20,
+        "True": 92
+      },
+      "records_written": 112,
+      "observed_status_counts": {
+        "predicted": 112
+      },
+      "settings": {
+        "input_sha256": "f8029b9ec4975cdacc028703a2fb34e4ee9d88bd7b34f31f5a242af672b2b031",
+        "adapter_sha256": "50d9f328f3cc87805b6b30b2f40ce8cdc8ef3b7cc6e8d6a24f35e0b2d6b35a1c",
+        "base_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+        "prompt_sha256": "3f4032b7ebd8369f5f53165b47a3cebaa64f829ea58f844c27a218ab82a0b0cc",
+        "max_tokens": 2048,
+        "inference": "constrained_YES_NO_next_token_NF4_BF16",
+        "batch_size": 8,
+        "label_scope": "statement_fidelity"
+      }
+    },
+    "untuned-herald": {
+      "status": "running",
+      "rows": null,
+      "accuracy": null,
+      "labeled_coverage": null,
+      "confusion": null,
+      "status_counts": null,
+      "predictions": null,
+      "records_written": 2640,
+      "observed_status_counts": {
+        "predicted": 2633,
+        "too_long": 7
+      },
+      "settings": {
+        "input_sha256": "4fa9ff90e79706dbf60792e077ffda3eee17be87bee66b76dcad6ba77cbef176",
+        "adapter_sha256": null,
+        "base_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+        "prompt_sha256": "3f4032b7ebd8369f5f53165b47a3cebaa64f829ea58f844c27a218ab82a0b0cc",
+        "max_tokens": 2048,
+        "inference": "constrained_YES_NO_next_token_NF4_BF16",
+        "batch_size": 8,
+        "label_scope": "statement_fidelity"
+      }
+    },
+    "untuned-validation": {
+      "status": "complete",
+      "rows": 112,
+      "accuracy": 0.625,
+      "labeled_coverage": 112,
+      "confusion": null,
+      "status_counts": {
+        "predicted": 112
+      },
+      "predictions": {
+        "False": 45,
+        "True": 67
+      },
+      "records_written": 112,
+      "observed_status_counts": {
+        "predicted": 112
+      },
+      "settings": {
+        "input_sha256": "f8029b9ec4975cdacc028703a2fb34e4ee9d88bd7b34f31f5a242af672b2b031",
+        "adapter_sha256": null,
+        "base_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+        "prompt_sha256": "3f4032b7ebd8369f5f53165b47a3cebaa64f829ea58f844c27a218ab82a0b0cc",
+        "max_tokens": 2048,
+        "inference": "constrained_YES_NO_next_token_NF4_BF16",
+        "batch_size": 8,
+        "label_scope": "statement_fidelity"
+      }
+    }
+  },
+  "training": {
+    "first-pass-statement-v2": {
+      "status": "complete",
+      "input_sha256": "182c1fcfc3051da2c8195022c41037fd76b20e73ad28c6c5e1ea22d1431c6efa",
+      "prompt_sha256": "3f4032b7ebd8369f5f53165b47a3cebaa64f829ea58f844c27a218ab82a0b0cc",
+      "epochs": 1,
+      "learning_rate": 0.0001,
+      "gradient_accumulation": 8,
+      "lora": {
+        "rank": 16,
+        "alpha": 32,
+        "dropout": 0.05,
+        "modules": [
+          "q_proj",
+          "k_proj",
+          "v_proj",
+          "o_proj"
+        ]
+      },
+      "quantization": "NF4_double_quant_BF16",
+      "max_tokens": 2048,
+      "used": 448,
+      "trainable_parameters": 15335424,
+      "optimizer_steps": 56,
+      "peak_vram_gib": 10.560567378997803,
+      "seconds": 230.60796289999962,
+      "progress": null,
+      "packages": {
+        "torch": "2.11.0+cu128",
+        "transformers": "5.22.2",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2"
+      }
+    }
+  },
+  "pseudo_labels": {
+    "counts": null,
+    "labels": null,
+    "policy": null,
+    "trusted_ground_truth": null
+  },
+  "interpretation": "Agreement is not accuracy. External flags are unreviewed. No argument-fidelity ground truth used."
+}
