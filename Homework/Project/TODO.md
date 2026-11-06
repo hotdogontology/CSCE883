@@ -47,6 +47,10 @@ Completed human actions:
 - [x] Start sequential background driver; full Herald comparison is in progress.
 - [x] Add periodic long-training checkpoints, safe aggregate-report exporter and
   publishing watcher; nine guard tests passed. See Monday handoff.
+- [x] Commit project source/docs locally; verify no credentials, data or weights
+  staged (45 files, 586,625 bytes). Push is blocked by GitHub write authentication.
+- [ ] On Monday, authenticate native Git or enable connected-app repository write
+  access, then push local commits and latest aggregate reports. Watcher is local-only.
 - [ ] Finish untuned/first-pass inference over all 44,553 Herald rows; report
   disagreement, class balance and missing/context-limit coverage.
 - [ ] Train second pass from original Qwen on eligible agreement pseudo-labels.

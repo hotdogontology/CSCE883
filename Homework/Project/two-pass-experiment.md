@@ -101,5 +101,7 @@ and `artifacts/two-pass/report.json` for available results. Output tables are
 `herald-comparison.csv` and `external-comparison.csv`. Training directories hold
 adapters, per-example loss logs and settings/provenance. Bulk artifacts stay ignored.
 No finished second-pass or external result is implied by this protocol document.
-The Friday watcher exports and pushes aggregate results in `reports/two-pass/`
-at stage changes. Consult its timestamp and `MONDAY_HANDOFF.md` for later state.
+The Friday watcher exports local aggregate results in `reports/two-pass/`.
+It was launched without publishing because native Git requires sign-in and the
+connected app returned HTTP 403 on write. Consult `MONDAY_HANDOFF.md`; no successful
+GitHub push is confirmed. Optional `--publish` mode is available after authentication.

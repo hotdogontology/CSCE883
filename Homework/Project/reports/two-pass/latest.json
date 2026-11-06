@@ -1,5 +1,5 @@
 {
-  "observed_utc": "2026-11-06T21:41:37.369707+00:00",
+  "observed_utc": "2026-11-06T21:45:37.062842+00:00",
   "scope": "statement_fidelity_only",
   "job": {
     "status": "running",
@@ -58,10 +58,10 @@
       "confusion": null,
       "status_counts": null,
       "predictions": null,
-      "records_written": 2640,
+      "records_written": 4784,
       "observed_status_counts": {
-        "predicted": 2633,
-        "too_long": 7
+        "predicted": 4775,
+        "too_long": 9
       },
       "settings": {
         "input_sha256": "4fa9ff90e79706dbf60792e077ffda3eee17be87bee66b76dcad6ba77cbef176",

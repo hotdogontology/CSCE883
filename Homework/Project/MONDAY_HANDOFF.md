@@ -3,6 +3,13 @@
 Prepared Friday, 2026-11-06. The machine is running the authorized two-pass
 statement-correspondence experiment. Do not launch a second GPU job blindly.
 
+**Publishing is blocked.** Work is committed locally. Native Git awaits an
+interactive GitHub sign-in; the connected GitHub app can read the repository but
+returned HTTP 403 `Resource not accessible by integration` on tree creation.
+No successful push is confirmed. The watcher is running in **local-only mode**;
+do not expect new snapshots on GitHub. On Monday, authenticate native Git or grant
+the app repository write access, then push the saved commits and latest reports.
+
 1. Read [the automatically published results](reports/two-pass/README.md).
    Its timestamp and `latest.json` distinguish observed results from this plan.
 2. On this workstation, check `artifacts/two-pass/job.json`, the driver PID in
@@ -11,8 +18,8 @@ statement-correspondence experiment. Do not launch a second GPU job blindly.
    process survived; check the PID and recent log/output progress.
 3. Inspect `artifacts/two-pass/report.json`, `herald-comparison.csv`,
    `consensus/summary.json`, the second-pass `training.json`, and external outputs.
-   The watcher publishes small aggregate snapshots at stage transitions, including
-   a final completed/failed snapshot, and pushes only the report directory.
+   The watcher saves small aggregate snapshots, including a final completed/failed
+   snapshot. It was launched without `--publish` because write access is blocked.
 4. Review class balance and mismatch recall before accuracy. The first-pass
    held-out accuracy rose from 62.50% to 70.54%, but mismatch rejection fell
    from 21/39 to 13/39. Neither teacher is a trusted verifier.
@@ -39,6 +46,7 @@ the pinned manifests first. Never commit `.env`, downloads, weights, optimizer
 states or bulk prediction logs. The root/project ignore rules cover these.
 
 The user authorized pushing this project work and subsequent generated aggregate
-reports. No messages to collaborators or service providers were authorized/sent.
+reports. The optional `--publish` mode restricts commits to the report directory;
+it is not active. No messages to collaborators or service providers were authorized/sent.
 If publishing failed, reports remain local; inspect logs and complete the push
 without re-running successful experiment stages.

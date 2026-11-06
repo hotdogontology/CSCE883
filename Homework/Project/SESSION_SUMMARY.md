@@ -55,9 +55,14 @@ Allow uncertain labels; missing English proof material is not a negative label.
 ## Current state
 
 Friday continuation: user authorized running as much of the experiment as possible
-and pushing the work to GitHub before their Monday return. A separate watcher
-exports only aggregate reports, commits/pushes that allowlisted directory at stage
-transitions, and holds a temporary Windows execution request. It records failure
+and pushing the work to GitHub before their Monday return. Code was committed
+locally, but native Git requires interactive sign-in and the connected GitHub app
+returned HTTP 403 `Resource not accessible by integration` on a write request.
+No successful push is confirmed. Per the user's instruction, stop setup work at
+this permission blocker. The existing GPU pipeline continues. A separate watcher
+exports aggregate reports in local-only mode and holds a temporary Windows
+execution request. Optional automatic report pushing is implemented but NOT active.
+It records failure
 as well as completion; no permanent power-plan change. Long second-pass training
 now saves adapter/optimizer/RNG/progress every 512 examples (manual recovery).
 Nine meaningful guard tests passed. See Monday handoff and live process/log state.
@@ -276,7 +281,9 @@ from a planning document.
 - Added periodic future-training recovery checkpoints and an aggregate exporter /
   Windows-awake watcher with restricted automatic report commits/pushes. Nine
   tests passed, including secret-field exclusion and refusal of unrelated staged
-  files. Created Monday handoff. Full experiment status is in the dated reports.
+  files. Created Monday handoff. Local commit `3ebcd52` saved all project work.
+  Native push required sign-in; connected app writes returned HTTP 403. Watcher
+  launched local-only; no successful push. Full experiment status is in reports.
 
 ### 2026-11-06 — first-pass training and queued self-training
 
