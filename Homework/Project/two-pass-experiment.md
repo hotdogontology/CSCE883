@@ -1,5 +1,15 @@
 # First and second pass Qwen experiment
 
+Monday review (2026-11-09): the full pipeline completed Saturday at 00:55 Eastern.
+Second pass trained on 26,961 agreement-labeled Herald pairs for ~5.02 hours.
+Validation accuracy: untuned 62.50%, first pass 70.54%, second pass 66.07%.
+Second-pass confusion: TP 60, TN 14, FP 25, FN 13. Mismatch rejection is 14/39,
+versus first-pass 13/39 and untuned 21/39. Both saved adapters were verified.
+Herald teacher disagreements: 17,422; agreements: 27,077; missing: 54. After
+contest exclusions, 26,962 agreements were eligible; one exceeded training length.
+External cases: five scored, one too long; outcomes are unreviewed flags, not
+verified errors. See `reports/two-pass/` for complete aggregate outputs.
+
 Authorized 2026-11-06. This experiment supersedes the earlier decision to defer
 task training. The original project target remains argument fidelity; this first
 implemented experiment measures **statement fidelity**, which is the label scope

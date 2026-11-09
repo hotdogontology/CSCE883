@@ -1,0 +1,20 @@
+{
+  "observed_utc": "2026-11-09T22:05:35.933128+00:00",
+  "job": {
+    "status": "running",
+    "stage": "waiting_for_verified_download",
+    "started_utc": "2026-11-09T22:05:35.933128+00:00",
+    "second_pass": false,
+    "model": "Qwen/Qwen3-14B",
+    "scope": "argument_fidelity",
+    "quantization": null,
+    "updated_utc": "2026-11-09T22:05:35.933128+00:00"
+  },
+  "scope": "proof_argument_correspondence",
+  "quantization": null,
+  "dtype": "BF16",
+  "positive_labels": "User-assumed corrected ProofNet argument matches",
+  "negative_labels": "Constructed cross-problem English proof swaps",
+  "limitation": "Swapped-proof validation does not establish detection of subtle same-theorem alternative arguments",
+  "runs": {}
+}

@@ -1,5 +1,6 @@
 """Download the selected public checkpoint at a recorded immutable revision."""
 from pathlib import Path
+import argparse
 import fnmatch
 import hashlib
 import json
@@ -8,11 +9,16 @@ import shutil
 from huggingface_hub import HfApi, snapshot_download
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / "model-manifest.json"
-REPO = "Qwen/Qwen3-8B"
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--repo', default='Qwen/Qwen3-8B')
+parser.add_argument('--manifest', type=Path, default=ROOT/'model-manifest.json')
+parser.add_argument('--destination', type=Path)
+args = parser.parse_args()
+MANIFEST = args.manifest
+REPO = args.repo
 PATTERNS = ["*.json", "*.safetensors", "*.model", "*.txt", "*.jinja",
             "README.md", "LICENSE", "LICENSE.*", "NOTICE"]
-destination = ROOT / "data" / "models" / "Qwen3-8B"
+destination = args.destination or ROOT / 'data/models' / REPO.split('/')[-1]
 
 previous = json.loads(MANIFEST.read_text(encoding="utf-8")) if MANIFEST.exists() else {}
 revision = previous.get("revision") if previous.get("repo_id") == REPO else None
@@ -24,9 +30,9 @@ assert shutil.disk_usage(ROOT).free > required_bytes + 5 * 2**30, "Insufficient 
 manifest = {
     "repo_id": REPO, "revision": info.sha,
     "source": "https://huggingface.co/" + REPO,
-    "local_directory": "data/models/Qwen3-8B",
+    "local_directory": destination.relative_to(ROOT).as_posix(),
     "format": "safetensors", "license": "apache-2.0",
-    "stage": "zero-shot and unlabeled exploration; no task fine-tuning",
+    "stage": "pinned base checkpoint; experiment state is recorded separately",
     "download_complete": False, "expected_bytes": required_bytes,
     "files": [{"path": item.rfilename, "bytes": item.size,
                "sha256": item.lfs.sha256 if item.lfs else None} for item in files],

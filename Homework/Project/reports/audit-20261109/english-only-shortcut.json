@@ -1,0 +1,36 @@
+{
+  "diagnostic": "English-only TF-IDF cosine between statement and proof; no Lean fields read",
+  "data_version": "argument-14b/data-v3",
+  "threshold_selection": "maximize training accuracy only",
+  "threshold": 0.0920015297625465,
+  "train_accuracy": 0.8927335640138409,
+  "validation": {
+    "mismatch": {
+      "precision": 0.9054054054054054,
+      "recall": 0.9305555555555556,
+      "f1-score": 0.9178082191780822,
+      "support": 72.0
+    },
+    "match": {
+      "precision": 0.9285714285714286,
+      "recall": 0.9027777777777778,
+      "f1-score": 0.9154929577464789,
+      "support": 72.0
+    },
+    "accuracy": 0.9166666666666666,
+    "macro avg": {
+      "precision": 0.916988416988417,
+      "recall": 0.9166666666666667,
+      "f1-score": 0.9166505884622805,
+      "support": 144.0
+    },
+    "weighted avg": {
+      "precision": 0.916988416988417,
+      "recall": 0.9166666666666666,
+      "f1-score": 0.9166505884622806,
+      "support": 144.0
+    }
+  },
+  "validation_balanced_accuracy": 0.9166666666666667,
+  "interpretation": "Shortcut diagnostic, not a correspondence model or independently reviewed accuracy."
+}

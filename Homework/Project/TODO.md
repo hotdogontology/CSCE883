@@ -1,12 +1,12 @@
 # Project TODO
 
-Last updated: 2026-11-06. Current plan: [methodology.md](methodology.md).
+Last updated: 2026-11-09. Current plan: [methodology.md](methodology.md).
 Current context and session log: [SESSION_SUMMARY.md](SESSION_SUMMARY.md).
 
-**Current direction:** authorized two-pass statement-fidelity experiment; see
-`two-pass-experiment.md`. Manual Herald review is still deferred. First-pass LoRA
-is complete; full Herald comparison and later stages are running sequentially.
-Inspect `artifacts/two-pass/job.json` before launching any further GPU jobs.
+**Current direction:** unquantized Qwen3-14B proof-body experiment; see
+`argument-experiment.md`. No second-pass self-training. Preserve completed 8B
+statement-only results. Inspect `artifacts/argument-14b/job.json` before launching
+any further GPU jobs; driver waits for hash-verified download then runs the stages.
 For Monday, read `MONDAY_HANDOFF.md` and the newer generated aggregate snapshots
 in `reports/two-pass/`; this static checklist may precede later job stages.
 
@@ -37,7 +37,38 @@ Completed human actions:
 
 ## AGENT TODO
 
+### Active: BF16 14B argument correspondence
+
+- [x] Save user-suggested verbose-lean4 / natural_lean references and independent
+  English/Lean-to-verbose-Lean architecture idea in `references.md` and
+  `verbose-lean-experiment.md` as future work.
+- [ ] After direct proof-body experiments, pilot independently compiled verbose
+  Lean views and structured argument matching; evaluate combined compilation /
+  correspondence ranking before generator reward optimization.
+
+- [x] Start pinned original Qwen3-14B download; no quantization. Old 8B remains intact.
+- [x] Extract corrected proof bodies; 361 candidates, six exclusions. Prepare
+  balanced 578 train / 144 validation examples with within-split proof swaps.
+- [x] Implement BF16 LoRA, real proof-body inference, paired length filtering,
+  guard tests and sequential driver. Fifteen tests passed; download/probe pending.
+- [ ] Complete and hash-verify download; probe longest retained full-proof input
+  with BF16 forward/backward/optimizer step before selecting a common token budget.
+- [ ] Compare untuned/tuned 14B on proof-body validation; report all class metrics
+  with the positive-label assumption and synthetic-negative limitation.
+- [ ] Run both models on all Herald proof pairs and report disagreements/coverage.
+- [ ] Develop same-theorem alternative-argument negatives in a separate experiment.
+
 ### Active: first/second pass experiment
+
+- [x] Recheck ProofNet-V proof-pair availability: actual English/formal pairs
+  exist and inspected Eisenstein examples follow the same method. Dataset-wide
+  argument-fidelity annotation is not established by statement audit.
+- [ ] Inspect/extract actual corrected ProofNet-V proof pairs and prepare an
+  argument-level candidate pilot, preserving unknown labels and scope. Do not
+  silently substitute statement-only training for the user's argument target.
+
+- [x] Compute class-specific precision/recall/F1, macro/weighted F1, balanced
+  accuracy and coverage for all three models on frozen labeled validation.
 
 - [x] Prepare original/corrected ProofNet-V statement pairs and grouped split.
 - [x] Train first-pass QLoRA and compare on 112 held-out pairs: 62.50% untuned,
@@ -51,11 +82,16 @@ Completed human actions:
   staged (45 files, 586,625 bytes). Push is blocked by GitHub write authentication.
 - [ ] On Monday, authenticate native Git or enable connected-app repository write
   access, then push local commits and latest aggregate reports. Watcher is local-only.
-- [ ] Finish untuned/first-pass inference over all 44,553 Herald rows; report
+- [x] Finish untuned/first-pass inference over all 44,553 Herald rows; report
   disagreement, class balance and missing/context-limit coverage.
-- [ ] Train second pass from original Qwen on eligible agreement pseudo-labels.
-- [ ] Compare all three models on frozen validation and external pilot; review
-  flags before calling them errors. No second-pass/external results exist yet.
+- [x] Train second pass from original Qwen on eligible agreement pseudo-labels:
+  26,961 examples, one epoch, ~5.02 hours; adapter saved.
+- [x] Run all three models on frozen validation and external pilot. Validation:
+  62.50% / 70.54% / 66.07%; external coverage 5/6, no external ground truth.
+- [ ] Review external scope/version/PDF extraction problems and model flags
+  before calling them errors; no independently confirmed issue exists yet.
+- [ ] Audit representative Herald disagreements and pseudo-label correctness;
+  both tuned models detect fewer held-out mismatches than untuned Qwen.
 - [ ] Expand source-family overlap checks beyond contest-name/import heuristic.
 
 ### Next work: unlabeled exploration

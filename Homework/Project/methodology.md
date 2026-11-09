@@ -1,11 +1,23 @@
 # Correspondence judge: current project plan
 
-Last updated: 2026-11-06. This is the current research and experimental plan.
-It records proposed methods, not a trained system or an amendment to the submitted
-proposal. Qwen3-8B is selected as the first model for local experiments; this is
+Last updated: 2026-11-09. This is the current research and experimental plan.
+The first/second-pass statement experiment is now implemented and completed;
+other methods below remain proposals unless explicitly recorded as implemented.
+This is not an amendment to the submitted proposal. Qwen3-8B is the first model; this is
 not a claim that it is the best-performing backbone.
 
 ## Current stage: authorized two-pass statement experiment
+
+Superseded as active work on 2026-11-09 by [argument-experiment.md](argument-experiment.md):
+unquantized BF16 Qwen3-14B, both English/Lean proof bodies as inputs, user-assumed
+corrected ProofNet argument positives, constructed proof negatives, untuned/tuned
+comparison and Herald inference. No second-pass self-training in the new run.
+Retain the completed statement experiment below as a separate reportable result.
+
+The queued run completed 2026-11-07; Monday artifact review verified both adapters
+and all evaluation stages. Frozen validation: untuned 62.50%, first pass 70.54%,
+second pass 66.07%. Tuned mismatch detection is worse than untuned, despite higher
+accuracy. Review errors and external input alignment before further adaptation.
 
 The user has now authorized ProofNet-V LoRA training, original/first-pass Herald
 comparison, agreement-only pseudo-label training of a fresh original Qwen, and
@@ -56,6 +68,11 @@ claim alignment, dependency/scope checks, and global judging, using candidate
 lemma/proof-state extraction tools. It tests whether decomposing arguments helps
 accuracy and error localization without assuming that matched pieces guarantee
 a matched whole.
+
+The user's [verbose Lean intermediary proposal](verbose-lean-experiment.md)
+independently translates both source proofs into verbose Lean for argument
+comparison, with future compilation/correspondence objectives. Tool references
+are saved in [references.md](references.md). This remains future work.
 
 ## Research question
 

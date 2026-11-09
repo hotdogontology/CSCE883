@@ -1,7 +1,7 @@
 id,untuned,first_pass,second_pass,label_status,scope_note
-Imo2024P1,,,,unreviewed_external_candidate,Published determine-all question versus proposed solution-set theorem; a NO can reflect question/answer scope.
-Imo2023P1,,,,unreviewed_external_candidate,Published determine-all question versus proposed solution-set theorem; a NO can reflect question/answer scope.
-Imo2022P2,,,,unreviewed_external_candidate,Published determine-all question versus proposed solution-set theorem; a NO can reflect question/answer scope.
-openai-binary-counting,,,,unreviewed_external_candidate,Theorem 1.2; PDF text extraction loses superscript formatting: the approximation factor is 512^n.
-openai-matching-entropy,,,,unreviewed_external_candidate,Theorem 1.1 versus catalogued entropy_main; version/strength alignment needs review. PDF fractions may be flattened.
+Imo2024P1,False,False,False,unreviewed_external_candidate,Published determine-all question versus proposed solution-set theorem; a NO can reflect question/answer scope.
+Imo2023P1,False,False,False,unreviewed_external_candidate,Published determine-all question versus proposed solution-set theorem; a NO can reflect question/answer scope.
+Imo2022P2,False,False,False,unreviewed_external_candidate,Published determine-all question versus proposed solution-set theorem; a NO can reflect question/answer scope.
+openai-binary-counting,False,True,False,unreviewed_external_candidate,Theorem 1.2; PDF text extraction loses superscript formatting: the approximation factor is 512^n.
+openai-matching-entropy,False,False,False,unreviewed_external_candidate,Theorem 1.1 versus catalogued entropy_main; version/strength alignment needs review. PDF fractions may be flattened.
 openai-binpacking-results,,,,unreviewed_external_candidate,Results section versus aggregate main_results; formal theorem includes additional guarantees and construction details.

@@ -4,6 +4,12 @@ Added 2026-11-06. This experiment is separate from the direct correspondence
 classifier in [methodology.md](methodology.md). It does not select a model or
 claim that any translation path is already implemented.
 
+Future Lean-native option suggested 2026-11-09: independently produce verbose
+Lean from the English proof and from the Lean proof, then compare their argument
+structure. See [verbose-lean-experiment.md](verbose-lean-experiment.md) and
+[references.md](references.md) for verbose-lean4 / natural_lean links and the
+proposed combination of compilation evidence with correspondence checking.
+
 ## Hypothesis
 
 An explicit controlled mathematical language may make assumptions, quantifier

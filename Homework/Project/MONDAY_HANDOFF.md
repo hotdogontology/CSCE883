@@ -1,5 +1,12 @@
 # Monday handoff
 
+Monday review, 2026-11-09: **the entire queued job finished Saturday at 00:55
+Eastern**. Both adapters are saved. Validation accuracy: untuned 62.50%, first
+pass 70.54%, second pass 66.07%; mismatch rejection 21/39, 13/39, 14/39. External
+coverage is 5/6, with no verified correspondence labels. Read updated
+`SESSION_SUMMARY.md` and reports for counts. The running instructions below
+describe Friday's setup; no job restart is needed. Publishing remains unconfirmed.
+
 Prepared Friday, 2026-11-06. The machine is running the authorized two-pass
 statement-correspondence experiment. Do not launch a second GPU job blindly.
 

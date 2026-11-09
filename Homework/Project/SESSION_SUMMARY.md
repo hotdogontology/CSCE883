@@ -1,6 +1,6 @@
 # Project session summary
 
-Last updated: 2026-11-06 (America/New_York).
+Last updated: 2026-11-09 (America/New_York).
 
 ## Start here in a new session
 
@@ -53,6 +53,83 @@ Different valid proofs of one theorem can match statements but differ in argumen
 Allow uncertain labels; missing English proof material is not a negative label.
 
 ## Current state
+
+Future-work proposal saved (2026-11-09): user supplied PatrickMassot/verbose-lean4
+and medovina/natural_lean. See `references.md` and `verbose-lean-experiment.md`.
+Generate verbose Lean independently from English and from original Lean, compare
+the resulting argument structures, and explore a custom generator/judge design
+guided by actual compilation plus correspondence. Not implemented or installed;
+does not change the running direct 14B proof-body experiment.
+
+**New active experiment (2026-11-09):** user explicitly requested preserving
+statement-only results, downloading the largest practical unquantized Qwen,
+training/evaluating proof BODY correspondence, and applying untuned/tuned models
+to Herald; no second pass. Selected fully GPU-resident Qwen3-14B in BF16,
+~27.52 GiB original weights; 32B BF16 exceeds the 48 GiB GPU. Download is in progress
+at this note; no real 14B training/probe result yet. Full details in
+`argument-experiment.md`. Driver state: `artifacts/argument-14b/job.json`, waiting
+for verified download, then memory probe / untuned validation / LoRA / tuned
+validation / both Herald runs. Check job state before launching GPU work.
+
+Using the user's explicit assumption that corrected ProofNet proof pairs are
+argument positives. Extracted 361 pairs; excluded six with unsafe/unclear target
+or dependency context. Active data `artifacts/argument-14b/data-v3`: 578 train /
+144 validation examples, balanced with constructed unrelated-English-proof swaps.
+Statements and Lean body/context unchanged across each positive/negative pair.
+Donors are within split and used once; pairwise context filtering preserves class
+balance. Both proof bodies are actual input fields and formal English comments
+are removed. Hard same-theorem alternative-argument discrimination remains an
+unmeasured extension. Fifteen guard tests passed. Prior 8B artifacts are intact.
+
+Scope clarification (2026-11-09): user emphasized argument matching and questioned
+our dismissal of ProofNet-V. Rechecked primary documentation and actual archived
+proofs. ProofNet-V DOES supply paired English/formal proof material; examples 11
+and 13 visibly use the same Eisenstein strategy. The claim we cannot establish
+is a released dataset-wide argument-alignment guarantee/label, not the existence
+of useful proof pairs. Example 1 uses closure induction versus English power
+normal forms; acceptable granularity needs resolution. See updated
+`verified-data-survey.md`. Some archive files mix old admitted statements,
+refutations and completed corrections; isolate the intended target. No new
+training, argument labels or local replay performed. Do not silently narrow the
+argument target for future experiments; the statement-only run remains an auxiliary
+experiment and does not answer the user's principal research question.
+
+Classification reporting update (2026-11-09): original runs recorded accuracy
+and confusion counts, but did not report precision/recall/F1. Added reproducible
+`scripts/classification_metrics.py` to compute both match and mismatch class
+metrics, macro/weighted F1, balanced accuracy and coverage from saved frozen
+validation predictions. Outputs: `reports/two-pass/classification-metrics.csv`
+and `.json`. No retraining or new labels; positive-class convention explicit.
+
+**Monday verified status (2026-11-09): the full queued pipeline completed** at
+2026-11-07 05:55 UTC (Saturday 00:55 Eastern). Verified saved adapters for both
+passes and 44,553 unique source IDs in each Herald prediction file. No rerun
+started. The Friday running/pending descriptions below are historical.
+
+- Untuned/first-pass each predicted 44,499 Herald rows; 54 exceeded input budget.
+  They disagreed on 17,422, agreed on 27,077. Untuned YES: 23,798; first-pass YES:
+  41,218. Agreement is not accuracy; Herald has no independent match labels.
+- After reserving 115 contest-family agreements, retained 26,962 pseudo-labels
+  (23,688 YES, 3,274 NO). Second-pass training used 26,961; one exceeded the
+  training token budget including its answer. Fresh original base, one epoch,
+  3,371 optimizer steps, 18,079.37 seconds (~5.02 hours), 12.86 GiB peak VRAM.
+- Frozen 112-pair validation: untuned 70/112 (62.50%), first pass 79/112 (70.54%),
+  second pass 74/112 (66.07%). Mismatch rejection: 21/39, 13/39, 14/39 respectively.
+  Second pass did not beat first pass on this validation; neither tuned model
+  improved mismatch detection over untuned. Single-run, within-source results.
+- External pilot: five of six cases scored; bin-packing case exceeded context.
+  All models said NO on the three IMO cases and matching-entropy case. Binary
+  counting: untuned NO / first pass YES / second pass NO. No human labels or
+  confirmed errors: question/answer scope, theorem versions and PDF formatting
+  remain confounds. Do not describe this as external accuracy.
+- No successful push established; local commits remain `3ebcd52`, `0b4e149`.
+  New aggregate report files are modified locally. No new publishing attempt
+  was made during this Monday status review.
+
+Next: inspect representative disagreements and external source alignment, fix
+input/scope problems, and evaluate with independent correspondence labels before
+more self-training. Compilation, proof-argument judging, ForTheL and chunk
+alignment remain separate outstanding work. See `reports/two-pass/README.md`.
 
 Friday continuation: user authorized running as much of the experiment as possible
 and pushing the work to GitHub before their Monday return. Code was committed
@@ -272,6 +349,25 @@ implemented features and untested proposals. Never infer a completed experiment
 from a planning document.
 
 ## Session log
+
+### 2026-11-09 — authorized BF16 proof-argument experiment
+
+- User confirmed argument target and explicitly authorized assuming corrected
+  ProofNet pairs match; requested larger unquantized model and no self-training
+  second pass. Started revision-pinned Qwen3-14B download in its own directory.
+- Implemented corrected-proof extraction, comment/admission guards, within-split
+  deranged proof swaps and paired length filtering. Prepared active v3 dataset.
+- Implemented BF16 LoRA training and constrained argument inference plus sequential
+  driver waiting for verified weights. Preserve prior statement-only results.
+
+### 2026-11-09 — Monday results review
+
+- Read AGENTS, handoff, methodology, TODO and actual job/training/prediction
+  artifacts. Confirmed full completion, both saved adapters, complete unique-ID
+  Herald coverage and final watcher completion record. Updated stale TODOs and
+  documented validation, pseudo-label balance and external coverage limitations.
+- No new training, push, external error verification or independent labeling
+  performed. Full training second pass did not outperform first pass on validation.
 
 ### 2026-11-06 — unattended run and GitHub handoff
 
