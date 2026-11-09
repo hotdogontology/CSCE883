@@ -1,6 +1,6 @@
 import unittest
 from collections import Counter
-from argument_data import strip_comments,assignment,extract,payload,swapped_negatives,paired_too_long
+from argument_data import strip_comments,assignment,extract,payload,swapped_negatives,paired_too_long,trusted_signature,family_groups
 from argument_model import messages
 
 
@@ -19,6 +19,44 @@ class ArgumentGuards(unittest.TestCase):
         self.assertEqual(result['formal_proof'],'by trivial')
         self.assertIn('import Mathlib',result['context'])
         self.assertNotIn('sorry',str(result));self.assertNotIn('t_neg',str(result));self.assertNotIn('English',str(result))
+
+    def test_signature_aligns_unbracketed_type_let(self):
+        template='theorem t : let x : Nat := 1; x = 1 := by sorry'
+        code='theorem t_corrected : let x : Nat := 1; x = 1 := by rfl'
+        split=assignment(code,trusted_signature(template))
+        self.assertEqual(code[split+2:].strip(),'by rfl')
+
+    def test_trusted_signature_accepts_plain_sorry_and_option_wrapper(self):
+        template='set_option maxRecDepth 2048 in\ntheorem t : True := sorry'
+        code='theorem t_corrected : True := by trivial'
+        self.assertEqual(code[assignment(code,trusted_signature(template))+2:].strip(),'by trivial')
+
+    def test_source_signature_mismatch_is_rejected(self):
+        with self.assertRaisesRegex(ValueError,'trusted signature'):
+            assignment('theorem t : False := by trivial','theorem t : True')
+
+    def test_genuine_prefixed_helper_retained_and_obsolete_instance_removed(self):
+        text='import Mathlib\ntheorem t_helper : True := by trivial\ninstance t : Nonempty Nat := by exact ⟨0⟩\ntheorem t_corrected : True := by exact t_helper'
+        result=extract(text,'t','theorem t : True')
+        self.assertIn('theorem t_helper',result['context'])
+        self.assertNotIn('instance t :',result['context'])
+
+    def test_context_dependency_on_removed_target_is_rejected(self):
+        text='theorem t : True := by sorry\ndef dependent : True := t\ntheorem t_corrected : True := by trivial'
+        with self.assertRaisesRegex(ValueError,'context depends'):
+            extract(text,'t','theorem t : True')
+
+    def test_qualified_dependency_on_removed_target_is_rejected(self):
+        text='theorem t : True := by sorry\ndef dependent : True := _root_.t\ntheorem t_corrected : True := by trivial'
+        with self.assertRaisesRegex(ValueError,'context depends'):
+            extract(text,'t','theorem t : True')
+
+    def test_family_parts_and_shared_proofs_are_grouped(self):
+        rows=[{'id':'a','name':'Pugh_exercise_3_63a','informal_proof':'same proof'},
+              {'id':'b','name':'Pugh_exercise_3_63b','informal_proof':'other proof'},
+              {'id':'c','name':'Other_exercise_1','informal_proof':'same  proof'}]
+        family_groups(rows)
+        self.assertEqual(len({r['group'] for r in rows}),1)
 
     def test_payload_has_both_proof_bodies_and_no_labels(self):
         row=dict(informal_statement='S',informal_proof='English argument',formal_statement='T',

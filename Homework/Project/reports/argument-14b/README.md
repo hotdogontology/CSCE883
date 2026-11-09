@@ -1,7 +1,7 @@
 # Unquantized Qwen3-14B proof-argument experiment
 
-Observed UTC: 2026-11-09T22:05:35.933128+00:00
-Job: running; stage: waiting_for_verified_download
+Observed UTC: 2026-11-09T22:32:57.517087+00:00
+Job: held_for_audit; stage: audit_hold_before_probe
 
 Both English and Lean proof bodies are inputs. BF16 model weights; no quantization.
 Positive correspondence assumed per user instruction; negatives are synthetic proof swaps.

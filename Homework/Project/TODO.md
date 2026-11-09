@@ -3,10 +3,10 @@
 Last updated: 2026-11-09. Current plan: [methodology.md](methodology.md).
 Current context and session log: [SESSION_SUMMARY.md](SESSION_SUMMARY.md).
 
-**Current direction:** unquantized Qwen3-14B proof-body experiment; see
-`argument-experiment.md`. No second-pass self-training. Preserve completed 8B
-statement-only results. Inspect `artifacts/argument-14b/job.json` before launching
-any further GPU jobs; driver waits for hash-verified download then runs the stages.
+**Current direction:** corrected overnight unquantized Qwen3-14B run is active;
+read `OVERNIGHT_2026-11-09.md`. Live state is
+`artifacts/argument-14b/overnight-20261109/job.json`. No second-pass self-training.
+Preserve completed 8B statement-only results and the archived audit/v3 inputs.
 For Monday, read `MONDAY_HANDOFF.md` and the newer generated aggregate snapshots
 in `reports/two-pass/`; this static checklist may precede later job stages.
 
@@ -37,6 +37,23 @@ Completed human actions:
 
 ## AGENT TODO
 
+### Highest priority: audit corrections before restarting 14B
+
+- [x] Audit methodology, actual inputs, extraction, metrics and saved results;
+  reproduce English-only 91.67% shortcut and context-only 66.07% diagnostic.
+- [x] Hold queued driver before training; finish/hash-verify 14B download and
+  correct manifest path. No 14B probe or training has yet occurred.
+- [x] Fix boundaries, preserve helpers, add signature/dependency regressions;
+  data-v4 checks pass. Full local Lean4.28 corpus elaboration remains future work.
+- [x] Group families/shared proofs before split; regenerate negatives after
+  context filtering to preserve class balance and English-proof marginals.
+- [x] Make stage reuse verify fingerprints and reject duplicate GPU jobs; use
+  a fresh overnight output directory.
+- [x] Freeze four locally compiled same-theorem two-route matrices (16 cases)
+  and masked-formal control; label them agent-constructed diagnostics.
+- [ ] Preserve old 8B scores with source-style and one-training-proof caveats;
+  use calibration data for future thresholds and report AUROC/average precision.
+
 ### Active: BF16 14B argument correspondence
 
 - [x] Save user-suggested verbose-lean4 / natural_lean references and independent
@@ -51,8 +68,9 @@ Completed human actions:
   balanced 578 train / 144 validation examples with within-split proof swaps.
 - [x] Implement BF16 LoRA, real proof-body inference, paired length filtering,
   guard tests and sequential driver. Fifteen tests passed; download/probe pending.
-- [ ] Complete and hash-verify download; probe longest retained full-proof input
-  with BF16 forward/backward/optimizer step before selecting a common token budget.
+- [x] Complete and hash-verify unquantized 14B download.
+- [x] Pass real14B BF16 forward/backward/optimizer probe:4096-token budget,
+  actual3946-token input,39.11GiB peak; archive over-budget8192 trial.
 - [ ] Compare untuned/tuned 14B on proof-body validation; report all class metrics
   with the positive-label assumption and synthetic-negative limitation.
 - [ ] Run both models on all Herald proof pairs and report disagreements/coverage.
@@ -63,9 +81,8 @@ Completed human actions:
 - [x] Recheck ProofNet-V proof-pair availability: actual English/formal pairs
   exist and inspected Eisenstein examples follow the same method. Dataset-wide
   argument-fidelity annotation is not established by statement audit.
-- [ ] Inspect/extract actual corrected ProofNet-V proof pairs and prepare an
-  argument-level candidate pilot, preserving unknown labels and scope. Do not
-  silently substitute statement-only training for the user's argument target.
+- [x] Extract a candidate ProofNet argument pilot; audit found fixes required,
+  tracked above. Do not silently substitute statements for the argument target.
 
 - [x] Compute class-specific precision/recall/F1, macro/weighted F1, balanced
   accuracy and coverage for all three models on frozen labeled validation.
@@ -180,8 +197,8 @@ Completed human actions:
 
 ### Project maintenance
 
-- [ ] Review and commit the project source/docs when ready; no commit or push has
-  been performed in this chat. Verify `.env`, data, weights and caches stay ignored.
+- [ ] Review/commit newer project source/docs; two initial local commits exist,
+  but no successful push has been confirmed. Keep credentials/bulk files ignored.
 - [ ] Keep the summary, TODO and methodology synchronized as decisions change.
 
 Completed agent work:

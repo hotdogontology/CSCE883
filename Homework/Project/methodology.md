@@ -6,7 +6,35 @@ other methods below remain proposals unless explicitly recorded as implemented.
 This is not an amendment to the submitted proposal. Qwen3-8B is the first model; this is
 not a claim that it is the best-performing backbone.
 
-## Current stage: authorized two-pass statement experiment
+## Current protocol after the 2026-11-09 audit
+
+Evening continuation: audit data defects are corrected and the user authorized
+the overnight stage. See [OVERNIGHT_2026-11-09.md](OVERNIGHT_2026-11-09.md). A fresh
+BF16 14B run now uses corrected family-grouped data, post-filter regenerated
+negatives, the English-only control and a compiled same-theorem diagnostic with
+formal-proof masking. The older held v3 descriptions below are historical. This
+does not turn the coarse swap task into a validated argument benchmark.
+
+Read [PLAN_AUDIT_2026-11-09.md](PLAN_AUDIT_2026-11-09.md) before new runs. The
+14B download is verified complete; its training driver is held before loading
+the model because extraction, split and evaluation defects need correction.
+The user's ProofNet-positive assumption remains in force; no second pass is
+included in the new experiment.
+
+| Experiment | Inputs / labels | State and permissible claim |
+| --- | --- | --- |
+| 8B statement matching | English/Lean statements; original audits plus corrected positives | Completed; report exact metrics with source-style confound and single-split limitations |
+| 14B cross-problem proof consistency | Both proofs; assumed ProofNet positives and unrelated English proof swaps | Held; requires extraction/split fixes and English-only controls; does not establish route matching |
+| Same-theorem argument matching | Two valid English/Lean routes crossed into a 2x2 per theorem | Proposed core evaluation; prevents either language or compilation alone from deciding labels |
+| Herald survey | Untuned/tuned predictions, no independent labels | Descriptive coverage and disagreement, not accuracy |
+| Verbose Lean intermediary | Independently translated proof views, same reserved argument tests | Future representation comparison before generator reward optimization |
+
+Current implementation uses constrained generative YES/NO token scoring with
+LoRA. A separate classification head remains an optional architecture, not an
+implemented component. The detailed earlier-stage descriptions below are history
+unless explicitly retained by this audited protocol.
+
+## Completed historical stage: two-pass statement experiment
 
 Superseded as active work on 2026-11-09 by [argument-experiment.md](argument-experiment.md):
 unquantized BF16 Qwen3-14B, both English/Lean proof bodies as inputs, user-assumed
@@ -122,7 +150,8 @@ flowchart LR
     L --> D
 ```
 
-Train one binary classification head with supervised cross-entropy and LoRA.
+The implemented baseline trains YES/NO answer-token cross-entropy with LoRA;
+a dedicated binary classification head is an optional future comparison.
 Start with whole short proofs. Chunk matching, controlled-language intermediaries
 and any multi-output model are optional experiments, not prerequisites.
 
@@ -321,14 +350,16 @@ The downloaded Parquet SHA-256 is
   Audit each entry for English proof availability and whether its Lean proof
   follows the same argument. https://dwrensha.github.io/compfiles/imo.html
 
-No surveyed resource supplies ready-made, trusted binary proof-fidelity labels.
+The user has authorized assuming corrected ProofNet proof pairs are argument
+positives. Keep that assumption distinct from a published binary argument audit.
 
 ## Labeling and construction
 
-First review 30 pairs and refine the rubric; then target a pilot of 200 source
-theorems with roughly 2-4 variants each. Scale the weakly supervised training
-corpus only after the quality audit. Reserve a separately reviewed test set and
-never tune prompts, transformations, thresholds, or models on it.
+The original 30-pair manual review was deferred by the user and is not a current
+prerequisite. Use the authorized ProofNet-positive assumption, correct extraction,
+and establish a small same-theorem argument test with transparent construction
+provenance. Broader weak-label scale-up and a final reviewed test remain later
+work. Never tune prompts, transformations, thresholds or models on a final test.
 
 For each example retain source/revision, original theorem identity, complete
 context, English statement/proof, Lean declaration/proof, transformation type,

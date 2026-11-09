@@ -54,6 +54,56 @@ Allow uncertain labels; missing English proof material is not a negative label.
 
 ## Current state
 
+**Latest authorization and active run (2026-11-09 evening):** user left for the
+night and requested the next stage. Audit extraction/split defects were corrected
+and checked before restarting, and a compiled same-theorem diagnostic was added.
+See `OVERNIGHT_2026-11-09.md`. Active job is now
+`artifacts/argument-14b/overnight-20261109/job.json`, reports in
+`reports/argument-14b-overnight/`; earlier held v3 is historical and points to this
+new run. Source-v4 integrity checks pass, no full Lean4.28 corpus replay claimed.
+
+Data-v4: 365 positive sources, 588 train/142 validation rows before length filtering.
+After 4096-token filtering and negative regeneration: 510 train/118 validation,
+balanced with exact English-proof marginal equality. All 99 Herald splits and
+ProofNet289 fixed; genuine helpers60/185/257 retained; family/shared-proof split
+overlap fixed. Core: four theorem groups, eight compiled routes, sixteen crossed
+agent-constructed cases plus formal-proof-masked control; never training material.
+
+Real BF16 14B probe passed at 4096 tokens (actual3946), backward/optimizer included,
+39.11GiB allocated peak,32.82s. An8192 trial was stopped after240s near GPU capacity;
+no quantized fallback. Pipeline now runs untuned validation/core/masked, ordinary
+LoRA, tuned evaluations, then both Herald passes. No second pass; coarse swap
+accuracy alone is not proof-route evidence. Twenty-four guard tests passed.
+The user's Light/Medium thinking preference was recorded; active app effort could
+not be changed through available tools. No global configuration change was made.
+
+**Latest: 2026-11-09 audit completed.** Read `PLAN_AUDIT_2026-11-09.md` and the
+current-protocol table in methodology.md before new work. Qwen3-14B downloaded
+and all published LFS hashes verified. Fixed its manifest path to the actual
+14B directory. Driver was held while still waiting for download, before any
+real-model probe/training; current state `held_for_audit`. Old statements below
+about an ongoing download or automatic training are historical.
+
+Audit findings: new v3 proof swaps admit an English-only shortcut (TF-IDF control
+132/144 = 91.67%, threshold trained only on training data); cannot claim learned
+cross-language proof-route matching. Confirmed extraction bugs: 99 malformed
+Herald boundaries, malformed ProofNet-289 boundary, dangling context in IDs
+60/185/257, shared English proof across train324/validation141. Regenerate after
+parser/dependency/family fixes. Preserve v3 for audit; no silent input overwrite.
+
+Old 8B metrics recompute correctly, but context-only source-style cue scores
+74/112 = 66.07% (rule direction selected on training). First-pass AUROC improves
+.6458 to .7215, despite lower mismatch recall at the fixed decision rule. Old
+training row35-corrected retained a proof; no validation row did. There are 71
+source problems in 112 validation rows. Limit claims to this particular recipe
+and benchmark; second-pass non-improvement is not a universal self-training result.
+
+Proposed core evaluation: same theorem, valid routes A/B in English and Lean,
+diagonal YES / off-diagonal NO, grouped by theorem with independent held-out
+families. English-only and masked-formal ablations required. ProofNet positives
+remain user-assumed as authorized. Future verbose Lean uses the same test rather
+than compilation/equal-output alone. Diagnostic artifacts in `reports/audit-20261109/`.
+
 Future-work proposal saved (2026-11-09): user supplied PatrickMassot/verbose-lean4
 and medovina/natural_lean. See `references.md` and `verbose-lean-experiment.md`.
 Generate verbose Lean independently from English and from original Lean, compare
@@ -349,6 +399,26 @@ implemented features and untested proposals. Never infer a completed experiment
 from a planning document.
 
 ## Session log
+
+### 2026-11-09 — corrected overnight continuation
+
+- User authorized proceeding while away. Implemented signature/dependency/split
+  fixes, regenerated versioned data and preserved earlier artifacts/results.
+- Built and compiled four two-route core matrices plus a masked-formal control.
+  Added post-budget negative regeneration, provenance gates and duplicate-worker
+  guards. Passed24 guard tests; real14B BF16 probe fits4096 tokens at39.11GiB.
+- Launched fresh sequential overnight pipeline; current results/stages are in
+  the new run/report paths. No completed LoRA/Herald result implied by setup note.
+
+### 2026-11-09 — research and implementation audit
+
+- Parallel read-only reviews examined methodology, implementation and saved 8B
+  results. Root reproduced English-only and context-only controls plus extraction
+  defects and token-filter marginal imbalance; saved scripts and JSON reports.
+- Held queued driver before model loading due concrete extraction/split defects.
+  Download completed independently; corrected manifest metadata. No model training
+  or historical-result rewrite performed. Updated authoritative protocol table,
+  audit report and TODOs with specific fixes and a same-theorem core test.
 
 ### 2026-11-09 — authorized BF16 proof-argument experiment
 

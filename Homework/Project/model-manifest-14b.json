@@ -2,7 +2,7 @@
   "repo_id": "Qwen/Qwen3-14B",
   "revision": "40c069824f4251a91eefaf281ebe4c544efd3e18",
   "source": "https://huggingface.co/Qwen/Qwen3-14B",
-  "local_directory": "data/models/Qwen3-8B",
+  "local_directory": "data/models/Qwen3-14B",
   "format": "safetensors",
   "license": "apache-2.0",
   "stage": "pinned base checkpoint; experiment state is recorded separately",

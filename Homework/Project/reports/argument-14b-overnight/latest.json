@@ -1,0 +1,156 @@
+{
+  "observed_utc": "2026-11-09T22:48:35.971563+00:00",
+  "job": {
+    "status": "running",
+    "stage": "untuned-core",
+    "started_utc": "2026-11-09T22:46:17.977483+00:00",
+    "second_pass": false,
+    "model": "Qwen/Qwen3-14B",
+    "quantization": null,
+    "output_directory": "artifacts/argument-14b/overnight-20261109",
+    "data_directory": "artifacts/argument-14b/data-v4",
+    "readiness": {
+      "data_manifest_sha256": "24fca5dca89dd5772a6b946216d3734295a8c3d25237538c8ed6e8f4ae88ae4d",
+      "integrity_sha256": "7ffff46032e15f311d5fa4dc1855b9c35610b0f9a37fe0255e3f1ea4ed3a077c",
+      "core_manifest_sha256": "ae534c985425be8d0ab1ea3df5612f77e91123682e07d4fb63c6eb3644225047",
+      "core_test_sha256": "35efddf44790879b8b9f46ef934778882c0e2c73036696c81b4e4c7509696c9b",
+      "core_masked_sha256": "0faae17eded49e0c718e9b379c7488dacbdc8c2e7518c8ac6194d55da40c6486",
+      "core_theorem_groups": 4,
+      "proofnet_local_lean_replay": "not_run",
+      "model_revision": "40c069824f4251a91eefaf281ebe4c544efd3e18"
+    },
+    "updated_utc": "2026-11-09T22:48:35.971563+00:00",
+    "probe_budget_policy": "4096 then 2048; 8192 resource trial archived",
+    "max_tokens": 4096,
+    "budget_data": {
+      "manifest_sha256": "961670173c79565fc3130536a1de8b8d67e9e6dd40aece401a7e0801b51f87f8",
+      "max_tokens": 4096
+    },
+    "completed_stages": [
+      "untuned-validation"
+    ]
+  },
+  "quantization": null,
+  "dtype": "BF16",
+  "scope": "proof-body pilot and constructed same-theorem argument diagnostic",
+  "positive_labels": "User-assumed corrected ProofNet argument matches",
+  "training_negatives": "Constructed cross-problem English proof swaps",
+  "evaluation_roles": {
+    "validation": "cross-problem proof-consistency pilot; English-only shortcut exists",
+    "core": "constructed same-theorem 2x2 diagnostic; locally compiled, not human reviewed",
+    "core-masked": "formal-proof-withheld ablation; does not establish semantic accuracy",
+    "herald": "unlabeled deployment survey; no accuracy claim"
+  },
+  "runs": {
+    "untuned-validation": {
+      "status": "complete",
+      "spec": {
+        "input_sha256": "b90890c5283fea7f0cb1c2b2dc2fcd323e8db2c821decdea7e49b457c749ca8f",
+        "base_revision": "40c069824f4251a91eefaf281ebe4c544efd3e18",
+        "code_sha256": "b04af2516bea4997a50af226405710fc2bb93089ebce83c87447fa923e6af8a8",
+        "adapter_sha256": null,
+        "prompt_sha256": "6689e074571c8d9df1c1f568c8746377a839f0348380ef694a38fb379c8bf8ed",
+        "max_tokens": 4096,
+        "quantization": null,
+        "base_dtype": "bfloat16",
+        "scope": "argument_fidelity",
+        "inference": "constrained_YES_NO_next_token",
+        "seed": 883,
+        "packages": {
+          "torch": "2.11.0+cu128",
+          "transformers": "5.22.2",
+          "peft": "0.21.2"
+        }
+      },
+      "rows": 118,
+      "status_counts": {
+        "predicted": 118
+      },
+      "prediction_counts": {
+        "True": 37,
+        "False": 81
+      },
+      "seconds_this_process": 108.98260330001358,
+      "accuracy": 0.8135593220338984,
+      "peak_vram_gib": 33.99431276321411,
+      "metrics": {
+        "accuracy": 0.8135593220338984,
+        "balanced_accuracy": 0.8135593220338984,
+        "coverage": 1.0,
+        "scored": 118,
+        "total": 118,
+        "classes": {
+          "mismatch": {
+            "precision": 0.7283950617283951,
+            "recall": 1.0,
+            "f1-score": 0.8428571428571429,
+            "support": 59.0
+          },
+          "match": {
+            "precision": 1.0,
+            "recall": 0.6271186440677966,
+            "f1-score": 0.7708333333333334,
+            "support": 59.0
+          }
+        },
+        "macro": {
+          "precision": 0.8641975308641976,
+          "recall": 0.8135593220338984,
+          "f1-score": 0.8068452380952381,
+          "support": 118.0
+        },
+        "weighted": {
+          "precision": 0.8641975308641976,
+          "recall": 0.8135593220338984,
+          "f1-score": 0.8068452380952381,
+          "support": 118.0
+        },
+        "zero_denominator_policy": "report precision/recall/F1 as zero when undefined"
+      }
+    }
+  },
+  "probe-8192": {
+    "status": "resource_budget_exceeded",
+    "max_tokens": 8192,
+    "error": "Probe exceeded 240 seconds with observed GPU memory 48442 MiB; stop before Windows memory spill stalls the overnight run.",
+    "flash_attention_compiled": false,
+    "quantization": null,
+    "next_budget": 4096
+  },
+  "probe-4096": {
+    "status": "complete",
+    "scope": "argument_fidelity",
+    "quantization": null,
+    "base_dtype": "bfloat16",
+    "input_sha256": "fc5eaa7511a1feac3c1b23af0412199df66b4afda04d0ac7d2944dd63f61e948",
+    "prompt_sha256": "6689e074571c8d9df1c1f568c8746377a839f0348380ef694a38fb379c8bf8ed",
+    "code_sha256": "b04af2516bea4997a50af226405710fc2bb93089ebce83c87447fa923e6af8a8",
+    "seed": 883,
+    "epochs": 1,
+    "learning_rate": 0.0001,
+    "max_tokens": 4096,
+    "gradient_accumulation": 8,
+    "lora_rank": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "label_policy": "user-assumed original pairs; constructed proof-swap negatives",
+    "packages": {
+      "torch": "2.11.0+cu128",
+      "transformers": "5.22.2",
+      "peft": "0.21.2"
+    },
+    "base_revision": "40c069824f4251a91eefaf281ebe4c544efd3e18",
+    "used": 504,
+    "skipped_too_long": 84,
+    "used_labels": {
+      "True": 252,
+      "False": 252
+    },
+    "trainable_parameters": 20971520,
+    "probe_id": "proofnet-27",
+    "probe_tokens": 3946,
+    "loss": 1.7881390590446244e-07,
+    "peak_vram_gib": 39.110562324523926,
+    "seconds": 32.81826090000686
+  }
+}
