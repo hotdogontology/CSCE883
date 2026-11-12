@@ -21,6 +21,19 @@ Retain the proposal's focus on false acceptance of unfaithful translations and
 report mismatch precision/recall/F1, confusion matrices and semantic error cases
 where labels support those claims.
 
+## Preferred next direction: two-stage English intermediary
+
+On 2026-11-12 the user prioritized training **Lean-to-English informalization**
+and then **English-to-English argument comparison**. The Lean-derived English
+must describe the actual argument independently of the original English proof.
+See [informalization-experiment.md](informalization-experiment.md) for the plan
+and resume checklist. Existing paired formalization data is a reverse-training
+lead; natural-language alternative proofs are a comparator-data lead, neither a
+newly verified argument-label source. The binary argument-fidelity target below
+is unchanged. Work resumes on the experiment computer; this laptop session only
+records the direction. Preserve direct-judge results as baselines and inspect
+actual jobs before launching models. No previous job was stopped or modified.
+
 ## Execution status
 
 2026-11-12: user authorized a source-balanced ProofNet/Faithform pilot to mitigate

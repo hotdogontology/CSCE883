@@ -16,7 +16,7 @@ Heuristic relatedness: 0.666.
 **Anchor English proof:** \newcommand{\legendre}[2]{\genfrac{(}{)}{}{}{#1}{#2}}
 Write $p = 2^k + 1$, with $k = 2^n$.
 
-We suppose that $n>0$, so $k\geq 2, p \geq 5$. As $p$ is prime, $3^{p-1} \equiv 1 \pmod p$. 
+We suppose that $n>0$, so $k\geq 2, p \geq 5$. As $p$ is prime, $3^{p-1} \equiv 1 \pmod p$.
 
 In other words, $3^{2^k} \equiv 1 \pmod p$ : the order of $3$ is a divisor of $2^k$, a power of $2$.
 
@@ -28,7 +28,7 @@ As the result is true for $p=5$, we can suppose $n\geq 2$.
 From the law of quadratic reciprocity :
 $$\legendre{3}{p} \legendre{p}{3} = (-1)^{(p-1)/2} = (-1)^{2^{k-1}} = 1.$$
 So $\legendre{3}{p} = \legendre{p}{3}$
- 
+
 \begin{align*}
 p = 2^{2^n}+1 &\equiv (-1)^{2^n} + 1 \pmod 3\\
 &\equiv 2 \equiv -1 \pmod 3,

@@ -1,6 +1,6 @@
 # Project TODO
 
-Last updated: 2026-11-11. Current plan: [methodology.md](methodology.md).
+Last updated: 2026-11-12. Current plan: [methodology.md](methodology.md).
 Current context and session log: [SESSION_SUMMARY.md](SESSION_SUMMARY.md).
 
 **Governing objective (user reaffirmed 2026-11-10):** every test is intended to
@@ -48,6 +48,18 @@ Completed human actions:
 - [x] Obtained an AXLE API key and saved it locally in ignored `.env`.
 
 ## AGENT TODO
+
+### Next on experiment machine: informalization and English comparison
+
+- [x] Record the user's two-stage direction and laptop-to-workstation handoff.
+- [x] Read the workstation results and preserve completed 14B baselines; active32B pilot remains independent of this new plan.
+- [ ] Audit existing paired proof data for Lean-to-English supervision and search
+  for English alternative-proof datasets; distinguish theorem from argument labels.
+- [ ] Prepare theorem-family splits and a small independently assessed pilot for
+  both translator fidelity and English argument comparison.
+- [ ] Select concrete models/objectives and train/evaluate both stages, including
+  untuned and direct-judge baselines and end-to-end mismatch metrics.
+
 
 ### Source-balanced pilot, authorized 2026-11-12
 

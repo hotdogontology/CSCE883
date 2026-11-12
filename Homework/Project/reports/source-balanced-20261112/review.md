@@ -707,7 +707,7 @@ Proof. Let $G$ be a group and let $I$ be a nonempty set of indices, not necessar
 $$
 N=\bigcap_{\alpha \in I} N_\alpha .
 $$
-We know $N$ is a subgroup of $G$. 
+We know $N$ is a subgroup of $G$.
 For any $g \in G$ and any $n \in N$, we must have $n \in N_\alpha$ for each $\alpha$. And since $N_\alpha \unlhd G$, we have $g n g^{-1} \in N_\alpha$ for each $\alpha$. Therefore $g n g^{-1} \in N$, which shows that $g N g^{-1} \subseteq N$ for each $g \in G$. As before, this is enough to complete the proof.
 ```
 
