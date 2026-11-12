@@ -1,6 +1,25 @@
 # Project session summary
 
-Last updated: 2026-11-09 (America/New_York).
+Last updated: 2026-11-12 (America/New_York).
+
+## Latest handoff: laptop discussion, 2026-11-12
+
+**User's preferred next direction:** train Lean-to-English informalization, then
+train English-to-English semantic argument comparison. See
+[informalization-experiment.md](informalization-experiment.md) for the two-stage
+design, dataset leads, evaluation distinctions and experiment-machine checklist.
+The user believes this is now the most promising direct route and wants to resume
+on the larger computer that runs local models. This session updated documentation
+only; no local models were run and remote experiment status was not inspected.
+Preserve prior results and check actual 14B job state on that machine before work.
+
+The target remains argument fidelity, not just theorem equivalence: different
+valid proofs of one theorem are candidate negatives. Existing English/Lean pairs
+may support reverse-direction training, and multiple English proofs per theorem
+may support comparator training; availability/quality remain to be researched.
+Keep informalizer fidelity separate from comparator and end-to-end performance.
+Earlier experiment-machine paths/statuses below are historical, not this laptop's
+environment. Current laptop checkout is `C:\Users\tbelcher\USC Course Repos\CSCE883`.
 
 ## Start here in a new session
 

@@ -1,9 +1,15 @@
 # Project TODO
 
-Last updated: 2026-11-09. Current plan: [methodology.md](methodology.md).
+Last updated: 2026-11-12. Current plan: [methodology.md](methodology.md).
 Current context and session log: [SESSION_SUMMARY.md](SESSION_SUMMARY.md).
 
-**Current direction:** unquantized Qwen3-14B proof-body experiment; see
+**Preferred next direction (2026-11-12):** train Lean-to-English, then train
+English-to-English argument comparison; see
+[informalization-experiment.md](informalization-experiment.md). Resume on the
+experiment computer; this laptop session changed documentation only.
+
+**Previously launched experiment, current remote status unknown:**
+unquantized Qwen3-14B proof-body experiment; see
 `argument-experiment.md`. No second-pass self-training. Preserve completed 8B
 statement-only results. Inspect `artifacts/argument-14b/job.json` before launching
 any further GPU jobs; driver waits for hash-verified download then runs the stages.
@@ -37,7 +43,18 @@ Completed human actions:
 
 ## AGENT TODO
 
-### Active: BF16 14B argument correspondence
+### Next on experiment machine: informalization and English comparison
+
+- [x] Record the user's two-stage direction and laptop-to-workstation handoff.
+- [ ] Inspect actual 14B job status and newer artifacts; preserve earlier baselines.
+- [ ] Audit existing paired proof data for Lean-to-English supervision and search
+  for English alternative-proof datasets; distinguish theorem from argument labels.
+- [ ] Prepare theorem-family splits and a small independently assessed pilot for
+  both translator fidelity and English argument comparison.
+- [ ] Select concrete models/objectives and train/evaluate both stages, including
+  untuned and direct-judge baselines and end-to-end mismatch metrics.
+
+### Previously launched: BF16 14B argument correspondence
 
 - [x] Save user-suggested verbose-lean4 / natural_lean references and independent
   English/Lean-to-verbose-Lean architecture idea in `references.md` and
