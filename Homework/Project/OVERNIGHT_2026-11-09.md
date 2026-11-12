@@ -1,5 +1,9 @@
 # Overnight run — 2026-11-09
 
+Morning review,2026-11-10: full pipeline completed07:01Eastern. See
+[RESULTS_2026-11-10.md](RESULTS_2026-11-10.md). The setup/running descriptions
+below are historical; no restart is needed.
+
 User authorized continuing the next stage while away. The 14B download is
 complete and hash-verified. The corrected run is active at
 `artifacts/argument-14b/overnight-20261109/job.json`; aggregate reports are in

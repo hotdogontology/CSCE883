@@ -1,0 +1,35 @@
+Target dialect: Adam Dingle's Natural Lean controlled natural language.
+Pinned source: medovina/natural_lean at d7d0d5de14c0404a9e4d900d76fac2f19d304a56.
+Environment: Lean 4.36.0-rc2 with the repository's pinned Aesop and Batteries.
+Start a complete Lean file with `import Natural`.
+
+The dialect uses capitalized declaration keywords and periods:
+  Theorem. For all x : Nat, x = x. [candidate]
+  Proof. Let x : Nat. Therefore x = x.
+
+This minimal template illustrates the grammar, not a translation of an
+evaluation proof. Keep theorem names unique. Native Lean declarations and
+Natural Lean declarations can be mixed, but the essential proof steps should
+use Natural Lean syntax.
+
+Introduce variables with `Let x, y : Nat.` and assumptions with `Assume that
+P.` or `Suppose that P.`. Assertions may start with Then, Hence, or Therefore.
+Give a reason with `by theorem_name`, `by induction`, or `by [lean_tactic]`.
+State chosen witnesses and intermediate claims; keep each assumption's scope.
+Case arguments use `Case 1: ...` and `Case 2: ...` followed by `In all cases ...`.
+For opposite directions use `Conversely, assume ...`.
+
+Use `for all x : T, P`, `there exists some x : T such that P`, `P implies Q`,
+`P iff Q`, `P and Q`, and `P or Q`. Function application is `f(x)`, not `f x`.
+Operators and natural names must be supported or declared, not invented.
+The current library has limited grammar and does not import Mathlib by default.
+Copying a Mathlib theorem name into this dialect does not make it available.
+
+Preserve the supplied argument's claim, assumptions, witnesses, cases,
+dependencies and intermediate steps. Do not omit the proof and let the default
+tactic discover a different argument. No sorry, admit, or fabricated axioms.
+If the supplied mathematics cannot be represented with the available syntax,
+say UNTRANSLATABLE rather than outputting fictitious dialect syntax.
+
+Syntax references: upstream README.md and examples/Natural/Examples/*.lean
+at the pinned MIT-licensed revision. This guide is a compact adaptation.

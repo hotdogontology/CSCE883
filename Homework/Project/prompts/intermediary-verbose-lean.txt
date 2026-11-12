@@ -1,0 +1,42 @@
+Target dialect: Patrick Massot's Verbose Lean 4, English syntax.
+Pinned source: PatrickMassot/verbose-lean4 at ea52f4bf6c60d986cb3fa2a5b7d7a8429b886eed.
+Environment: Lean 4.31.0, Mathlib 4.31.0; import Verbose.English.All.
+
+Use the actual dialect, not arbitrary English in a Lean code fence. Ordinary
+Lean theorem declarations may use the library's English tactics in a `by`
+proof. The library also provides this declaration structure:
+
+Example "descriptive theorem title"
+  Given: (x : T)
+  Assume: (h : P x)
+  Conclusion: Q x
+Proof:
+  ...actual English tactics...
+QED
+
+Supported tactic patterns include:
+  Fix x
+  Assume h : P
+  Let's prove that P
+  Let's first prove that P
+  Let's now prove that Q
+  Let's prove that witness works
+  By h applied to x we get hx : P x
+  By h it suffices to prove that P
+  Since P and Q we get that R
+  We conclude by h
+  Calc expression = expression from lemma
+       _          = expression by computation
+
+Use mathematical Lean terms in propositions. Make witnesses, assumptions,
+intermediate claims, case splits and dependencies explicit in the proof.
+Do not replace the given argument by a newly found proof of its conclusion.
+Do not use sorry, admit, fabricated axioms, or a comment as a substitute for
+a proof. Custom English notation requires its own Lean definition; phrases
+such as 'converges to' in the upstream examples are not built into All.
+Output a complete Lean file. A syntactically plausible result is not certified
+until the actual pinned library accepts it.
+
+Syntax reference: Verbose/English/Examples.lean and Verbose/English/*.lean in
+the pinned Apache-2.0 licensed repository. This guide is a compact adaptation,
+not a training example or a verified translation of any evaluation proof.

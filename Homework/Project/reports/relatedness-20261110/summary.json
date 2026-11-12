@@ -1,0 +1,148 @@
+{
+  "scope": "Descriptive survey of UNLABELED related swaps; no candidate accuracy computed",
+  "replay": {
+    "rows": 365,
+    "status_counts": {
+      "compiled": 365
+    },
+    "mathlib_revision": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
+    "policy": "Isolated extracted target + retained helper context; successful elaboration required; no argument labels established."
+  },
+  "mining": {
+    "scope": "UNLABELED hard-swap candidate mining; not trusted negatives or model accuracy",
+    "ranking": "0.45 English statement char cosine +0.45 formal statement char cosine +0.10 proof-module cosine; heuristic, not calibrated relatedness",
+    "fit_policy": "Training-only vocabularies/IDF; within-existing-split donors; no core inputs",
+    "dependency_status": {
+      "compiled": 365
+    },
+    "candidate_gate": "Successful Lean4.28 replay and complete local-helper dependency expansion required for both sources",
+    "dependencies_sha256": "ad6c7aa32557dbf34b79bfecdd3fa225aa69fd14dcca6b55150f7677d1bedddd",
+    "inputs_sha256": {
+      "train": "5b26937359132d4b157d1cea8e4612d4a9098fc05c2d3f1c145c17deb994a4f9",
+      "validation": "b90890c5283fea7f0cb1c2b2dc2fcd323e8db2c821decdea7e49b457c749ca8f"
+    },
+    "splits": {
+      "train": {
+        "sources": 255,
+        "candidate_rows": 765,
+        "token_reassignment_rounds": 1,
+        "all_prompts_within_4096": true,
+        "exact_english_proof_marginals": true,
+        "exact_english_bundle_marginals": true,
+        "random_comparable_pairs": 255,
+        "mean_random_relatedness": 0.05054306419085271,
+        "mean_mined_relatedness": 0.31114288950994445
+      },
+      "validation": {
+        "sources": 59,
+        "candidate_rows": 177,
+        "token_reassignment_rounds": 0,
+        "all_prompts_within_4096": true,
+        "exact_english_proof_marginals": true,
+        "exact_english_bundle_marginals": true,
+        "random_comparable_pairs": 59,
+        "mean_random_relatedness": 0.05628489011957056,
+        "mean_mined_relatedness": 0.25677896334696215
+      }
+    },
+    "graph": {
+      "nodes": 10343,
+      "edges": 83785,
+      "scope": "resolved constants/modules referenced by successful source replays plus direct imports and subject directories; not all mathlib"
+    }
+  },
+  "environment": {
+    "status": "complete",
+    "scope": "isolated archived ProofNet environment",
+    "version": "4.28.0",
+    "stage": "complete",
+    "lean_sha256": "faa0a8213ec81035d1ff3745d6d28e55b9d80de63fb9cd33380cd51b23cfc1aa",
+    "mathlib_revision": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
+    "lean_version": "Lean (version 4.28.0, x86_64-w64-windows-gnu, commit 7e01a1bf5c70fc6167d49c345d3bf80596e9a79b, Release)"
+  },
+  "models": {
+    "untuned": {
+      "related_english_bundle_candidate": {
+        "rows": 59,
+        "status_counts": {
+          "predicted": 59
+        },
+        "yes_count": 0,
+        "no_count": 59
+      },
+      "related_swap_candidate": {
+        "rows": 59,
+        "status_counts": {
+          "predicted": 59
+        },
+        "yes_count": 2,
+        "no_count": 57
+      },
+      "source_positive_control": {
+        "rows": 59,
+        "status_counts": {
+          "predicted": 59
+        },
+        "yes_count": 37,
+        "no_count": 22
+      }
+    },
+    "tuned": {
+      "related_english_bundle_candidate": {
+        "rows": 59,
+        "status_counts": {
+          "predicted": 59
+        },
+        "yes_count": 8,
+        "no_count": 51
+      },
+      "related_swap_candidate": {
+        "rows": 59,
+        "status_counts": {
+          "predicted": 59
+        },
+        "yes_count": 9,
+        "no_count": 50
+      },
+      "source_positive_control": {
+        "rows": 59,
+        "status_counts": {
+          "predicted": 59
+        },
+        "yes_count": 59,
+        "no_count": 0
+      }
+    },
+    "forest_english_only": {
+      "related_english_bundle_candidate": {
+        "rows": 59,
+        "yes_count": 51
+      },
+      "related_swap_candidate": {
+        "rows": 59,
+        "yes_count": 31
+      },
+      "source_positive_control": {
+        "rows": 59,
+        "yes_count": 51
+      },
+      "accuracy": null,
+      "english_bundle_control_scores_identical_as_multisets": true
+    },
+    "forest_both_languages": {
+      "related_english_bundle_candidate": {
+        "rows": 59,
+        "yes_count": 48
+      },
+      "related_swap_candidate": {
+        "rows": 59,
+        "yes_count": 39
+      },
+      "source_positive_control": {
+        "rows": 59,
+        "yes_count": 50
+      },
+      "accuracy": null
+    }
+  }
+}

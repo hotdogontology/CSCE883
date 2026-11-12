@@ -1,0 +1,149 @@
+{
+  "seed": 883,
+  "sklearn": "1.9.1",
+  "policy": "All vocabulary/SVD/classifier fitting uses training only; fixed hyperparameters; threshold 0.5; no test tuning.",
+  "limitations": "Synthetic cross-problem labels; small unreviewed core; lexical baseline, not semantic proof verification.",
+  "input_sha256": {
+    "artifacts\\argument-14b\\overnight-20261109\\budget-data\\train.jsonl": "5b26937359132d4b157d1cea8e4612d4a9098fc05c2d3f1c145c17deb994a4f9",
+    "artifacts\\argument-14b\\overnight-20261109\\budget-data\\validation.jsonl": "b90890c5283fea7f0cb1c2b2dc2fcd323e8db2c821decdea7e49b457c749ca8f",
+    "artifacts\\argument-14b\\core\\test.jsonl": "35efddf44790879b8b9f46ef934778882c0e2c73036696c81b4e4c7509696c9b"
+  },
+  "models": {
+    "english_only": {
+      "validation": {
+        "n": 118,
+        "accuracy": 0.9152542372881356,
+        "balanced_accuracy": 0.9152542372881356,
+        "auroc": 0.97701809824763,
+        "classification": {
+          "False": {
+            "precision": 0.8769230769230769,
+            "recall": 0.9661016949152542,
+            "f1-score": 0.9193548387096774,
+            "support": 59.0
+          },
+          "True": {
+            "precision": 0.9622641509433962,
+            "recall": 0.864406779661017,
+            "f1-score": 0.9107142857142857,
+            "support": 59.0
+          },
+          "accuracy": 0.9152542372881356,
+          "macro avg": {
+            "precision": 0.9195936139332366,
+            "recall": 0.9152542372881356,
+            "f1-score": 0.9150345622119815,
+            "support": 118.0
+          },
+          "weighted avg": {
+            "precision": 0.9195936139332366,
+            "recall": 0.9152542372881356,
+            "f1-score": 0.9150345622119815,
+            "support": 118.0
+          }
+        }
+      },
+      "same_theorem_diagnostic": {
+        "n": 16,
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.5,
+        "auroc": 0.5,
+        "classification": {
+          "False": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 8.0
+          },
+          "True": {
+            "precision": 0.5,
+            "recall": 1.0,
+            "f1-score": 0.6666666666666666,
+            "support": 8.0
+          },
+          "accuracy": 0.5,
+          "macro avg": {
+            "precision": 0.25,
+            "recall": 0.5,
+            "f1-score": 0.3333333333333333,
+            "support": 16.0
+          },
+          "weighted avg": {
+            "precision": 0.25,
+            "recall": 0.5,
+            "f1-score": 0.3333333333333333,
+            "support": 16.0
+          }
+        }
+      }
+    },
+    "both_languages": {
+      "validation": {
+        "n": 118,
+        "accuracy": 0.8898305084745762,
+        "balanced_accuracy": 0.8898305084745762,
+        "auroc": 0.9617925883366849,
+        "classification": {
+          "False": {
+            "precision": 0.859375,
+            "recall": 0.9322033898305084,
+            "f1-score": 0.8943089430894309,
+            "support": 59.0
+          },
+          "True": {
+            "precision": 0.9259259259259259,
+            "recall": 0.847457627118644,
+            "f1-score": 0.8849557522123894,
+            "support": 59.0
+          },
+          "accuracy": 0.8898305084745762,
+          "macro avg": {
+            "precision": 0.892650462962963,
+            "recall": 0.8898305084745762,
+            "f1-score": 0.8896323476509101,
+            "support": 118.0
+          },
+          "weighted avg": {
+            "precision": 0.892650462962963,
+            "recall": 0.8898305084745762,
+            "f1-score": 0.8896323476509101,
+            "support": 118.0
+          }
+        }
+      },
+      "same_theorem_diagnostic": {
+        "n": 16,
+        "accuracy": 0.5625,
+        "balanced_accuracy": 0.5625,
+        "auroc": 0.578125,
+        "classification": {
+          "False": {
+            "precision": 1.0,
+            "recall": 0.125,
+            "f1-score": 0.2222222222222222,
+            "support": 8.0
+          },
+          "True": {
+            "precision": 0.5333333333333333,
+            "recall": 1.0,
+            "f1-score": 0.6956521739130435,
+            "support": 8.0
+          },
+          "accuracy": 0.5625,
+          "macro avg": {
+            "precision": 0.7666666666666666,
+            "recall": 0.5625,
+            "f1-score": 0.45893719806763283,
+            "support": 16.0
+          },
+          "weighted avg": {
+            "precision": 0.7666666666666666,
+            "recall": 0.5625,
+            "f1-score": 0.45893719806763283,
+            "support": 16.0
+          }
+        }
+      }
+    }
+  }
+}

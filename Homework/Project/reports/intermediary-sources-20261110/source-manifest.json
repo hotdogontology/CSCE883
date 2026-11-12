@@ -1,0 +1,28 @@
+[
+  {
+    "repository": "PatrickMassot/verbose-lean4",
+    "revision": "ea52f4bf6c60d986cb3fa2a5b7d7a8429b886eed",
+    "url": "https://codeload.github.com/PatrickMassot/verbose-lean4/zip/ea52f4bf6c60d986cb3fa2a5b7d7a8429b886eed",
+    "archive_sha256": "9e6276aef16f33f0663808e73da81b922599fd1f71e2cda1010a545a0ccf724b",
+    "source": "data/intermediary-sources/verbose-lean4-ea52f4bf6c60d986cb3fa2a5b7d7a8429b886eed",
+    "downloaded_only": true,
+    "toolchain": "leanprover/lean4:v4.31.0"
+  },
+  {
+    "repository": "medovina/natural_lean",
+    "revision": "d7d0d5de14c0404a9e4d900d76fac2f19d304a56",
+    "url": "https://codeload.github.com/medovina/natural_lean/zip/d7d0d5de14c0404a9e4d900d76fac2f19d304a56",
+    "archive_sha256": "e6b6c3de4f1961b531e2c799898930f954fadedaba04d13b7d1166c62365bdb6",
+    "source": "data/intermediary-sources/natural_lean-d7d0d5de14c0404a9e4d900d76fac2f19d304a56",
+    "downloaded_only": true,
+    "toolchain": "leanprover/lean4:v4.36.0-rc2"
+  },
+  {
+    "repository": "JustVugg/colibri",
+    "revision": "0a5504a1dc64f86fcd0fe7db298b0448c730e7e6",
+    "url": "https://codeload.github.com/JustVugg/colibri/zip/0a5504a1dc64f86fcd0fe7db298b0448c730e7e6",
+    "archive_sha256": "888292526f47ebc2d0b92267e42c59cc5b6d20de06040bdf41dc5b86d772ec86",
+    "source": "data/intermediary-sources/colibri-0a5504a1dc64f86fcd0fe7db298b0448c730e7e6",
+    "downloaded_only": true
+  }
+]

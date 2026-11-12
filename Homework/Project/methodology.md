@@ -1,6 +1,63 @@
 # Correspondence judge: current project plan
 
-Last updated: 2026-11-09. This is the current research and experimental plan.
+## Governing research question
+
+Can we identify semantic differences between a natural-language mathematical
+proof and its corresponding Lean proof? Every experiment serves this question.
+As specified in `project-proposal-tbelcher.tex` and reaffirmed by the user on
+2026-11-10, differences include changed assumptions, conclusions or argument
+steps, even when Lean verifies the formalization. Routine formal elaboration and
+equivalent presentations are allowed. Main evaluations and baseline comparisons
+must compare English and Lean proof evidence, with justified or explicitly
+assumed labels for semantic correspondence. Same-theorem alternative arguments
+are an important test category, alongside other semantic changes.
+
+English-only coherence tests are secondary controls. Their performance does not
+measure cross-language semantic correspondence. Neither lexical similarity nor
+Lean compilation alone answers the research question. For any new test, specify
+the intended semantic change, label provenance, and what its metrics can establish
+about the paired task. Unlabeled acceptance rates establish no semantic accuracy.
+Retain the proposal's focus on false acceptance of unfaithful translations and
+report mismatch precision/recall/F1, confusion matrices and semantic error cases
+where labels support those claims.
+
+## Execution status
+
+2026-11-12: user authorized a source-balanced ProofNet/Faithform pilot to mitigate
+source-label shortcuts. See SOURCE_BALANCED_PILOT.md for implemented32-row data,
+provisional label evidence, grouped splits, secondary controls, and the32B runner.
+Faithform local inference and ProofNet full-proof scopes must be reported separately.
+No provisional label is human gold, and balanced source does not prove shortcut freedom.
+
+Results reviewed2026-11-11: all8stages of the related-proof/intermediary queue
+completedNovember10 at21:19 Eastern. See `RESULTS_2026-11-11.md`. New test
+42/54original->53/54freshLoRA; old same-theorem diagnostic15/16->11/16. The four
+original-model translation architectures ran, but their textual scores have
+unequal coverage and no complete code-intermediary pair passed compilation.
+Both dialect environments are built. Conditional generator fine-tuning was not
+performed because no suitable paired dataset was found. Colibri research/planner
+only; no larger-model inference. Earlier execution-status paragraphs are history.
+
+New authorization, 2026-11-10 evening: execute the relatedness-threshold and
+translation-intermediary comparisons in `OVERNIGHT_2026-11-10.md`. New grouped
+train/validation/test splits, fresh original-model LoRA, and explicit synthetic
+negative labels are planned; preparation resumed after a connection interruption.
+The older candidate-review prerequisite is superseded by this authorization.
+Data are frozen at366/60/54 training/validation/test rows and the eight-stage
+background queue started17:53 Eastern. Smoke execution checks passed for all
+four translation architectures; generated Lean validity is separately measured.
+Check the new job artifacts before describing an individual stage as complete.
+
+2026-11-10 follow-up: overnight14B run completed; results in
+`RESULTS_2026-11-10.md`. A frozen-split lexical random forest baseline is now
+completed. See `relatedness-and-baselines.md` for measured comparisons and the
+mathlib dependency-graph approach to mining harder negatives. Graph/mining pilot
+and frozen-model surveys are now completed; see `reports/relatedness-20261110/README.md`.
+All365 extracted targets locally elaborate with isolated Lean4.28; candidates
+remain unlabeled, and new hard-negative training is not performed. Earlier hold/run status
+below is historical.
+
+Last updated: 2026-11-10. This is the current research and experimental plan.
 The first/second-pass statement experiment is now implemented and completed;
 other methods below remain proposals unless explicitly recorded as implemented.
 This is not an amendment to the submitted proposal. Qwen3-8B is the first model; this is
@@ -8,25 +65,23 @@ not a claim that it is the best-performing backbone.
 
 ## Current protocol after the 2026-11-09 audit
 
-Evening continuation: audit data defects are corrected and the user authorized
-the overnight stage. See [OVERNIGHT_2026-11-09.md](OVERNIGHT_2026-11-09.md). A fresh
-BF16 14B run now uses corrected family-grouped data, post-filter regenerated
-negatives, the English-only control and a compiled same-theorem diagnostic with
-formal-proof masking. The older held v3 descriptions below are historical. This
-does not turn the coarse swap task into a validated argument benchmark.
-
-Read [PLAN_AUDIT_2026-11-09.md](PLAN_AUDIT_2026-11-09.md) before new runs. The
-14B download is verified complete; its training driver is held before loading
-the model because extraction, split and evaluation defects need correction.
-The user's ProofNet-positive assumption remains in force; no second pass is
-included in the new experiment.
+The corrected BF16 14B overnight run is complete. It used family-grouped data,
+post-filter regenerated negatives, an English-only control and a compiled
+same-theorem diagnostic with formal-proof masking. Read
+[RESULTS_2026-11-10.md](RESULTS_2026-11-10.md) for measured results and
+[PLAN_AUDIT_2026-11-09.md](PLAN_AUDIT_2026-11-09.md) for the audit history.
+This does not turn the coarse swap task into a validated argument benchmark.
+The user's ProofNet-positive assumption remains in force; no second pass was
+included. The later relatedness graph/mining and forest Herald surveys are also
+complete, with no new Qwen adaptation or trusted hard-negative labels.
 
 | Experiment | Inputs / labels | State and permissible claim |
 | --- | --- | --- |
 | 8B statement matching | English/Lean statements; original audits plus corrected positives | Completed; report exact metrics with source-style confound and single-split limitations |
-| 14B cross-problem proof consistency | Both proofs; assumed ProofNet positives and unrelated English proof swaps | Held; requires extraction/split fixes and English-only controls; does not establish route matching |
-| Same-theorem argument matching | Two valid English/Lean routes crossed into a 2x2 per theorem | Proposed core evaluation; prevents either language or compilation alone from deciding labels |
-| Herald survey | Untuned/tuned predictions, no independent labels | Descriptive coverage and disagreement, not accuracy |
+| 14B cross-problem proof consistency | Both proofs; assumed ProofNet positives and unrelated English proof swaps | Completed with corrected extraction/splits and English-only control; does not establish route matching |
+| Same-theorem argument matching | Two valid English/Lean routes crossed into a 2x2 per theorem | Completed small agent-constructed diagnostic: four theorem families, 16 cases; independent review and expansion remain |
+| Related-proof mining | Statement similarities and resolved mathlib dependencies; unlabeled proof-only and English-bundle swaps | Graph and frozen-model surveys completed; label review and lexical-only retrieval comparison remain |
+| Herald survey | Untuned/tuned Qwen and two forests, no independent labels | Completed on 44,537 shared scored IDs; descriptive coverage and disagreement, not accuracy |
 | Verbose Lean intermediary | Independently translated proof views, same reserved argument tests | Future representation comparison before generator reward optimization |
 
 Current implementation uses constrained generative YES/NO token scoring with

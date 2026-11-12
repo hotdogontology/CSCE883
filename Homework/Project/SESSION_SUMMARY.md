@@ -1,6 +1,6 @@
 # Project session summary
 
-Last updated: 2026-11-09 (America/New_York).
+Last updated: 2026-11-11 (America/New_York).
 
 ## Start here in a new session
 
@@ -9,11 +9,15 @@ repository. On this workstation the full path is
 `C:\Users\tbelcher\GitHub Repos\Public\CSCE883\Homework\Project`.
 
 Read this document, [TODO.md](TODO.md), and [methodology.md](methodology.md).
+For the current Tuesday-night extension, read [OVERNIGHT_2026-11-10.md](OVERNIGHT_2026-11-10.md)
+and [the live report](reports/hard-related-20261110/README.md), then inspect
+`artifacts/hard-related-20261110/job.json`. Older handoffs below are historical.
 For the unattended Friday run, first read [MONDAY_HANDOFF.md](MONDAY_HANDOFF.md)
 and [automatically published results](reports/two-pass/README.md). Those snapshots
 may be newer than the static session notes below.
 The methodology is the current experimental plan; TODO tracks execution. The
-submitted proposal is historical context, not a record of everything implemented.
+submitted `project-proposal-tbelcher.tex` anchors the research question; current
+files record what was actually implemented and later user decisions.
 
 A useful new-session request is: "Read Homework/Project/SESSION_SUMMARY.md and
 TODO.md, check the current files, and continue the project."
@@ -24,6 +28,16 @@ exhaustive transcript of sessions outside the available history. Verify current
 files and tool availability before relying on older operational details.
 
 ## Objective
+
+**User reaffirmed, 2026-11-10:** every test serves the single research question:
+can we identify semantic differences between natural-language mathematical
+proofs and their corresponding Lean proofs? The proposal was reread. Its target
+includes changed assumptions, conclusions and argument steps, especially formally
+valid Lean that is an unfaithful translation. English-only coherence, lexical
+similarity and compilation are not substitutes for that question. Single-language
+controls are secondary diagnostics, not evidence of cross-language semantic
+ability. Same-theorem route comparisons are one important subset, not the entire
+definition of semantic difference. This clarification is now in `AGENTS.md`.
 
 New data research (2026-11-06): see [verified-data-survey.md](verified-data-survey.md).
 ProofNet-Verified supplies audited statement alignment, not certified argument
@@ -53,6 +67,178 @@ Different valid proofs of one theorem can match statements but differ in argumen
 Allow uncertain labels; missing English proof material is not a negative label.
 
 ## Current state
+
+2026-11-12 source-balanced pilot implemented and32B run launched. User authorized
+mitigating dataset-source shortcuts. Read SOURCE_BALANCED_PILOT.md and the live
+artifacts/source-balanced-20261112/qwen32/job.json. Dataset32rows (16/8/8), each
+split equally balanced by source AND label.16 provisional agent-reviewed Faithform
+local-inference pairs from4problems;16 existing ProofNet full-proof positive/related
+swap pairs. Review rationale and manifest saved under reports/source-balanced-20261112.
+Source-only control50%; other simple controls50–62.5%, too small to certify absence
+of shortcuts.32B checkpoint download/hash verification complete. New static CPU/GPU
+BF16 runner performs baseline, a backward/optimizer probe, then conditional one-epoch
+LoRA and reevaluation. Started corrected processPID15256; inspect actual live state.
+No human gold labels claimed; Faithform placeholders cannot establish full-proof
+route fidelity. Tokenizer startup issue fixed before any experimental predictions.
+
+2026-11-12: user corrected intended32B dataset from ProofFlow to Faithform;
+requested label inspection. Read FAITHFORM_LABEL_AUDIT.md. Inspected first100
+rows of each paired release plus upstream metric/prover/perturbation code.
+Labels are validity/intervention outcomes, not human binary correspondence.
+Found concrete missing-hypothesis and assumed-conclusion mismatch candidates,
+and a perturbed example that appears still valid. Truth-status reversals can
+mine negatives under checked assumptions; same status cannot certify positives.
+No training/new binary labels. Earlier ProofFlow question/plan is historical,
+not the currently intended dataset.
+
+Qwen32/ProofFlow audit update: 737 JSON files downloaded and blob-hash verified;
+366 full English–Lean pairs extracted across184 groups, all fidelity labels null.
+Upstream compilation flags31pass/335fail are not correspondence labels or local
+verification. Another368 step-schema files need source joins. Download of32B
+remains in progress, with final hash verification pending. Training policy awaits
+the user's answer; no base/tuned comparison has run.
+
+2026-11-11 Qwen32/ProofFlow work authorized and started. See
+[QWEN32_PROOFFLOW.md](QWEN32_PROOFFLOW.md). Qwen3-32B download launched (PID33988),
+61.04 GiB, separate qwen32-model-manifest.json and ignored weights/logs. Confirm
+download_complete before loading. Found 736 upstream ProofFlow JSON result
+artifacts with English/generated-Lean content beyond the graph-only main file;
+pinned JSON-only audit running. Semantic labels remain unknown. Asked user to
+choose existing training data plus external ProofFlow evaluation versus a new
+provisionally labeled ProofFlow training set. No 32B tuning/evaluation yet;
+GPU-only 14B loader cannot support it unchanged, and training offload needs proof.
+
+2026-11-11 larger-model feasibility refresh: live hardware check found RTX A6000
+49140 MiB VRAM (634 MiB used), 127.8 GiB host RAM (105.7 GiB available), and
+3475.9 GiB free on the project drive. Rechecked current Colibri README/GGUF docs.
+Recommended first larger controlled comparison is Qwen3-32B BF16 with GPU/CPU
+placement via Transformers/Accelerate; roughly 64 GB of weights exceeds VRAM
+but fits host memory. Feasibility estimate only, no throughput measured.
+Colibri supports Qwen3 dense and MoE, but strongest streaming benefits concern
+sparse MoE; documented CPU F16/BF16 matrices expand to F32 and CUDA tiled BF16
+converts to FP16. Preserve precision explicitly. No larger model downloaded or
+installed, no inference/training run in this refresh. Running an offloaded model
+does not establish that LoRA training will fit.
+
+2026-11-11 dataset follow-up: added Pistis and Robert Joseph George's supplied
+blog to references.md. Confirmed Faithform-AF/LLMs have English-step/generated-
+Lean pairs plus prover results (~153k/~102k viewer rows, repeated problems).
+Validity/refutation and perturbation flags are NOT correspondence labels.
+IMO-Steps HF is the public Lean release; inspected tree still lacks individual
+o3-mini paired annotations. User retains interest in ProofFlow graphs without
+Lean counterparts. Details and proposed blog-inspired extensions are in the
+semantic data search report. No new training or label changes.
+
+2026-11-11 dataset search: user requested real semantic-correspondence training
+data beyond the synthetic 16-pair diagnostic. Read
+[SEMANTIC_DATA_SEARCH_2026-11-11.md](SEMANTIC_DATA_SEARCH_2026-11-11.md).
+Pistis human fidelity ratings and IMO-Steps individual model mismatch annotations
+are promising leads, but their per-example releases were not located. ProofFlow
+has 184 English proof/graph rows, not ready labeled English–Lean pairs; spot checks
+found source-alignment concerns. FaithformBench/RobustPABench offer constructed
+step-level stress tests. Statement-only datasets remain auxiliary. No new
+training, imported labels, or author outreach occurred.
+
+2026-11-11 results review: all8stages of the Tuesday queue completed at21:19
+Eastern onNovember10. Read `RESULTS_2026-11-11.md`; earlier launch statuses below
+are historical. New related-proof test: original42/54 (77.78%), freshLoRA53/54
+(98.15%); both reject all27synthetic negatives, false rejections12->1. Validation
+51/60->59/60. Old16-case same-theorem diagnostic15/16->11/16; tuned falsely accepts
+5/8mismatches, although both retainAUROC1.0. No threshold selected on this diagnostic.
+Training366balanced rows,46steps,35.65minutes,39.81GiBpeak; adapterverified.
+Original-model intermediary test correct/scored: English->Lean9/13 (13/54coverage),
+Lean->English33/48, Verbose20/35, Natural26/42. Oldcore12/12(firstmethod,4unscored)
+and16/16(otherthree). These are text judgments on different covered subsets.
+Zero complete code-intermediary comparison pairs have all generated branches
+compiled. Only2Verbose-target individual outputs compiled and both are ordinary
+Mathlib Lean, not actual Verbose syntax. Both dialect environments built correctly.
+Generator fine-tuning was conditional on suitable paired data, which was not
+found; Colibri was researched/planned only, without larger-model inference.
+No new model run during this review. Raw results and historical runs preserved.
+
+2026-11-10 evening: user authorized a new relatedness-threshold train/validation/
+test dataset, original vs freshly LoRA-tuned Qwen3-14B, four translation-based
+architectures (English-to-Lean, Lean-to-English, dual Verbose Lean, dual Natural
+Lean), and Colibri feasibility research. Work resumed after a connection error;
+see `OVERNIGHT_2026-11-10.md`. The background queue started at 17:53 Eastern;
+initial stage is `untuned-direct`. Read the live job file instead of assuming
+all requested stages have completed. Dataset is frozen: 366 training, 60
+validation, 54 test rows, each balanced. Threshold0.20; family split70/15/15
+before filtering; exact English/Lean marginals across labels. Primary negatives
+swap coherent English statement/proof bundles; proof-only diagnostics are saved.
+All four generation paths passed real GPU execution checks on old diagnostic
+examples; these are smoke checks, not new generalization evidence. English-to-
+Lean smoke outputs contain invalid Lean4 syntax. Separate compiler checks and
+compiler-qualified coverage prevent interpreting those outputs as verified Lean.
+The eight-stage queue uses one GPU worker at a time and writes an aggregate
+report after each stage. Original vs tuned direct judging uses validation/test/
+old-core; generation architectures use test plus old-core only.
+Natural Lean and upstream examples compile in isolated4.36-rc2; Verbose4.31
+also built successfully, including upstream examples and two actual syntax probes.
+Both matching compiler environments are now ready. No suitable curated paired
+dialect-generation dataset was located, so generation LoRA is not performed.
+Colibri source/planner research is in `reports/intermediary-sources-20261110/`:
+Windows/A6000 support exists, but default raw-safetensors loading uses int8 and
+requires explicit precision/memory testing before larger unquantized inference.
+No larger checkpoint download or Colibri model inference was performed.
+The new authorization permits synthetic similar-proof negative labels without
+requiring a manual review first; their assumed status must remain explicit.
+Earlier results and adapters are preserved. No second-pass self-training.
+
+2026-11-10 context correction: user challenged the emphasis on English-only
+controls. Agent acknowledged that these do not measure the target English–Lean
+semantic comparison, reread the original proposal, and updated AGENTS/methodology/
+TODO to keep every experiment tied to that question. No new run, relabeling,
+training or change to historical measurements accompanied this correction.
+
+Completed follow-up (2026-11-10): user authorized about an hour of independent work.
+Read `RELATEDNESS_RUN_2026-11-10.md` and live
+`artifacts/relatedness-20261110/job.json`. Isolated official Lean4.28/mathlib cache
+installed; all365 extracted targets replay successfully. Graph10343nodes/83785
+edges.765train/177validation views: controls, related English-proof swaps,
+related English bundles. All unlabeled, within original splits, donor marginals
+preserved, <=4096tokens. Frozen RF/Qwen surveys complete and original controls
+reproduce. Acceptance outof59 (control/proofswap/bundle): EnglishRF51/31/51,
+bothRF50/39/48, untuned37/2/0, tuned59/9/8. Not candidate accuracy. See
+`reports/relatedness-20261110/README.md`. Exact normalized signature audit found
+no duplicates (not an equivalence check). Full Herald forest survey completed:
+same 44,537 unique scored IDs; English-only forest YES44,531/NO6, both-language
+YES44,535/NO2. Original RF metrics reproduced; no known Herald accuracy. See
+`reports/random-forest-herald-20261110/README.md`. Raw predictions ignored.
+No new fine-tuning. Do not start duplicate drivers or interpret candidate survey
+acceptance counts as accuracy. Large environments/graphs/raw candidates ignored.
+
+2026-11-10 follow-up: user requested mathlib-based relatedness/harder proof swaps
+and a random forest comparison. See `relatedness-and-baselines.md`. Implemented
+and ran `scripts/random_forest_argument.py` on the unchanged510/118 split and
+16-case diagnostic: both-language forest105/118 (88.98%),9/16 (56.25%);
+English-only108/118 (91.53%),8/16. Training-only TF-IDF/SVD/features/forest fitting,
+fixed hyperparameters/0.5 threshold; no Qwen rerun. Full metrics and predictions
+in `reports/random-forest-20261110/`. Mathlib graph is a design, not completed
+extraction: use statement vs proof dependency/module features, candidate mining
+within splits and actual label review. Local4.11 vs ProofNet4.28 version mismatch
+must be resolved before authoritative elaborated dependency extraction.
+
+**Latest verified status (2026-11-10): the full corrected overnight 14B pipeline
+completed at07:01 Eastern.** Read `RESULTS_2026-11-10.md` and
+`reports/argument-14b-overnight/`. All setup/running/audit-hold entries below are
+historical. No model rerun or new training was started during this status review.
+
+Unquantized BF16 Qwen3-14B LoRA trained on510 balanced proof-body examples for
+3983.39s (~66.4min),64optimizer steps,39.72GiB peak VRAM; adapter saved.
+Coarse proof-swap validation: untuned96/118 (81.36%), tuned118/118 (100%).
+English-only control107/118 (90.68%) confirms this task's shortcut limitation.
+Same-theorem constructed diagnostic (4groups/16cells): untuned15/16 (93.75%),
+tuned8/16 (50%, all YES). Masked-formal control8/16 forboth. Crucially AUROC is
+1.0 forboth: all positives still rank above all negatives, but tuned scores
+saturate above the fixed decision threshold. Do not call this universal loss of
+argument discrimination or choose a new threshold on these diagnostic cases.
+
+Herald: each file verified44553uniqueIDs;44537scored,16too-long. UntunedYES34901 /
+NO9636; tunedYES44385 /NO152. Agreement34995,disagreement9542;9513NO-to-YES,
+29YES-to-NO. No independent Herald accuracy. Fullnight~13h15m. New score review
+saved at `reports/argument-14b-overnight/review-20261110.json`. Next recommendation:
+independent calibration and expanded same-theorem tests before more adaptation.
 
 **Latest authorization and active run (2026-11-09 evening):** user left for the
 night and requested the next stage. Audit extraction/split defects were corrected
@@ -399,6 +585,15 @@ implemented features and untested proposals. Never infer a completed experiment
 from a planning document.
 
 ## Session log
+
+### 2026-11-10 — completed overnight results review
+
+- Read handoff, plans, actual job state and all aggregate evaluations. Confirmed
+  complete pipeline, training metadata, unique Herald coverage and score behavior.
+- Saved post-run descriptive review. Coarse validation improved to100%, fixed-rule
+  core accuracy dropped to50% (allYES), while core ranking remainedperfectAUROC1.
+  Reported threshold/score saturation separately from actual ranking ability;
+  no calibration or model rerun performed. Updated completed TODOs/results note.
 
 ### 2026-11-09 — corrected overnight continuation
 

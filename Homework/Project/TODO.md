@@ -1,10 +1,22 @@
 # Project TODO
 
-Last updated: 2026-11-09. Current plan: [methodology.md](methodology.md).
+Last updated: 2026-11-11. Current plan: [methodology.md](methodology.md).
 Current context and session log: [SESSION_SUMMARY.md](SESSION_SUMMARY.md).
 
-**Current direction:** corrected overnight unquantized Qwen3-14B run is active;
-read `OVERNIGHT_2026-11-09.md`. Live state is
+**Governing objective (user reaffirmed 2026-11-10):** every test is intended to
+evaluate detecting semantic differences between natural-language math proofs
+and their corresponding Lean proofs. Follow `AGENTS.md` and the original proposal.
+English-only coherence and other proxy results are secondary diagnostics, not
+semantic-correspondence performance. Include assumptions, conclusions and argument
+steps; do not narrow the research question to one proxy or only same-theorem routes.
+
+**Latest results:** the related-proof and four-intermediary queue completed;
+read `RESULTS_2026-11-11.md`. Training improved54-pair test42->53correct, but
+old16-case argument diagnostic15->11. Generated-code validity remains a major
+limitation; no complete code-intermediary pair passed all compilation checks.
+
+**Earlier direction:** corrected overnight unquantized Qwen3-14B run completed;
+read `RESULTS_2026-11-10.md`. Completed state is
 `artifacts/argument-14b/overnight-20261109/job.json`. No second-pass self-training.
 Preserve completed 8B statement-only results and the archived audit/v3 inputs.
 For Monday, read `MONDAY_HANDOFF.md` and the newer generated aggregate snapshots
@@ -37,6 +49,94 @@ Completed human actions:
 
 ## AGENT TODO
 
+### Source-balanced pilot, authorized 2026-11-12
+
+- [x] Build32-row pilot balanced by source/class within each split, with explicit
+  provisional Faithform semantic reviews and preserved ProofNet split lineage.
+- [x] Strip label metadata/comments from inputs; check grouping, duplicates and balance.
+- [x] Run source/length/single-language shortcut controls as secondary diagnostics.
+- [x] Verify32B checkpoint completion and published hashes.
+- [x] Implement and launch static CPU/GPU BF16 baseline/probe/LoRA comparison.
+- [ ] Confirm backward/optimizer probe and complete baseline/tuned comparison;
+  inspect artifacts/source-balanced-20261112/qwen32/job.json.
+- [ ] Independently adjudicate pilot labels and expand Faithform problem/topic
+  coverage before interpreting scores as general semantic-correspondence ability.
+
+- [x] Inspect Faithform label semantics, upstream code and100 actual rows per
+  paired release; save FAITHFORM_LABEL_AUDIT.md (2026-11-12).
+- [ ] For the corrected32B Faithform experiment, establish semantic negative
+  and positive label evidence; do not map validity flags directly to YES/NO.
+  The earlier ProofFlow experiment target below was corrected by the user.
+
+### Qwen32 / ProofFlow, authorized 2026-11-11
+
+- [ ] Finish and hash-verify running Qwen3-32B download (qwen32-model-manifest.json).
+- [x] Finish pinned ProofFlow JSON release audit; preserve null fidelity labels.
+  Downloaded/hash-checked737 files; initial extractor recovered366 unlabeled pairs.
+- [ ] Join step-based ProofFlow outputs to English sources; audit missing pairs.
+- [ ] Resolve pending training-source/label-policy question; see QWEN32_PROOFFLOW.md.
+- [ ] Verify BF16 offloaded inference and a separate LoRA backward/optimizer probe.
+- [ ] Compare base/tuned 32B on identical ProofFlow pairs with appropriate metrics.
+
+- [x] Add Pistis to references; inspect Faithform paired-output schemas and
+  IMO-Steps HF files; read the user's semantic-fidelity blog and save ideas.
+- [ ] Evaluate Faithform step-pair extraction and defensible correspondence
+  labels; do not use perturbation flags or prover results as binary match labels.
+
+- [x] Search for argument-level semantic-correspondence datasets beyond synthetic
+  swaps; inspect public schemas and distinguish labels from validity proxies.
+  See `SEMANTIC_DATA_SEARCH_2026-11-11.md`.
+- [ ] Resolve availability of Pistis human-rated pairs and IMO-Steps individual
+  English–Lean mismatch annotations; author outreach has not been authorized.
+- [ ] If using ProofFlow, audit source alignment and obtain corresponding Lean
+  artifacts before assigning any argument-correspondence training labels.
+
+### Authorized overnight extension, 2026-11-10
+
+- [x] Build and validate grouped train/validation/test pairs using a fixed
+  relatedness threshold and explicitly synthetic negative labels.
+- [x] Evaluate original 14B and train/evaluate a fresh BF16 LoRA on that dataset.
+- [x] Run original 14B with English-to-Lean and Lean-to-English intermediaries.
+- [x] Run independently generated Verbose Lean and Natural Lean intermediaries;
+  preserve generation/compilation failures and coverage separately from labels.
+- [x] Research actual dialect training data and Colibri larger-model feasibility.
+- [x] Save the overnight queue, logs, provenance and report in
+  `OVERNIGHT_2026-11-10.md` and `reports/hard-related-20261110/`.
+
+Eight-stage background queue completed21:19 Eastern November10; independent
+results review is in `RESULTS_2026-11-11.md`. Real GPU smoke checks passed for all four generation paths;
+they do not establish translation validity. Natural Lean and Verbose Lean
+environments both built, with actual syntax/compilation probes. No suitable curated paired
+dialect training set found, so conditional generator fine-tuning is not run.
+Colibri planner/source study completed; larger-model inference remains untested.
+
+The new user authorization supersedes the older review-before-training task
+below for these synthetic related swaps. It does not certify their labels.
+
+- [x] Reread the original proposal and record the user's governing semantic
+  correspondence objective in AGENTS, methodology and session context.
+- [ ] Ground the next paired English–Lean evaluation in explicit semantic
+  differences and justified/assumed labels; map every reported metric to that
+  objective and prioritize false acceptance of unfaithful formalizations.
+- [x] Run frozen-split random forest and English-only control against the same
+  118 validation /16 diagnostic cases; save metrics and provenance.
+- [x] Investigate mathlib relatedness and document graph features, version
+  mismatch and hard-negative safeguards in `relatedness-and-baselines.md`.
+- [x] Establish matching ProofNet Lean4.28/mathlib environment, extract typed
+  statement/proof dependency graph, and prepare ranked related-proof candidates.
+- [x] Install isolated official Lean4.28 and pinned mathlib4.28 compiled cache;
+  first3 extracted-source replays compile. Full run tracked in
+  `RELATEDNESS_RUN_2026-11-10.md` and relatedness artifact job state.
+- [x] Replay all365 extracted targets successfully; build10343-node/83785-edge
+  graph and survey frozen forests/Qwen on177 related validation views. Preserve
+  unlabeled status, source-control reproduction and independent core holdout.
+- [x] Complete matched-coverage full-Herald forest survey and disagreement report:
+  44,537 unique IDs each, original baseline metrics reproduced, no accuracy labels.
+- [ ] Compare graph-assisted versus lexical-only candidate mining and extend
+  same-theorem route evaluation before interpreting relatedness as fidelity.
+- [ ] Review subtle candidate mismatch labels before any further Qwen training;
+  preserve separate calibration/test families and existing diagnostic holdout.
+
 ### Highest priority: audit corrections before restarting 14B
 
 - [x] Audit methodology, actual inputs, extraction, metrics and saved results;
@@ -56,6 +156,13 @@ Completed human actions:
 
 ### Active: BF16 14B argument correspondence
 
+- [x] Complete corrected overnight training, untuned/tuned validation, compiled
+  core and masked controls, and both44,553-rowHerald passes (finished07:01Eastern).
+- [x] Review metrics and ranking: coarse validation81.36%->100%; core93.75%->50%
+  atfixedrule, yetAUROC1.0forboth. Tunedmodeloveraccepts; preserve this distinction.
+- [ ] Prepare a separate same-theorem calibration set and expanded reserved test;
+  do not select thresholds on the existing16diagnostic cases.
+
 - [x] Save user-suggested verbose-lean4 / natural_lean references and independent
   English/Lean-to-verbose-Lean architecture idea in `references.md` and
   `verbose-lean-experiment.md` as future work.
@@ -71,9 +178,9 @@ Completed human actions:
 - [x] Complete and hash-verify unquantized 14B download.
 - [x] Pass real14B BF16 forward/backward/optimizer probe:4096-token budget,
   actual3946-token input,39.11GiB peak; archive over-budget8192 trial.
-- [ ] Compare untuned/tuned 14B on proof-body validation; report all class metrics
+- [x] Compare untuned/tuned 14B on proof-body validation; report all class metrics
   with the positive-label assumption and synthetic-negative limitation.
-- [ ] Run both models on all Herald proof pairs and report disagreements/coverage.
+- [x] Run both models on all Herald proof pairs and report disagreements/coverage.
 - [ ] Develop same-theorem alternative-argument negatives in a separate experiment.
 
 ### Active: first/second pass experiment

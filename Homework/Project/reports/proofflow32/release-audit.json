@@ -1,0 +1,2998 @@
+{
+  "revision": "97f1b7be82380733fb0380973c164e40645ae9da",
+  "files": 737,
+  "extracted_pairs": 366,
+  "source_groups": 184,
+  "reported_lean_pass": {
+    "False": 335,
+    "True": 31
+  },
+  "schemas": [
+    {
+      "keys": [
+        "LLM_output",
+        "Lean_results",
+        "avg_time_per_trial",
+        "avg_tokens_per_trial",
+        "id",
+        "original_proof",
+        "original_theorem",
+        "total_time",
+        "total_tokens"
+      ],
+      "count": 368
+    },
+    {
+      "keys": [
+        "final_lean_code",
+        "fully_verified",
+        "generated_steps",
+        "id",
+        "lean_verification",
+        "num_steps",
+        "original_theorem",
+        "proof_steps",
+        "theorem_attempts",
+        "theorem_lean_results",
+        "theorem_translation",
+        "total_steps_count",
+        "total_time",
+        "total_tokens",
+        "verified_steps_count",
+        "verified_steps_percentage"
+      ],
+      "count": 368
+    }
+  ],
+  "label_policy": "All semantic correspondence labels unknown; compilation is not fidelity.",
+  "files_manifest": [
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_0.json",
+      "sha256": "e495d99cf5c6bb637a4cca404579cae7c5efd2ac78a7b196c4b22b1407a42d2f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_1.json",
+      "sha256": "bc5df48f4f89421b18655c828c65c7e3b94e9f7a14310e37dd46ba60f7db5002"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_10.json",
+      "sha256": "b0b44622de3ded1e781f6ac3acb81feedf284289f823534ca1dfd66250fefe08"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_11.json",
+      "sha256": "64b5647f1542e7240d4305f7f5249ffb76e873979a4977bdc6f488db2de446ce"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_12.json",
+      "sha256": "9efc652d785d6416a3108c3d566307785c2a80319907c0818a22c122af039e7f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_13.json",
+      "sha256": "911d9975fa44265e855c0c4afb8e9bc44d1aa18dd5ca6710b77a7589a0710c27"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_14.json",
+      "sha256": "ccf3abb6f298b0f66b2a4ddde801c009c1940b139ffad0730892b05c020d2af9"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_15.json",
+      "sha256": "7e066c0c8268f68416897c87ec6000383240038cc0d1288d1a26d4e7eeae9108"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_16.json",
+      "sha256": "1dce416ae6ad76967f9332261d26cacc6973f114b7384a34e9ab6880c7c5e83b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_17.json",
+      "sha256": "061dd25664d31c1e8851139feaa5de6f812a0de5fce77187b4c48797ecd6b813"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_18a.json",
+      "sha256": "2eb98029ee7affdb08317fd8bfc8f7e9f7fadd14329a224d9c23a2caadc84ce4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_18b.json",
+      "sha256": "381d360069968007787a47c26565420de19e7b054a3b23974d64db3debaf411c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_2.json",
+      "sha256": "486b99b0a68430930e4210edc27ec77e059e0fa3d499360b08be4dc3bd3a5895"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_20.json",
+      "sha256": "3d5d1cf7fbbdb470fdc6d02ac6a32fd95b21072c397cbfadd2cd3f0718573b63"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_21.json",
+      "sha256": "b34f4fc55b4de148289897c862e7c16378bb436ccd26953718a2be5fde442b75"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_22.json",
+      "sha256": "82eb7997f6511a52f9450a6827814de9783dd2faf6d9de377b84855bbd75e8d1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_23.json",
+      "sha256": "f2559b13e300c5843448941bc24d79f01e86afb7f2a065c57e019552a3db1e9c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_25.json",
+      "sha256": "7b7bf3f4b417e0dc14799ff4fdf0bff98c878dc5219c0148b9e73980ffac45dc"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_26.json",
+      "sha256": "ce67bb733b3dfbb0f316e6e0ad9c85fca5d960476d4e93407ab4f1e1b1038f3c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_27.json",
+      "sha256": "36a016e75ac9312cacaf1f77c902e701bf1dbcbf82c5aac47e974cab72d745d1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_29.json",
+      "sha256": "8a20b5bdf1789241bfb5da10664985adbdaa1bb5ebad22c3b4bb7ce4a8c35395"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_3.json",
+      "sha256": "345045a06aca3bda1e4b6513fc739e62982699733e11bee7499f31e1edf8b36d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_30.json",
+      "sha256": "d22dd98b5beace9f2f7add68556cce50724b3d6dfba1bafc367df3fe1d7bbeae"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_31.json",
+      "sha256": "c8e6966d3bac2a4eb642f8d669356af962a00416c92b329e6f97ae287d0594e2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_32.json",
+      "sha256": "45b136c345349742fb15d2393197e98a69494a7d2310c082ddea5d4fb1d008b1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_33.json",
+      "sha256": "ac66d73851b9772ad9dc621ae237c94c9e48bcf52f23f6658a2137380d614228"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_34.json",
+      "sha256": "eafca1ab02ee63ab5f69a646c06cae7a5832fe3502fb36bcd530db54834e3143"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_35.json",
+      "sha256": "2ad8447e789cf5de2df5a9934a5b3d8fece43a93b1fccfa1ac703119a13dd556"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_36.json",
+      "sha256": "4773fb687723bb064b290fbe52b8772b3864702413e0e0902c96951fb4039db5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_37.json",
+      "sha256": "f076cdbf8a59659ff087ce1110169915b125afd02cdd8556d2dce0cdfa09f3f4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_38.json",
+      "sha256": "0d16a6f6ed901d60e7bcec3e780984f5eb80fb7fed930df58dab9dde4721318c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_5.json",
+      "sha256": "9eae70e4bed1562e9fbba715769ad440611b91b3f0bdd718124c73d66fb73d6c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_6.json",
+      "sha256": "bdcc4837e03b6dd4c8bd0f4ffda3f44dea3d3c1a0d2552b69f07b260eb27b95c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_7.json",
+      "sha256": "2ce13aa74e571199482b0f8ef27db10263cca5cf39006565103d733ca58864c1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_8.json",
+      "sha256": "39e2dff925124a32592acfd3b23dfde427b746e3f7a7c72aa6bd68527e0972f5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/AI4MathInequality_9.json",
+      "sha256": "262eeba06590222e8a08c733686cd0fc91af2adc88d50b6368708f52c171b4b1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_0.json",
+      "sha256": "2967ceb31ae979518e602153c58a363248f9567ee4a6621ad1b44b12865a4b03"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_1.json",
+      "sha256": "4422a095f6ad95cb36d64b7b8b9ccb8f1dbd6c039b6e0b46093db3b180729978"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_10.json",
+      "sha256": "78857bda790d79a01dbd3ae2564ea9b78d785c90e98b3bc4f9931dd1d9c009b5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_11.json",
+      "sha256": "2ac9ade9b642209461c51c79c19a99e5a4aaf92b3f3605cef27a407a91613a31"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_12.json",
+      "sha256": "5f94756c2e6fccbaba75a6ac01b164266858e1124a9994cfde0fd561aed8c4e2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_13.json",
+      "sha256": "160cc9f9fa509f218e78dd33f44a4d590d0029ea17a672d4988faa99717fa553"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_14.json",
+      "sha256": "d7e2bbd40bc58fa4330cba7fc2c99fc505de0a3ac2e5d54eebf81d62271233ab"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_15.json",
+      "sha256": "a1c92c7d314e4153f86ea0e02d219017eb44beb8ac2ea9911a0aa8a0ec5e8d3c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_16.json",
+      "sha256": "976a021dc7e8b63dddba6850528757945e9a97007d9dbb776340af4895fb720d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_17.json",
+      "sha256": "e9eaed78209b212562f8c6fea4d8d9c5fce21895c2b95a5498f217a345499475"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_18.json",
+      "sha256": "3b9bce23b009c3025e670161fdde82f649c03fce38d5352a6184d891a269d9ab"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_19.json",
+      "sha256": "f2475ebb3ae2ba7dc171ef042eaf6f3b9b3cdea12c6d98256726942966f21658"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_2.json",
+      "sha256": "e247b2e33a56a4469ba31150c50e823eaa5e6fc6028607d6485c5efec4d4ebca"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_20.json",
+      "sha256": "c7e5b18028bbcb57f5b5814a4e722fc9f9ab7a77bf65f747ea8f9d506c5c39fb"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_3.json",
+      "sha256": "029a65001570edff142a0cd7b62404d06601dc142de2d341faf3f0aa020a647b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_4.json",
+      "sha256": "c2c7a30cd5b8bd84fe02561421b589b7beaec303cd37792bccdbbffc58510647"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_5.json",
+      "sha256": "08586a51b8216884a18d89827c9ef600491ca7bf6a291e184b260e04fd263e86"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_6.json",
+      "sha256": "14c12741da59b7e2d177f3128b4a358cfd19ba942748879e87eedc38870d6189"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_7.json",
+      "sha256": "5a6c8c223455f802a0815ce29e0b05ace6aa0018b3f585c41aab87b01acf92cf"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_8.json",
+      "sha256": "ad3dcf52a1dfc945c6589c204637c46d118cc0c405ddac3ebe4e4daf15fd1311"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/M series_9.json",
+      "sha256": "e24ac3de993a441da3715fe7e85c0b2648a8c3e1135fa1435c945b9d9f636c09"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_1.json",
+      "sha256": "f08379476ea64b89d86d066c3fb4ef4ad61bec39d622037a58558efbd677023f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_10.json",
+      "sha256": "343f22207c844027f2714c17090b9d4fb7485a13fd4dda5ced5c5d6be6ade6ef"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_11.json",
+      "sha256": "3e536ed7548521d4858782ca4c5bed4329b20657797d0e03c5ad478f58229e19"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_12.json",
+      "sha256": "767a0323e4441eafef787d6aa681d4ee6a09136fb5f58f905095988ec36d8483"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_13.json",
+      "sha256": "c124598cfb94b7624300ee0a6d701ce779c2d9c0f989d61caf501110afce1c9f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_14.json",
+      "sha256": "6ba201e376598f4338bf193818fd598bd1bd4b2c6dd89d467a85c8f18fdcb059"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_15.json",
+      "sha256": "7ef58e2d4909a3ed7140b5be6f226547aeba295e949bfa29ccec48a9c7d091f7"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_16.json",
+      "sha256": "44f152a53ec2de6d3c74231a9b066254f15484efc75dfce860b7653596764a41"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_17.json",
+      "sha256": "5d4c83452fe549b05b11b7b486cc6e65cf69eb467cf3718f7545229a4ff5547f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_18.json",
+      "sha256": "4e8b3a0f6336b046c96d5a2d2b705dfb774fadba334bf71ae6512bee8c36bb66"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_19.json",
+      "sha256": "54657b567765f901e797066a892a5963a6fd38ee23be444e19378a4588b91ba9"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_2.json",
+      "sha256": "d0533a439637fcd4fd30d683e0ccbe91ac34a872c86216cbd4a11619defd0369"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_20.json",
+      "sha256": "c60927657e02bb80b8776b79b1c0b4c523d330dcc4680ab64cccd264856a3368"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_21.json",
+      "sha256": "b6546308b97be73c7485042f350a442965d8c7591e7de050e7cf312d5116643d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_22.json",
+      "sha256": "3cb09a893eb44f31383a9edbaf7c8e945cdcfcb5f54047814b64e9270ecb1c7a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_23.json",
+      "sha256": "c08c3b51bf311b56c63a63228a1900cd8386e1a1b4283f99d7506fe6bba15003"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_24.json",
+      "sha256": "e30ebd44471f19695575f4cef644a7d0f7ca2b6823aa2e9ec0a26226ad1d2334"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_25.json",
+      "sha256": "94cc03a9bc680fb3d58cac80621954d57812bb4ab2c49b57cb1154c3652380a5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_26.json",
+      "sha256": "cbb6f9258558d43f3e98fff6789a995810a14b699cdfd80a26fb2d1e09fbc654"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_27.json",
+      "sha256": "958ef8a118e5128b22089145b2cfb3303baaa609bd1303bc2852ccd71729d5e1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_3.json",
+      "sha256": "b575d7b756895fe5a9e0539bf8c9d279902139b7c26806a7251fb0101adb4b04"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_4.json",
+      "sha256": "e319b7a3798a9f02590a1afdeca7508429b6fcd0a52dac85ca884bf671ceec1b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_5.json",
+      "sha256": "ad8cddda1c7a796277d8f47eea07534e1caa8a0f52906848ed86603a653e5020"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_6.json",
+      "sha256": "3771344d2d385dc494d89f84b5320d0cb8de26c4759106083dcf558f3f9dd4b5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_7.json",
+      "sha256": "a085e56dbd7bf0359dc3168006b62fab77b8776d1c3db36c3de31998243d2a6f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_8.json",
+      "sha256": "79bf8fa3a98c34347ad7ee89e11e4782a3a8fbf19ab84a62bbc56ae357e3f9c7"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/R prob_9.json",
+      "sha256": "6f5c125970f3b570de8c6d3e61289508ae522c6496df67b1536e86075e3e1b18"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_1.json",
+      "sha256": "a7a3bdfb9d0a256c3a33214bec1de6b4ef0a779fc602a075d3a98ea4487126ca"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_10.json",
+      "sha256": "fdd37878ef21baf99ae9a804dac664ac3bf19a0ae32db49fa3b81e2cb0b34a46"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_11.json",
+      "sha256": "3457f9dab64bb82698bcd56caad7e228a4a4bc717763dbb4b21714174eee811c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_12.json",
+      "sha256": "6f3f85c16fa27290f5e06c7ab69b720590237c89b71c60211b6187bee6ab1385"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_13.json",
+      "sha256": "00edf64f3db404ed1f5f61345eb95af40f62358204661da565be25cffe1f08f8"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_14.json",
+      "sha256": "d93c1c0321d0c45b4806b18752c189bcbdcdf12fd494956511002521a1719d62"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_15.json",
+      "sha256": "ce9eb415e55782ec6635239dfc2f5f301c49e6879d1e63c2b8fd3bbc79e853cd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_16.json",
+      "sha256": "6b57beac20c4cd8b0b169841df5f2d4987185c8359d09cf8810eee4a1282c0f0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_17.json",
+      "sha256": "6d4f3da22bde74e85c7471b396413843510703b5bc26e78c9b9d4ec4312c3f8c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_18.json",
+      "sha256": "ed383b594ef3ebd8df0c29b2b4e841ee43a81086b02dc383338e02706ba767af"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_19.json",
+      "sha256": "82f49560522d30fd486c769b42c6139ff126412d18de7c9bbed8d8786441bf18"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_2.json",
+      "sha256": "7f71a4d87080dd0dac16d1acf5e811cd23d85b9eb3a2cfef55f32c5b25c50af6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_20.json",
+      "sha256": "e60cf4b3626ed8b4182c4c883bfeb288d9658e791646a75f4c02d2d37be2e996"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_21.json",
+      "sha256": "52374d7c3e346b92239818d5b7249ec3dc2f060f4f09d87cbb1cd10346432847"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_22.json",
+      "sha256": "afb6af58a69a76f7ace2f9f989e27eed08ababf8c48c2cbdb9f77123923ec847"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_23.json",
+      "sha256": "f8cc5520c13075750fb3924a7d74558326ec2f1dafc1c5c8c4dbd68bd35ef4d9"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_24.json",
+      "sha256": "5be6dd93aba4b4924eaae8f666b243dce3adcc3a02c3c8f396824bd376a4039c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_25.json",
+      "sha256": "5ba932af185a19db116f7a513941b6da1e79c466520424085a96ea7dd93b4bf0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_3.json",
+      "sha256": "8df9adbfbdc8b8f57f6e31806314de049e1f28fe57cb510ffa668257e0da8b6d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_4.json",
+      "sha256": "6ad990ee6d5d25a962e4eb9f766cc9b047a8c8a30d58059a21291c16bbd42008"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_5.json",
+      "sha256": "a0062369ddeb66ad0694d301de47534ea90f41a925206bf02b1901fac79bf159"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_6.json",
+      "sha256": "7b8a777f4058e9681525a81e84410ee8a7c815df99fc5c403160e37177162de0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_7.json",
+      "sha256": "76990e40cda9f435a1d13c792666510629cc26f40dbfd1d9b64ef91d01b7ba12"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_8.json",
+      "sha256": "5b27cc773bb075a609559379c4014755b043c63cbce66d8b781f60e41dae0afc"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/W complex_9.json",
+      "sha256": "c478e5ce2825d0d7fbc746cd25712c02ae048f378b7b16d7c02d99ee4f286b3c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/dummy_1.json",
+      "sha256": "5b39e7dc265bdad7032a700eb367d72e9cec49e4673860a3b445c01d54e41bc7"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/dummy_10.json",
+      "sha256": "9a0c9edbdc75dc58d6eb1aab6f86e5d31dbba7b11e333976f4bfcf076c02d15a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/dummy_12.json",
+      "sha256": "076a06307526b89ce9f849bb6e9030518957c25930bbad48be0a8e5589a6d8a6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/dummy_2.json",
+      "sha256": "c77193784616db563f2356a55676fa0db3cd2d5182143c47a2e79fa0b989867a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/dummy_20.json",
+      "sha256": "f2eb537bddc124790b69b9b35fcd72baeb4c2d6a67642b77774d518402cf8c4c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/dummy_3.json",
+      "sha256": "36da73f757c00da3ae28a469697e4ec0b2661de768c902f761766d4df6d80721"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/dummy_4.json",
+      "sha256": "034636d3633de447e851b8ec85486ef244771762e33666dc9db6c57c50b43baa"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/dummy_5.json",
+      "sha256": "933b1157d23c406f47c166aa456c0145c7290c25b6bc5510379a65dc1c2f2871"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/dummy_6.json",
+      "sha256": "0a715e2017cdef3a3bc2f923c1d61f7af398c7d43cc6e4e854e44572eb433198"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/dummy_7.json",
+      "sha256": "eadc03e5773776f1b9f33d3cf09165f9edec4517ba58a562265ee4fff0883d20"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/dummy_8.json",
+      "sha256": "403948124c08a517060771f3131a3870de0d0808f703f2d5727225e617c38595"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/dummy_9.json",
+      "sha256": "88d49d0f31080223b4d697b905f2e2e628d558bbf7c399997a92ae011cff097e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_18.json",
+      "sha256": "581400ae1d932fff479977ce54e95e875c8918e101e1df324b90b6ae894d1f7c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_20.json",
+      "sha256": "fe8e434ef8cd18bd5fcaceecc662049fee9393fd305de2dbabf61d41859b4776"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_23.json",
+      "sha256": "46d94e0214684a3db5ad95e6ae97d8c5c51f74461b85f441a5db7477c7be8fce"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_24.json",
+      "sha256": "0098ff89d81c165a24fcb6874e3ab96dbb606887ca1d764f4b91f16ef5228fad"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_26.json",
+      "sha256": "5e5469ad4004cd38e92c64bf577f813ba72cd27f039273475c55be9df4746a31"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_29.json",
+      "sha256": "eafb2534324e9ee54aaa166834d6df1a3981bd22eef87bec99eabbade29ce14c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_30.json",
+      "sha256": "9529be8840a479da0997c6609b92b1037557423c3e248bbaa519a6042e1841a5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_32.json",
+      "sha256": "665cf7b487236ce2bc2b2abb428d5a6e1d4ced5ffcabf496d27fbb92f802ac83"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_34.json",
+      "sha256": "5f3dbe399df32ae72434fde2ebc134016caaaa5516eb827989feb4925d57b64d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_36.json",
+      "sha256": "daa1d3df643e66091b1f3e1713eb49440d54877233a3d88810d67ccf967840e9"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_38.json",
+      "sha256": "1d0098db734c41f4f90056876743d6b0789b864a017abecb9b7d05c209fe36a7"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_41.json",
+      "sha256": "c18d98f8f988b2e949b676d08d8235870b5b8cd35b2e7bc57f230b25f5c94a03"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_42.json",
+      "sha256": "1bf4ed9ee813975276875b7f5eb87092adfca52e61f4a4e16838b6505adca6f2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_43.json",
+      "sha256": "75c0f1bfd39b293de74a866ccace6ad177e7e9f102f08c07ab8db61f47be902a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_5.json",
+      "sha256": "3317e7650bb5bde1ad5eaff8aa8c2828bec5bac6bf59bbe69cc2b68a586100b6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_50.json",
+      "sha256": "b51fef1f209c191e97399c40e091e1e47fb02fd861f0fd40811639bf72d1e60d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_52.json",
+      "sha256": "11394af02dfa533a74b5925f6c16e1a621310d194095e26251753406a18bdedf"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_58.json",
+      "sha256": "3b3c221b74baeaa9403ff873a9f913c677f47e08a4d8977a928aae33c87a5eb4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_59.json",
+      "sha256": "dc975c9dd729790161a926bab0c2059ca1f90852d87691ac18a80630975bcbc2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_60.json",
+      "sha256": "9e09b5fc5ebaa9722e3802bf36c696f4ed8250c4c35b8dd130afcca9ae73e58f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_62.json",
+      "sha256": "a2ea3ef1682f0569b3c559c5e0dcf6c3f849d1a2f121fbc0692a60bc84c87318"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_63.json",
+      "sha256": "047b88290914992b97761a241e26b9fdc8d8b1066a19be64acc2e9eb9b08f70d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_65.json",
+      "sha256": "097c3c9c8306b5f663ff76b414fba9beecfc3960ce44a1366034202d6d8c2af0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_stein_9.json",
+      "sha256": "20ee786a9f49a9b41ce2c44e84fdc39167485b710beb3a6443ec43d70a4bc8d4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_0.json",
+      "sha256": "907db16de8ee39efa31daf9e0c61585e97ceac259553ed15a14bc01b9ce5fffe"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_1.json",
+      "sha256": "a3a0ab6aa2a3a01439341ab0386d0d4c7e52b3103ebc95aadb52b075004ea60e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_10.json",
+      "sha256": "9fbb10c02efe344058b07db96b60e23e1f196bd0c3a8495c83eec08037a84e7d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_111.json",
+      "sha256": "6b2591df34fe58fc8a0db418069ad721bbdc92c7dc8402b8476ec4a033edde5e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_118.json",
+      "sha256": "8ad79d4033c52d1647171c9aa9a1d686bae729a8112a73cc18b1a14893999cfb"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_119.json",
+      "sha256": "70d79865ce5ec51e649ed25336ef5269fd3fb0746c19c044fd4fd3744538ab43"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_133.json",
+      "sha256": "d0f155c00be85a5a7a7d3f9917317893ffaa21fb543697da8b5678e90c58f7bf"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_138.json",
+      "sha256": "ef26a9c52b07801e3776e9e894e4d8a540d5d8fc456ffe06429f7ce07fd7390b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_139.json",
+      "sha256": "e930c04983cc4948806e7b08bd417ba38cee7fb406b513ed8862ac64c25d2ac8"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_150.json",
+      "sha256": "9a2f3d2e51d3c8db4f1131ff04d8beabc32905eb9a76f459d99e609c833f0ff3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_158.json",
+      "sha256": "55ab617f8b9eaa237fd227c040be2dd7b445fa20a8dcf2c2174dc8143e9263b8"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_159.json",
+      "sha256": "35945865fb3c823d02aec59afff7f2744cc81d198059ff4e746ba15ac6f71384"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_164.json",
+      "sha256": "30734d5fac3fd6032274984b259a9175ec3469263ff44ebc6600a68fc0daae7d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_206.json",
+      "sha256": "cc142e0461c0ee67361b4934ee57649bc8f10e1e0803daaa370933680ac50985"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_21.json",
+      "sha256": "acf5d592b22f9684b777126b4a3339404166ef6f5af912e1b50bd416c91c684b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_219.json",
+      "sha256": "a760da83b9b805e85fbab5f9c1d44f2ad8bf247979112da3c0920a9e3973504b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_221.json",
+      "sha256": "f66d180abd44917bab45e95241a7ce8f3e215c9ac59a529743f3498ad9b2469c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_225.json",
+      "sha256": "16dcd8aa11a1753d87881b24f90389d67eaf9eca981eb97871f01ae812562150"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_227.json",
+      "sha256": "334623af3caf9dfa514166e845edb859c51a4b307bc85a2ae7a71ec74c83c17c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_231.json",
+      "sha256": "43eed97a018cbe42b9a251610892efc393de2781f1894b3efd69c369f7029e09"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_238.json",
+      "sha256": "9693d626d3616d20f61bf465df2dd6ff807dcdeb3ad89327143501f1ca86ca08"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_245.json",
+      "sha256": "91f4ced3c089e80556b9ae7690296a20d8846740baa6b6147c4c7f799bffd049"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_252.json",
+      "sha256": "2896e6a319d144b7b4350cb5e8035afb27573b8168127f0cff824f51c8b450ca"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_253.json",
+      "sha256": "2929c960a0d6ea7776931f153243be9845c9df074fd07bdcdc6c7c8c004146bc"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_256.json",
+      "sha256": "9fb503ad4f9735e3c0688e0a8ebde16f5945cb65ba815da690f4e803a4f6f043"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_257.json",
+      "sha256": "fe95463ccab8568c15c62fd86a779397450ad3a5d2c17340179530a54f8d4130"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_263.json",
+      "sha256": "b3fc5cc539420a82fbf41a9db86817709e991cb38357aa818ae5c0a2b5bdfd7f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_268.json",
+      "sha256": "e3ffa47f9431180286e06102c102f177e7d0972debf02c582a18bc3e37355754"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_271.json",
+      "sha256": "37012e464a61e12097ba037e729179b0c71d05e6400775455238d54baa1e73c1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_272.json",
+      "sha256": "7d0e5f2634bc882521c41f4756912359bc6c81f408da81041e320ea0707579d1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_273.json",
+      "sha256": "15ed2483a01b9ac2a20f962b68b7fb30bbdf25320c17c0bf5ffc319813ec9fc4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_283.json",
+      "sha256": "6e47f5a5082e70ef6e4d8b02add9602beebaf24402dd57a6401a46ec7f745202"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_289.json",
+      "sha256": "c6f9a71b4a7e2d5857b37fdebfa886a810a203f5530eaef3b1ce50d9b7409ed8"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_297.json",
+      "sha256": "8ea38131f540005aaef4961feee5cbff57bbef038fe7a5c4a4e26c6b7c5796a1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_52.json",
+      "sha256": "abb2d8d0a34845631a54c06a4c221e30e2705e6de825079b9f854db905d4d7d6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_6.json",
+      "sha256": "764daaaf4b7f85f6f8b1e0506c51a5521a895743a49ce3f215c90c67dba8da3c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_79.json",
+      "sha256": "3a41e99b129ef0669325e7de6767789fc94df77775bfc558f239f6811be2edbd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_92.json",
+      "sha256": "787d5ba2bed4d0341a762087948181e1c117b4d3c4c2fe945ab735e53e49e3a0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_nothink/naturalproofs_trench_94.json",
+      "sha256": "1907a52dc3471922fd99321c931f8fcff6734cd7c695d12850355ecae352aa5e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_0.json",
+      "sha256": "cee104f76086ad851a4795446f1b9de1d7af3234526ef1018fc5a97ac52f8835"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_1.json",
+      "sha256": "f17a27a0428b5b1c24f40879266d958ae1227d21d4e94ed4fa4ab4f3780e1af9"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_10.json",
+      "sha256": "55e59caeea54e3505dc5611e46b9d4e8a2f32f5a76b37cb003cd1a82951bc96f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_11.json",
+      "sha256": "ef9acb3dac1410f5b830989d17bdd319ec1f26618c6eb2177cb60654aa92ccda"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_12.json",
+      "sha256": "f7d525f2d5be73efaa05f8afa076bfaaf55d56810b4062bc9fbdd98c0c4694cd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_13.json",
+      "sha256": "80ca310841fde2f4cfef09db1942ef2ebf8c02008e87426c5e16bbd62a78bdcb"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_14.json",
+      "sha256": "1d70d7941d92c29a18c419979baeaee8b25c19c37b4d88f9d74db39a436911f1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_15.json",
+      "sha256": "fb6914c9c786be6ea4bd5a7fecb420fbfe266af87df7c85ace850982ae6d0eb6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_16.json",
+      "sha256": "04e13b415a103c1b9e4caad710807650c0974dc8ee0289235d6892b03e0997bd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_17.json",
+      "sha256": "e6cb3f7768644589dbe5316612214c8f8b1b7b41701d4938d487b9bacb7c7d87"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_18a.json",
+      "sha256": "fbc090696af55bccf03bc37c66e94df7086d1924d58a82b344310e127195a727"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_18b.json",
+      "sha256": "c9df1b8d7b46125c39db241361e56bba2e419d13b5779dca1c7056a80418b316"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_2.json",
+      "sha256": "965e32ece5d5e9784fc4e96c2ed0273fedacc30fe36c5b94f11da0e497d5b043"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_20.json",
+      "sha256": "60f4db2cef96c999db1bd53016106bfc62b9aa651463bf3afeed38b9a87b9ead"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_21.json",
+      "sha256": "f27701126e6bf724eef5d81207b733ac7daecdf0ba60c1e636de4f6cbbf6f151"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_22.json",
+      "sha256": "fef4c53a351b522b2fcc3c39f7591bd8056daae707e78e76d3e1cdaa33fe6aaa"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_23.json",
+      "sha256": "61e0e74378c701b647a2d294c831bb6329fe3570641d7ca3be6d34177ac0f67c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_25.json",
+      "sha256": "83e3a128765c2c9dd496309c906e5b72a4faba90149108fa7746744452131dc7"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_26.json",
+      "sha256": "ef5ce32b9524f95a68d84940eb3ae97200f307d1c11a1e0f68ef5a3accb4c740"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_27.json",
+      "sha256": "dbd5170a1c150dc21e0e858674352c7c33331ca5a3cd60a965b74523ce39f482"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_29.json",
+      "sha256": "4f56a9e3856884942f4fe3dedbdcb5606d5c10851e409407830c4b37fb4666ef"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_3.json",
+      "sha256": "3f5f16a5eff0597f2631d9724b27c9c344f91da9d1f04038400bce85cd3458aa"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_30.json",
+      "sha256": "8c014ca2ce2e86a2c8a61aa0635c90c3945b0fec375965c2066c9012ac2fe8c5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_31.json",
+      "sha256": "faf8d1e91541b797bcad95673a59ae2949501dbbe67650a8cef2ddc57d6d7b53"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_32.json",
+      "sha256": "44d475ec01c8d006e29348208cb01db20010eadb46c08f26d8e4d2d68241bd63"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_33.json",
+      "sha256": "f5c58df2b6a7bd55273f2ba5981c70741dec387f8e4671686dbf11458b4db38e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_34.json",
+      "sha256": "139c4aa53a3f03c396c5fd56df2feadcb6e9a500a599dcfb0b8131599c1ff6b2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_35.json",
+      "sha256": "6088cdb7f8349dd0f51d66e9c1b4b252e6feb9019816545d1085a6e8afb9e171"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_36.json",
+      "sha256": "0242eb5c31b19024bbdc5181367bdd9afa8ccd926e8dfd7723338fec4ab2af3a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_37.json",
+      "sha256": "ec06673a2d814b8e4608d3e6b2274bfb379a9f58c0d19067f28a74edfadff3f6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_38.json",
+      "sha256": "3b9c78fd87f9b05f6eadef60e9e53aa9b1b54658e749eec7dd06c1791bad1f75"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_5.json",
+      "sha256": "20599fab5dedec6bb95317cb0296871dfc603d9999d20151118fa8c04eb7161d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_6.json",
+      "sha256": "30b035559d7069aefead37032abeca8a63afba46a4291ce344be8ba0499160c0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_7.json",
+      "sha256": "a4b6965d60947f0def563f148c99b84af414a6f3a1a4bfbc233a919b5184b3ed"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_8.json",
+      "sha256": "34e08be14496295212ea539924469946d7952b51753ede91f5f79a9f07c2bc13"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/AI4MathInequality_9.json",
+      "sha256": "1f469a89063288c9b056f512d66791863271d23c9e6549ff548721dc77b137ad"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_0.json",
+      "sha256": "da2952a7f6b4e12133194dedb96a41be4b2d083cd3a0678f424b936bf3077ccb"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_1.json",
+      "sha256": "e07f19c3eb47534679b5d04cf67b282fe45531533ca52ffb2787bdd3b436d0a3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_10.json",
+      "sha256": "c9840cafc12b3d72664cd583655296d02a86766e49ca80ab84d690cfdd0468df"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_11.json",
+      "sha256": "e25d93c43f515592a686752d855a28fc0f16902d9d07ab167c533345b1832bc0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_12.json",
+      "sha256": "ae360d43a8e9310b15cd1dcaf526409170c210b40eae2d0e2d34bfdb4092bfce"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_13.json",
+      "sha256": "9656dab063a099f5b2998830555257a2e0c804adcee562b2843f67ed34bb0d47"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_14.json",
+      "sha256": "045f8abd19bb5d6551cae05e047232739175616cf2ffeead86334a889e384516"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_15.json",
+      "sha256": "ce074001bb7005ab4697231b6ba59ee38c1f9b94b91402ccf3daf14c49c996aa"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_16.json",
+      "sha256": "11a2251e6521fe1e5e27710e32ac805a581cabe35bec75164320d1bced08875c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_17.json",
+      "sha256": "d492513b6d7e9b112350d90910ee269736a17c72dbb3929cd5c7bf1f39497130"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_18.json",
+      "sha256": "a6852022cbfed1b30749891eedd8a2c709fe2db4124a931943b16cfb7f7ed449"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_19.json",
+      "sha256": "7769e96c6c1c784da65537e83d429691e5d31af7064ca9857b50c12678573646"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_2.json",
+      "sha256": "62e807d33e9bc8125f75a6994c32fb79f1384fee0dcac3b7d1ef1312c21e9066"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_20.json",
+      "sha256": "79b55db1b3e6e0dd09717c8847249a75fe2a358d82d8cdb00f7a0b1c53f8aa14"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_3.json",
+      "sha256": "ac91a5c9fb68ea03fd5356209f7d7ce457cb8510b95b4dba557db81b7e6d9e61"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_4.json",
+      "sha256": "ee2679dce9cbcffab53e8bd9c050418ada22643ad9dba4e53e6df8590dcd5211"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_5.json",
+      "sha256": "3f8ec83214563c8bfda73893d4f4228eff3e035bd91d2e6cbaef94810381a9a9"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_6.json",
+      "sha256": "76d0d6a3cc8181a79a060e147dca08208034fea69dda0fd7ee31ef5a31afd977"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_7.json",
+      "sha256": "9d5b3b826317fc9b8cefe2594cef00290d3f1f0a45da6c9b227b89223415d513"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_8.json",
+      "sha256": "51a0631a6480b92f4eac95782d423f208f58723fe2fdec3377cbdbd9d4540803"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/M series_9.json",
+      "sha256": "979a06c96d4b8c909591aa680193e406d106f60d340d0b0e44c819f84eadaa4e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_1.json",
+      "sha256": "027793688eeb3d4e39ae38445ff149b1ec4a22749084d37c6415c990687a5210"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_10.json",
+      "sha256": "1555f7258b0b7a7e70938255d817a0012107f149078d6f11df97bd887fd3030a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_11.json",
+      "sha256": "300993c3b63e5d5d60a7831de355c4ff47f19b57ebb72821dec05f9000f6bf98"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_12.json",
+      "sha256": "eecc639c8886ff38242a32c1247759251c193a8e21419b64a2df2aad75600185"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_13.json",
+      "sha256": "7f6daaf5b5beb45c026f7a78565d5ee2c6f5cd0dd979ccffb3369efc5329533e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_14.json",
+      "sha256": "283133faba1d97454d70d5947ddf9f0f9fc4f45e4af8b7cca1ff2b5204ceab25"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_15.json",
+      "sha256": "d6614397a0b848bebfb9396c48ad6f476a69463ba6351cb4fb244cb45809f676"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_16.json",
+      "sha256": "a378bace296721f12aa244012faf229f988193dbc828e9cfd01863aa8b800922"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_17.json",
+      "sha256": "ff55f7278479f39715c44cd214b31ade905028eb466936e4d27c9abdbad6528f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_18.json",
+      "sha256": "398949e485144526381a1dfa42f73a38c920c5040f933423a713badb962d0118"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_19.json",
+      "sha256": "dd4bff65a990a6216659f5920d1f7e4be1f3310dd3828e5d043a142346807bc0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_2.json",
+      "sha256": "0d219ddb3f6403915fda4cd8f55d815a113d6a737c9674dafa01a817b8b00b5f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_20.json",
+      "sha256": "f2f904967b066e84ee98d885701cbe4611b15a9f0f1b1e449b0237ac7c10495b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_21.json",
+      "sha256": "7314d6b73dd3dff0bcaa27cca21d388a83ff3724c6364dd9c27ef621fb886d50"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_22.json",
+      "sha256": "883f42bd51e5fb453d8ee34137f3b1624391d86b1c5b8b6a96203dd7c8a61f7d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_23.json",
+      "sha256": "2bbcec3ee54bd6826d895557926c7968d6cac6d59ce80e9c644ff2695235a7fd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_24.json",
+      "sha256": "337a0336ace17e9fff7c89ff7983bfdbe035b56b6583bc534509df0797c12ad3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_25.json",
+      "sha256": "6486ff3a11f1b46e8df9be030ba57bd2f8b7c3d404db524fdb17a8970177e126"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_26.json",
+      "sha256": "0ad4eba74ee9000c46f49a079332a18ec747c486380c89cae971768bbd4a27c9"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_27.json",
+      "sha256": "731c3df77533f85bf1c56ae99cba65a08efe4e6b037b32168ca4d29d9e219651"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_3.json",
+      "sha256": "ba311b43d603da448dee542318bf0720cf9a0301b27eaf07a2ebb9e2acc914a8"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_4.json",
+      "sha256": "82ed4bc39aca31d0564cb76b92ff5cd3f78ed51b5ae5c12d7d61606acc7c5fc3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_5.json",
+      "sha256": "2137531347cb6668294436979cf4266c5ed540824880d0a9e9d352fce00a1f18"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_6.json",
+      "sha256": "ac94c942ffa5ff491c5da7b02ba6bf137fac2611e496bd5cc880d9799fddc986"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_7.json",
+      "sha256": "a508f82a1ddd5561159d6c3628629cd91c814f596c6475af1224c365fa9c2d23"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_8.json",
+      "sha256": "b0c06b86328ce70bc94706edc00b5f5785ee68efb0692f549989337ec3b170ae"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/R prob_9.json",
+      "sha256": "34117596e92073ac7c0b9669989d60e0ecea70954cc2957a14065ad26b7a7da1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_1.json",
+      "sha256": "429b2878e9165f2c83d2ab1e3439eb479adbfa8413ff75d635256b872c76a20a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_10.json",
+      "sha256": "6545c024978f323cc8909d57198920302ea6d950d3695c517351ed5d201e0533"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_11.json",
+      "sha256": "dda1796c573d9eb9c717131c5a3f7c7a1d3c8ea88afaead54f41548d07863a42"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_12.json",
+      "sha256": "6771c37cf304dc106d4a5fdd62e89338eb698ff5ce4a7de11bf666a26c3d0c24"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_13.json",
+      "sha256": "da3f313ad77b519662a16f1bbdbb936582bdeb1f53cb3d1a9aceb272e7a6ca1a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_14.json",
+      "sha256": "ec276e198cb91ac0f7f341bc8053ce05d2f5d230fc140771ba99234232aa556d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_15.json",
+      "sha256": "5a5f2fb4decbbd936dffe5508a4be52c71b05b696cae95e2d1e7d675f41dc715"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_16.json",
+      "sha256": "bbd5311f58f6d74d02bb63811e8ea50245466eae6d4e1316e20f5b23822a36c2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_17.json",
+      "sha256": "77ae12210a0ec803a46d7232d4f7786c7ed19e6fe1e89b46b23b37a3efe3214a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_18.json",
+      "sha256": "826c4c3269aa78134e9b112353455ba5f45519e123c6da86be0c79a9dd848eb4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_19.json",
+      "sha256": "497613a4c366f8f9e8d07ceed9eaeddbf5a30d0637ee1d713842cab1cf0356bc"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_2.json",
+      "sha256": "caadcf7e2bf809e3cef29fdcebead1432327a7b0041a80b3dfa58644a7e186c8"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_20.json",
+      "sha256": "4a81f0f8c1287e24c29bfae94546b6bd4e2b54c50043bf61d19ab04b94c56d6c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_21.json",
+      "sha256": "70a0f596ddcd16bea66e2231cedf37af787e62a90aa05b01ef06b0ef86e4ec5e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_22.json",
+      "sha256": "c248b401e8b156fe9024c663e84b476b24a6a8e82a1e4fe9facf1653fcc708c7"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_23.json",
+      "sha256": "c66d99f398bcdff0d3ff990757cc95c695a36b3c5b99e4ae295d1640b05b9764"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_24.json",
+      "sha256": "761cc5ba01599c2b6c546fd5422d065e0386c725ebbe8e8bd53b34d302a3583d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_25.json",
+      "sha256": "17b8750c546acaaa861054b8aab138b8a0876be2df0c46db3a307590c08170be"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_3.json",
+      "sha256": "74ba1310e88e55d6f42dd11374f18c96cfea3924202954714129679d9dbefe5f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_4.json",
+      "sha256": "5be404464b28f14478a0421ab6b29b0de8887aae1e431f34af279db9f0fae002"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_5.json",
+      "sha256": "c0a2fcf05f4bcf5e1ece75aec626668a44be472cb5e387a3fe1b40471e386957"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_6.json",
+      "sha256": "ee87f917f163894c0888a56acd164a616f9c1dc16cb9c4fc75b9de3c698f1aec"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_7.json",
+      "sha256": "4217390450b4798b8163a5ea508bc7eb62349891e1413a906db0a9a094d30b84"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_8.json",
+      "sha256": "67f3cc9deb8c0692dfad0362a4758fe053b0e776d09d3424a6c6a7e718c89459"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/W complex_9.json",
+      "sha256": "22725967d365a5730a01648c1deadd6d4a85b72fa2038a297590e12915863d79"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/dummy_1.json",
+      "sha256": "e231923fb8ab56ed56f7066ceee4ec76a9a3e1cfdb3f9549d0b31a7ab96bcaad"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/dummy_10.json",
+      "sha256": "edd50f65fe70a802320e0ca50f77a993553c7e7a1ec3bdb6cd35347955dcf7cf"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/dummy_12.json",
+      "sha256": "0bda18bce8a62231236414ba1e10025b7fcc2858f5791a3fdd3d1c24e6fc20fa"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/dummy_2.json",
+      "sha256": "2c21e6746b9f128eb54732413e8a1df11feb6af69ffea9eab704fb99ed3087c6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/dummy_20.json",
+      "sha256": "4074b1ec0299641cadbd2a2695bbf4360d61255def83485cb23a520530add87a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/dummy_3.json",
+      "sha256": "f7dbed15da2520e80f3e367d2cc6ac7ceb6938b41a34d8796fa5a05e38c1b044"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/dummy_4.json",
+      "sha256": "7a390f7c3e9ae02b42efcbfb1a238f417b9886f8723caa71f82abb871965c4cb"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/dummy_5.json",
+      "sha256": "7b0aad6d66c09bfe2095838e26fff843188cf06397849dfb77f40257deb9495a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/dummy_6.json",
+      "sha256": "ab6e34305eaa531791bef2b5f22a5818f480efd7e7f1d1f076c8d9289e2a201f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/dummy_7.json",
+      "sha256": "61b5e2999a710136b39f3520c637d944e2249ce4ed5099d4908dad401fa7e7a2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/dummy_8.json",
+      "sha256": "5440d3ddcf860cc657e0084b9d3d75d5ac00b57ba801cd2fa623dc6086035875"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/dummy_9.json",
+      "sha256": "fc7a70c2552faef71751ec859866d9009b89dfa3a67da68a491b48cf154ca783"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_18.json",
+      "sha256": "9f6d8511d6122b6e73ed294cae2bad3b7ce211e184ae9c816263763a4cdb12a0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_20.json",
+      "sha256": "3a575364682c672c7b580293881b9a30296cbb72a3e5869d6594a13ac57d419d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_23.json",
+      "sha256": "ed61f454765ae23dbab530af56076c5ce6d82edb9df05d0b8979a7c566583a6c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_24.json",
+      "sha256": "a4a816f7c5e45626a5c3d011b64561d679f891d74dee6253152b04e3f834e971"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_26.json",
+      "sha256": "0bd4bd76d2df1f104fba35e9584d778ee18711ba0f99f8b05278b7d2702d7564"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_29.json",
+      "sha256": "e2596f86005f72f0f02aead1096f483098470401cce3d75e91f515ee5bf02aa0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_30.json",
+      "sha256": "25438e44ac82bb8038d7ddeead23dfa809c28f8383944dcf2b3c5a05657dd6ff"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_32.json",
+      "sha256": "33cc1c12d3f69c3fca965fcb04546f30540ec425bf7d54634f90ae61b1aa5321"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_34.json",
+      "sha256": "ea003308092f82f78cc1c978e14a0f43eeceb5efe70234e09a822801e8b8cab3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_36.json",
+      "sha256": "5e480bfc4aaaad4d3bed81e4c9281c64a0a82992142a98cd0f38238ac10c6886"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_38.json",
+      "sha256": "273a6654035f90aa3322689d81c3a517fe5533d26bb1117a2e9f82f06b073ff0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_41.json",
+      "sha256": "6183e71f43fd72af7d580880e055a7eeca59a8a46fa719eb3c347f9ef3d2e06e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_42.json",
+      "sha256": "db76ffc3ea2d64e79e404ac7578b1013975de2fed1e4bde53401b6d496264aa0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_43.json",
+      "sha256": "56d5decb5c609145a18a53201f96d2fccf70730292bb2a6b8e0bc684ac4122d1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_5.json",
+      "sha256": "0b88086057ee439548f5cbeb19ed1a3067a81733ad7a9aa717ae7f15ea64fc9b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_50.json",
+      "sha256": "7bebb2505026d8dede19966e2b03fc3859816aa899004c60dd2a8838a8a8c027"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_52.json",
+      "sha256": "6675824acc4a3d2ef1a8c12cd5a2243fe5b8aab6a3cbc4a28d86ab3fc56313e6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_58.json",
+      "sha256": "97220a88947777a7ed759c011239f1b0c1cfbe81f3862daa8f52cdbe24d26289"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_59.json",
+      "sha256": "f75028840a1d614042309ebb6d5f4b18c6ae2e076440e593feca31e78ac13ec1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_60.json",
+      "sha256": "3a63ac54bb80c8d3d1467ed3c614c77c788b905ef58eb33f4a6b60a4b5edb363"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_62.json",
+      "sha256": "b02cc0e873514e7df39ccea234a4007fa1537f5e345cc392bfb51759a10309a0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_63.json",
+      "sha256": "751b024cc3466646a609a1e9f5d89d899fe56c8923ec737509a69e35f122c8ec"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_65.json",
+      "sha256": "4747c90f6153967ed5699f2593c92447390695f2380b9e5fa80b5c059ab4485e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_stein_9.json",
+      "sha256": "a0a6f87ea6cc409fcf9d9ed1fb2be111dcb95e6a6e7f5884ed07e1ad686d7076"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_0.json",
+      "sha256": "0b7c57f9405133573f015a0753654555437f4dbdc8eec452398df5e5083496d0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_1.json",
+      "sha256": "2c11e6ba8c22788849efb8ac337817edbd6e00d448746337c0f676f438e0d072"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_10.json",
+      "sha256": "cfe2db9b6bfa52b03417bea6fb8368ee38034e33f39649c05d7f26546ea594b4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_111.json",
+      "sha256": "177bb263b6f6a3df973280ba5b810ea317e2cadc91e2709f7f43a85c8b961316"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_118.json",
+      "sha256": "ce914e6aca20f51e45198404e90609a3784d1e66baf24bc611c9c2cc528344ec"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_119.json",
+      "sha256": "b7ef538ba503afcc664f8bb543191d00b399bb8deadb0738c27864d121b174a8"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_133.json",
+      "sha256": "58ab69ebbe81e601142f09c26db3d66f2e9ceb90c948b0ce2e6e177c31b3e518"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_138.json",
+      "sha256": "42751f71e1cd2e03af6e72c4edd9d9176cd8ff72b6438cbe571b840ee38c209a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_139.json",
+      "sha256": "cbc811f021458ce63047c6430a9f03b325e794eeff5cf91bde89d943031f468e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_150.json",
+      "sha256": "7ffd4c4dbbe36aa8acf5e7eb212103d9f70fafeb2e983d2abb581164e834f604"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_158.json",
+      "sha256": "f09a44cbcd9a5b245bbc0544c19e4f923a00e27e9a64b31ba647ed87b0bf90dd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_159.json",
+      "sha256": "cd6b07e5f24b797a3dc481f91efcb1e526d469437007a6a08bc5abd429943a9d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_164.json",
+      "sha256": "45fb1604be2580e01a1bbf23d92d7ba7ae0c3b6347a319a1776530596eafcbc2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_206.json",
+      "sha256": "a5ec1b72e3b2f5e8ec8fb055eb78710e9602fcb528cad1a477f74611b774118a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_21.json",
+      "sha256": "0cd2453af7d19f6c5a5917ff715d7b463551f0e925af0ad6b77f21b319304b4f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_219.json",
+      "sha256": "76b4f5959f52704e12056e4b328f6d0c6649a28f2b30a7596ba0e309af2a5da2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_221.json",
+      "sha256": "56c917317228def5b0446c7b7be6c8cca39bded11fc8aec7296dcb4556a6930f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_225.json",
+      "sha256": "b9c79b18143a78fdfe981ca619a3a0aca385890a1f78b56f38b0b4f7277eedc3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_227.json",
+      "sha256": "ad690fe6f95cf1859117df7f49edbffbbf320e90caa5d0dd665566575881f54e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_231.json",
+      "sha256": "ce4924e665e49c1cac35138c6fe8ed70396edf74793d4ff4663c1659ab8098c9"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_238.json",
+      "sha256": "743c0d135654d0a6bac2dfbe004abc5f471ecb57a3b731ff79f21eda5cf103d4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_245.json",
+      "sha256": "31696b7bbafb4233b39522766f4711421b56a6c3d16ac612a2ff78e056f9cdf6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_252.json",
+      "sha256": "67e3dc18e4ae1435297b301375bb06732a3c34e4051c4a91295fa2665a05acf3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_253.json",
+      "sha256": "109f5f88c4dbfc70a9ea1881d3b1af46cdf51e4732f1f24ab5b1bdc14f729cea"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_256.json",
+      "sha256": "bed2e10143acef08827169970383c2892ac2f1510b3c87c94a1c9dd969445525"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_257.json",
+      "sha256": "04107766fedd368d4d43b434e90ebdd1fa73da8b34ffd8089ba3f30aeed8ae11"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_263.json",
+      "sha256": "f584c36fb1e0e05fdd3bc3ad16080121d02a95989cbfbdc4ceff60f15636bb30"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_268.json",
+      "sha256": "cc2546e59541455e9c152838478542cce31262bd93937fa5112a3836213d8624"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_271.json",
+      "sha256": "cf6f9838d609f8f36a059800bc13eb816e5716e23d6431b2dc79b744715a49af"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_272.json",
+      "sha256": "a2b235bf2b837fe10aeaf315a343c294747ce65d32bdcd989961ed24c7c11750"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_273.json",
+      "sha256": "f9ba5d51daf7235d23b6610755118effacc7adb30016dd02a2a5c077d32ad832"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_283.json",
+      "sha256": "568112666c8c912ebc343e61225dd2f14d359b412f44500a85db9947313cf2a9"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_289.json",
+      "sha256": "a7da446229b6cae2143993cbcefe1554d517116ce6d8c1637f85557f291124d3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_297.json",
+      "sha256": "ae76dc0be15e54a83708d519c607f80a4a8358588e481c6bc50e89342c594361"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_52.json",
+      "sha256": "ef90db97c3e59ef023cbf6126a387eb4b3ad00ab32759b1012c4d6c216227fda"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_6.json",
+      "sha256": "8fe3e84289cfacb4ee52f04ea8d19c25dbe6993f25c61f7b0242e7de464d12e8"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_79.json",
+      "sha256": "5b8f2cca36bb1013b055346e8b1581523b268b090266e5bf249813e33f88b85d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_92.json",
+      "sha256": "96e5fb734c627f85d2c421fd2d47c3eaf4d37486ca5dad634a89f3b63fb814d2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_fullproof_think/naturalproofs_trench_94.json",
+      "sha256": "868d8992d2be3bf3851b34cf6624923a8f1eaaa90135e7c55e45f252b52b8413"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_0.json",
+      "sha256": "e52e7f430a98734cf4dc90780c06c2658e982949fbb11c7712df3a1643300604"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_1.json",
+      "sha256": "fd1ef1db022c4032446ef05b02b9b082b59714443030d64fafbc18b38193a410"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_10.json",
+      "sha256": "75bac7fcb21952dd854742564c980a14c4c5d72b627367473b3e0696f913f435"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_11.json",
+      "sha256": "a2bfde855c857313e88135760df31b363cf77153b180604bb1eac5d096de13a5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_12.json",
+      "sha256": "fc5168043c52273dc3330832b473c20e4be3c4a9471deed6ee8fcef2f2119aa1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_13.json",
+      "sha256": "d16fef5498133a8daa0372e4dd5c226d0320c7345ab0901fdadaef5c1ae6d953"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_14.json",
+      "sha256": "1491576bc8be73924bb332283f1be3bf80eaf665f1839cae8dd91f86ec64a943"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_15.json",
+      "sha256": "6105f5b8258a6099740dd73e96d667738e2fdbc0d3b588bae6cf7e286130f906"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_16.json",
+      "sha256": "1da12c9d964e3090909a346a41b11026a73ff511398c682a3336e74b9c30dd7a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_17.json",
+      "sha256": "4750a9d609b60e5784dbd2714c126b755591674894952dc106f9b310de0220b1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_18a.json",
+      "sha256": "2207e5940bcbf61c352ba3d8d665f4c73819358e75e7de84fb958e2e993feec0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_18b.json",
+      "sha256": "24a60d614395d79ce65f81c39aa1945a66b140e2487100dc8a3beb3cc051da32"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_2.json",
+      "sha256": "70b6ebeb51d00d014f733933f106daba40335c4d1946b54dca905a3b3517b466"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_20.json",
+      "sha256": "f5dca000772a9721b11460deeb040ff60f61c03139e60995f459ba6dd1e91270"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_21.json",
+      "sha256": "0813c4f2137b923a9ed387add469ec83ecb06383f06e42294b3ecb993ae53c3c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_22.json",
+      "sha256": "58ebcb4839bafc94a99550665b37536becbb566eee6f1aea11038a6e480ceae6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_23.json",
+      "sha256": "d3e9e6b31081160bb2c62cace3a3deed6ad95f3772bdb1d743290c4bfec9c451"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_25.json",
+      "sha256": "99f27672e787adfc993aa796006a0352170a198f4e5828c9f8f7cf585387569f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_26.json",
+      "sha256": "2739d0bf8d9c8247be3d912d72790c9415d80d0f713ab031aeaf8f83fddc8bce"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_27.json",
+      "sha256": "7f167bb2323d9fc7979ae725d184664398e0e34290cecf12253eedfd930e361c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_29.json",
+      "sha256": "c8b46a6c08b56906709dddf7155c761b6c41ca21ff00b811c6e93b0636f2e078"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_3.json",
+      "sha256": "921c7af636853a219a4b29bfe0b31a0a320816f51b7aef2657288dafab816686"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_30.json",
+      "sha256": "8482b703e8115a83829ce1bfe350e18dcb73df2c3b10fe0373431df5c9a44b83"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_31.json",
+      "sha256": "77c018763c74030ff98e2f72cc2ec1e914513ee3be12f65a453be7b54997d225"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_32.json",
+      "sha256": "a7e3d46ea7b38ffae14365a2affe0a37547ba48ec0a8a64fd0134d12bb1b7c1d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_33.json",
+      "sha256": "aff619e38e7f37c884af7cb86f6e5db5afc0491cdc93a84f7291b633671cc02b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_34.json",
+      "sha256": "eee436716e6bd773eaaeec4b44d5f77217e5bdc672c9966e96935f045f3aa240"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_35.json",
+      "sha256": "6497e5caa79ad89aa49f20b83ce7c1e5e9114505f0d512f290cbd8d4cdfc5745"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_36.json",
+      "sha256": "4758817c5c3afcbcd9a4eb786e6925631e5d1ee8db006df04c56d8d6cf4bf9f5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_37.json",
+      "sha256": "ebf97626df41ae22e0adeeaab0d74f88ae48e1a73da09b90c055fcf1698f0675"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_38.json",
+      "sha256": "d736cc482bc04897a3316dcf4886881dbf351ec4e1db96f252c568856b3bc004"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_5.json",
+      "sha256": "892b2d7c67defdc68f2cc85278821303e9e7bd6e2dbafebfd32ca1b808e684a5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_6.json",
+      "sha256": "176820a6c1d95392d9a8ec63f82e7372fc55bbe5f09884eff42e7f5782241be0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_7.json",
+      "sha256": "46bb7d6748f00b3edc8e89da1f920a868f4ebe69a945e637c691094202e01721"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_8.json",
+      "sha256": "e304df8584d9ad6ffbf8ddb9058bcc7b8d1a461a8c01609309f043ec6d5ad6e2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/AI4MathInequality_9.json",
+      "sha256": "e2ed182c8525564ee841fecfc00c1dad48253f9917e8730cb6768dc43422c92d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_0.json",
+      "sha256": "7112cf62ea1e3a80ce24bf63fa2b5db92c042d486a9f25802c3e2c471c32925b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_1.json",
+      "sha256": "201afa9b367a0efc3ded43a8728b613c8035e4e5b95198c2df76bbee911f2468"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_10.json",
+      "sha256": "8c5b4e8c326841f990a5e39a19682304c462e76a7fb313c05cd04c0b31fec4ca"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_11.json",
+      "sha256": "4a8577d46d381a835c55f43ba19f2596090dc252873559aab32d519c3ee3f749"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_12.json",
+      "sha256": "d7011a72cb79226d950ac33db70942f586953746e7bf606b1066f5e22a680dd3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_13.json",
+      "sha256": "08772d71b0c572b4b21cbf1ea56e0e15835dadee9ac5227c69576c0470e58ae0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_14.json",
+      "sha256": "8ac0090f54962eaafe8e7a254ae69cb9754d58e6817a08bb6c037dc68f345b50"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_15.json",
+      "sha256": "cd8fae0e09ce816b9aa584dea2ab4bf3b524d879c338bbb22f2591e75451f176"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_16.json",
+      "sha256": "105ce4aaa7203d74b51b7f66416698d4d8b6f1dd99fa401a93e826b9d06bbbcf"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_17.json",
+      "sha256": "8cb0de26daa7b82adc7d7e825b4dcc565a5e16ca4d6b46f1579c59df8cf76b9e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_18.json",
+      "sha256": "31a00a8cd1d89e8292a820ce03228e4e97b1765a6ee8b0be6d849527dacc78c6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_19.json",
+      "sha256": "a4d22be97cb547d456a7c571d6d9dc2b929d3247ad62845d75ebfce30f93abf7"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_2.json",
+      "sha256": "78d756b6654e131f4abf55b884a5bc72d4251050dc01ee645851a2505319b5a6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_20.json",
+      "sha256": "507a43090a5c13db897832989c7739296206a385735d8dfdb9ad2485bedebfe5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_3.json",
+      "sha256": "b64f6f0ca848117e7e623b817db10971aa1e5064fdacab89df76afeff8983372"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_4.json",
+      "sha256": "d5fb5c22af6e9b1a4af0ca6c60a17fdeb5cf24e629fa38ccc107aa6e1d42ef75"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_5.json",
+      "sha256": "80fda34cad82064de3a186430fba8e405a2a15ec006523157e539d2c0e98a936"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_6.json",
+      "sha256": "397db2d251a6ddab2b2311175a831def8088e69e87cf549c981cf70164d40154"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_7.json",
+      "sha256": "13226751154ef8026eaf046520695654ee51ed0637bbe7cba3980e4ad7c5b182"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_8.json",
+      "sha256": "a065211b653b1295fd72f150f786b1f0491367e29e434236b096db440f673220"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/M series_9.json",
+      "sha256": "467ac8a1c488fcb545ca53e9a1aaae6c0e008d9789161e93841fcb02c393eea4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_1.json",
+      "sha256": "a1276682c27f0a9c0b853cb9a640dd79838f036454f5057e8ff0112b8ab56e40"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_10.json",
+      "sha256": "5b3b1eb6283aefa3df9eea4412bbb4d4f4c554fb29853822f835cc7b63202912"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_11.json",
+      "sha256": "0c86f16aad5e0595fbad89a3be1c0309bc6bc01c8d9a773e1ae61f24ec7593c5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_12.json",
+      "sha256": "8078fc646489feec678547d0c38d154d76b45f624f8c70efa22ab6539b729e86"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_13.json",
+      "sha256": "63e3902a82330101494c4e5c90ade294ba962ae9f9ed31479ed1da6fa1abc57b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_14.json",
+      "sha256": "42d04360574466bff860cbf01591cebc2bf8c5dbe2cf467d6cfad484f1460620"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_15.json",
+      "sha256": "9a3b002a4ee3f510118597c7f97de4f25ffdfd8aab6fa58e2757b3296f6da67e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_16.json",
+      "sha256": "be2738a77f19b21800133825fa77e23e9aecb98b3ecc48161d87e26e713b56bb"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_17.json",
+      "sha256": "425bb0494d5dc7416003daac1d3a794d754622e31d3e28fdc76a1922bc12f543"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_18.json",
+      "sha256": "ed135a7a9b6d3ecb5382fd4aa7bd425fa9bd1d0b8968dca885e75469789624e0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_19.json",
+      "sha256": "7429a8063f33f6aa0cfc8c72bac33b081cea96cd4f7a4e4b2ab897a6bc1bb6c3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_2.json",
+      "sha256": "aeef3a821475280c546991029e64b9b7e7b5b696c91db2e414a649ff5ce8455a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_20.json",
+      "sha256": "487b5c7b1c3bdba96505278876b6045bda8724ddd5b1d29401f62d9b4e1866fe"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_21.json",
+      "sha256": "aa42674df07679e08ef22e53e639ebbade2084392dbca8d347e24b55472f7846"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_22.json",
+      "sha256": "d21c848f02da122cda217ef5ea0028cb5a183ebf0c9990bd3097bdb117b8bd1f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_23.json",
+      "sha256": "d14bae8b133f0d446d3f502435b92338a032d7651f22342fed7724d667b7503f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_24.json",
+      "sha256": "93d793d70c5ecc3d072b2e35892009aeff7ea26a11697d61ac3193e344ea8002"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_25.json",
+      "sha256": "d2c53a83d8e48fede4be33321ca248c36d34c9d2dbcdc87c4c57121f6997b32d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_26.json",
+      "sha256": "8422a26d8407d4cbc17bef853b00cce216340f1cfe94b0994e7ad0a6b44c8019"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_27.json",
+      "sha256": "1da4c9a58d0f86a9e05cdca3c2e87a890a70c18661075d049429a2993f5f6770"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_3.json",
+      "sha256": "1c88cc82db025c78ae7902545e40a898ccc5f818f70850ca189c5e3a1a8df573"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_4.json",
+      "sha256": "9a12e44763365f5b1e8f400688f6f8d2d1dd9b459b70042059c6eaf857abf8cd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_5.json",
+      "sha256": "2984f12e28bb73a3cacbe4690b947351dd63fe1c61bbf4133a567e862eae7ae2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_6.json",
+      "sha256": "1a2ff5f2125d8f7555c3974e370bfcd3ce8254aa2114bad7b93935d8b054a6c6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_7.json",
+      "sha256": "041a1a0b7f563e7b9be0c4a319b0eb883d623688f0a65e42a70b821d4c406d71"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_8.json",
+      "sha256": "6ecc35298283c415f5647080323644cdb6df6a38da07b05ad8e310f1831454a4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/R prob_9.json",
+      "sha256": "10920a8028bd171b78b0ba58fb474cb66ace755d404d346bc219adba17174f67"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_1.json",
+      "sha256": "935dbb14dc648c4289759d5d5e2ab010773270e9ed0a83f7bf2feb056eb00ffc"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_10.json",
+      "sha256": "5f861d8fb9dcb71286d865476304e397fad2c8d5d7386c63e0bfb7a91f2b58ff"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_11.json",
+      "sha256": "25b37885cc98272fd6e1e0ec0996829f34a03e62a80a88f1ac4071e4a9754a0c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_12.json",
+      "sha256": "86767141ed2d035ea10cebd437c14ced20e770a8e3362b1674c14456df522bfb"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_13.json",
+      "sha256": "13c6000faac711455c15fecd5469865bd9271d003b791fec9bae028d546ebc47"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_14.json",
+      "sha256": "c57a4bac9344808b4e6017e885a8210b72638f799ef577e306f7b03f01cbd387"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_15.json",
+      "sha256": "0db256d152228dc7734101f2ea5e6c5d1be893a32c4932af2b98ce8668780f41"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_16.json",
+      "sha256": "a2e4309544dfb738754897c49c5d02228471c89f0b675abe6c2aedfb00028210"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_17.json",
+      "sha256": "e37dee562140454a2c2a431be3529c5f0728faa527e7dfc9a0002d51831bdfe2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_18.json",
+      "sha256": "ed4f2c9dfb7215301aa294647000d7da35eb73f52e2734c7d550dea849ae9634"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_19.json",
+      "sha256": "d214d8f89108545e67324591d537cc83cf8a9f3c4b0dbfd9a7970c5bfef83303"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_2.json",
+      "sha256": "484c260ec538be9aaca1afe4dc8f9216224c9f9d75e7cec14b53613d39cf4e88"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_20.json",
+      "sha256": "c23f209fd85ed9810735e7c273143b2e00e029ab2a006b97e50e990d058efbff"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_21.json",
+      "sha256": "7ceb16bad687e1709490f9fc1c09efb313529f6ae554c93abcdb60bf840cc8f3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_22.json",
+      "sha256": "02f43b8a6cc1044d5e7eed24caa856acd8329bef4e891949ae2f276ad325b09d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_23.json",
+      "sha256": "73769e0288593a65bbc88c8371a1642cf20609d91518ad2dbde78bc32924f265"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_24.json",
+      "sha256": "d1cb314508ec319b6e3be35835aaa113a818debbea3ca9a97c75dd551f2db265"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_25.json",
+      "sha256": "3a242023ba57e2546414284edaa41ae7d1c7565da1fbf8f05eb77ac534a9876c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_3.json",
+      "sha256": "89df2296b664b564c15bc11d3d725e9929a959777956f26673d29c1f06e42b53"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_4.json",
+      "sha256": "84113af476c873ceabd883e7523d5c48bcd35658a7ee29a6f3a6d84819962b1f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_5.json",
+      "sha256": "56c3882777fd3d637cb0b6682c151fad4255b2c541b318d0301b28696b0a7abd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_6.json",
+      "sha256": "19a5ed1d2a13a0258ffe565db3aa46240f99f423b1e9c7233ce80b7d07d8fc4c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_7.json",
+      "sha256": "94dba307606c4341462e1fbac072970b3714890e239933ae2b4e6158db1e093b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_8.json",
+      "sha256": "ba1a48e197647700dd7fee8f014775663f86fc4c12b873f3a8ccae9970870e3e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/W complex_9.json",
+      "sha256": "4937cf91c0f8d7f40fbfbea909dea4e2ee4b8aaf331cb8f4926da31eea935561"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/dummy_1.json",
+      "sha256": "cd49a299e665ab89b8120227bcef11e5bfd52f4a9d228542718ee608690853ba"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/dummy_10.json",
+      "sha256": "0f678afb1f3fe7a2fadd5b0bfab8c70b67c179fa9b06bc51de981328827cb7c9"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/dummy_12.json",
+      "sha256": "6dc0b23c650e3b6e5447fa4c35cceefb60f85dc656dde9e6045b526134491b43"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/dummy_2.json",
+      "sha256": "fa27eefaf8aa10d4370262088597619b07dfd94e3a4e1b5eb6d6b986c4f64f7e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/dummy_20.json",
+      "sha256": "fb02c1144c983c4750796f6589809827e78ae278111a56cc0502a9aef15dc3ba"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/dummy_3.json",
+      "sha256": "042d10b8a2640bd9ef96c553c823811765ddefbb806163790d9f577b26589b92"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/dummy_4.json",
+      "sha256": "536b1d2acc044f1e93f8b18fba1fb24652ada9793de717d2158b09831617e6a4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/dummy_5.json",
+      "sha256": "d657b4a60c2b81ecbaaed432664fdef1b814a42899d7d473a4a1e03c2385f07f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/dummy_6.json",
+      "sha256": "347c0a9d09b2bd971ab06131a453cda62ed8365aacfe3bb05bf599c54cb911c6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/dummy_7.json",
+      "sha256": "4c5e2524187aa781a79f069288ee0ea9d0aa38035f6b44d80691c0ff01913962"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/dummy_8.json",
+      "sha256": "6df314dc6653dce6e5ea3a13babd15abc9f0b1f4f324993bae44bbc644685b82"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/dummy_9.json",
+      "sha256": "5b6a217e97fa484217a5d612d62fdb49a34f86028c4cacc81136148cbe788ad1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_18.json",
+      "sha256": "2cf687d138f0507eee1460a4c33f1f656b9abb5e785ad72994984eb4812ce8a5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_20.json",
+      "sha256": "9fff768ac0765b66d6150229f3379db48be5a8297a0fc53259a77fe2c5c034b1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_23.json",
+      "sha256": "ad445742ab26ae3b03a4c4caaf2930b22b37cb4ddcffa77a85ce51d99a39f600"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_24.json",
+      "sha256": "637e9c3cb164665c6e20c36c195df7f35173aa52119d9b3c267faebcf4a94440"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_26.json",
+      "sha256": "fcd86f37b26aa839095805a8574659c9b203f6266ef13392eecc31d4dcac68eb"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_29.json",
+      "sha256": "1546da78c10fb59aa7640ea910052068b2226cae8fbf008b76a46795233cba80"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_30.json",
+      "sha256": "191e883f97b8ac9a0221e53d9526271dae9b59f6d0f329f7917a00acc4f383ee"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_32.json",
+      "sha256": "5e2d6d511f5eb975c40c71457bc960c4a1c8af7fd9c3949bd5cc59df841a441b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_34.json",
+      "sha256": "c9adde944d3f3af9a5a2890fcf6a1921ca34087eb48917494c24cc9fcd82302e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_36.json",
+      "sha256": "c6ff3aa8960ea3badb5ecfe1b30328713fe6b765fcdfdb621699fe67318e4efa"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_38.json",
+      "sha256": "60c677d981018ad8042cb564ff5f432eb85cc4f39bc7af986f2d10abf472461a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_41.json",
+      "sha256": "0858db8b0286ad21c65ce994d152d170d2a1febd8a1cf4c280327e64902b6b39"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_42.json",
+      "sha256": "5a50b838eeb4aca8cf5c053ced994de5b4fc3a341e625df563a5696bb260f0df"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_43.json",
+      "sha256": "8a39757494cf58d386a11efd7fe779c90a54050c1667c0d8580d2abac61e8509"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_5.json",
+      "sha256": "7fa008153c545688cebd6f348e452245b0ed6d932a96b380023f4feac7b87286"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_50.json",
+      "sha256": "238e12a68fdefde180a3b6805996920510acd44a1f8116716474188190a4efdd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_52.json",
+      "sha256": "34670f10ce5cc14ee81be63f44c466ddaa8d8ecd0e5c77f2fc178d960fcbe21a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_58.json",
+      "sha256": "4ca98f6ff848ab37e6b5b33002fb199077d18d4cfd2da9c5173f8ca248790fbd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_59.json",
+      "sha256": "bb9c06bae707bb2f611c9a6e67889bb8e32a496e2a88d36c05c36e6079420be4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_60.json",
+      "sha256": "ebb4362f3b2c880efa76a994cb3661b1f23a96597fec9bf950feeda7670494fd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_62.json",
+      "sha256": "4aae8061c5ec1d966c3c21b7376fc00ea646ff98413960349a9062305db23eeb"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_63.json",
+      "sha256": "1d0c437ae137efec30e4fa05604d5cbfa294a0f278fd79dde3882360e11680b2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_65.json",
+      "sha256": "d28770e396f7d5dbd262341f8afc9adf5fcca2cbd5be74a816a2300c1471399f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_stein_9.json",
+      "sha256": "606ebd287784096cd2769e9ad28960538736de084fdc1a4ddec61743e0dd59a5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_0.json",
+      "sha256": "0ea562e3d6a713193621e2a217b670f0922d098e9dfd5988faa1758795297adb"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_1.json",
+      "sha256": "9efdef792b92593ae99dcdd29dccc5a9d3fac7a7c34d469d8ed7f68a119297ef"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_10.json",
+      "sha256": "b5ff8f9fc4f9959a5be687378f507d8c81eb59f137ec1a482c0935e3c188dc97"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_111.json",
+      "sha256": "d9b991dc8bdccc7ca3bbb14923fcf91e507e2b3ce8311b477ce50095a9811f18"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_118.json",
+      "sha256": "ce79e64c7eb3c5303cb026b210dc8b2965c3e241f31997bdbf1a43218d1ce6a8"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_119.json",
+      "sha256": "e8163bff5722e7b706540474ecdb2e7ad825928a6356dd82d4b31b2127c05ede"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_133.json",
+      "sha256": "0ff6d101eb74a4fdde9a819392e9f5cd16deb5cfab8eee9f9449e9c7ce14000b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_138.json",
+      "sha256": "1fb16d9787e500cec08cb71d4d7b8142069632b49d9476b25d4b227b932f8b23"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_139.json",
+      "sha256": "0bb9d2929e352539749e7e6d38870cfeece0aa9f29f848cc74fc12a88ba4abcd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_150.json",
+      "sha256": "697b7f13bf88579ad53660fd15c00bbc323aec2efd19af056a7535fe93fc7a23"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_158.json",
+      "sha256": "e46c3c451d2641485256614075b4f078e5613782687257227f07dfc5047cf6d8"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_159.json",
+      "sha256": "17b790092568d41796af99d1a589403e2e5f6393adb8c017012cdb9e8cc062cb"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_164.json",
+      "sha256": "27146444797c0ea0fa3f6e440aa6ab46f2c6610ad4e18732d578f7b531f6523b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_206.json",
+      "sha256": "8309283080b027a0bd80a3d5868ffa6cd84056d78ba54a8868a3b4afaf1299c2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_21.json",
+      "sha256": "69dcbfb086e609816623e3ff05f2ca4c7a0f934d356a5baf11fef03787a181de"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_219.json",
+      "sha256": "6834c8b7c04e3241f1f64b86fb3fd15be9ceb11127e0fb43a4ef153def9eb738"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_221.json",
+      "sha256": "8e0aa396232241bc6c819b1249851273ed57f47c00b63c96c0be45ac96cfd4e1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_225.json",
+      "sha256": "86ecf77e7ca36df5c2bbebb33437d1793f7faef0d7a452bd9b569666edbddfc6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_227.json",
+      "sha256": "d76fa02ff4367f91e8065673e4e1f566f24b24a3bf6648205a7b2f2050ff415f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_231.json",
+      "sha256": "22b5a8a9351058dff18b72c00f1eb64c6c56ae79a3216595eba919893bdc1216"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_238.json",
+      "sha256": "8498f65ec3135941a7198ca77fc7b72e0ec84758c61f67d3ad2148e1f5afa3b7"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_245.json",
+      "sha256": "ed219bef48bdfe0fef19ad29d0398f2a495d5d62346539e986c0818c0c2d53b4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_252.json",
+      "sha256": "99a23d7222b2869d3dc37039a028adbff99ddb2f8e7feef461dafcb75cfcfc3b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_253.json",
+      "sha256": "9b8678b988dea7f25fde79696f228b34cb26d8d08478584e5b7b9d15c35861f7"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_256.json",
+      "sha256": "5175fa42a0f63ca65077586cf96e818b81c22c47ecaa7eb4c94b45eee9d78eb1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_257.json",
+      "sha256": "e9b7e90148aca6dea579e6cd6782b4bd82a3e4ae31915108b0e67f6621ef12bb"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_263.json",
+      "sha256": "cfe7a19e2f832d5375bcade0a0dcedcf1ec6ddf0460468fe1d2c635cd55c6934"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_268.json",
+      "sha256": "d0639ebb9bfe08950e6cbae016ed0e81c144506b8801f4e6eedaf105cd217dee"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_271.json",
+      "sha256": "0806fe89eb059e4038432f438a5aa3dd5e423e1665864c0f591976328288a5c6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_272.json",
+      "sha256": "5293f4ac61cdb1c1a0b32f2294e0685f789894a1a7d48dab07a1226e08cce18c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_273.json",
+      "sha256": "46ae8cc1cc4a34327ed4c4a46bf56d31743038856ef57a751c9d2f5d89eccdba"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_283.json",
+      "sha256": "6c22ab6f3dc9514dab75b376bb6810205d2ea32b5f2ae40b23513fbd42556194"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_289.json",
+      "sha256": "646520e6cf588cf8bc59c6a4bdd9126d828a0636c5c9371da69a2c8ab2c19dd5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_297.json",
+      "sha256": "b068f7dd6406b38de287fc0b25c7e198899b267e056329f2bf5f59944192b223"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_52.json",
+      "sha256": "416e6c5cba50a523d959152bd11ed0c1735334cc60c55d707178d6702fd2865e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_6.json",
+      "sha256": "fc3e507e5f6449592875214f42f63e425a01ddef73f251b70365ab0264455a9a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_79.json",
+      "sha256": "4c21a8aafb6fe4146e36efb208c8bca69069ed34e2ed6f0797adfbdee78f87f9"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_92.json",
+      "sha256": "cc647f6c7641fa1d98b9a200e3f950948bdb723d491b5f4b8242d9fda8674524"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_nothink/naturalproofs_trench_94.json",
+      "sha256": "f5f48ab88b0c1d416e407b65e8056561040aa9fdc71453263cc358f22b6a6c45"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_0.json",
+      "sha256": "1b5539fc0ad7663cabca514cb0d037d4111be9f8d98b6d0c422f200e4a2fb17f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_1.json",
+      "sha256": "184c4c46a981b49012e38728148fc377e26a122116d5d824fd0f6b9de8592db3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_10.json",
+      "sha256": "f54a04bc4320b2a4ed577883c37fe7bf87a4af64e3eca21e03f45ccd6ddd55e6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_11.json",
+      "sha256": "8c1f950cf18a255eae200fc076fbf2d154ba0d2ded903dda98b6df3c775a458a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_12.json",
+      "sha256": "8fb998058dcd0b6ca012e4d3fccc82a1ad04a1befe76b28a8e600a1a6ab58703"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_13.json",
+      "sha256": "dadf1307f141d21607f1c6dc27f975703006d1e21e277cf520a43db5fe4974c9"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_14.json",
+      "sha256": "ebbd64ff2a5ede587dfaed811803c2f0e1cd0dc4fe0538cac02fa5cb3fe1ab3e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_15.json",
+      "sha256": "ccf6a3fd8a6fad8a1cdc60cc2a4b174afc9fa2f47c9da7381a621b57e40112a7"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_16.json",
+      "sha256": "90f65e5f71b123a8929207a82f25683c443564d45f17d3c8f0525a95210fe6e9"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_17.json",
+      "sha256": "882e296fdaee15dd1acaaffc4e5e32e223d5b98c5ee77ab1ee22997d1e5a6fe2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_18a.json",
+      "sha256": "35ddbb3e5669da8001bdacf96cc0aac8750e43343717de58bc8600f4f6d2d545"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_18b.json",
+      "sha256": "d9b0d5d6c38fd0c82185e743a070208dd8d22615da334ada7affea97c0518c5f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_2.json",
+      "sha256": "30705e6f81fc977b725d34278e6790f39ee2db96ff1c8dc962a1041f0e5aee88"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_20.json",
+      "sha256": "ee644b0f5e5967f8d3a6c3e5d978d6521efa263c39c60d48f9d34153faf577b2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_21.json",
+      "sha256": "108cd525ba56509aa5c8073a5553c6ae7170af70db4427f6b4483b04b7adc5d1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_22.json",
+      "sha256": "be628498871d66e7092d18ba6b5351317d548d4aa3b74173333347374e90a931"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_23.json",
+      "sha256": "9ec98ebf637731fb7ab562de9f2481f0c33effe8e7e100d1ad65975fe870db0c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_25.json",
+      "sha256": "18d851fad52469bd20b434ded2b7681aef9287216f846754d43bd2efd6897c65"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_26.json",
+      "sha256": "385eaed88900b678b6c97a9804ace161a93e8b11c7c3b1e288f90e615cc39e37"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_27.json",
+      "sha256": "21ba4604e66fa50ad6d2b935bbf24bd0fa262bffd4a9e439d05b6d98186660ad"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_29.json",
+      "sha256": "fd9646458279136e3fd50b6222df30236602955d83b5b229cce21ed75ddc9229"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_3.json",
+      "sha256": "560cc42711ff24973a0153f7526cffbc963e006ef8877598ff6a073163a0f9dd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_30.json",
+      "sha256": "7834374e91101459bd710bd88bfe5bb4bb6277d5333014519947c69503eacf16"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_31.json",
+      "sha256": "c9f26783e78fa7c3a622ea366645bb504e7b612d53c82fc5b50ad127828ce198"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_32.json",
+      "sha256": "ce6ddf01a44ccbbc210112a74f42861538580115955659fda490c7f6acb0e9db"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_33.json",
+      "sha256": "ce4f9d2149b4ef9dcdca2159cd303173d69c733cc6ef60493eed68a84712a4dc"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_34.json",
+      "sha256": "cd574f259f3931e25a05eb46f4e7135c3353d8520de12eadf6074c7879b51026"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_35.json",
+      "sha256": "77439cba7349508a98e522fe03d5f846113a49a050d007174064d716a228a640"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_36.json",
+      "sha256": "44c75daf7a922af4e3ce9d474de081b88c1c8f507aa6d470b4862a492c627173"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_37.json",
+      "sha256": "49540d74e34c461cc04eb29160091f9b7e815d5315ca6e1c948f7bc81072fb2d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_38.json",
+      "sha256": "4f31f3dec81712f18650c98bf9d7d813edd87111bbe2d5a4ec2b54a283233ee7"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_5.json",
+      "sha256": "77a052c2a267523a1bebfe258ee44fb7f711b5223616eac944e4a1ed07a7ac49"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_6.json",
+      "sha256": "463ea47986d1f1b0647139a6af1147d1a373712b2841a639fcf3cbc5e9db5005"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_7.json",
+      "sha256": "ea48c7a54609361c870e7c288348358cdb7e9bf7c020c9f7a77cc82dce01c0c5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_8.json",
+      "sha256": "c4d5a7cc99bcdf9440ccecc81b03d362bea9bdaf654a5a1afda4a6a7b3858f7c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/AI4MathInequality_9.json",
+      "sha256": "be24bfb721bf86a9e6ba6f5aaf683ff32baa1f4ae44b7f98fae0181bd9639e93"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_0.json",
+      "sha256": "10c7dec27180236b3924040b09ee4c2c375259f4a5162301b6bb009f2774aa7f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_1.json",
+      "sha256": "439d9da1d30efa0df7a0a2a5e429b5616368c7ea75bb887d86f9938e5fe3cc9e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_10.json",
+      "sha256": "23304e922b76b1be0c525b6d50893145694455fc218f9ea3be8ff6c7a959b850"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_11.json",
+      "sha256": "e12608aca8b9daeeb3339a2c67b52cca0beec4bb88714e00d82e7631b97b38d1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_12.json",
+      "sha256": "767eba6d38883964dcea8e1a46ed72e7d1eb6044ab78fc5161076d69b5cd9243"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_13.json",
+      "sha256": "0586b9dcebac7915356b843a62511ff441a53fadec35c8b720609ae245c9a6f4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_14.json",
+      "sha256": "a3d24cb0693accac45e0e3d4b7294072a1bdebe6f566b50cfef7dba73fb5b419"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_15.json",
+      "sha256": "71b23a4a8539b61b20ed7dd7d2468cdd64301b41d9466e5b4c90c3de9ea882b5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_16.json",
+      "sha256": "96bd93824e7e7595d60acf4d510a5189f83b5e8901438a1737af1deb834358a2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_17.json",
+      "sha256": "181cb2140705438ca46d19d5bef44b2ab0c19ddc7f77892a4dd2c729a894e3a1"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_18.json",
+      "sha256": "a21f63744f2cd82ca62bcfd712e009b07430b805f3f77f6c86be248e957ffa6a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_19.json",
+      "sha256": "8bfa8f995773ee90d0f16ad872aebd44c49b987f223b1ae7a83a6c174c3b5564"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_2.json",
+      "sha256": "ba22ed7279b02c5fa84daec7ccffb0bd8aac8124895f7f41a50f72afcad0c231"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_20.json",
+      "sha256": "5ba21acb87377cc9e89eb8aea95af9faaa0da4e1ec4317797fd144dd5737b64c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_3.json",
+      "sha256": "96ac3979f4f79e804b21901f93f5e293ed3a1f49fd8befa4b4b903b31ec49c29"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_4.json",
+      "sha256": "3f3105d96035a3e651e971b3a4bbeeeec736314be1b3f0f5adc61698a07a06a8"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_5.json",
+      "sha256": "c9e79b56a48522e3b00a0b1dc0c6292ef7dd8c5bc4439060e9f6f8bcc0589ff4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_6.json",
+      "sha256": "9430d7ac43d5de3797dfb490bcd3ffef448be1349266ca74af52bf35607499c0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_7.json",
+      "sha256": "6a343ae288154187285c247136f035e9a908274ded560f58ebc6adcd529e72dc"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_8.json",
+      "sha256": "0f08dd2bb7d5a02b89946b7fd43694dc20b31593a4930a846fe7d96a420b9cf5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/M series_9.json",
+      "sha256": "87178d2c24928ae0ead1e9eb32b0bab382f4e998ddb22e7432408612d1ec3a20"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_1.json",
+      "sha256": "cab8b3391af030d28e0fa039463e107a05480b31c71b2fb02b7efcc2a2ff0c03"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_10.json",
+      "sha256": "fdc0c5a53d81e3cff265546b6997bb8e6819da3892d07d7d48ec4852005aaaff"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_11.json",
+      "sha256": "93d20574b39f21a971293afd721855b3e3438c1c8b7806ceeea0d0c272664bde"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_12.json",
+      "sha256": "b21a1aba93b01bfcf0854314b8ac5c6f7b68679517ef54a1e62a11e13f00c1cf"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_13.json",
+      "sha256": "906d516d3e5c8ced3ed59f32723943b3f9d7e699fe91627ac3d38cf31a7d5794"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_14.json",
+      "sha256": "8f57aa8da6c6de76ca2f5bc6f2df01c7185f60852fe3d27f9f3707cce57abc7a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_15.json",
+      "sha256": "9fc4c34b1d16b300a6ac656b1e376742fed5bb4816459b80e2358066337cce52"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_16.json",
+      "sha256": "8f12d4941a3b72053ccd62117e0fac5776c8ae6b930d8900fd3d1c643bc1e1b0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_17.json",
+      "sha256": "bfff0f94f81e6dd4abe6b8a5be058dd6c79658861634e3547495ccd50847fc01"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_18.json",
+      "sha256": "9772cce01866c367bbc0f871cb3334775af898ebc3bc3a95149514cdaa6013b4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_19.json",
+      "sha256": "da6024651a1490f5d4fdd7981399d2788b0e9cb9257c3b6166d1118e5d606149"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_2.json",
+      "sha256": "73241eb7890a42a9c08a45da6f28ede78f969e33dad601706a107c90baf51f52"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_20.json",
+      "sha256": "693001f8d3609976ab894200467356c17275597ced68414e8f0be4789888f857"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_21.json",
+      "sha256": "539b05856d5dade096e5dc129e5e2a5e9f27dd95433bb850c7068bd02c1d8a16"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_22.json",
+      "sha256": "4c58ec20e155d3dca99de254bff79a1148d1fb3d6f15e76859e6b3cfe356f098"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_23.json",
+      "sha256": "7350657be0a4287aac72ee2c7cfbda44f6adcfc9c73f240291461649d7e92fcc"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_24.json",
+      "sha256": "e5932fce38fe57bd135d61b1ff28ff62afbf67ad0cc71a9b8b3f7baba5166a0d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_25.json",
+      "sha256": "7f4fea89fcb007f436eb7a3209c8df843e024d161e9f043e603ac293907bed0c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_26.json",
+      "sha256": "b659550ed561e68c2e8d69d2b86081c19c9ba79dfac49ab29c18d791eb037fb6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_27.json",
+      "sha256": "cc24698299a6cdd34374dde87def91cdc00ae40a280d8bd8ab90d3b2c6390c37"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_3.json",
+      "sha256": "caf1d6b7ea27d8a61df10de9b800a380657d2c8b46c27fae966177d6112ac50e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_4.json",
+      "sha256": "0539766263c42c389cec2b6844ac9b276c35d538a3fadd5e05b00385ab4bcc1f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_5.json",
+      "sha256": "515f258af033ce4423c9028767f49e39741ca3745b933e71f7034ec2ebb98096"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_6.json",
+      "sha256": "8f0b26dd3227a44080e8cb29a6c378b2afd2007bd6b9f2609c415606d68f668f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_7.json",
+      "sha256": "e54e96e2c3f7949d379bc5809aa9158115e036fcca37914b57963024f9937295"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_8.json",
+      "sha256": "7f04ee07666e6f4f8f8daca7877c643043b5158b8ee8a374213e978db943f708"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/R prob_9.json",
+      "sha256": "54794f7ce3340cfb533b988e30c4e08f07d767bb2ec46893b2b315f620e8ec7a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_1.json",
+      "sha256": "69d19a0c1c796178bb63fe91baaf30a42ae87590dd2a86cb3306a1da95b97c34"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_10.json",
+      "sha256": "798e6323056412cdcae678318a5e15a2944d539bc4b9bc391cf468fa55cef876"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_11.json",
+      "sha256": "5d54e965d5157439013503f6a2b4542a95d35138fa7a5bd3c292133ee2ad5fcc"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_12.json",
+      "sha256": "771593fc885b89e2c312b976a1da54d5bf2aa0752232234a4f1897e049ce9299"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_13.json",
+      "sha256": "87388fe9f3433874e14f14e3d9818a071504fee106cf95e4db4cd63e3ac9ff0e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_14.json",
+      "sha256": "8a4d2ba82d9ce0e91df2d73eecb5132a9d97a5eccef96683b2dbf9d31de6459a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_15.json",
+      "sha256": "e6a587a7f86eb891fba5d4b5c2e809f5cb259d0a4b09deab1a6b6a1c43066c88"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_16.json",
+      "sha256": "a5087e4c978fd2778aebb4efe00c08a2058a8ea99d8aa187d75749664f8de91b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_17.json",
+      "sha256": "61853cce9a8b86d125253756477e0e8245a4e36774422761757d0b920e5ae292"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_18.json",
+      "sha256": "5e6e0df825fc447aa95bffed08fdfa89bcb1b79b03d6f8f6313298993a613d69"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_19.json",
+      "sha256": "35faf287e3da19d540764ab89528649337540b5a15378f823a4a1c853166ff77"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_2.json",
+      "sha256": "3ac6d3b4d871ed69c5a16d9c2e0065fcc608424d8935eca5e7c7c504bb01547b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_20.json",
+      "sha256": "1163c961b3a6c6792af0be7a0fe9020ee11cad79ef43df688f7afca7e7105790"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_21.json",
+      "sha256": "b7e9fe423273d3daf06b4e1dbe62ec2ec4bd42988b9c5eb9c2887e6575f358bf"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_22.json",
+      "sha256": "9a268aa1ccc20745ac818473dccc37b876533d371b60230311bd2b8afd5ca2c4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_23.json",
+      "sha256": "5d7d816e7b8b82cefd1ecd607508af607bfbbc421a40e8bcd37c5ecf293916d2"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_24.json",
+      "sha256": "9b0020989683334b4b1ea2cdaf216a17008aef2d5ab367a9a2fff458ff821bbc"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_25.json",
+      "sha256": "2af9002cf182e5790f4663976a4e1b2b09df41b40e7b6a9f3df5cecd407cc78b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_3.json",
+      "sha256": "94a6ac96f1221d7c0923c05d88ad0beeefeab8d3af3e3697885ebc91cb3f1c48"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_4.json",
+      "sha256": "168b7ab79f76732effa8de57b2c46f1205a381ecf64f7a252c2dfba984711342"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_5.json",
+      "sha256": "d4c9a6e5c766a5f6070431f2b600f2925367bdc370958358e26febe9366971d3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_6.json",
+      "sha256": "acdd41be1c48a43f39e404e0d369cc718f30b9b66835963fc6481362528c1454"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_7.json",
+      "sha256": "7c8f4846869fddee3ebd4726e7512bd7302903fc33ac8442b0e071f490b10b71"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_8.json",
+      "sha256": "dfa79057acb92d4fa7813a9c30938bd0558651025f81bc1d54c894cd511b01d0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/W complex_9.json",
+      "sha256": "c775c00d18dc7069f780501d4b6e43b7fdb4ee8a68962e1f299153faaa6de1e6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/dummy_1.json",
+      "sha256": "793106fb642c4ac1391506d3ce215f632339444e95687e1ee4b35d149831cb14"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/dummy_10.json",
+      "sha256": "4da81866a76578159d73741494561c626258ed900668a6c83de4487a8ed68149"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/dummy_12.json",
+      "sha256": "dc87b885e2b23a7eac3cd0cdbc61b7cd0de294bf6c3272ee549062fd79716276"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/dummy_2.json",
+      "sha256": "b7d21acb182db22e590d853a3296749cd6dca2d4ea560fc3747e9d6cea5658eb"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/dummy_20.json",
+      "sha256": "5c4153bbd1286286cb5aa669ef1e8815290bb842309c8253d61a08c05e6ea695"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/dummy_3.json",
+      "sha256": "d153035a6ae9d659a7939807a5c6d37e00c58d3a63198a7289c215cdce0d6698"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/dummy_4.json",
+      "sha256": "c254bff25378131dea2ab87f06e4eea09761283426c30308cbb20063b827a97c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/dummy_5.json",
+      "sha256": "a6c4dc6c688cc97ef5f377fdb071ea32f11c72a17171ad4b925416a45da62252"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/dummy_6.json",
+      "sha256": "3d85b3b7738de8d549e4ff8bab7e1d0e220090528e94b67317b6bc807ff742fd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/dummy_7.json",
+      "sha256": "5a2e159f6a8e9a3976789451e3c548f28a808028f86003464c7007da340bbdea"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/dummy_8.json",
+      "sha256": "a4c9cfaef1f8c2225e2cc20b52d9be5e52228914f2d904e8c3f531039342abf5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/dummy_9.json",
+      "sha256": "e619fcee02cee05aec51aeda1e6298339b585bf80dcfeb581509585e223b1742"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_18.json",
+      "sha256": "4208cd3bd1c2ecacfd7ca6d0cf09627514b115661acf13d0ba525d1c67b651bd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_20.json",
+      "sha256": "d6105f8289b438be579c945656ca43655ff3d3827eab181a28164ee7793d9ec0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_23.json",
+      "sha256": "9ef8c9a9ede4b737ba6f208c82f83b557a6212bfcb0a91dfcff4319c87bfa41f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_24.json",
+      "sha256": "e3585e44d79f9cd6b112baa8f1554fda406471e4990bd9e7587d1cd031137a29"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_26.json",
+      "sha256": "869a4c4ead2e496be4b5af8398d8e61bbd6c4454f6be4cd68afd1165241b3eae"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_29.json",
+      "sha256": "d2fb70988afc40b51ace89a230e6fb4f8f37b9dc7238ad2f6052ac5f5661be7c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_30.json",
+      "sha256": "b64b9a633fa9713e7967107a02c727dc99c456a4b1ad3ad86824698c3502ae0d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_32.json",
+      "sha256": "b58824e92a0d36cb88098cb5d115836cf206a5a756e718b6548dfd500f7a2840"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_34.json",
+      "sha256": "d9f02059df254c7402e06b5f8361a165727f01478f5be13b989ac3507656b3e3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_36.json",
+      "sha256": "0ae508b7729b3eb46416fed2b7bb6a015f673873acb32d0a00bcb5dab076e464"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_38.json",
+      "sha256": "df41829adde392bd2045dac50340ca4adc2c4ba74ed358cafd3d52cc84f85dea"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_41.json",
+      "sha256": "c9b40519289ccbf2ea33efa2d3e292c955541cfb0a5b1332602abe7044b0ec28"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_42.json",
+      "sha256": "1bd4ecb5471763ecc3730cbbdc619dcc4d4e6b8ac0bf083dbaaf08d52d3b2f6e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_43.json",
+      "sha256": "ec4e5408c5105c3a14e9ef7cd10f0cd1aeb98a3cb05a95641e951264f8fd26b3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_5.json",
+      "sha256": "25a967b78e2cdac336196831d1971f7b3ad65fc2a1194db83c68f4749d2bc9dc"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_50.json",
+      "sha256": "0be16f5759a776c3375ddd09d7c08011e1708238d301254c3ce26dd3e72e6a64"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_52.json",
+      "sha256": "df2f80f620da7b9328dc70511b9e7451802aa0a0388b74a7f22622987bcd05d0"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_58.json",
+      "sha256": "9ea6b1482e8bc60cff17fc8c16132f21d8f8dd14a62ff93113bf0c9b512dd8b5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_59.json",
+      "sha256": "ad30e19ec23b8e7972e9cc43f75f26510eff108cdd68aa938e5e62d6d249d0f4"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_60.json",
+      "sha256": "1799f09dbf184c45b1dee1fbeb99cd4ef93c5bad7475e6f09a5925b9e7c478d7"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_62.json",
+      "sha256": "57cec0af850632b563f0a3035e242c722fbc68463bf6213dfac3b21d724eefba"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_63.json",
+      "sha256": "5dc50eec594067fa99797750d360e496bf44b22d2a155b5639e86958ec49a714"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_65.json",
+      "sha256": "1150357fca4dc88319b339386b807657b83965b7c02df8b456a76fbfbf0ceed5"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_stein_9.json",
+      "sha256": "b2c22a93abc397484ff76c320ffa7344d54c3199618d370ae46760126fcfd591"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_0.json",
+      "sha256": "b242572976400a8beda1a98ccbde2f773c114117f86939c6582e3064500a6b84"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_1.json",
+      "sha256": "3b3f19c998ea9dcaff1881156136b5f2914542b85e6fee51bad2a7ad7f34c15b"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_10.json",
+      "sha256": "d8dc719317e70ff28a8d971e926580f54d299a23535c9dbeec6fb9a750eb5c4d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_111.json",
+      "sha256": "9aaa221fd51e4667992cfa6ceda9fc501010b85793a41013204a5e1a6c5ffdc6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_118.json",
+      "sha256": "07d7ab973f272d4cc21901492b5ec1d93975165b417ed4b91ef034c822accb9e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_119.json",
+      "sha256": "c053aee4220eccc1d6009f8874ffffa0db41dc99aca05f3662029a2f2affc36a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_133.json",
+      "sha256": "70cdf413926bebbec1764b369ba827d46a22024cac626757c11156346cf0bb19"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_138.json",
+      "sha256": "0f8e2d3cbfec57276bec7d069dd8ca7a6590b5e6de4412a9c3906d3f859a9014"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_139.json",
+      "sha256": "7d78976afa539ddfbb01e626bae4390ac95d9aea97d226238d4797167943383c"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_150.json",
+      "sha256": "bf33c092d6ec510b3050eb7babaf01461ab70dd2274bcc67c9873065ea03a6bd"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_158.json",
+      "sha256": "0c76a6f50f36c17c0155e53ae8b6b6e27963f4f3ed1309393009f9e23cae64ea"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_159.json",
+      "sha256": "d0a924f4d9f15e257f1942bf9e9c5ccc6b144c3281de4aedc5c5d86ea9c561d3"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_164.json",
+      "sha256": "f01b09a2d606a326202ca37977059d3f9ebfbbd16daa02a8c68195a5b784573d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_206.json",
+      "sha256": "e77fe1a48e78e5ffed91597cad193c4314daf7e36a36d4dd6e6b34a8fe938e5f"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_21.json",
+      "sha256": "c074a8036e06d6e3d1c3885f56c83bb63d3e05245032af00cfec610311aba003"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_219.json",
+      "sha256": "f424d397a7b9b09761b53570ff41b5f657e36468481c916873d9274d19a6bb83"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_221.json",
+      "sha256": "89bd60c030fa61d04f10fba706bb351ae7c6c72583e8f2708c0d0841e29f2c6a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_225.json",
+      "sha256": "726d4e6d4ba72b9e39e307f64f726b964b643fd0c6cbd4cd52c2aef851240add"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_227.json",
+      "sha256": "a9dc895635670e6e28978ad7af3687cd80a8b3cb6d6431967d9bc89e9713f46e"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_231.json",
+      "sha256": "96c0e3f4e517b6befe3d52f570e9da3275f25280a8b9d3e4b343afb1c8740a4d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_238.json",
+      "sha256": "3799867c5ed47d4d3c4c0177c02daac8473be73078163c08d6a3cd710b7b4c62"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_245.json",
+      "sha256": "00c13952c720fdfb372424aa0506675ce87d55f224bb814049fade11c12e06ec"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_252.json",
+      "sha256": "dc8b38b9d56d37a9fb05cad8cbce0b42d71597d0216f1cfdd153f6aefb1b45c8"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_253.json",
+      "sha256": "3a28b6be0fcf34cb4692e035eaf48e739120f75cda08823b2f382a8f1d90f873"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_256.json",
+      "sha256": "f4ba9354498efc76a7ee55e1b803b8b87ccc547ad84be3f498ceec032e35944d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_257.json",
+      "sha256": "818036a36aeb4885bd11ab992a589816b4fafd4e704f15aa23c67afa6dd2e01d"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_263.json",
+      "sha256": "5c1cf5bf5a92272a356018c3cda21956a19a47e50c3048870c894bec8a45d282"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_268.json",
+      "sha256": "d46b5e539d2bac277fcc27a4d126b63c9cb8b78806c715ae5df07194ff864218"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_271.json",
+      "sha256": "fefda2f874de42c971c7d45ced4c516b1e8cfe8f40e8979ec44c0b4887b2da12"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_272.json",
+      "sha256": "e8c50725b64511b289226fb59e183172f680612d0f78cb25099558fefbaa9a14"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_273.json",
+      "sha256": "2126b905b04143fda8779da66660b848f57a3251c9176a35ddd460d805c595dc"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_283.json",
+      "sha256": "3461a3b7ac8dfea061f18ddd9194ed45da7ee4ff4c0ca4ea68209e7bcc9e7e8a"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_289.json",
+      "sha256": "d322691bb3cbaa542993313bcae612aff0bc85421dc8a767e9cbc7578219d554"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_297.json",
+      "sha256": "892ab6dbfbe766b48adc0f85d9a5faeedfd59a8615f5e6a9344b663b7e3e7583"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_52.json",
+      "sha256": "08b964138057d8aa40eecf313d54f4c75343ed8ac8526fc78ea84b8e5205d526"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_6.json",
+      "sha256": "87621761f2bbd5da9885324c13c582e9851b68840b63776c925b8e341715fcf6"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_79.json",
+      "sha256": "f79d222dc2d8dde72c206e03855464cf6a8f5d2fbbea30c372d56a9f1c267814"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_92.json",
+      "sha256": "578cede79cd5631bb56323918aa623e130728bad28d46371676dfe75cfb2affb"
+    },
+    {
+      "path": "benchmark_results/output_pickle/benchmark_stepproof_think/naturalproofs_trench_94.json",
+      "sha256": "64284a69e19662cb652a118232de033eb435501b33175b42d8e906ce03d4b3cc"
+    },
+    {
+      "path": "data/benchmark_0409.json",
+      "sha256": "58544ce36526742e57849956bdb02d211ad71bc030c1f83e897c539ebe55135b"
+    }
+  ]
+}

@@ -166,7 +166,8 @@ def predict(args):
                         with torch.inference_mode():
                             logits=model(input_ids=x,attention_mask=torch.ones_like(x),logits_to_keep=1).logits[0,-1,[yes[0],no[0]]].float()
                             score=logits.softmax(-1).cpu().tolist()
-                        result.update(status='predicted',prediction=score[0]>=score[1],yes_score_uncalibrated=score[0])
+                        result.update(status='predicted',prediction=score[0]>=score[1],yes_score_uncalibrated=score[0],
+                            yes_minus_no_logit=float((logits[0]-logits[1]).cpu()))
                     except torch.OutOfMemoryError:
                         result['status']='out_of_memory';torch.cuda.empty_cache()
             output.write(json.dumps(result)+'\n');output.flush()

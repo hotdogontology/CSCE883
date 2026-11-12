@@ -1,0 +1,279 @@
+{
+  "label_policy": "User-assumed corrected ProofNet argument correspondence; original Lean sides replay successfully under pinned Lean4.28. Swap complete English statement+proof bundles with a different related source in the same split. Labels are synthetic assumptions, not human-certified semantic differences.",
+  "inputs": {
+    "artifacts/hard-related-20261110/data/manifest.json": "cc7cf86290c1c7d736d61c9fef5837d4702b06eaa1a6b2bd67ee1709b95e6aa6",
+    "artifacts/hard-related-20261110/data/train.jsonl": "dfc39f7062575d4fdcb28a17f5561083a19007239f2cf139828ef34fab44c262",
+    "artifacts/hard-related-20261110/data/validation.jsonl": "8ad5cc0057989221c345742658cb52f595c8a852638ab87e78118d3f393687dc",
+    "artifacts/hard-related-20261110/data/test.jsonl": "7495a1350f0e86fd19d84f88fe529969cc35d08590969a07c7ee85c793e927fc",
+    "artifacts/hard-related-20261110/direct-evaluation.jsonl": "3f38b0763845f56dafd339ffa35dd6afe8c1c7159f743ab37a43bc3ac540494e",
+    "artifacts/hard-related-20261110/intermediary-evaluation.jsonl": "46b82a97f51288a123f5850301e4fae6a410d34c8df0b48d80073f826b98db24",
+    "artifacts/argument-14b/core/test.jsonl": "35efddf44790879b8b9f46ef934778882c0e2c73036696c81b4e4c7509696c9b",
+    "scripts/argument_model.py": "4fa2641bbad734d14ac19d4c4866aa1e0df550dc891931b8c43edff932e1b963",
+    "scripts/argument_data.py": "b43be8a7c27bf6e3d32e9707f35b02a958dcadafcb99e3a05144260f21e71ed7",
+    "prompts/argument-v1.txt": "6689e074571c8d9df1c1f568c8746377a839f0348380ef694a38fb379c8bf8ed",
+    "model-manifest-14b.json": "6248b19e1d7559717ac0a8ab2793172923d48277a6ce4a72733d86ba6ffddeda",
+    "scripts/intermediary_model.py": "3a1817e597128f41aa1528475ea5f5e96f0ee3c6d4e6149df22e4d66f5605f20",
+    "prompts/intermediary-verbose-lean.txt": "3ab25df9bde5b63ff026ab14d492be9cd17ca795460dc2314f9617dbed580a4b",
+    "prompts/intermediary-natural-lean.txt": "c86e43144800c30a5190cf55ac25eb233fc16d1c75907f87af82b5edb8744814",
+    "scripts/check_intermediary_compilation.py": "56bcfa08ce8d2eb4e53b1f21d4293a3a1608c70d6895497a492aaa317bc4a957",
+    "scripts/run_hard_related_experiment.py": "1ca4645bbad6a398e311733b65be1738ff5141530126fecb783254c19f913a7e",
+    "scripts/classification_metrics.py": "787e58358f216ab631ea1902ec5a5ff5902769aa8ce90a611138a70cc182e1f4"
+  },
+  "stages": [
+    {
+      "name": "untuned-direct",
+      "command": [
+        "scripts/argument_model.py",
+        "predict",
+        "--input",
+        "artifacts/hard-related-20261110/direct-evaluation.jsonl",
+        "--output",
+        "artifacts/hard-related-20261110/untuned-direct",
+        "--max-tokens",
+        "4096"
+      ],
+      "output": "artifacts/hard-related-20261110/untuned-direct",
+      "marker": "artifacts/hard-related-20261110/untuned-direct/run.json",
+      "fingerprint_files": [
+        "scripts/argument_model.py",
+        "scripts/argument_data.py",
+        "prompts/argument-v1.txt",
+        "model-manifest-14b.json",
+        "artifacts/hard-related-20261110/direct-evaluation.jsonl"
+      ],
+      "depends_on": [],
+      "evaluation_sets": {
+        "validation": "artifacts/hard-related-20261110/data/validation.jsonl",
+        "test": "artifacts/hard-related-20261110/data/test.jsonl",
+        "previous_same_theorem_diagnostic": "artifacts/argument-14b/core/test.jsonl"
+      },
+      "timeout_seconds": 14400
+    },
+    {
+      "name": "fine-tuned",
+      "command": [
+        "scripts/argument_model.py",
+        "train",
+        "--input",
+        "artifacts/hard-related-20261110/data/train.jsonl",
+        "--output",
+        "artifacts/hard-related-20261110/fine-tuned",
+        "--max-tokens",
+        "4096"
+      ],
+      "output": "artifacts/hard-related-20261110/fine-tuned",
+      "marker": "artifacts/hard-related-20261110/fine-tuned/training.json",
+      "fingerprint_files": [
+        "scripts/argument_model.py",
+        "scripts/argument_data.py",
+        "prompts/argument-v1.txt",
+        "model-manifest-14b.json",
+        "artifacts/hard-related-20261110/data/train.jsonl"
+      ],
+      "depends_on": [],
+      "evaluation_sets": {},
+      "timeout_seconds": 14400
+    },
+    {
+      "name": "tuned-direct",
+      "command": [
+        "scripts/argument_model.py",
+        "predict",
+        "--input",
+        "artifacts/hard-related-20261110/direct-evaluation.jsonl",
+        "--output",
+        "artifacts/hard-related-20261110/tuned-direct",
+        "--max-tokens",
+        "4096",
+        "--adapter",
+        "artifacts/hard-related-20261110/fine-tuned/adapter"
+      ],
+      "output": "artifacts/hard-related-20261110/tuned-direct",
+      "marker": "artifacts/hard-related-20261110/tuned-direct/run.json",
+      "fingerprint_files": [
+        "scripts/argument_model.py",
+        "scripts/argument_data.py",
+        "prompts/argument-v1.txt",
+        "model-manifest-14b.json",
+        "artifacts/hard-related-20261110/direct-evaluation.jsonl",
+        "artifacts/hard-related-20261110/fine-tuned/adapter/adapter_model.safetensors",
+        "artifacts/hard-related-20261110/fine-tuned/adapter/adapter_config.json"
+      ],
+      "depends_on": [
+        "fine-tuned"
+      ],
+      "evaluation_sets": {
+        "validation": "artifacts/hard-related-20261110/data/validation.jsonl",
+        "test": "artifacts/hard-related-20261110/data/test.jsonl",
+        "previous_same_theorem_diagnostic": "artifacts/argument-14b/core/test.jsonl"
+      },
+      "timeout_seconds": 14400
+    },
+    {
+      "name": "nl_to_lean",
+      "command": [
+        "scripts/intermediary_model.py",
+        "--architecture",
+        "nl_to_lean",
+        "--input",
+        "artifacts/hard-related-20261110/intermediary-evaluation.jsonl",
+        "--output",
+        "artifacts/hard-related-20261110/nl_to_lean",
+        "--cache-dir",
+        "artifacts/hard-related-20261110/generation-cache",
+        "--max-tokens",
+        "4096",
+        "--max-new-tokens",
+        "1536"
+      ],
+      "output": "artifacts/hard-related-20261110/nl_to_lean",
+      "marker": "artifacts/hard-related-20261110/nl_to_lean/run.json",
+      "fingerprint_files": [
+        "scripts/argument_model.py",
+        "scripts/argument_data.py",
+        "prompts/argument-v1.txt",
+        "model-manifest-14b.json",
+        "scripts/intermediary_model.py",
+        "artifacts/hard-related-20261110/intermediary-evaluation.jsonl"
+      ],
+      "depends_on": [],
+      "evaluation_sets": {
+        "test": "artifacts/hard-related-20261110/data/test.jsonl",
+        "previous_same_theorem_diagnostic": "artifacts/argument-14b/core/test.jsonl"
+      },
+      "timeout_seconds": 21600
+    },
+    {
+      "name": "lean_to_nl",
+      "command": [
+        "scripts/intermediary_model.py",
+        "--architecture",
+        "lean_to_nl",
+        "--input",
+        "artifacts/hard-related-20261110/intermediary-evaluation.jsonl",
+        "--output",
+        "artifacts/hard-related-20261110/lean_to_nl",
+        "--cache-dir",
+        "artifacts/hard-related-20261110/generation-cache",
+        "--max-tokens",
+        "4096",
+        "--max-new-tokens",
+        "1536"
+      ],
+      "output": "artifacts/hard-related-20261110/lean_to_nl",
+      "marker": "artifacts/hard-related-20261110/lean_to_nl/run.json",
+      "fingerprint_files": [
+        "scripts/argument_model.py",
+        "scripts/argument_data.py",
+        "prompts/argument-v1.txt",
+        "model-manifest-14b.json",
+        "scripts/intermediary_model.py",
+        "artifacts/hard-related-20261110/intermediary-evaluation.jsonl"
+      ],
+      "depends_on": [],
+      "evaluation_sets": {
+        "test": "artifacts/hard-related-20261110/data/test.jsonl",
+        "previous_same_theorem_diagnostic": "artifacts/argument-14b/core/test.jsonl"
+      },
+      "timeout_seconds": 21600
+    },
+    {
+      "name": "verbose_lean",
+      "command": [
+        "scripts/intermediary_model.py",
+        "--architecture",
+        "verbose_lean",
+        "--input",
+        "artifacts/hard-related-20261110/intermediary-evaluation.jsonl",
+        "--output",
+        "artifacts/hard-related-20261110/verbose_lean",
+        "--cache-dir",
+        "artifacts/hard-related-20261110/generation-cache",
+        "--max-tokens",
+        "4096",
+        "--max-new-tokens",
+        "1536",
+        "--guide",
+        "prompts/intermediary-verbose-lean.txt"
+      ],
+      "output": "artifacts/hard-related-20261110/verbose_lean",
+      "marker": "artifacts/hard-related-20261110/verbose_lean/run.json",
+      "fingerprint_files": [
+        "scripts/argument_model.py",
+        "scripts/argument_data.py",
+        "prompts/argument-v1.txt",
+        "model-manifest-14b.json",
+        "scripts/intermediary_model.py",
+        "artifacts/hard-related-20261110/intermediary-evaluation.jsonl",
+        "prompts/intermediary-verbose-lean.txt"
+      ],
+      "depends_on": [],
+      "evaluation_sets": {
+        "test": "artifacts/hard-related-20261110/data/test.jsonl",
+        "previous_same_theorem_diagnostic": "artifacts/argument-14b/core/test.jsonl"
+      },
+      "timeout_seconds": 21600
+    },
+    {
+      "name": "natural_lean",
+      "command": [
+        "scripts/intermediary_model.py",
+        "--architecture",
+        "natural_lean",
+        "--input",
+        "artifacts/hard-related-20261110/intermediary-evaluation.jsonl",
+        "--output",
+        "artifacts/hard-related-20261110/natural_lean",
+        "--cache-dir",
+        "artifacts/hard-related-20261110/generation-cache",
+        "--max-tokens",
+        "4096",
+        "--max-new-tokens",
+        "1536",
+        "--guide",
+        "prompts/intermediary-natural-lean.txt"
+      ],
+      "output": "artifacts/hard-related-20261110/natural_lean",
+      "marker": "artifacts/hard-related-20261110/natural_lean/run.json",
+      "fingerprint_files": [
+        "scripts/argument_model.py",
+        "scripts/argument_data.py",
+        "prompts/argument-v1.txt",
+        "model-manifest-14b.json",
+        "scripts/intermediary_model.py",
+        "artifacts/hard-related-20261110/intermediary-evaluation.jsonl",
+        "prompts/intermediary-natural-lean.txt"
+      ],
+      "depends_on": [],
+      "evaluation_sets": {
+        "test": "artifacts/hard-related-20261110/data/test.jsonl",
+        "previous_same_theorem_diagnostic": "artifacts/argument-14b/core/test.jsonl"
+      },
+      "timeout_seconds": 21600
+    },
+    {
+      "name": "compilation",
+      "command": [
+        "scripts/check_intermediary_compilation.py",
+        "--cache-dir",
+        "artifacts/hard-related-20261110/generation-cache",
+        "--output",
+        "artifacts/hard-related-20261110/compilation",
+        "--timeout",
+        "60"
+      ],
+      "output": "artifacts/hard-related-20261110/compilation",
+      "marker": "artifacts/hard-related-20261110/compilation/summary.json",
+      "fingerprint_files": [
+        "scripts/check_intermediary_compilation.py",
+        "scripts/argument_data.py"
+      ],
+      "fingerprint_directories": [
+        "artifacts/hard-related-20261110/generation-cache"
+      ],
+      "depends_on": [],
+      "evaluation_sets": {},
+      "timeout_seconds": 14400
+    }
+  ]
+}

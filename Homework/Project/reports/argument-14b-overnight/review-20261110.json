@@ -1,0 +1,51 @@
+{
+  "scope": "post-run descriptive review; no threshold selected on core test",
+  "core": {
+    "untuned-core": {
+      "correct": 15,
+      "total": 16,
+      "AUROC": 1.0,
+      "match_average_precision": 1.0,
+      "minimum_match_yes_score": 0.9999998807907104,
+      "maximum_mismatch_yes_score": 0.9995694756507874,
+      "predictions": {
+        "True": 9,
+        "False": 7
+      }
+    },
+    "tuned-core": {
+      "correct": 8,
+      "total": 16,
+      "AUROC": 1.0,
+      "match_average_precision": 1.0,
+      "minimum_match_yes_score": 0.999998927116394,
+      "maximum_mismatch_yes_score": 0.9999971389770508,
+      "predictions": {
+        "True": 16
+      }
+    }
+  },
+  "herald": {
+    "transitions": {
+      "True->True": 34872,
+      "False->True": 9513,
+      "False->False": 123,
+      "True->False": 29,
+      "missing": 16
+    },
+    "untuned-herald": {
+      "scored": 44537,
+      "yes": 34901,
+      "yes_fraction": 0.7836405685160653,
+      "no": 9636,
+      "too_long": 16
+    },
+    "tuned-herald": {
+      "scored": 44537,
+      "yes": 44385,
+      "yes_fraction": 0.9965871073489458,
+      "no": 152,
+      "too_long": 16
+    }
+  }
+}

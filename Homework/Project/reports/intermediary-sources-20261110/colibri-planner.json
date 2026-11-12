@@ -1,0 +1,95 @@
+{
+  "repository": "JustVugg/colibri",
+  "revision": "0a5504a1dc64f86fcd0fe7db298b0448c730e7e6",
+  "action": "planner_only_no_inference_or_engine_build",
+  "command": [
+    "C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\.venv\\Scripts\\python.exe",
+    "C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\intermediary-sources\\colibri-0a5504a1dc64f86fcd0fe7db298b0448c730e7e6\\c\\coli",
+    "plan",
+    "--model",
+    "C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\models\\Qwen3-14B",
+    "--ram",
+    "100",
+    "--vram",
+    "40",
+    "--ctx",
+    "4096",
+    "--no-tune-profile",
+    "--policy",
+    "quality",
+    "--json"
+  ],
+  "explicit_environment": {
+    "COLI_DENSE_I8": "0"
+  },
+  "model": {
+    "model_type": "qwen3",
+    "family_id": "qwen36",
+    "model_bytes": 29536665640,
+    "expert_count": 0
+  },
+  "cpu": {
+    "physical_cores": 24,
+    "sockets": 1,
+    "team_threads": 8,
+    "thread_policy": "performance-cores"
+  },
+  "memory": {
+    "unified": false,
+    "available_bytes": 114012856320
+  },
+  "tiers": {
+    "disk": {
+      "role": "cold-backing",
+      "model_bytes": 29536665640,
+      "available_bytes": 3766748303360,
+      "cold_expert_bytes": 0
+    },
+    "ram": {
+      "role": "resident+warm-experts",
+      "available_bytes": 114012856320,
+      "budget_bytes": 100000000000,
+      "dense_bytes": 29536614400,
+      "dense_on_device_bytes": 0,
+      "dense_on_device_reason": null,
+      "vk_chain_layers": null,
+      "shared_device_dense_bytes": 0,
+      "runtime_bytes": 5042177280,
+      "expert_fixed_bytes": 0,
+      "sequence_state_bytes": 1342177280,
+      "fixed_state_bytes": 0,
+      "workspace_bytes": 0,
+      "expert_cache_bytes": 65421208320,
+      "warm_expert_bytes": 0,
+      "cache_slots_per_layer": 1
+    },
+    "vram": {
+      "role": "hot-experts",
+      "devices": [
+        {
+          "index": 0,
+          "name": "NVIDIA RTX A6000",
+          "total_bytes": 51527024640,
+          "free_bytes": 50539266048,
+          "unified_memory": false,
+          "compute_cap": [
+            8,
+            6
+          ],
+          "reserve_bytes": 2000000000,
+          "usable_bytes": 48539266048
+        }
+      ],
+      "budget_bytes": 0,
+      "hot_expert_bytes": 0,
+      "trunk_bytes": 0,
+      "expert_capacity": 0,
+      "requires_host_backing": false
+    }
+  },
+  "expected_bottleneck": "RAM bandwidth (dense model: every weight is read for every token)",
+  "warnings": [
+    "VRAM tier was clamped by free VRAM, shared memory, or model expert size"
+  ],
+  "caution": "Placement estimates are not measured peak RAM/VRAM; code loads unquantized dense matrices as float32 unless another path is selected. No 32B feasibility or throughput measured."
+}

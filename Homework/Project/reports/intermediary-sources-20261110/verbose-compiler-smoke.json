@@ -1,0 +1,36 @@
+[
+  {
+    "cache_key": "verbose-native",
+    "target": "verbose_lean",
+    "generation_status": "generated",
+    "schema": 1,
+    "semantic_correspondence": "not_established_by_compilation",
+    "source_sha256": "2c41aafc2df0590ba05354ebd19b6e56ceec483a6cb249676915dbdb35e45315",
+    "environment": {
+      "version": "4.31.0",
+      "environment_sha256": "df583581ee0362a3eb93eac62b190c6b11b21a8d5ad6a7e64c9e525b708a8df5"
+    },
+    "returncode": 0,
+    "status": "compiled",
+    "seconds": 5.0,
+    "log_excerpt": "",
+    "axiom_policy": "source_admissions_and_sorry_warnings_screened; transitive_axioms_not_audited"
+  },
+  {
+    "cache_key": "verbose-cnl",
+    "target": "verbose_lean",
+    "generation_status": "generated",
+    "schema": 1,
+    "semantic_correspondence": "not_established_by_compilation",
+    "source_sha256": "90f85748707e1acd50ddb55e04b9301ae75afdd51850d16e22a268d38bbb112e",
+    "environment": {
+      "version": "4.31.0",
+      "environment_sha256": "df583581ee0362a3eb93eac62b190c6b11b21a8d5ad6a7e64c9e525b708a8df5"
+    },
+    "returncode": 0,
+    "status": "compiled",
+    "seconds": 5.0,
+    "log_excerpt": "",
+    "axiom_policy": "source_admissions_and_sorry_warnings_screened; transitive_axioms_not_audited"
+  }
+]
