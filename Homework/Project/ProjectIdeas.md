@@ -23,4 +23,9 @@ E. "Peer Reviewer" -- AI that checks to make sure that the Agda version of a the
 10. naproche https://naproche.github.io/links.html 
 11. https://aitp-conference.org/2020/abstract/paper_16.pdf 
 12. https://arxiv.org/html/2404.01234 
+13. [Agda-Stdlib dataset](https://huggingface.co/datasets/phanerozoic/Agda-Stdlib)
+14. [Agda-Cubical dataset](https://huggingface.co/datasets/phanerozoic/Agda-Cubical)
+15. [Autoformalization for Agda via Fine-tuning Large Language Models — Pei Huang (2025)](https://odr.chalmers.se/server/api/core/bitstreams/f68aff4a-3865-41b0-ac54-2ce3d917e783/content)
+
+See [References/README.md](References/README.md) for descriptions of these Agda resources and Informath (item 6).
 
