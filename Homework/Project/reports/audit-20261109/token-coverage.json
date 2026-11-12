@@ -1,0 +1,68 @@
+{
+  "train": {
+    "token_min": 299,
+    "token_max": 20840,
+    "budgets": {
+      "8192": {
+        "rows": 558,
+        "groups": 279,
+        "class_counts": {
+          "True": 279,
+          "False": 279
+        },
+        "english_proof_marginals_equal": false
+      },
+      "4096": {
+        "rows": 502,
+        "groups": 251,
+        "class_counts": {
+          "True": 251,
+          "False": 251
+        },
+        "english_proof_marginals_equal": false
+      },
+      "2048": {
+        "rows": 368,
+        "groups": 184,
+        "class_counts": {
+          "True": 184,
+          "False": 184
+        },
+        "english_proof_marginals_equal": false
+      }
+    }
+  },
+  "validation": {
+    "token_min": 318,
+    "token_max": 24427,
+    "budgets": {
+      "8192": {
+        "rows": 138,
+        "groups": 69,
+        "class_counts": {
+          "True": 69,
+          "False": 69
+        },
+        "english_proof_marginals_equal": false
+      },
+      "4096": {
+        "rows": 126,
+        "groups": 63,
+        "class_counts": {
+          "True": 63,
+          "False": 63
+        },
+        "english_proof_marginals_equal": false
+      },
+      "2048": {
+        "rows": 82,
+        "groups": 41,
+        "class_counts": {
+          "True": 41,
+          "False": 41
+        },
+        "english_proof_marginals_equal": false
+      }
+    }
+  }
+}

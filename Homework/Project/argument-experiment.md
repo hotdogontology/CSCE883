@@ -1,5 +1,19 @@
 # Proof-body correspondence experiment
 
+**Evening restart, 2026-11-09:** see [OVERNIGHT_2026-11-09.md](OVERNIGHT_2026-11-09.md).
+Corrected v4 inputs, post-budget negative regeneration and a compiled same-theorem
+core/masked control are now in the fresh overnight run. BF16 4096-token memory
+probe passed. Historical audit/setup counts below refer to the superseded v3.
+
+**Audit disposition, 2026-11-09:** download verified complete; driver held before
+the 14B probe/training. See [PLAN_AUDIT_2026-11-09.md](PLAN_AUDIT_2026-11-09.md).
+Prepared v3 has 99 malformed Herald boundaries, one malformed ProofNet boundary,
+three dangling contexts and one cross-split shared proof. Correct/regenerate
+before use. An English-only TF-IDF control scored 132/144 on the full prepared
+validation: cross-problem swaps are a proof-consistency pilot, not the intended
+same-theorem cross-language argument test. The user's positive-label assumption
+stands. Original setup below records the proposed pipeline, not a completed run.
+
 Authorized 2026-11-09. Preserve the completed 8B statement-only experiment and its
 metrics unchanged. The new task judges whether an English proof argument matches
 the Lean proof body, including the statement and required context. **No second
@@ -100,6 +114,7 @@ the active dataset). Local state: `artifacts/argument-14b/job.json`; PID in
 `reports/argument-14b/`. The driver holds a temporary Windows execution request
 and stops on failure. It does not attempt GitHub pushes.
 
-At setup time the download is still running; no 14B probe, training or accuracy
-result is claimed. Fifteen existing/data guard tests passed. Consult live job
-state and model manifest for later completion rather than assuming queued stages ran.
+The download completed with hashes verified. No 14B probe, training or accuracy
+result exists at audit time. The fifteen setup tests passed but missed the
+real extraction counterexamples identified by the audit. Add those regressions
+and fix data before restarting into a fresh versioned run directory.

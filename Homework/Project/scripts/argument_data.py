@@ -39,9 +39,9 @@ def strip_comments(text):
     return '\n'.join(line.rstrip() for line in ''.join(out).splitlines()).strip()
 
 
-def assignment(text):
-    """Find declaration's outer proof assignment rather than a binder's default."""
-    level=0;string=False;i=0
+def assignment_candidates(text):
+    """Lexically outer assignments; type-level lets require a trusted signature."""
+    level=0;string=False;i=0;result=[]
     while i<len(text)-1:
         ch=text[i]
         if string:
@@ -50,12 +50,50 @@ def assignment(text):
         elif ch=='"':string=True
         elif ch in '([{':level+=1
         elif ch in ')]}':level-=1
-        elif level==0 and text[i:i+2]==':=':return i
+        elif level==0 and text[i:i+2]==':=':result.append(i)
         i+=1
+    return result
+
+
+def canonical_signature(text):
+    text=strip_comments(text)
+    declaration=re.search(r'(?m)^(?:(?:private|protected|noncomputable)\s+)*(?:theorem|lemma|instance)\s+',text)
+    if declaration:text=text[declaration.start():]
+    text=re.sub(r'^(?:(?:private|protected|noncomputable)\s+)*(?:theorem|lemma|instance)\s+[^\s(:{]+',
+        'DECL',text)
+    return re.sub(r'\s+','',text)
+
+
+def trusted_signature(template):
+    """Dataset templates carry the entire type, including unbracketed lets."""
+    clean=strip_comments(template)
+    trimmed=re.sub(r'\s*:=\s*(?:by\s+)?sorry\s*$', '',clean)
+    if trimmed!=clean:return trimmed.strip()
+    # Archived row 35 has a completed by-proof instead of a template. Its outer
+    # by assignment is explicit; reject ambiguous other non-template formats.
+    candidates=[p for p in assignment_candidates(clean) if re.match(r'\s*by\b',clean[p+2:])]
+    if candidates:return clean[:candidates[0]].strip()
+    raise ValueError('Trusted metadata has no proof template/by-proof boundary')
+
+
+def assignment(text,expected_signature=None):
+    candidates=assignment_candidates(text)
+    if expected_signature is not None:
+        expected=canonical_signature(expected_signature)
+        matches=[p for p in candidates if canonical_signature(text[:p])==expected]
+        if len(matches)!=1:raise ValueError('Source declaration does not uniquely match trusted signature')
+        return matches[0]
+    if candidates:return candidates[0]
     raise ValueError('No outer proof assignment')
 
 
-def extract(text,name):
+def declaration_name(chunk):
+    match=re.match(r'(?:(?:private|protected|noncomputable|unsafe|local)\s+)*'
+        r'(?:theorem|lemma|axiom|def|abbrev|instance)\s+([^\s(:{]+)',chunk)
+    return match[1].removeprefix('_root_.') if match else ''
+
+
+def extract(text,name,expected_signature=None):
     code=strip_comments(text)
     spans=list(COMMAND.finditer(code))
     chunks=[code[m.start():spans[i+1].start() if i+1<len(spans) else len(code)].strip()
@@ -70,23 +108,26 @@ def extract(text,name):
     if len(corrected)==1:idx,target=corrected[0]
     elif len(candidates)==1:idx,target=candidates[0]
     else:raise ValueError('Cannot identify a unique corrected target')
-    target_code=chunks[idx];split=assignment(target_code)
+    target_code=chunks[idx];split=assignment(target_code,expected_signature)
     body=target_code[split+2:].strip()
     if re.search(r'\b(?:sorry|admit|axiom)\b',body):raise ValueError('Target contains an admission')
     # Omit obsolete target declarations and all explicit refutation declarations.
     context=[];omitted=[]
     for chunk in chunks[:idx]:
-        match=re.match(r'(?:(?:private|protected|noncomputable)\s+)*(?:theorem|lemma|axiom)\s+([^\s(:{]+)',chunk)
-        decl=match[1].removeprefix('_root_.') if match else ''
-        if decl in [name,name+'_corrected'] or decl.startswith(name+'_'):
+        decl=declaration_name(chunk)
+        # Prefix alone does not denote a refutation: genuine helpers such as
+        # *_mul_comm and *_center_eq must remain. Omit exact obsolete targets
+        # regardless of declaration kind, and explicit refutation certificates.
+        if decl in [name,name+'_corrected',name+'_neg',name+'_trivial']:
             omitted.append(decl);continue
         if re.search(r'\b(?:sorry|admit|axiom)\b',chunk):
             # A missing helper can hide essential reasoning. Exclude rather than
             # pass an admitted helper to the correspondence model.
             raise ValueError('Context contains an admitted declaration')
         context.append(chunk)
-    if any(re.search(r'(?<![\w.])'+re.escape(n)+r'(?![\w.])',body) for n in omitted):
-        raise ValueError('Target depends on omitted original/refutation')
+    retained='\n\n'.join(context)+'\n'+body
+    if any(re.search(r'(?<!\w)'+re.escape(n)+r'(?!\w)',retained) for n in omitted):
+        raise ValueError('Target/context depends on omitted original/refutation')
     return {'formal_statement':target_code[:split].strip(),'formal_proof':body,
         'context':'\n\n'.join(context),'extracted_declaration':target}
 
@@ -121,6 +162,26 @@ def paired_too_long(rows,lengths,budget):
     return {r['group'] for r,n in zip(rows,lengths) if n>budget and 'group' in r}
 
 
+def family_groups(rows):
+    """Union exercise parts and shared English proof texts before any split."""
+    parent={r['id']:r['id'] for r in rows}
+    def find(x):
+        while parent[x]!=x:parent[x]=parent[parent[x]];x=parent[x]
+        return x
+    def union(a,b):
+        x,y=find(a),find(b)
+        if x!=y:parent[max(x,y)]=min(x,y)
+    families={};proofs={}
+    for r in rows:
+        key=re.sub(r'(?<=\d)_?[a-z]+$','',r['name'])
+        proof=re.sub(r'\s+',' ',r['informal_proof']).strip()
+        for index,value in [(families,key),(proofs,proof)]:
+            if value in index:union(r['id'],index[value])
+            else:index[value]=r['id']
+    for r in rows:r['group']=find(r['id'])
+    return rows
+
+
 def prepare(destination):
     import pandas as pd
     destination.mkdir(parents=True,exist_ok=False)
@@ -135,7 +196,7 @@ def prepare(destination):
             member=f'proofnet_verified_gt/proofnet-{row["index"]}.lean'
             text=proofs.read(member).decode('utf-8')
             try:
-                formal=extract(text,row['name'])
+                formal=extract(text,row['name'],trusted_signature(row['formal_stmt']))
                 record=dict(formal,id=f'proofnet-{row["index"]}',group=f'proofnet-{row["index"]}',
                     informal_statement=row['informal_stmt'],informal_proof=row['informal_proof'],
                     name=row['name'],label=True,label_scope='argument_fidelity',
@@ -147,8 +208,11 @@ def prepare(destination):
                 positive.append(record)
             except ValueError as exc:
                 excluded.append({'id':row['index'],'reason':str(exc)})
-    random.Random(SEED).shuffle(positive)
-    n=max(2,len(positive)//5);validation=positive[:n];train=positive[n:]
+    family_groups(positive)
+    groups=sorted({r['group'] for r in positive});random.Random(SEED).shuffle(groups)
+    heldout=set(groups[:max(2,len(groups)//5)])
+    validation=[r for r in positive if r['group'] in heldout]
+    train=[r for r in positive if r['group'] not in heldout]
     write(destination/'train.jsonl',swapped_negatives(train,'train'))
     write(destination/'validation.jsonl',swapped_negatives(validation,'validation'))
     write(destination/'positive-pairs.jsonl',positive)
@@ -158,7 +222,7 @@ def prepare(destination):
     for row in frame.to_dict('records'):
         code=strip_comments(row['formal_proof'])
         try:
-            pos=assignment(code)
+            pos=assignment(code,trusted_signature(row['formal_theorem']))
             record={'id':f'herald-{row["id"]}','name':row['name'],
                 'informal_statement':row['informal_theorem'],'informal_proof':row['informal_proof'],
                 'formal_statement':code[:pos].strip(),'formal_proof':code[pos+2:].strip(),
@@ -174,9 +238,27 @@ def prepare(destination):
         'limitation':'Easy proof mismatches; does not measure subtle same-theorem alternate-argument discrimination.',
         'source_revision':source['revision'],'archive_sha256':sha(archive.read_bytes()),
         'positive_pairs':len(positive),'excluded':excluded,'train_pairs':2*len(train),
-        'validation_pairs':2*len(validation),'split_policy':'Original problems split before negatives; donors within split',
+        'validation_pairs':2*len(validation),'split_policy':'Exercise families/shared English proofs grouped before split; donors within split',
         'herald_rows':len(herald),'lean_replay':'not_run','files':
             {p.name:sha(p.read_bytes()) for p in destination.glob('*.jsonl')}})
+    train_proofs={re.sub(r'\s+',' ',r['informal_proof']).strip() for r in train}
+    validation_proofs={re.sub(r'\s+',' ',r['informal_proof']).strip() for r in validation}
+    overlap=train_proofs & validation_proofs
+    extraction_errors=[r['id'] for r in herald if 'extraction_error' in r]
+    mismatches=[]
+    for raw,prepared in zip(frame.to_dict('records'),herald):
+        if 'extraction_error' not in prepared and canonical_signature(prepared['formal_statement'])!=canonical_signature(trusted_signature(raw['formal_theorem'])):
+            mismatches.append(prepared['id'])
+    ready=not overlap and not extraction_errors and not mismatches
+    metadata(destination/'integrity.json',{'ready_for_training':ready,
+        'validation_kind':'trusted source-signature alignment, admission/dependency token checks and split-integrity checks; not Lean elaboration',
+        'cross_split_duplicate_proofs':bool(overlap),'cross_split_family_overlap':bool({r['group'] for r in train}&{r['group'] for r in validation}),
+        'herald_signature_mismatches':mismatches,'herald_extraction_errors':extraction_errors,
+        'herald_all_99_known_boundary_errors_corrected':not mismatches and not extraction_errors,
+        'positive_pairs':len(positive),'train_positive_pairs':len(train),'validation_positive_pairs':len(validation),
+        'excluded_ProofNet':excluded,'local_Lean_4_28_replay':'not_run','lean_replay':'not_run',
+        'source_revision':source['revision']})
+    if not ready:raise ValueError('Prepared data integrity checks failed; inspect integrity.json')
     print(json.dumps({'positive_pairs':len(positive),'excluded':len(excluded),
         'train':2*len(train),'validation':2*len(validation),'herald':len(herald)}),flush=True)
 

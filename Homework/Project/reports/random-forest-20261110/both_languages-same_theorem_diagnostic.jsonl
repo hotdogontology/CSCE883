@@ -1,0 +1,16 @@
+{"id": "core-odd_sum-EA-LA", "label": true, "match_score": 0.8587916666666666, "prediction": true}
+{"id": "core-odd_sum-EA-LB", "label": false, "match_score": 0.8469166666666665, "prediction": true}
+{"id": "core-odd_sum-EB-LA", "label": false, "match_score": 0.8145416666666665, "prediction": true}
+{"id": "core-odd_sum-EB-LB", "label": true, "match_score": 0.8390416666666666, "prediction": true}
+{"id": "core-consecutive_even-EA-LA", "label": true, "match_score": 0.6640416666666666, "prediction": true}
+{"id": "core-consecutive_even-EA-LB", "label": false, "match_score": 0.6092916666666666, "prediction": true}
+{"id": "core-consecutive_even-EB-LA", "label": false, "match_score": 0.7663541666666667, "prediction": true}
+{"id": "core-consecutive_even-EB-LB", "label": true, "match_score": 0.7543958333333335, "prediction": true}
+{"id": "core-cubic_root-EA-LA", "label": true, "match_score": 0.7793958333333332, "prediction": true}
+{"id": "core-cubic_root-EA-LB", "label": false, "match_score": 0.7837291666666666, "prediction": true}
+{"id": "core-cubic_root-EB-LA", "label": false, "match_score": 0.46318750000000003, "prediction": false}
+{"id": "core-cubic_root-EB-LB", "label": true, "match_score": 0.6352708333333333, "prediction": true}
+{"id": "core-power_divisibility-EA-LA", "label": true, "match_score": 0.8810625000000001, "prediction": true}
+{"id": "core-power_divisibility-EA-LB", "label": false, "match_score": 0.8508541666666667, "prediction": true}
+{"id": "core-power_divisibility-EB-LA", "label": false, "match_score": 0.7980208333333333, "prediction": true}
+{"id": "core-power_divisibility-EB-LB", "label": true, "match_score": 0.8432083333333332, "prediction": true}

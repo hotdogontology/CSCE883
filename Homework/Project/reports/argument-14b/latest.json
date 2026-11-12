@@ -1,14 +1,16 @@
 {
-  "observed_utc": "2026-11-09T22:05:35.933128+00:00",
+  "observed_utc": "2026-11-09T22:32:57.517087+00:00",
   "job": {
-    "status": "running",
-    "stage": "waiting_for_verified_download",
+    "status": "held_for_audit",
+    "stage": "audit_hold_before_probe",
     "started_utc": "2026-11-09T22:05:35.933128+00:00",
     "second_pass": false,
     "model": "Qwen/Qwen3-14B",
     "scope": "argument_fidelity",
     "quantization": null,
-    "updated_utc": "2026-11-09T22:05:35.933128+00:00"
+    "updated_utc": "2026-11-09T22:32:57.517087+00:00",
+    "audit_reason": "Correct extraction/split defects and add controls before any claim of cross-language argument correspondence.",
+    "download_complete": true
   },
   "scope": "proof_argument_correspondence",
   "quantization": null,

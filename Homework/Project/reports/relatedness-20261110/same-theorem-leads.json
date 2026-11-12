@@ -1,0 +1,7 @@
+{
+  "policy": "Exact whitespace/name-normalized source signature only. Not alpha/definitional equivalence; context resolution and proof-route review still required.",
+  "source_rows": 365,
+  "duplicate_signature_groups": 0,
+  "cross_split_groups": 0,
+  "groups": []
+}

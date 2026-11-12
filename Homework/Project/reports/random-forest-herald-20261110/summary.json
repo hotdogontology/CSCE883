@@ -1,0 +1,103 @@
+{
+  "scope": "Matched-coverage unlabeled Herald survey: no model accuracy or truth labels",
+  "rows": 44537,
+  "excluded_to_match_qwen_context_limit": 16,
+  "frozen_forest_metrics_reproduced": true,
+  "source_fingerprints": {
+    "input_sha256": {
+      "artifacts\\argument-14b\\overnight-20261109\\budget-data\\train.jsonl": "5b26937359132d4b157d1cea8e4612d4a9098fc05c2d3f1c145c17deb994a4f9",
+      "artifacts\\argument-14b\\overnight-20261109\\budget-data\\validation.jsonl": "b90890c5283fea7f0cb1c2b2dc2fcd323e8db2c821decdea7e49b457c749ca8f",
+      "artifacts\\argument-14b\\core\\test.jsonl": "35efddf44790879b8b9f46ef934778882c0e2c73036696c81b4e4c7509696c9b"
+    },
+    "survey_sha256": "207c3f4e4d3c3cf9b169377d676442e7cf761f85e50150cf212982e4869d9bd4",
+    "survey_allowlist_sha256": "f80aeaed5a870209f4d296df1d5058ab216b8011d325a35e21f9f4740576af3c",
+    "code_sha256": "5bfbb93ea5209bc7d9f459ece2bd4195a50accedbfdfc0c4b57064f61d1cea9f"
+  },
+  "models": {
+    "forest_english_only": {
+      "yes": 44531,
+      "no": 6,
+      "yes_fraction": 0.9998652805532479
+    },
+    "forest_both_languages": {
+      "yes": 44535,
+      "no": 2,
+      "yes_fraction": 0.9999550935177492
+    },
+    "qwen_untuned": {
+      "yes": 34901,
+      "no": 9636,
+      "yes_fraction": 0.7836405685160653
+    },
+    "qwen_tuned": {
+      "yes": 44385,
+      "no": 152,
+      "yes_fraction": 0.9965871073489458
+    }
+  },
+  "pairwise": {
+    "forest_english_only vs forest_both_languages": {
+      "agree": 44529,
+      "disagree": 8,
+      "agreement_fraction": 0.9998203740709971,
+      "crosstab_left_right": {
+        "NO / YES": 6,
+        "YES / NO": 2,
+        "YES / YES": 44529
+      }
+    },
+    "forest_english_only vs qwen_untuned": {
+      "agree": 34905,
+      "disagree": 9632,
+      "agreement_fraction": 0.7837303814805667,
+      "crosstab_left_right": {
+        "NO / NO": 5,
+        "NO / YES": 1,
+        "YES / NO": 9631,
+        "YES / YES": 34900
+      }
+    },
+    "forest_english_only vs qwen_tuned": {
+      "agree": 44389,
+      "disagree": 148,
+      "agreement_fraction": 0.9966769203134472,
+      "crosstab_left_right": {
+        "NO / NO": 5,
+        "NO / YES": 1,
+        "YES / NO": 147,
+        "YES / YES": 44384
+      }
+    },
+    "forest_both_languages vs qwen_untuned": {
+      "agree": 34903,
+      "disagree": 9634,
+      "agreement_fraction": 0.783685474998316,
+      "crosstab_left_right": {
+        "NO / NO": 2,
+        "YES / NO": 9634,
+        "YES / YES": 34901
+      }
+    },
+    "forest_both_languages vs qwen_tuned": {
+      "agree": 44383,
+      "disagree": 154,
+      "agreement_fraction": 0.9965422008666951,
+      "crosstab_left_right": {
+        "NO / YES": 2,
+        "YES / NO": 152,
+        "YES / YES": 44383
+      }
+    },
+    "qwen_untuned vs qwen_tuned": {
+      "agree": 34995,
+      "disagree": 9542,
+      "agreement_fraction": 0.7857511731818488,
+      "crosstab_left_right": {
+        "NO / NO": 123,
+        "NO / YES": 9513,
+        "YES / NO": 29,
+        "YES / YES": 34872
+      }
+    }
+  }
+}

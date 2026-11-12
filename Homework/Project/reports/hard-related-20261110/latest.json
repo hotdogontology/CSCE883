@@ -1,0 +1,1231 @@
+{
+  "observed_utc": "2026-11-11T02:19:58.739229+00:00",
+  "job": {
+    "status": "complete",
+    "pid": 29800,
+    "started_utc": "2026-11-10T22:53:38.641630+00:00",
+    "queue_sha256": "3552e822ae0bbeb4692bca8e44193e213202e042afed98e6dfb6b494b7f6657f",
+    "stages": {
+      "untuned-direct": {
+        "status": "complete",
+        "started_utc": "2026-11-10T22:53:38.717084+00:00",
+        "worker_pid": 35564,
+        "finished_utc": "2026-11-10T22:59:38.837419+00:00"
+      },
+      "fine-tuned": {
+        "status": "complete",
+        "started_utc": "2026-11-10T22:59:39.979300+00:00",
+        "worker_pid": 31812,
+        "finished_utc": "2026-11-10T23:35:25.791106+00:00"
+      },
+      "tuned-direct": {
+        "status": "complete",
+        "started_utc": "2026-11-10T23:35:26.167462+00:00",
+        "worker_pid": 11824,
+        "finished_utc": "2026-11-10T23:39:41.268817+00:00"
+      },
+      "nl_to_lean": {
+        "status": "complete",
+        "started_utc": "2026-11-10T23:39:41.352511+00:00",
+        "worker_pid": 31908,
+        "finished_utc": "2026-11-11T00:19:41.663192+00:00"
+      },
+      "lean_to_nl": {
+        "status": "complete",
+        "started_utc": "2026-11-11T00:19:42.028192+00:00",
+        "worker_pid": 34052,
+        "finished_utc": "2026-11-11T00:47:27.284512+00:00"
+      },
+      "verbose_lean": {
+        "status": "complete",
+        "started_utc": "2026-11-11T00:47:27.401283+00:00",
+        "worker_pid": 23272,
+        "finished_utc": "2026-11-11T01:33:42.811536+00:00"
+      },
+      "natural_lean": {
+        "status": "complete",
+        "started_utc": "2026-11-11T01:33:42.926493+00:00",
+        "worker_pid": 23652,
+        "finished_utc": "2026-11-11T02:07:28.211745+00:00"
+      },
+      "compilation": {
+        "status": "complete",
+        "started_utc": "2026-11-11T02:07:28.461774+00:00",
+        "worker_pid": 19188,
+        "finished_utc": "2026-11-11T02:19:58.647392+00:00"
+      }
+    },
+    "stage": "finished",
+    "heartbeat_utc": "2026-11-11T02:19:43.626155+00:00",
+    "finished_utc": "2026-11-11T02:19:58.739229+00:00"
+  },
+  "label_policy": "User-assumed corrected ProofNet argument correspondence; original Lean sides replay successfully under pinned Lean4.28. Swap complete English statement+proof bundles with a different related source in the same split. Labels are synthetic assumptions, not human-certified semantic differences.",
+  "quantization": null,
+  "base_dtype": "bfloat16",
+  "results": {
+    "untuned-direct": {
+      "worker_status": "complete",
+      "evaluations": {
+        "validation": {
+          "accuracy": 0.85,
+          "balanced_accuracy": 0.85,
+          "coverage": 1.0,
+          "scored": 60,
+          "total": 60,
+          "classes": {
+            "mismatch": {
+              "precision": 0.7692307692307693,
+              "recall": 1.0,
+              "f1-score": 0.8695652173913043,
+              "support": 30.0
+            },
+            "match": {
+              "precision": 1.0,
+              "recall": 0.7,
+              "f1-score": 0.8235294117647058,
+              "support": 30.0
+            }
+          },
+          "macro": {
+            "precision": 0.8846153846153846,
+            "recall": 0.85,
+            "f1-score": 0.8465473145780051,
+            "support": 60.0
+          },
+          "weighted": {
+            "precision": 0.8846153846153847,
+            "recall": 0.85,
+            "f1-score": 0.846547314578005,
+            "support": 60.0
+          },
+          "zero_denominator_policy": "report precision/recall/F1 as zero when undefined",
+          "confusion_matrix_order": [
+            "mismatch",
+            "match"
+          ],
+          "confusion_matrix": [
+            [
+              30,
+              0
+            ],
+            [
+              9,
+              21
+            ]
+          ],
+          "false_acceptances": 0,
+          "status_counts": {
+            "predicted": 60
+          },
+          "class_coverage": {
+            "mismatch": {
+              "expected": 30,
+              "scored": 30
+            },
+            "match": {
+              "expected": 30,
+              "scored": 30
+            }
+          },
+          "auroc_match": 0.995,
+          "average_precision_mismatch": 0.994465654077723
+        },
+        "test": {
+          "accuracy": 0.7777777777777778,
+          "balanced_accuracy": 0.7777777777777778,
+          "coverage": 1.0,
+          "scored": 54,
+          "total": 54,
+          "classes": {
+            "mismatch": {
+              "precision": 0.6923076923076923,
+              "recall": 1.0,
+              "f1-score": 0.8181818181818182,
+              "support": 27.0
+            },
+            "match": {
+              "precision": 1.0,
+              "recall": 0.5555555555555556,
+              "f1-score": 0.7142857142857143,
+              "support": 27.0
+            }
+          },
+          "macro": {
+            "precision": 0.8461538461538461,
+            "recall": 0.7777777777777778,
+            "f1-score": 0.7662337662337663,
+            "support": 54.0
+          },
+          "weighted": {
+            "precision": 0.8461538461538461,
+            "recall": 0.7777777777777778,
+            "f1-score": 0.7662337662337663,
+            "support": 54.0
+          },
+          "zero_denominator_policy": "report precision/recall/F1 as zero when undefined",
+          "confusion_matrix_order": [
+            "mismatch",
+            "match"
+          ],
+          "confusion_matrix": [
+            [
+              27,
+              0
+            ],
+            [
+              12,
+              15
+            ]
+          ],
+          "false_acceptances": 0,
+          "status_counts": {
+            "predicted": 54
+          },
+          "class_coverage": {
+            "mismatch": {
+              "expected": 27,
+              "scored": 27
+            },
+            "match": {
+              "expected": 27,
+              "scored": 27
+            }
+          },
+          "auroc_match": 0.9821673525377229,
+          "average_precision_mismatch": 0.9854302832244008
+        },
+        "previous_same_theorem_diagnostic": {
+          "accuracy": 0.9375,
+          "balanced_accuracy": 0.9375,
+          "coverage": 1.0,
+          "scored": 16,
+          "total": 16,
+          "classes": {
+            "mismatch": {
+              "precision": 1.0,
+              "recall": 0.875,
+              "f1-score": 0.9333333333333333,
+              "support": 8.0
+            },
+            "match": {
+              "precision": 0.8888888888888888,
+              "recall": 1.0,
+              "f1-score": 0.9411764705882353,
+              "support": 8.0
+            }
+          },
+          "macro": {
+            "precision": 0.9444444444444444,
+            "recall": 0.9375,
+            "f1-score": 0.9372549019607843,
+            "support": 16.0
+          },
+          "weighted": {
+            "precision": 0.9444444444444444,
+            "recall": 0.9375,
+            "f1-score": 0.9372549019607843,
+            "support": 16.0
+          },
+          "zero_denominator_policy": "report precision/recall/F1 as zero when undefined",
+          "confusion_matrix_order": [
+            "mismatch",
+            "match"
+          ],
+          "confusion_matrix": [
+            [
+              7,
+              1
+            ],
+            [
+              0,
+              8
+            ]
+          ],
+          "false_acceptances": 1,
+          "status_counts": {
+            "predicted": 16
+          },
+          "class_coverage": {
+            "mismatch": {
+              "expected": 8,
+              "scored": 8
+            },
+            "match": {
+              "expected": 8,
+              "scored": 8
+            }
+          },
+          "auroc_match": 1.0,
+          "average_precision_mismatch": 1.0
+        }
+      }
+    },
+    "fine-tuned": {
+      "worker_status": "complete",
+      "training": {
+        "status": "complete",
+        "scope": "argument_fidelity",
+        "quantization": null,
+        "base_dtype": "bfloat16",
+        "input_sha256": "dfc39f7062575d4fdcb28a17f5561083a19007239f2cf139828ef34fab44c262",
+        "prompt_sha256": "6689e074571c8d9df1c1f568c8746377a839f0348380ef694a38fb379c8bf8ed",
+        "code_sha256": "4fa2641bbad734d14ac19d4c4866aa1e0df550dc891931b8c43edff932e1b963",
+        "seed": 883,
+        "epochs": 1,
+        "learning_rate": 0.0001,
+        "max_tokens": 4096,
+        "gradient_accumulation": 8,
+        "lora_rank": 16,
+        "lora_alpha": 32,
+        "lora_dropout": 0.05,
+        "label_policy": "user-assumed original pairs; constructed proof-swap negatives",
+        "packages": {
+          "torch": "2.11.0+cu128",
+          "transformers": "5.22.2",
+          "peft": "0.21.2"
+        },
+        "base_revision": "40c069824f4251a91eefaf281ebe4c544efd3e18",
+        "used": 366,
+        "skipped_too_long": 0,
+        "used_labels": {
+          "True": 183,
+          "False": 183
+        },
+        "trainable_parameters": 20971520,
+        "optimizer_steps": 46,
+        "peak_vram_gib": 39.80900001525879,
+        "seconds": 2138.719355600013
+      }
+    },
+    "tuned-direct": {
+      "worker_status": "complete",
+      "evaluations": {
+        "validation": {
+          "accuracy": 0.9833333333333333,
+          "balanced_accuracy": 0.9833333333333334,
+          "coverage": 1.0,
+          "scored": 60,
+          "total": 60,
+          "classes": {
+            "mismatch": {
+              "precision": 0.967741935483871,
+              "recall": 1.0,
+              "f1-score": 0.9836065573770492,
+              "support": 30.0
+            },
+            "match": {
+              "precision": 1.0,
+              "recall": 0.9666666666666667,
+              "f1-score": 0.9830508474576272,
+              "support": 30.0
+            }
+          },
+          "macro": {
+            "precision": 0.9838709677419355,
+            "recall": 0.9833333333333334,
+            "f1-score": 0.9833287024173382,
+            "support": 60.0
+          },
+          "weighted": {
+            "precision": 0.9838709677419355,
+            "recall": 0.9833333333333333,
+            "f1-score": 0.9833287024173383,
+            "support": 60.0
+          },
+          "zero_denominator_policy": "report precision/recall/F1 as zero when undefined",
+          "confusion_matrix_order": [
+            "mismatch",
+            "match"
+          ],
+          "confusion_matrix": [
+            [
+              30,
+              0
+            ],
+            [
+              1,
+              29
+            ]
+          ],
+          "false_acceptances": 0,
+          "status_counts": {
+            "predicted": 60
+          },
+          "class_coverage": {
+            "mismatch": {
+              "expected": 30,
+              "scored": 30
+            },
+            "match": {
+              "expected": 30,
+              "scored": 30
+            }
+          },
+          "auroc_match": 1.0,
+          "average_precision_mismatch": 0.9999999999999999
+        },
+        "test": {
+          "accuracy": 0.9814814814814815,
+          "balanced_accuracy": 0.9814814814814814,
+          "coverage": 1.0,
+          "scored": 54,
+          "total": 54,
+          "classes": {
+            "mismatch": {
+              "precision": 0.9642857142857143,
+              "recall": 1.0,
+              "f1-score": 0.9818181818181818,
+              "support": 27.0
+            },
+            "match": {
+              "precision": 1.0,
+              "recall": 0.9629629629629629,
+              "f1-score": 0.9811320754716981,
+              "support": 27.0
+            }
+          },
+          "macro": {
+            "precision": 0.9821428571428572,
+            "recall": 0.9814814814814814,
+            "f1-score": 0.9814751286449399,
+            "support": 54.0
+          },
+          "weighted": {
+            "precision": 0.9821428571428571,
+            "recall": 0.9814814814814815,
+            "f1-score": 0.98147512864494,
+            "support": 54.0
+          },
+          "zero_denominator_policy": "report precision/recall/F1 as zero when undefined",
+          "confusion_matrix_order": [
+            "mismatch",
+            "match"
+          ],
+          "confusion_matrix": [
+            [
+              27,
+              0
+            ],
+            [
+              1,
+              26
+            ]
+          ],
+          "false_acceptances": 0,
+          "status_counts": {
+            "predicted": 54
+          },
+          "class_coverage": {
+            "mismatch": {
+              "expected": 27,
+              "scored": 27
+            },
+            "match": {
+              "expected": 27,
+              "scored": 27
+            }
+          },
+          "auroc_match": 1.0,
+          "average_precision_mismatch": 1.0
+        },
+        "previous_same_theorem_diagnostic": {
+          "accuracy": 0.6875,
+          "balanced_accuracy": 0.6875,
+          "coverage": 1.0,
+          "scored": 16,
+          "total": 16,
+          "classes": {
+            "mismatch": {
+              "precision": 1.0,
+              "recall": 0.375,
+              "f1-score": 0.5454545454545454,
+              "support": 8.0
+            },
+            "match": {
+              "precision": 0.6153846153846154,
+              "recall": 1.0,
+              "f1-score": 0.7619047619047619,
+              "support": 8.0
+            }
+          },
+          "macro": {
+            "precision": 0.8076923076923077,
+            "recall": 0.6875,
+            "f1-score": 0.6536796536796536,
+            "support": 16.0
+          },
+          "weighted": {
+            "precision": 0.8076923076923077,
+            "recall": 0.6875,
+            "f1-score": 0.6536796536796536,
+            "support": 16.0
+          },
+          "zero_denominator_policy": "report precision/recall/F1 as zero when undefined",
+          "confusion_matrix_order": [
+            "mismatch",
+            "match"
+          ],
+          "confusion_matrix": [
+            [
+              3,
+              5
+            ],
+            [
+              0,
+              8
+            ]
+          ],
+          "false_acceptances": 5,
+          "status_counts": {
+            "predicted": 16
+          },
+          "class_coverage": {
+            "mismatch": {
+              "expected": 8,
+              "scored": 8
+            },
+            "match": {
+              "expected": 8,
+              "scored": 8
+            }
+          },
+          "auroc_match": 1.0,
+          "average_precision_mismatch": 1.0
+        }
+      }
+    },
+    "nl_to_lean": {
+      "worker_status": "complete",
+      "evaluations": {
+        "test": {
+          "accuracy": 0.6923076923076923,
+          "balanced_accuracy": 0.7142857142857143,
+          "coverage": 0.24074074074074073,
+          "scored": 13,
+          "total": 54,
+          "classes": {
+            "mismatch": {
+              "precision": 0.6,
+              "recall": 1.0,
+              "f1-score": 0.75,
+              "support": 6.0
+            },
+            "match": {
+              "precision": 1.0,
+              "recall": 0.42857142857142855,
+              "f1-score": 0.6,
+              "support": 7.0
+            }
+          },
+          "macro": {
+            "precision": 0.8,
+            "recall": 0.7142857142857143,
+            "f1-score": 0.675,
+            "support": 13.0
+          },
+          "weighted": {
+            "precision": 0.8153846153846154,
+            "recall": 0.6923076923076923,
+            "f1-score": 0.6692307692307692,
+            "support": 13.0
+          },
+          "zero_denominator_policy": "report precision/recall/F1 as zero when undefined",
+          "confusion_matrix_order": [
+            "mismatch",
+            "match"
+          ],
+          "confusion_matrix": [
+            [
+              6,
+              0
+            ],
+            [
+              4,
+              3
+            ]
+          ],
+          "false_acceptances": 0,
+          "status_counts": {
+            "translation_failed": 40,
+            "predicted": 13,
+            "judge_input_too_long": 1
+          },
+          "class_coverage": {
+            "mismatch": {
+              "expected": 27,
+              "scored": 6
+            },
+            "match": {
+              "expected": 27,
+              "scored": 7
+            }
+          },
+          "auroc_match": 0.9761904761904763,
+          "average_precision_mismatch": 0.976190476190476
+        },
+        "previous_same_theorem_diagnostic": {
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0,
+          "coverage": 0.75,
+          "scored": 12,
+          "total": 16,
+          "classes": {
+            "mismatch": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1-score": 1.0,
+              "support": 6.0
+            },
+            "match": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1-score": 1.0,
+              "support": 6.0
+            }
+          },
+          "macro": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 12.0
+          },
+          "weighted": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 12.0
+          },
+          "zero_denominator_policy": "report precision/recall/F1 as zero when undefined",
+          "confusion_matrix_order": [
+            "mismatch",
+            "match"
+          ],
+          "confusion_matrix": [
+            [
+              6,
+              0
+            ],
+            [
+              0,
+              6
+            ]
+          ],
+          "false_acceptances": 0,
+          "status_counts": {
+            "predicted": 12,
+            "translation_failed": 4
+          },
+          "class_coverage": {
+            "mismatch": {
+              "expected": 8,
+              "scored": 6
+            },
+            "match": {
+              "expected": 8,
+              "scored": 6
+            }
+          },
+          "auroc_match": 1.0,
+          "average_precision_mismatch": 1.0
+        }
+      },
+      "compiler_qualified_evaluations": {
+        "test": {
+          "coverage": 0,
+          "scored": 0,
+          "total": 54,
+          "accuracy": null,
+          "class_coverage": {
+            "mismatch": {
+              "expected": 27,
+              "scored": 0
+            },
+            "match": {
+              "expected": 27,
+              "scored": 0
+            }
+          },
+          "status_counts": {
+            "generated_code_not_compiler_verified": 54
+          }
+        },
+        "previous_same_theorem_diagnostic": {
+          "coverage": 0,
+          "scored": 0,
+          "total": 16,
+          "accuracy": null,
+          "class_coverage": {
+            "mismatch": {
+              "expected": 8,
+              "scored": 0
+            },
+            "match": {
+              "expected": 8,
+              "scored": 0
+            }
+          },
+          "status_counts": {
+            "generated_code_not_compiler_verified": 16
+          }
+        }
+      },
+      "compiler_qualified_scope": "Generated code compiled; source-argument preservation still unverified"
+    },
+    "lean_to_nl": {
+      "worker_status": "complete",
+      "evaluations": {
+        "test": {
+          "accuracy": 0.6875,
+          "balanced_accuracy": 0.6875,
+          "coverage": 0.8888888888888888,
+          "scored": 48,
+          "total": 54,
+          "classes": {
+            "mismatch": {
+              "precision": 0.6153846153846154,
+              "recall": 1.0,
+              "f1-score": 0.7619047619047619,
+              "support": 24.0
+            },
+            "match": {
+              "precision": 1.0,
+              "recall": 0.375,
+              "f1-score": 0.5454545454545454,
+              "support": 24.0
+            }
+          },
+          "macro": {
+            "precision": 0.8076923076923077,
+            "recall": 0.6875,
+            "f1-score": 0.6536796536796536,
+            "support": 48.0
+          },
+          "weighted": {
+            "precision": 0.8076923076923078,
+            "recall": 0.6875,
+            "f1-score": 0.6536796536796536,
+            "support": 48.0
+          },
+          "zero_denominator_policy": "report precision/recall/F1 as zero when undefined",
+          "confusion_matrix_order": [
+            "mismatch",
+            "match"
+          ],
+          "confusion_matrix": [
+            [
+              24,
+              0
+            ],
+            [
+              15,
+              9
+            ]
+          ],
+          "false_acceptances": 0,
+          "status_counts": {
+            "predicted": 48,
+            "translation_failed": 6
+          },
+          "class_coverage": {
+            "mismatch": {
+              "expected": 27,
+              "scored": 24
+            },
+            "match": {
+              "expected": 27,
+              "scored": 24
+            }
+          },
+          "auroc_match": 0.9539930555555556,
+          "average_precision_mismatch": 0.9562208529487941
+        },
+        "previous_same_theorem_diagnostic": {
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0,
+          "coverage": 1.0,
+          "scored": 16,
+          "total": 16,
+          "classes": {
+            "mismatch": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1-score": 1.0,
+              "support": 8.0
+            },
+            "match": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1-score": 1.0,
+              "support": 8.0
+            }
+          },
+          "macro": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 16.0
+          },
+          "weighted": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 16.0
+          },
+          "zero_denominator_policy": "report precision/recall/F1 as zero when undefined",
+          "confusion_matrix_order": [
+            "mismatch",
+            "match"
+          ],
+          "confusion_matrix": [
+            [
+              8,
+              0
+            ],
+            [
+              0,
+              8
+            ]
+          ],
+          "false_acceptances": 0,
+          "status_counts": {
+            "predicted": 16
+          },
+          "class_coverage": {
+            "mismatch": {
+              "expected": 8,
+              "scored": 8
+            },
+            "match": {
+              "expected": 8,
+              "scored": 8
+            }
+          },
+          "auroc_match": 1.0,
+          "average_precision_mismatch": 1.0
+        }
+      }
+    },
+    "verbose_lean": {
+      "worker_status": "complete",
+      "evaluations": {
+        "test": {
+          "accuracy": 0.5714285714285714,
+          "balanced_accuracy": 0.5833333333333334,
+          "coverage": 0.6481481481481481,
+          "scored": 35,
+          "total": 54,
+          "classes": {
+            "mismatch": {
+              "precision": 0.53125,
+              "recall": 1.0,
+              "f1-score": 0.6938775510204082,
+              "support": 17.0
+            },
+            "match": {
+              "precision": 1.0,
+              "recall": 0.16666666666666666,
+              "f1-score": 0.2857142857142857,
+              "support": 18.0
+            }
+          },
+          "macro": {
+            "precision": 0.765625,
+            "recall": 0.5833333333333334,
+            "f1-score": 0.4897959183673469,
+            "support": 35.0
+          },
+          "weighted": {
+            "precision": 0.7723214285714286,
+            "recall": 0.5714285714285714,
+            "f1-score": 0.4839650145772595,
+            "support": 35.0
+          },
+          "zero_denominator_policy": "report precision/recall/F1 as zero when undefined",
+          "confusion_matrix_order": [
+            "mismatch",
+            "match"
+          ],
+          "confusion_matrix": [
+            [
+              17,
+              0
+            ],
+            [
+              15,
+              3
+            ]
+          ],
+          "false_acceptances": 0,
+          "status_counts": {
+            "predicted": 35,
+            "translation_failed": 19
+          },
+          "class_coverage": {
+            "mismatch": {
+              "expected": 27,
+              "scored": 17
+            },
+            "match": {
+              "expected": 27,
+              "scored": 18
+            }
+          },
+          "auroc_match": 0.9722222222222222,
+          "average_precision_mismatch": 0.9715873515181473
+        },
+        "previous_same_theorem_diagnostic": {
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0,
+          "coverage": 1.0,
+          "scored": 16,
+          "total": 16,
+          "classes": {
+            "mismatch": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1-score": 1.0,
+              "support": 8.0
+            },
+            "match": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1-score": 1.0,
+              "support": 8.0
+            }
+          },
+          "macro": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 16.0
+          },
+          "weighted": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 16.0
+          },
+          "zero_denominator_policy": "report precision/recall/F1 as zero when undefined",
+          "confusion_matrix_order": [
+            "mismatch",
+            "match"
+          ],
+          "confusion_matrix": [
+            [
+              8,
+              0
+            ],
+            [
+              0,
+              8
+            ]
+          ],
+          "false_acceptances": 0,
+          "status_counts": {
+            "predicted": 16
+          },
+          "class_coverage": {
+            "mismatch": {
+              "expected": 8,
+              "scored": 8
+            },
+            "match": {
+              "expected": 8,
+              "scored": 8
+            }
+          },
+          "auroc_match": 1.0,
+          "average_precision_mismatch": 1.0
+        }
+      },
+      "compiler_qualified_evaluations": {
+        "test": {
+          "coverage": 0,
+          "scored": 0,
+          "total": 54,
+          "accuracy": null,
+          "class_coverage": {
+            "mismatch": {
+              "expected": 27,
+              "scored": 0
+            },
+            "match": {
+              "expected": 27,
+              "scored": 0
+            }
+          },
+          "status_counts": {
+            "generated_code_not_compiler_verified": 54
+          }
+        },
+        "previous_same_theorem_diagnostic": {
+          "coverage": 0,
+          "scored": 0,
+          "total": 16,
+          "accuracy": null,
+          "class_coverage": {
+            "mismatch": {
+              "expected": 8,
+              "scored": 0
+            },
+            "match": {
+              "expected": 8,
+              "scored": 0
+            }
+          },
+          "status_counts": {
+            "generated_code_not_compiler_verified": 16
+          }
+        }
+      },
+      "compiler_qualified_scope": "Generated code compiled; source-argument preservation still unverified"
+    },
+    "natural_lean": {
+      "worker_status": "complete",
+      "evaluations": {
+        "test": {
+          "accuracy": 0.6190476190476191,
+          "balanced_accuracy": 0.6190476190476191,
+          "coverage": 0.7777777777777778,
+          "scored": 42,
+          "total": 54,
+          "classes": {
+            "mismatch": {
+              "precision": 0.5675675675675675,
+              "recall": 1.0,
+              "f1-score": 0.7241379310344828,
+              "support": 21.0
+            },
+            "match": {
+              "precision": 1.0,
+              "recall": 0.23809523809523808,
+              "f1-score": 0.38461538461538464,
+              "support": 21.0
+            }
+          },
+          "macro": {
+            "precision": 0.7837837837837838,
+            "recall": 0.6190476190476191,
+            "f1-score": 0.5543766578249337,
+            "support": 42.0
+          },
+          "weighted": {
+            "precision": 0.7837837837837838,
+            "recall": 0.6190476190476191,
+            "f1-score": 0.5543766578249337,
+            "support": 42.0
+          },
+          "zero_denominator_policy": "report precision/recall/F1 as zero when undefined",
+          "confusion_matrix_order": [
+            "mismatch",
+            "match"
+          ],
+          "confusion_matrix": [
+            [
+              21,
+              0
+            ],
+            [
+              16,
+              5
+            ]
+          ],
+          "false_acceptances": 0,
+          "status_counts": {
+            "predicted": 42,
+            "translation_failed": 12
+          },
+          "class_coverage": {
+            "mismatch": {
+              "expected": 27,
+              "scored": 21
+            },
+            "match": {
+              "expected": 27,
+              "scored": 21
+            }
+          },
+          "auroc_match": 0.9512471655328798,
+          "average_precision_mismatch": 0.9412470097841616
+        },
+        "previous_same_theorem_diagnostic": {
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0,
+          "coverage": 1.0,
+          "scored": 16,
+          "total": 16,
+          "classes": {
+            "mismatch": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1-score": 1.0,
+              "support": 8.0
+            },
+            "match": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1-score": 1.0,
+              "support": 8.0
+            }
+          },
+          "macro": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 16.0
+          },
+          "weighted": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 16.0
+          },
+          "zero_denominator_policy": "report precision/recall/F1 as zero when undefined",
+          "confusion_matrix_order": [
+            "mismatch",
+            "match"
+          ],
+          "confusion_matrix": [
+            [
+              8,
+              0
+            ],
+            [
+              0,
+              8
+            ]
+          ],
+          "false_acceptances": 0,
+          "status_counts": {
+            "predicted": 16
+          },
+          "class_coverage": {
+            "mismatch": {
+              "expected": 8,
+              "scored": 8
+            },
+            "match": {
+              "expected": 8,
+              "scored": 8
+            }
+          },
+          "auroc_match": 1.0,
+          "average_precision_mismatch": 1.0
+        }
+      },
+      "compiler_qualified_evaluations": {
+        "test": {
+          "coverage": 0,
+          "scored": 0,
+          "total": 54,
+          "accuracy": null,
+          "class_coverage": {
+            "mismatch": {
+              "expected": 27,
+              "scored": 0
+            },
+            "match": {
+              "expected": 27,
+              "scored": 0
+            }
+          },
+          "status_counts": {
+            "generated_code_not_compiler_verified": 54
+          }
+        },
+        "previous_same_theorem_diagnostic": {
+          "coverage": 0,
+          "scored": 0,
+          "total": 16,
+          "accuracy": null,
+          "class_coverage": {
+            "mismatch": {
+              "expected": 8,
+              "scored": 0
+            },
+            "match": {
+              "expected": 8,
+              "scored": 0
+            }
+          },
+          "status_counts": {
+            "generated_code_not_compiler_verified": 16
+          }
+        }
+      },
+      "compiler_qualified_scope": "Generated code compiled; source-argument preservation still unverified"
+    },
+    "compilation": {
+      "worker_status": "complete",
+      "compilation": {
+        "status": "complete",
+        "schema": 1,
+        "records": 210,
+        "status_counts": {
+          "compile_failed": 123,
+          "not_checked": 38,
+          "not_applicable": 35,
+          "timeout": 1,
+          "rejected_import": 9,
+          "compiled": 2,
+          "rejected_executable_extension": 2
+        },
+        "by_target": {
+          "natural_lean": {
+            "compile_failed": 63,
+            "not_checked": 6,
+            "rejected_executable_extension": 1
+          },
+          "english": {
+            "not_applicable": 35
+          },
+          "lean": {
+            "not_checked": 22,
+            "compile_failed": 9,
+            "rejected_import": 4
+          },
+          "verbose_lean": {
+            "compile_failed": 51,
+            "not_checked": 10,
+            "timeout": 1,
+            "rejected_import": 5,
+            "compiled": 2,
+            "rejected_executable_extension": 1
+          }
+        },
+        "environment_status": {
+          "natural_lean": {
+            "status": "ready",
+            "lean_executable": "C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\intermediary-sources\\toolchains\\4.36.0-rc2\\lean-4.36.0-rc2-windows\\bin\\lean.exe",
+            "source": "C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\intermediary-sources\\natural_lean-d7d0d5de14c0404a9e4d900d76fac2f19d304a56",
+            "lean_path": "C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\intermediary-sources\\natural_lean-d7d0d5de14c0404a9e4d900d76fac2f19d304a56\\.lake\\packages\\aesop\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\intermediary-sources\\natural_lean-d7d0d5de14c0404a9e4d900d76fac2f19d304a56\\.lake\\packages\\batteries\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\intermediary-sources\\natural_lean-d7d0d5de14c0404a9e4d900d76fac2f19d304a56\\.lake\\build\\lib\\lean;c:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\intermediary-sources\\toolchains\\4.36.0-rc2\\lean-4.36.0-rc2-windows\\lib\\lean",
+            "version": "4.36.0-rc2",
+            "revision": "d7d0d5de14c0404a9e4d900d76fac2f19d304a56",
+            "environment_sha256": "e066e8aff7cc85ef5e543d2e1b5622ce7734aeac2e158639e7de6a5935e8d4b5"
+          },
+          "english": {
+            "status": "not_applicable"
+          },
+          "lean": {
+            "status": "ready",
+            "lean_executable": "C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\lean428\\lean-4.28.0-windows\\bin\\lean.exe",
+            "source": "C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\lean428\\mathlib",
+            "lean_path": "C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\lean428\\mathlib\\.lake\\packages\\Cli\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\lean428\\mathlib\\.lake\\packages\\batteries\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\lean428\\mathlib\\.lake\\packages\\Qq\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\lean428\\mathlib\\.lake\\packages\\aesop\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\lean428\\mathlib\\.lake\\packages\\proofwidgets\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\lean428\\mathlib\\.lake\\packages\\importGraph\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\lean428\\mathlib\\.lake\\packages\\LeanSearchClient\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\lean428\\mathlib\\.lake\\packages\\plausible\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\lean428\\mathlib\\.lake\\build\\lib\\lean;c:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\lean428\\lean-4.28.0-windows\\lib\\lean",
+            "version": "4.28.0",
+            "environment_sha256": "11d4e05907563028d072bcd963c7d7240b68643fdbd78721a24787dda4623be0"
+          },
+          "verbose_lean": {
+            "status": "ready",
+            "lean_executable": "C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\intermediary-sources\\toolchains\\4.31.0\\lean-4.31.0-windows\\bin\\lean.exe",
+            "source": "C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\vl431",
+            "lean_path": "C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\vl431\\.lake\\packages\\Cli\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\vl431\\.lake\\packages\\batteries\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\vl431\\.lake\\packages\\Qq\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\vl431\\.lake\\packages\\aesop\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\vl431\\.lake\\packages\\proofwidgets\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\vl431\\.lake\\packages\\importGraph\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\vl431\\.lake\\packages\\LeanSearchClient\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\vl431\\.lake\\packages\\plausible\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\vl431\\.lake\\packages\\mathlib\\.lake\\build\\lib\\lean;C:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\vl431\\.lake\\build\\lib\\lean;c:\\Users\\tbelcher\\GitHub Repos\\Public\\CSCE883\\Homework\\Project\\data\\intermediary-sources\\toolchains\\4.31.0\\lean-4.31.0-windows\\lib\\lean",
+            "version": "4.31.0",
+            "revision": "ea52f4bf6c60d986cb3fa2a5b7d7a8429b886eed",
+            "environment_sha256": "df583581ee0362a3eb93eac62b190c6b11b21a8d5ad6a7e64c9e525b708a8df5"
+          }
+        },
+        "compilation_does_not_establish_source_argument_preservation": true
+      }
+    }
+  }
+}

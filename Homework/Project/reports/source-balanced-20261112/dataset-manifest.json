@@ -1,0 +1,36 @@
+{
+  "rows": 32,
+  "input_hashes": {
+    "faithform_first100": "e94c2b44559435f69fa9dc9f5da91a9be091c747e86c83ce3337dd90560cd3a4",
+    "proofnet_train": "dfc39f7062575d4fdcb28a17f5561083a19007239f2cf139828ef34fab44c262",
+    "proofnet_validation": "8ad5cc0057989221c345742658cb52f595c8a852638ab87e78118d3f393687dc",
+    "proofnet_test": "7495a1350f0e86fd19d84f88fe529969cc35d08590969a07c7ee85c793e927fc"
+  },
+  "counts": {
+    "train": {
+      "faithform:False": 4,
+      "faithform:True": 4,
+      "proofnet:True": 4,
+      "proofnet:False": 4
+    },
+    "validation": {
+      "faithform:False": 2,
+      "faithform:True": 2,
+      "proofnet:True": 2,
+      "proofnet:False": 2
+    },
+    "test": {
+      "faithform:False": 2,
+      "faithform:True": 2,
+      "proofnet:True": 2,
+      "proofnet:False": 2
+    }
+  },
+  "faithform_review": "agent provisional, not independent human gold",
+  "limitations": [
+    "Four Faithform source problems, ordered convenience sample",
+    "Source balanced, but local inference vs full-proof scope differs",
+    "ProofNet full-proof positives assumed; related swaps constructed",
+    "No formal proof replay or human review in this build"
+  ]
+}

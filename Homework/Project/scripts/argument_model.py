@@ -137,9 +137,11 @@ def predict(args):
     if rows and all('label' in r and 'group' in r for r in rows):
         excluded_groups=paired_too_long(rows,[len(tokens(tokenizer,r)) for r in rows],args.max_tokens)
     spec={'input_sha256':sha(args.input.read_bytes()),'base_revision':base['revision'],
+        'code_sha256':sha(Path(__file__).read_bytes()),
         'adapter_sha256':sha((args.adapter/'adapter_model.safetensors').read_bytes()) if args.adapter else None,
         'prompt_sha256':sha(PROMPT.encode()),'max_tokens':args.max_tokens,'quantization':None,
-        'base_dtype':'bfloat16','scope':'argument_fidelity','inference':'constrained_YES_NO_next_token'}
+        'base_dtype':'bfloat16','scope':'argument_fidelity','inference':'constrained_YES_NO_next_token',
+        'seed':SEED,'packages':{k:importlib.metadata.version(k) for k in ['torch','transformers','peft']}}
     run=args.output/'run.json';dest=args.output/'predictions.jsonl'
     if run.exists() and json.loads(run.read_text(encoding='utf-8'))['spec']!=spec:
         raise ValueError('Cannot resume changed inputs/settings')
@@ -164,7 +166,8 @@ def predict(args):
                         with torch.inference_mode():
                             logits=model(input_ids=x,attention_mask=torch.ones_like(x),logits_to_keep=1).logits[0,-1,[yes[0],no[0]]].float()
                             score=logits.softmax(-1).cpu().tolist()
-                        result.update(status='predicted',prediction=score[0]>=score[1],yes_score_uncalibrated=score[0])
+                        result.update(status='predicted',prediction=score[0]>=score[1],yes_score_uncalibrated=score[0],
+                            yes_minus_no_logit=float((logits[0]-logits[1]).cpu()))
                     except torch.OutOfMemoryError:
                         result['status']='out_of_memory';torch.cuda.empty_cache()
             output.write(json.dumps(result)+'\n');output.flush()
@@ -173,7 +176,8 @@ def predict(args):
     state={'status':'complete','spec':spec,'rows':len(predictions),
         'status_counts':dict(Counter(r['status'] for r in predictions)),
         'prediction_counts':dict(Counter(str(r['prediction']) for r in predictions)),
-        'seconds_this_process':time.perf_counter()-started,'accuracy':None}
+        'seconds_this_process':time.perf_counter()-started,'accuracy':None,
+        'peak_vram_gib':torch.cuda.max_memory_allocated()/2**30}
     if all('label' in r for r in rows):
         from classification_metrics import evaluate
         state['metrics']=evaluate(rows,predictions)

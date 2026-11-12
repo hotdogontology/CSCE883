@@ -1,0 +1,156 @@
+{
+  "purpose": "Shortcut diagnostics, not semantic correspondence performance",
+  "warning": "Tiny provisional convenience pilot; do not tune repeatedly against test",
+  "results": {
+    "source_only": {
+      "validation": {
+        "accuracy": 0.5,
+        "n": 8,
+        "predictions": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "test": {
+        "accuracy": 0.5,
+        "n": 8,
+        "predictions": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "length_only": {
+      "validation": {
+        "accuracy": 0.625,
+        "n": 8,
+        "predictions": [
+          true,
+          true,
+          false,
+          false,
+          true,
+          false,
+          false,
+          false
+        ]
+      },
+      "test": {
+        "accuracy": 0.5,
+        "n": 8,
+        "predictions": [
+          true,
+          true,
+          false,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      }
+    },
+    "english_only": {
+      "validation": {
+        "accuracy": 0.5,
+        "n": 8,
+        "predictions": [
+          true,
+          false,
+          true,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      },
+      "test": {
+        "accuracy": 0.5,
+        "n": 8,
+        "predictions": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "lean_only": {
+      "validation": {
+        "accuracy": 0.5,
+        "n": 8,
+        "predictions": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "test": {
+        "accuracy": 0.5,
+        "n": 8,
+        "predictions": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    "paired_lexical": {
+      "validation": {
+        "accuracy": 0.5,
+        "n": 8,
+        "predictions": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "test": {
+        "accuracy": 0.5,
+        "n": 8,
+        "predictions": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    }
+  }
+}
