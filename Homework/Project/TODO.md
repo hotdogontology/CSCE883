@@ -1,5 +1,8 @@
 # Project TODO
 
+- [x] Revise presentation opening: OpenAI context, Lean introduction, research
+  question; revise contrastive phrasing and retain ten-minute timing (15 slides).
+
 - [x] Add public repo link and pipeline figure; retain eight-page main report.
 - [x] Clean supplement and preserve full metrics/plots (14 pages).
 - [x] Prepare 14-slide PDF presentation and ten-minute timing notes.

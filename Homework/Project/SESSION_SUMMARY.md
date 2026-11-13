@@ -2,6 +2,35 @@
 
 Last updated: 2026-11-13 (America/New_York).
 
+Presentation consolidation: combined numbered slides 2 and 4 into Lean,
+formalization, and trust; retained the user-edited opening slide. Title plus
+14 content slides (15 PDF pages), ten-minute notes retained.
+
+
+VS Code preview fix: build/slides.pdf was updating but slides.pdf beside the
+source was stale. Added a post-build sync step to the workspace recipe and
+scripts/sync_latex_pdf.py. Updated slides.pdf now and verified identical hashes.
+Successful builds now update both locations.
+
+
+VS Code build setup: installed James-Yu.latex-workshop 10.20.0 and configured
+the enclosing GitHub Repos/.vscode/settings.json for local Tectonic, build-on-save,
+output under each document build/ folder, and tab preview. Tested the exact
+recipe against slides.tex successfully. Published PDF copies remain separate.
+
+
+Presentation clarification: restored separate unnumbered title slide with official
+USC centered logo. OpenAI remains content slide 1, Lean slide 2, research question
+slide 3. PDF now has 16 pages (title + 15 content slides); ten-minute notes updated.
+Logo source and hash are in presentation/assets/README.md.
+
+
+Presentation revision: 15 slides, opening with OpenAI proof releases and the
+evaluation controversy, then Lean/formalization, then the research question.
+Retained subsequent evidence slides, revised contrastive phrasing, and retimed
+speaker notes to ten minutes. Rebuilt presentation PDF.
+
+
 November 13 course-deliverable completion: main report remains eight pages,
 now with repository link and pipeline diagram. Replaced empty supplement outline
 with completed evidence/contributions (14 pages). Created 14-slide Beamer/PDF

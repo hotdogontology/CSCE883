@@ -8,25 +8,45 @@
 \author{Taylor Belcher \and ChatGPT (AI collaborator)}
 \institute{CSCE883: Machine Learning}
 \date{November 2026}
+\titlegraphic{\includegraphics[width=3.5cm,height=1.65cm,keepaspectratio]{assets/usc-logo-centered.png}}
 \begin{document}
-\begin{frame}\titlepage\end{frame}
-\begin{frame}{What are we checking?}
+{\setbeamertemplate{footline}{}
+\begin{frame}[plain,noframenumbering]\titlepage\end{frame}}
+\begin{frame}{Frontiers of Mathematics Lost In Translation}
+\begin{itemize}
+\item OpenAI and Anthropic's announcements of proofs of Millennium Prize problems as well as over 700 other results in mathematics brought attention to AI-generated mathematics.
+\item The Navier--Stokes release raised a practical question: how should readers evaluate a long English proof and its machine-checked companion? \emph{Lost in Translation} reports discrepancies between the manuscript and formalization.
+\end{itemize}
+\begin{block}{Motivation}How do we know that the released proofs are correct and not just slop? With so much released, manually checking each proof is impractical.\end{block}
+\end{frame}
+\begin{frame}{Lean, formalization, and trust}
+\begin{columns}[T]
+\column{.48\textwidth}
+\textbf{What Lean checks}
+\begin{itemize}
+\item Lean is a proof assistant for mathematical definitions, statements, and proofs.
+\item Formalization makes an informal argument's assumptions and inference steps explicit.
+\item The kernel checks the formal proof under its definitions and axioms.
+\end{itemize}
+\column{.48\textwidth}
+\textbf{Connecting the proof to its meaning}
+\begin{itemize}
+\item Pollack examines how a checked derivation supports belief in the intended claim.
+\item FaithformBench finds that formalizers can silently repair invalid reasoning.
+\item Buzzard's Xena discussion considers informalization as an aid to inspecting Lean.
+\end{itemize}
+\end{columns}
+\begin{block}{Trusting proofs}Readers must also check that the formal definitions, statements, and proof steps faithfully represent the English argument.\end{block}
+\end{frame}
+\begin{frame}{Our research question}
 \begin{itemize}
 \item Does the Lean proof faithfully represent the supplied English argument?
 \item Compare assumptions, conclusions, witnesses, dependencies, and essential steps.
 \item Two valid proofs of the same theorem can use different arguments.
 \end{itemize}
-\begin{block}{A different trust boundary}A correct kernel can verify a formal proof that does not say what the accompanying English says.\end{block}
+\begin{block}{Argument correspondence}Formal verification establishes the encoded claim. Our checker asks whether its argument faithfully represents the supplied English proof.\end{block}
 \end{frame}
-\begin{frame}{Why this is a real problem}
-\begin{itemize}
-\item Navier--Stokes \emph{Lost in Translation}: discrepancies between a manuscript and its cited formalization.
-\item FaithformBench: formalizers can silently repair invalid input reasoning.
-\item Buzzard's Xena discussion: readable informalization can help inspect formal artifacts.
-\item Pollack: checking a derivation and believing the intended claim are distinct tasks.
-\end{itemize}
-\small Full references and source links are in the paper bibliography. Kernel soundness bugs require a separate kind of check.
-\end{frame}
+
 \begin{frame}{The hardest part was the data}
 \begin{itemize}
 \item ProofNet-Verified corrects statements; proof-route fidelity was an assumption in our experiments.
@@ -36,7 +56,7 @@
 \end{itemize}
 \begin{block}{Needed}Human-reviewed faithful and unfaithful argument pairs, with explanations of the differences.\end{block}
 \end{frame}
-\begin{frame}{Earlier experiments: strong scores, narrow conclusions}
+\begin{frame}{Earlier classification experiments}
 \small\centering
 \begin{tabular}{lrr}
 \toprule Protocol & Original & Tuned / trained\\\midrule
@@ -46,16 +66,16 @@
 Paired forest, random swaps (118) & --- & 89.0\%\\\bottomrule
 \end{tabular}
 \vspace{.4cm}
-\begin{itemize}\item Comparisons are within rows; protocols are not interchangeable.
+\begin{itemize}\item Compare results within each row; each protocol has its own evaluation scope.
 \item 8B tuning increased accuracy while decreasing mismatch recall.
-\item An English-only forest reached 91.5\%: evidence of a possible shortcut, not paired checking.\end{itemize}
+\item An English-only forest reached 91.5\%, suggesting shortcuts in the constructed dataset.\end{itemize}
 \end{frame}
 \begin{frame}{Holding the theorem fixed exposes a weakness}
 For each of four theorems: two English routes $E_A,E_B$ and two Lean routes $L_A,L_B$.
 \begin{center}\begin{tabular}{c|cc} & $L_A$ & $L_B$\\\hline $E_A$ & Match & Mismatch\\ $E_B$ & Mismatch & Match\end{tabular}\end{center}
 \begin{itemize}\item Example: explicit witness $x=1$ versus the intermediate value theorem for $x^3+x=2$.
 \item Original 14B: 15/16; random-swap tuned: 8/16; related-swap tuned: 11/16.
-\item Four synthetic families, not 16 independent problems; agent labels, repeated inspection.
+\item 16 pairs from four synthetic theorem families; agent labels and repeated inspection limit independence.
 \item Ranking and fixed-threshold accuracy can disagree.\end{itemize}
 \end{frame}
 \begin{frame}{Our main approach: informalize, then compare}
@@ -75,33 +95,33 @@ For each of four theorems: two English routes $E_A,E_B$ and two Lean routes $L_A
 \item RTX A6000 (48 GB), 128 GB RAM. Original 14B judge in both runs.
 \end{itemize}
 \end{frame}
-\begin{frame}{Herald: completed translations, not measured accuracy}
+\begin{frame}{Herald translation and judgment results}
 \centering
 \includegraphics[width=.88\textwidth,height=.56\textheight,keepaspectratio]{../paper/figures/informalization-herald.pdf}
 \begin{itemize}\item 64/64 completed: 49 accepted, 15 rejected (76.6\% acceptance).
-\item No independent correspondence labels: acceptance is not accuracy.
+\item Measuring semantic accuracy requires independent correspondence labels.
 \item Readable output can still omit an important assumption or helper argument.\end{itemize}
 \end{frame}
-\begin{frame}{ProofNet: detecting mismatches, rejecting too many matches}
+\begin{frame}{ProofNet classification results}
 \begin{columns}
 \column{.49\textwidth}\small
 54 attempted; 46 scored; 8 generation-limit abstentions.
 \begin{center}\begin{tabular}{lrr}\toprule Actual / predicted & Mismatch & Match\\\midrule Mismatch & 23 & 0\\ Match & 17 & 6\\\bottomrule\end{tabular}\end{center}
 Accuracy 63.0\%; mismatch P/R/F1: .575 / 1.000 / .730.
 \medskip
-Synthetic/assumed labels; conditional on completion. Strong ranking does not fix false rejections.
+Synthetic/assumed labels; conditional on completion. The fixed decision rule produced 17 false rejections.
 \column{.49\textwidth}
 \includegraphics[width=\textwidth]{../paper/figures/informalization-proofnet-curves.pdf}
 \end{columns}
 \end{frame}
-\begin{frame}{OpenAI cases: a flag is not a diagnosis}
+\begin{frame}{Examining the OpenAI case explanations}
 \begin{itemize}
 \item Two targeted Navier--Stokes cases: inverse estimate and pressure estimate.
 \item Herald pipeline flagged both, but its accounts omitted essential assumptions or helper reasoning.
 \item ProofNet pipeline: inverse account only 27 tokens; pressure output repeated until the 2,048-token cap (abstention).
 \item Neither run reliably identified the documented mathematical discrepancy.
 \end{itemize}
-\begin{block}{Interpretation}Evaluate the generated explanation and its dependencies, not just whether the final answer says ``mismatch.''\end{block}
+\begin{block}{Interpretation}Evaluate whether the generated explanation identifies the specific discrepancy and preserves the relevant dependencies.''\end{block}
 \end{frame}
 \begin{frame}{Could controlled intermediaries help?}
 \begin{itemize}
@@ -123,7 +143,7 @@ Synthetic/assumed labels; conditional on completion. Strong ranking does not fix
 \small Broader impact: accessible proof explanations could assist review; unsupported automated confidence could mislead it.
 \end{frame}
 \begin{frame}{Takeaway}
-\begin{block}{The main result}High performance on constructed swaps did not establish reliable argument-fidelity checking. Informalization exposes useful evidence, but translation omissions remain a bottleneck.\end{block}
+\begin{block}{The main result}Constructed swaps yielded high classification scores. The same-theorem and external cases exposed limits in argument-fidelity checking. Informalization makes the evidence readable; translation omissions remain a bottleneck.\end{block}
 \begin{itemize}\item Preserve the distinction between validity, correspondence, and readability.
 \item Better public labels and human review are essential to measure progress.
 \end{itemize}

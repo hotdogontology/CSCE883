@@ -4,7 +4,7 @@ Public repository: https://github.com/hotdogontology/CSCE883/tree/main/Homework/
 
 Start in `Homework/Project`. The paper is `paper/main.pdf`; the separate evidence
 supplement is `paper/supplement.pdf`. Presentation source and PDF are in
-`presentation/`; `speaker-notes.md` allocates ten minutes across fourteen slides.
+`presentation/`; `speaker-notes.md` allocates ten minutes across a title slide and fourteen content slides.
 
 ## Rebuild the reported results without a GPU
 
