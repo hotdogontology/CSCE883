@@ -1,5 +1,13 @@
 # References for future work
 
+## Trust in machine-checked proofs and kernel soundness
+
+Added November 13, 2026 for the paper draft:
+
+- Robert Pollack (1997), [How to Believe a Machine-Checked Proof](https://tidsskrift.dk/brics/article/view/18945), BRICS RS-97-18, DOI 10.7146/brics.v4i18.18945. This is the paper located for the user's remembered title "Believing machine checked proofs." Distinguishes checking a derivation from understanding its intended mathematical statement.
+- Leonardo de Moura (August 1, 2026), [Postmortem for Kernel Soundness Bug #14576](https://leodemoura.github.io/blog/2026-8-1-postmortem-for-kernel-soundness-bug-14576/). Primary maintainer report: a nested-inductive-type bug accessible through metaprogramming allowed an ill-typed declaration and a proof of False; a fix and patch releases followed. This illustrates implementation soundness, distinct from an otherwise valid proof that changes an English argument.
+- Confirmed [FaithformBench](https://arxiv.org/abs/2608.10916) is the Cornish et al. paper about validity/invalidity preservation, not [Pistis](https://arxiv.org/abs/2608.15432). Both are cited in the draft without claiming all public faithfulness labels are absent.
+
 ## Lean-to-English informalization and semantic judging
 
 Added at the user's request, 2026-11-12:
@@ -42,6 +50,12 @@ Added at the user's request, 2026-11-11:
   [Faithform-LLMs](https://huggingface.co/datasets/ighina/Faithform-LLMs): public
   English reasoning steps, generated Lean formalizations and prover outputs.
   Separate translation fidelity from validity/refutation; see the dataset survey.
+- Rob Cornish et al. (2026), [FaithformBench: Benchmarking Faithfulness of
+  Mathematical Chain-of-Thought Autoformalisation](https://arxiv.org/abs/2608.10916).
+  Paper associated with the Faithform releases (confirmed from the dataset card,
+  November 12). Studies validity/invalidity preservation under reasoning-step
+  perturbations and formalizers silently correcting invalid inputs. Distinct
+  from the Pistis/Elements paper, arXiv:2608.15432, listed above.
 
 Detailed availability and schema notes:
 [semantic data search](SEMANTIC_DATA_SEARCH_2026-11-11.md).

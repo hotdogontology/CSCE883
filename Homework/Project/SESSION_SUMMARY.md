@@ -1,6 +1,175 @@
 # Project session summary
 
-Last updated: 2026-11-12 (America/New_York).
+Last updated: 2026-11-13 (America/New_York).
+
+November 13 course-deliverable completion: main report remains eight pages,
+now with repository link and pipeline diagram. Replaced empty supplement outline
+with completed evidence/contributions (14 pages). Created 14-slide Beamer/PDF
+presentation and ten-minute speaker notes. Published PDFs live beside TeX sources;
+build previews remain ignored. REPRODUCING.md documents CPU regeneration and fresh
+GPU replay. Content-addressed evidence archives preserve 2,202 text artifacts
+(~70.6 MiB compressed), excluding weights/caches/credentials. A clean restored
+copy reproduced all numerical snapshot fields except timestamp (30 rows, nine
+protocol figures); credential-shaped evidence scan found no matches. Submission
+ZIP is generated locally by scripts/package_submission.py after committing;
+course upload and human presentation/manuscript review remain Taylor's steps.
+No new training or inference was run for this packaging work.
+
+
+November 13 latest-results paper update: ProofNet informalization and external
+cases COMPLETE. 29/46 correct of 54 attempted, eight output-limit abstentions;
+mismatch P/R/F1 .575/1/.730, AUROC .9575, AP .9565, matrix [[23,0],[17,6]].
+OpenAI inverse account only 27 tokens; pressure repetitive and truncated at 2048.
+Both raw flags NO, but pressure is unscored and neither explains the documented
+discrepancy reliably. See PROOFNET_INFORMALIZATION_RESULTS_2026-11-13.md.
+Paper now reports completed results in abstract, methods, results, tables and
+new ROC/PR plot; rebuilt main is 8 pages including references. Builders retain
+30 metric rows/matrices. No new model inference in this reporting update.
+
+November 13 manuscript review edits: removed the pending-review sentence from
+the AI authorship footnote (main and supplement), renamed Section 3.1 to
+Available Datasets and Correspondence Labels, and expanded Section 3.2 with the
+same-theorem diagnostic's complete 2x2 pairing construction, all four strategy
+comparisons, an explicit crossed-route example, Lean replay evidence and limits.
+User is reviewing the manuscript; retain substantive label/audit qualifications.
+
+November 13 paper draft: user authorized prose, abstract and AI co-authorship.
+main.tex lists Taylor Belcher and ChatGPT with explicit AI author note; supplement
+has matching authorship and contributions. Uses proposal motivation; cites
+Navier-Stokes/Faithform/Pistis/Xena and adds Pollack (1997), How to Believe a
+Machine-Checked Proof, plus de Moura's kernel-bug postmortem. Distinguishes
+soundness from correspondence. All 29 metric rows/matrices remain; main keeps
+related-swap/intermediary curves and adds Herald loss/decision figure. Other plots
+remain in supplement. Compiled main: 7 pages including references; supplement: 17.
+Prior outline in paper/archive. ProofNet training complete (validation NLL .7276)
+but evaluation pending in draft (27/54 translations at last check). Do not compare
+NLLs across corpora as semantic quality. Human review of draft still needed.
+
+November 13 ProofNet informalization follow-up: user requested replacing Herald
+with ProofNet supervision in a fresh run. Prepared 176 training / 36 validation
+original pairs using existing related-proof family allocation and unchanged
+2048/1024 limits; no swapped training targets. Queued 54 held-out related-swap
+pipeline judgments then the same two OpenAI cases with the new adapter. See
+PROOFNET_INFORMALIZATION_RUN_2026-11-13.md. Worker launched; inspect job.json
+under artifacts/informalization-proofnet-14b-20261113 and the separate
+artifacts/openai-proofnet-informalization-20261113 for completion. No new results
+claimed at launch. Herald model/results preserved; no direct baseline added.
+
+November 13 OpenAI pipeline run COMPLETE: user explicitly removed the direct
+untuned baseline. Trained informalizer + existing English judge ran on two pinned
+Navier-Stokes subarguments. Both flagged MISMATCH, but neither explanation
+reliably localized the documented discrepancy. Inverse translation omitted the
+input-derivative requirement; pressure translation summarized the wrapper and
+omitted the explicit bound/helper reasoning despite selected helpers in context.
+Read OPENAI_CASE_RESULTS_2026-11-13.md and reports/openai-informalization-20261113/.
+No truncation or output-limit hits; no new training. Do not claim 100% accuracy
+or two verified semantic detections. Next improvement proposed, not run:
+translate helper lemmas separately and preserve assumptions/bounds explicitly.
+
+November 13 OpenAI case selection: saved OPENAI_CASE_STUDY_PLAN.md. Downloaded
+the English Navier–Stokes manuscript and two Lean source files at critique-pinned
+revision f9e8bc5. Selected Lemma 8.6 inverse estimate (English pages 95–96) and
+Lemma 10.5 pressure-flux subargument (pages 121–123). Sources/extractions are in
+ignored data/openai-correspondence-cases. Dependency expansion and equation
+verification remain before inference; no new model results or accuracy claims.
+
+Table 1 readability: added horizontal rules between protocol groups in the
+generator, preserving bold scores. PDF rebuilt. User prefers selecting which
+plots remain in the main paper AFTER writing prose; defer plot selection.
+
+Paper visual follow-up: user prefers the original separate protocol figures over
+the dense overview grids. Main now includes all eight ROC/PR figures, using a
+shorter wide layout, and all classification rows/matrices. Main metric table
+bolds exact numerical maxima (1e-12 tie tolerance) within family AND evaluation
+split, including ties; singleton groups not highlighted. Conditional intermediary
+coverage qualification remains explicit. Recompiled main PDF: 7 pages before
+prose, so later edits must budget space without silently removing evidence.
+
+User clarified that shortening must not remove quantitative evidence from the
+main paper. Restored all 29 classification metric rows and confusion matrices,
+plus 15 evaluation panels each for ROC and PR, as compact main-paper tables and
+two overview figures. scripts/build_main_evidence.py regenerates these from the
+existing result snapshot and raw predictions; no inference. Completed
+informalization observations replace pending placeholders without accuracy claims.
+Main PDF now 5 pages before exposition; larger individual plots remain available
+in the separate supplement. Preserve numerical evidence when editing for length.
+
+November 13 completion review: latest informalization pipeline finished November
+12 at 18:03 Eastern (102.3 minutes total; 74.7 minutes training). All 4,096
+training examples completed; 64 validation pairs, 64 nonempty generations,
+zero generation-limit hits, 64 untuned-English judgments: 49 MATCH / 15 MISMATCH.
+Validation completion NLL 0.294797. Read RESULTS_2026-11-13.md. Acceptance is not
+accuracy. Initial rejected examples reveal translator errors; do not attribute
+15 mismatches to source Lean errors. Same-case direct baseline and OpenAI targeted
+case studies were next work at that review; see the completed OpenAI run above.
+
+Evening handoff: user requested informalization-centered paper framing, then stop
+work today after checking run health. Updated paper/main.tex: brief proposal
+motivation/related work; preliminary experiments framed around dataset limitations
+with calibration/generation qualifications; majority of space for trained
+informalization; targeted OpenAI/Navier-Stokes/Xena case studies explicitly next,
+NOT RUN; future public human-verified pair database. Exposition remains blank.
+Added the critique and two blog entries to paper bibliography; rebuilt PDF.
+Matched-case untuned direct judging is a planned baseline, not a queued stage.
+Next session: review Herald pipeline outputs, then pin and prepare exact external
+cases and source evidence before testing. No extra overnight job added.
+Evening health check: 2,266/4,096 examples completed, all logged losses finite,
+GPU 100%, no traceback; rolling checkpoint present (16:59 Eastern). Roughly
+35 minutes training remaining, then automatic validation, 64 English generations
+and untuned English judging. Check live job.json for subsequent state; this
+observation is not evidence of overnight completion.
+
+Paper shortened after checking the linked course project website: 6–8-page final
+report, separate supplement excluded; also a five-page minimum excluding
+references. Saved accessible PROJECT_REQUIREMENTS.md with source link and rubric.
+paper/main.tex now has a compact two-column outline and two consolidated results
+tables (two pages before exposition). Original detailed outline preserved as
+paper/supplement.tex (21-page compiled supplement). Both PDFs rebuilt successfully.
+Abstract/introduction/exposition still blank for Taylor. The maximum's treatment
+of references is not explicitly clear; aim for 6–8 total pages pending clarification.
+
+Paper outline created at user's request: paper/main.tex, ACM acmart manuscript
+writing layout; paper/conference.tex selects sigconf from the same source.
+Abstract/introduction/exposition remain empty; only headers, tables, figures,
+captions and nonprinting author TODOs supplied. scripts/build_paper_results.py
+recomputes 29 classification rows, confusion matrices and 8 ROC/PR figures from
+saved predictions on CPU. Unlabeled surveys receive counts, not accuracy.
+Separate sections cover all experiment families and secondary controls; the
+running informalization results have pending slots. paper/results-snapshot.json
+stores input hashes and metric provenance. Compiled preview: paper/build/main.pdf
+(ignored); checks include ID alignment, archived-metric comparisons and PDF bounds.
+No training interrupted; 14B informalization still progressing during paper work.
+
+New execution authorization: stop the 32B training attempt; train a fresh 14B
+Lean-to-English adapter, then use ORIGINAL untuned 14B to compare generated and
+original English. See INFORMALIZATION_RUN_2026-11-12.md. Worker 34108 stopped;
+32B baseline outputs preserved. Disk has 3.68 TB free; no model deletion needed.
+Implemented a 4,096-pair Herald first run with grouped 64/64 validation/test,
+completion-only translation supervision, automatic generation and untuned judging.
+Preparation/run status must be read from artifacts/informalization-14b-20261112;
+implementation alone is not evidence of completed training. No stage-two tuning.
+Verified launch at 16:21 Eastern: launcher PID 27444. Longest 1,992-token gradient
+probe passed in 4.08 seconds; 27 training examples completed by approximately
+16:22, GPU 99%, about 33.4 GB VRAM allocated by the process/system. Early training
+ETA about 70 minutes, excluding generation/judging. All selected splits passed
+group/English-proof/formal-signature disjointness checks. Outputs remain ignored.
+
+User clarification: stage one trains Qwen on reverse English/Lean pairs to
+produce English explanations of Lean; stage two compares generated and original
+English. Herald is an intended translation-training candidate, not blocked on
+binary match labels. Informalization itself also supports human sanity checking.
+Recorded in AGENTS.md and informalization-experiment.md. Confirmed arXiv
+2608.15432 is already in references.md (added November 11); it is the Pistis paper.
+Also added the actual FaithformBench paper, arXiv:2608.10916, after verifying
+the link from the Faithform-AF dataset card; these are separate papers.
+
+Dataset research, 2026-11-12: see
+[PIPELINE_DATA_SURVEY_2026-11-12.md](PIPELINE_DATA_SURVEY_2026-11-12.md).
+Recommended stage-one candidates are Herald full proof pairs and corrected
+ProofNet pairs. NaturalProofs/ProofWiki and Open Proof Corpus provide English
+same-theorem/problem alternatives for stage two; argument-correspondence labels
+still require construction. These are research recommendations, not a new data
+freeze or training launch. No running experiment was changed by this survey.
 
 ## Latest handoff: laptop discussion, 2026-11-12
 

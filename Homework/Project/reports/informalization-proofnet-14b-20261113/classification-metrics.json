@@ -1,0 +1,29 @@
+{
+  "scored": 46,
+  "total": 54,
+  "abstentions": [
+    "proofnet-1-hard-positive",
+    "proofnet-1-hard-bundle",
+    "proofnet-42-hard-positive",
+    "proofnet-42-hard-bundle",
+    "proofnet-97-hard-positive",
+    "proofnet-97-hard-bundle",
+    "proofnet-257-hard-positive",
+    "proofnet-257-hard-bundle"
+  ],
+  "accuracy": 0.6304347826086957,
+  "mismatch_precision": 0.575,
+  "mismatch_recall": 1.0,
+  "mismatch_f1": 0.7301587301587301,
+  "confusion_matrix_rows_truth_columns_predicted_mismatch_match": [
+    [
+      23,
+      0
+    ],
+    [
+      17,
+      6
+    ]
+  ],
+  "scope": "Conditional on completed nontruncated generation and judgment; assumed positive and synthetic negative labels."
+}

@@ -6,6 +6,13 @@ inspection occurred. Resume local-model work on the larger experiment computer.
 
 ## Motivation and two training stages
 
+Workstation clarification from the user, 2026-11-12: use paired formalization
+data such as Herald in reverse to train Qwen to explain the supplied Lean proof
+in English. This stage learns translation, not binary correspondence or a new
+formalizer. The second stage compares the resulting English with the original
+English. Good informalization also makes otherwise difficult Lean proofs more
+accessible for human sanity checking, independently of the automated comparator.
+
 The user now considers this the most promising direct route to semantic judging:
 ask what a Lean argument actually establishes and how it establishes it, express
 that in English, and compare it with the original English argument.

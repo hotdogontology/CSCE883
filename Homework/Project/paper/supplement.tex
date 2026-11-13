@@ -1,0 +1,85 @@
+\documentclass[manuscript,nonacm]{acmart}
+\setcopyright{none}
+\settopmatter{printacmref=false,printccs=false,printfolios=true}
+\acmDOI{}\acmISBN{}
+\usepackage{booktabs,graphicx,adjustbox,placeins}
+\newcommand{\resultblock}[1]{%
+  \input{tables/#1-metrics}
+  \input{tables/#1-confusion}
+  \begin{figure*}[htbp]
+    \centering
+    \includegraphics[width=\textwidth,height=.65\textheight,keepaspectratio]{figures/#1-curves.pdf}
+    \caption{ROC (top) and precision--recall (bottom): mismatch-positive, scored pairs only.}
+    \label{fig:#1-curves}
+    \Description{ROC and precision--recall curves from saved prediction scores; each panel identifies its evaluation set.}
+  \end{figure*}
+  \FloatBarrier
+}
+
+
+\title{Supplement: Checking Semantic Correspondence Between Natural-Language and Lean Proofs}
+\author{Taylor Belcher}
+\author{ChatGPT}
+\authornote{AI collaborator accessed through Codex. Taylor Belcher directs the project.}
+\renewcommand{\shortauthors}{Belcher and ChatGPT}
+\begin{document}
+\begin{abstract}
+This supplement preserves the complete protocol-level metrics, confusion matrices, ranking curves, generation coverage, and secondary controls supporting the main report. Different protocols and scored subsets must not be pooled into a single performance ranking.
+\end{abstract}
+\maketitle
+\section{Contributions and Reproduction}
+Taylor Belcher proposed the semantic-correspondence question, supplied the original proposal, chose and revised experimental directions, and directed interpretation and presentation. ChatGPT, acting through Codex as an AI collaborator, implemented scripts, executed and monitored runs, retrieved literature, assembled tables and figures, and drafted text. These contributions do not constitute independent human adjudication of generated proofs or synthetic labels.
+
+The public repository is \url{https://github.com/hotdogontology/CSCE883/tree/main/Homework/Project}. The project reproduction guide documents restoration of archived inputs and outputs, CPU regeneration of reported metrics, and GPU training requirements. The numerical snapshot records source paths and SHA-256 digests. Model weights and credentials are not distributed.
+
+\section{Evaluation Conventions}
+Mismatch is the positive class. Confusion matrices have actual classes as rows and predictions as columns, ordered mismatch then match: $[[TP,FN],[FP,TN]]$. False acceptance is FN and false rejection is FP. Undefined precision, recall, and F1 use zero. AUROC and average precision use saved continuous scores, preferring logit margins over saturated probabilities. Average precision is not trapezoidal PR area. Scores are uncalibrated; no threshold was fitted on the repeatedly inspected diagnostic.
+
+Conditional metrics exclude abstentions and must be read with scored/total coverage. Original ProofNet argument pairs are assumed positives; swapped examples and the four-theorem, 16-pair diagnostic have constructed labels. Compilation does not validate English correspondence. Herald acceptance counts have no independently established binary truth labels. Single-language controls test shortcuts rather than the paired research question.
+
+\section{Statement Correspondence}
+The 8B first pass used 448 training and 112 validation statement pairs. The fresh-base second pass used 26,961 agreement-pseudolabeled Herald examples and reused the 112-pair evaluation. These are statement experiments, not proof-route evaluations.
+\input{tables/initial-survey}
+\resultblock{statements}
+
+\section{Random Proof Swaps and Paired Random Forest}
+The 14B classifier and paired forest used 510 training and 118 validation pairs. The same-theorem diagnostic was excluded from training. Perfect swapped-pair validation did not transfer to fixed-threshold argument-route judgment.
+\resultblock{random-swap}
+\resultblock{forest}
+
+\section{Related Proof Swaps}
+Relatedness combines English statement similarity (0.45), Lean statement similarity (0.45), and dependency-module similarity (0.10). The threshold is 0.20. Grouped allocation precedes negative construction; the resulting train/validation/test counts are 366/60/54. This heuristic is not a certified semantic ontology. The diagnostic is small and repeatedly inspected.
+\input{tables/related-mining}
+\input{tables/related-candidates}
+\resultblock{related-swap}
+
+\section{Original-Model Translation Intermediaries}
+The four architectures translate English to Lean, Lean to English, both inputs to Verbose Lean, or both inputs to Natural Lean before comparison. Different failures leave different scored subsets. No complete generated-code comparison pair passed all recorded compilation checks; textual judgments are not verified-code intermediary results.
+\resultblock{intermediaries}
+\input{tables/compilation}
+\input{tables/compiled-pairs}
+\FloatBarrier
+
+\section{32B Source-Balanced Pilot}
+The convenience pilot has 16 planned training, eight validation, and eight test examples with provisional labels. Only original-model inference completed; training was stopped. There is no tuned 32B result.
+\resultblock{pilot32}
+
+\section{Trained Informalization}
+The Herald adapter trained on 4,096 original pairs, with 64 validation and 64 test pairs. All 64 generations completed; the original-model judge accepted 49 and rejected 15. These counts are not semantic accuracy. A fresh ProofNet adapter trained on 176 original pairs, with 36 validation pairs. Both use one epoch of rank-16 LoRA on Qwen3-14B and the same original English comparison judge.
+
+ProofNet evaluation attempted 54 related-swap pairs. Eight generation-limit exclusions leave 29/46 correct; mismatch precision/recall/F1 are 0.575/1.000/0.730. All 23 scored mismatches are detected, but 17 of 23 scored matches are rejected. Dataset, size, and evaluation differences prevent a controlled comparison with the Herald acceptance survey.
+\resultblock{informalization-proofnet}
+
+\section{Unlabeled Surveys and External Cases}
+\input{tables/unlabeled}
+\FloatBarrier
+The final pipeline also examined two targeted OpenAI Navier--Stokes cases pinned to the source revision recorded in the project case-study plan. Both Herald-adapter judgments were mismatch flags, but omitted assumptions or delegated helper reasoning confounded their explanations. The ProofNet rerun produced a 27-token inverse-estimate account and a repetitive pressure account that reached 2,048 tokens. The latter is an abstention, despite its raw mismatch flag. Neither run reliably explained the documented discrepancy. These targeted observations do not estimate general error-detection accuracy.
+
+\section{Secondary Shortcut Controls}
+These controls deliberately remove or simplify one side of the paired task. Their scores diagnose possible shortcuts; they are not evidence of successful English--Lean correspondence checking.
+\resultblock{english-control}
+\resultblock{masked-control}
+\input{tables/simple-controls}
+\input{tables/pilot-controls}
+\FloatBarrier
+\end{document}

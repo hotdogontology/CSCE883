@@ -1,0 +1,22 @@
+{
+  "source": "artifacts\\argument-14b\\data-v4\\positive-pairs.jsonl",
+  "source_sha256": "ad10e53332d86d176f9e5dded7010c4cd4a7f60683cdb7f5f2f97fd89a298df9",
+  "allocation_sha256": "280d17057ac3436c26f712605862e084ec5616114b42efa8ca48e34157311043",
+  "counts": {
+    "train": 176,
+    "validation": 36,
+    "test": 54
+  },
+  "excluded": 103,
+  "files": {
+    "excluded.jsonl": "796963aa418fd0945dc662015ebec2365072a890e5f754902cf4ce3b1c0d8332",
+    "test.jsonl": "7495a1350f0e86fd19d84f88fe529969cc35d08590969a07c7ee85c793e927fc",
+    "train.jsonl": "b6378468e0c3c5d30cabb6426e76969013c5a45366d32ee87a8ac2885e712205",
+    "validation.jsonl": "c36ac1c557b9213299e8652a7f9835d5fdd679946c74f22f0d3bf0471e182362"
+  },
+  "supervision": "Original corrected ProofNet English proofs paired with existing Lean proof bodies; no swapped negatives in translation training.",
+  "label_policy": "Original argument correspondence assumed per project policy; related-swap test negatives are synthetic.",
+  "split_policy": "Reuse frozen related-proof family allocation (70/15/15 before filtering); all eligible original training pairs, not only swap-selected anchors.",
+  "settings": "Fresh base Qwen3-14B, BF16 rank16 LoRA, one epoch lr1e-4 accumulation8; total2048/target1024, no truncation; original base English judge.",
+  "limitation": "Training set size differs from Herald; dataset-only causal comparison is not claimed. Test corpus has been examined in previous experiments."
+}

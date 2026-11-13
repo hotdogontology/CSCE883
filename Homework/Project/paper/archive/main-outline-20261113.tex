@@ -1,0 +1,168 @@
+% Target: 6--8 pages once exposition is added. See ../PROJECT_REQUIREMENTS.md.
+% Compact metrics, matrices and ROC/PR restored here; expanded versions in supplement.tex.
+\documentclass[sigconf,nonacm]{acmart}
+\setcopyright{none}
+\settopmatter{printacmref=false,printccs=false,printfolios=true}
+\acmDOI{}\acmISBN{}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\newcommand{\draftspace}{\mbox{}\par\smallskip}
+\newcommand{\protocolplot}[2]{%
+\begin{figure*}[p]
+\centering
+\includegraphics[width=\textwidth,height=.43\textheight,keepaspectratio]{figures/#1-curves.pdf}
+\caption{#2. ROC (top), precision--recall (bottom); mismatch-positive, scored pairs only.}
+\Description{Per-protocol curves with model legends and separate evaluation panels.}
+\label{fig:protocol-#1}
+\end{figure*}}
+\title{Checking Semantic Correspondence Between Natural-Language and Lean Proofs}
+\author{Taylor Belcher}
+% TODO: affiliation/email if required.
+\renewcommand{\shortauthors}{Belcher}
+\begin{document}
+\begin{abstract}
+% TODO: Taylor's abstract.
+\end{abstract}
+\keywords{Lean, proof correspondence, informalization, LoRA}
+\maketitle
+
+\section{Introduction}
+% Budget: about 0.6 page. Restate project-proposal-tbelcher.tex briefly.
+\subsection{Lean Validity, Theorem Equivalence, and Argument Fidelity}
+\draftspace
+% TODO: motivate the checker using the Navier--Stokes critique and Xena blog;
+% attribute reported discrepancies rather than asserting independently verified ones.
+\subsection{Research Question and Contributions}
+\draftspace
+% TODO: dataset/evaluation challenges; informalization as checker component and
+% independently useful aid to human reading. No new formalizer is the objective.
+
+\section{Related Work}
+% Budget: about 0.4 page. Cite collected papers/blogs selectively.
+\subsection{Faithful Formalization and Reported Translation Failures}
+\draftspace
+% TODO: Pistis, FaithformBench, Navier--Stokes critique, Xena, George blog.
+\subsection{Informalization and Intermediate Representations}
+\draftspace
+% TODO: English, controlled English, Verbose Lean, Natural Lean; retain their
+% potential without claiming that our code intermediaries were verified successes.
+
+\section{Preliminary Experiments: The Dataset Challenge}
+% Brief historical exposition; compact numerical evidence is restored below.
+\subsection{Statement Judges, Pseudo-Labels, and Proof-Swap Training}
+\draftspace
+% TODO: 8B statement-only first/second pass; 14B random/related proof swaps.
+% Distinguish source-assumed positives, synthetic negatives and pseudo-labels.
+\subsection{Random Forests, Same-Theorem Diagnostics, and Intermediaries}
+\draftspace
+% TODO: lexical shortcuts, tiny constructed diagnostic, missing pair labels.
+% Also acknowledge calibration and generation limits: not every limitation
+% established a dataset-caused failure. Different protocols are not comparable.
+\subsection{Lessons for the Final Experiment}
+\draftspace
+% TODO: why separate translation supervision from correspondence judgments.
+\input{tables/main-metrics}
+\input{tables/main-confusion}
+\protocolplot{statements}{8B statement correspondence}
+\protocolplot{random-swap}{14B random-swap training and same-theorem diagnostic}
+\protocolplot{forest}{Paired English--Lean random forest}
+\protocolplot{related-swap}{14B related-swap training and evaluation}
+\protocolplot{intermediaries}{Original-14B translation intermediaries; unequal coverage}
+\protocolplot{pilot32}{Original 32B provisional mixed-source pilot}
+\protocolplot{english-control}{English-only forest: secondary shortcut control}
+\protocolplot{masked-control}{Lean-proof-withheld secondary control}
+
+\section{Informalization Pipeline: Data and Methods}
+% Budget: about 1.5 pages; together with results, the majority of main-body space.
+% Preserve rubric coverage: Data 10%, Methods 25%.
+\subsection{Herald Translation Pairs and Grouped Held-Out Splits}
+\draftspace
+% TODO: original Lean/English pairs in reverse; 4096/64/64 selected examples;
+% full proof extraction, token exclusions, duplicate/family separation and limits.
+\subsection{Stage One: Training Qwen3-14B to Explain Lean Proofs}
+\draftspace
+% TODO: fresh BF16 base + LoRA; English completion-only loss; Lean statement,
+% body and context as input, no original English available to the translator.
+\subsection{Stage Two: Untuned English-to-English Argument Comparison}
+\draftspace
+% TODO: original base with translation adapter disabled; same essential reasoning,
+% assumptions, intermediate claims and dependencies rather than surface similarity.
+\subsection{Evaluation Protocol and Direct-Judge Baseline}
+\draftspace
+% TODO: reserve identical cases for untuned direct English/Lean judge comparison.
+% That matched-case baseline is next-stage work, not yet in the running queue.
+% Report coverage; label provenance; mismatch P/R/F1, matrices and ROC only when
+% correspondence labels justify them. Generation limits are not semantic NOs.
+
+\section{Informalization Results and Targeted Case Studies}
+% Budget: about 2 pages; primary emphasis, grading Experiments 40%.
+\subsection{Held-Out Translation Quality and English Comparisons}
+\draftspace
+% TODO: discuss completed validation completion loss and example translations,
+% judge decisions and truncation counts. Model judgments alone are not accuracy.
+\begin{table*}[htbp]
+\centering\small
+\caption{Final informalization pipeline: completed observations and remaining evaluation.}
+\begin{tabular}{lll}
+\toprule
+Evaluation & Evidence / metric & Status \\
+\midrule
+Herald translation & Validation NLL; held-out generations & 0.2948; 64/64 \\
+Generation limits & Empty outputs / output-limit hits & 0 / 0 \\
+English argument comparison & MATCH / MISMATCH / unscored & 49 / 15 / 0 \\
+Matched-case direct judge & Same inputs and label policy & Next evaluation stage \\
+OpenAI targeted cases & Reproduction of reported semantic discrepancies & Not yet run \\
+Independent correspondence labels & Confusion matrix, F1, ROC; class coverage & Review required \\
+\bottomrule
+\end{tabular}
+\end{table*}
+\subsection{OpenAI Releases and Reported Navier--Stokes Discrepancies}
+\draftspace
+% TODO NEXT: locate and pin the exact released Lean/source-English cases cited
+% by the critique and echoed by Xena. Record revisions, extraction and context.
+% Test the final pipeline and direct baseline on identical cases. Include cases
+% without reported discrepancies where feasible; lack of a report is not a gold
+% positive label. Treat results as targeted case studies, not general accuracy.
+% No OpenAI case-study job has been started or queued tonight.
+\subsection{Original-Pair Errors Versus Informalizer and Judge Errors}
+\draftspace
+% TODO: inspect English source, Lean, generated English and judgment together;
+% trace decisive steps back to Lean; avoid attributing all mismatches to source.
+\subsection{Human Readability and Intermediate Representations}
+\draftspace
+% TODO: qualitative sanity-checking utility; controlled representations as future
+% extensions. Embedding cosine is a proposed baseline, not a measured result.
+
+\section{Limitations and Discussion}
+% Budget: about 0.5 page.
+\subsection{Sparse Public Labels, Shortcuts, and Evaluation Scope}
+\draftspace
+% TODO: label quality, small/repeated diagnostics, overlap and selected case studies.
+\subsection{Model Scale, Workstation Resources, and Context Budgets}
+\draftspace
+% TODO: distinguish open-weight model capability from hardware and imposed token
+% budgets. No frontier-model comparison was run; openness alone is not a cause.
+% 32B inference worked; CPU/GPU backward probe stopped, not a tuned-32B result.
+
+\section{Future Work: A Public Human-Verified Correspondence Dataset}
+% Budget: about 0.4 page.
+\subsection{Faithful and Unfaithful Proof Pairs with Step-Level Evidence}
+\draftspace
+% TODO: both labels within sources, same-theorem route changes, rationale,
+% reviewer agreement/disagreement, whole-proof and step-level annotations.
+\subsection{Pinned Formal Environments and Reusable Evaluation Splits}
+\draftspace
+% TODO: licenses, source provenance, Lean/mathlib versions, independently held-out
+% theorem families; training judges and evaluating informalizers separately.
+
+\section{Conclusion}
+% Budget: about 0.2 page; grading weight 5%.
+\draftspace
+% TODO: Taylor's conclusions, based on completed evidence.
+
+\bibliographystyle{ACM-Reference-Format}
+% TODO: replace nocite with citations in your exposition; complete metadata.
+\nocite{proofnet,herald,pistis,faithform,lora,qwen,navierstokes,xena,george}
+\bibliography{references}
+\end{document}

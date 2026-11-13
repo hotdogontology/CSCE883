@@ -1,0 +1,4 @@
+# Preserve exact evidence bytes so published SHA-256 provenance survives checkout.
+reports/** -text
+paper/results-snapshot.json -text
+reproducibility/evidence/** -text

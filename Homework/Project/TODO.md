@@ -1,7 +1,89 @@
 # Project TODO
 
+- [x] Add public repo link and pipeline figure; retain eight-page main report.
+- [x] Clean supplement and preserve full metrics/plots (14 pages).
+- [x] Prepare 14-slide PDF presentation and ten-minute timing notes.
+- [x] Package hashed experiment evidence; verify clean CPU regeneration.
+- [x] Prepare reproducibility guide, safe replay command, and submission packager.
+- [ ] Human: rehearse presentation, review final manuscript, and upload local ZIP
+  from `submission/CSCE883-final-project.zip` to the course dropbox.
+
+
+- [x] Review completed ProofNet pipeline and external cases; incorporate metrics,
+  coverage, curves and generation failures into the eight-page paper (November 13).
+
+- [x] Draft paper prose/abstract with requested explicit AI co-authorship;
+  add Pollack and kernel-soundness discussion; compile seven-page main paper.
+- [ ] Human: review the new prose, AI co-author entry and mathematical claims.
+- [x] Update paper with completed ProofNet informalization evaluation, preserving
+  the distinction between labeled synthetic tests and OpenAI case explanations.
+
+- [x] Prepare and launch fresh ProofNet-supervised 14B informalizer, preserving
+  Herald run; 176 train / 36 validation, existing family split and length limits.
+- [x] Review ProofNet informalization run, 54 related-swap judgments and queued
+  OpenAI case outputs; see PROOFNET_INFORMALIZATION_RUN_2026-11-13.md.
+
+- [x] Identify two pinned OpenAI Navier–Stokes case families and download source
+  manuscript/Lean files; see OPENAI_CASE_STUDY_PLAN.md (November 13).
+- [x] Prepare selected-helper case excerpts, visually verify equations and
+  count prompt tokens. User requests informalization pipeline only; no direct baseline.
+- [x] Complete OpenAI informalization case run and inspect translation/judge errors:
+  both flagged MISMATCH, but explanations confounded by translation omissions;
+  see OPENAI_CASE_RESULTS_2026-11-13.md. No direct baseline, per user direction.
+- [ ] Consider helper-by-helper informalization with explicit assumptions/bounds;
+  validate translations and add independently assessed faithful controls.
+
+- [x] Restore eight separate main-paper protocol plots and bold best metrics
+  within protocol/evaluation groups; preserve ties and coverage caveats (November 13).
+
+- [x] Restore main-paper F1/precision/recall/AUROC/AP tables, all 29 confusion
+  matrices and ROC/PR panels; compile compact five-page draft (November 13).
+
+- [x] Review completed 14B informalization run (November 13): 4096 trained,
+  64 generated/judged, 49 MATCH / 15 MISMATCH; RESULTS_2026-11-13.md.
+- [ ] Independently inspect rejected AND accepted informalizations; distinguish
+  translation errors, source-pair differences and judge errors before accuracy claims.
+
 Last updated: 2026-11-12. Current plan: [methodology.md](methodology.md).
 Current context and session log: [SESSION_SUMMARY.md](SESSION_SUMMARY.md).
+
+- [x] Refocus paper on informalization, brief earlier experiments and dataset
+  challenges; preserve blank exposition and rebuild PDF (November 12 evening).
+- [ ] Next evaluation: pin OpenAI English/Lean cases identified by the
+  Navier-Stokes critique and Xena; run final pipeline (direct baseline removed
+  by user November 13). Include independently assessed comparison cases where
+  feasible; report targeted case-study outcomes, not general accuracy.
+- [ ] Attribute errors separately to original pair, informalizer and English judge.
+
+- [x] Check final-report limits; save PROJECT_REQUIREMENTS.md; shorten main paper
+  and preserve full experiment material in separately compiled supplement.
+
+- [x] Create ACM LaTeX paper outline with existing experiment tables, confusion
+  matrices and ROC/PR figures; leave exposition to the user (paper/main.tex).
+- [ ] Human: draft abstract, introduction and exposition in paper/main.tex;
+  complete starter bibliography metadata before submission.
+- [ ] Agent: fill informalization result slots after completion and appropriate
+  evaluation; do not convert unlabeled judge decisions into accuracy.
+
+- [x] Stop 32B classifier backward probe and preserve baseline; check storage
+  (3.68 TB free, no deletions required).
+- [x] Implement Herald informalization training followed by original 14B English
+  comparison; see INFORMALIZATION_RUN_2026-11-12.md.
+- [x] Launch first run and verify successful longest-example gradient probe and
+  real training progress on GPU (November 12, approximately 16:22 Eastern).
+- [ ] Complete and inspect first 14B informalization run, held-out generations,
+  validation loss and untuned judge results; distinguish intermediary errors.
+
+- [x] Record user's distinction between stage-one translation supervision and
+  stage-two comparison labels, and standalone informalization value (November 12).
+- [x] Confirm arXiv:2608.15432 (Pistis) is already in references.md.
+
+- [x] Research data sources for the two-stage English intermediary pipeline;
+  see [PIPELINE_DATA_SURVEY_2026-11-12.md](PIPELINE_DATA_SURVEY_2026-11-12.md).
+- [ ] Agent: inspect NaturalProofs multiple-proof groups and OPC same-problem
+  groups locally; quantify usable coverage and propose argument-pair labels.
+- [ ] Agent: audit Herald/corrected ProofNet reverse supervision and cross-source
+  overlap before freezing training and evaluation families for both stages.
 
 **Governing objective (user reaffirmed 2026-11-10):** every test is intended to
 evaluate detecting semantic differences between natural-language math proofs

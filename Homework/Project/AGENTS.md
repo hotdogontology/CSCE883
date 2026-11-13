@@ -41,6 +41,15 @@ their actual scope instead of retrospectively treating them as the target task.
 
 ## Working context
 
+User clarification, 2026-11-12: the new pipeline is a checker. Stage one trains
+Qwen to produce an English version of the supplied Lean proof, using existing
+paired formalization corpora in reverse (Herald is a primary candidate). Stage
+two compares that generated English with the original English proof. Stage one
+does not require binary correspondence labels or train a formalizer. Do not turn
+general data-quality caveats into a reason to dismiss reverse-direction training.
+Readable informalization also has standalone value for human sanity checking of
+Lean proofs. Translation fidelity is assessed separately from comparator quality.
+
 When working in this project, read `SESSION_SUMMARY.md` and `TODO.md` first.
 Use `methodology.md` as the current experimental plan and follow its linked
 experiment documents for their scope. Check actual files before assuming a

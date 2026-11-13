@@ -1,0 +1,9 @@
+{
+  "test_rows": 64,
+  "match_counts": {
+    "True": 49,
+    "False": 15
+  },
+  "generation_limit_count": 0,
+  "interpretation": "Untuned model judgments, not verified accuracy. A mismatch can originate in the source pair or informalizer."
+}

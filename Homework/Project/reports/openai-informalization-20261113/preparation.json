@@ -1,0 +1,260 @@
+{
+  "revision": "f9e8bc5b38b6e212696e8a30e3e91517af887bbd",
+  "source_zip_sha256": "a6ffd8d97d9ace6362f2d8128e5c9b06d935c90d5a2ba448da643e56dbba871a",
+  "pdf_sha256": "0e779481c4da40bd28d1e642e1d8ca57447d129610df28dfa5a11e9af8ae228f",
+  "declarations": [
+    {
+      "file": "SmoothFamilyTorusInverse.lean",
+      "declaration": "norm_derivativeWord_inverse_le",
+      "source_sha256": "165c097077dc3687fd1d6f93c356059e5254be17c799950873f54d91a71e90c8",
+      "excerpt_sha256": "2d83eb4a9fcf144ce96c5f21221d48daf578fa6252e68cb140cd6d31aff748d0"
+    },
+    {
+      "file": "SmoothFamilyTorusInverse.lean",
+      "declaration": "Point",
+      "source_sha256": "165c097077dc3687fd1d6f93c356059e5254be17c799950873f54d91a71e90c8",
+      "excerpt_sha256": "d5eb7237f68aa8e6dbf21c210c5258cae7d4ca161716aa19767335faf6d86e24"
+    },
+    {
+      "file": "SmoothFamilyTorusInverse.lean",
+      "declaration": "Source",
+      "source_sha256": "165c097077dc3687fd1d6f93c356059e5254be17c799950873f54d91a71e90c8",
+      "excerpt_sha256": "0aa86e9f8fa40455bea09bd7fb4df3ee426935edd6913f6c67ee877ac28a5158"
+    },
+    {
+      "file": "SmoothFamilyTorusInverse.lean",
+      "declaration": "slice",
+      "source_sha256": "165c097077dc3687fd1d6f93c356059e5254be17c799950873f54d91a71e90c8",
+      "excerpt_sha256": "c2c969a5b928c2e22b213198bebf9794331df648facfdce6a820cfe526119452"
+    },
+    {
+      "file": "SmoothFamilyTorusInverse.lean",
+      "declaration": "Periodic",
+      "source_sha256": "165c097077dc3687fd1d6f93c356059e5254be17c799950873f54d91a71e90c8",
+      "excerpt_sha256": "10e33a676fb9c13a27852af1b5bbc4bbf666f365a0164d122e07985e5f1b5cff"
+    },
+    {
+      "file": "SmoothFamilyTorusInverse.lean",
+      "declaration": "coefficient",
+      "source_sha256": "165c097077dc3687fd1d6f93c356059e5254be17c799950873f54d91a71e90c8",
+      "excerpt_sha256": "4e52e6d041d993cd417c973d149b819e5761342734c0da00ed795a4932ce5b88"
+    },
+    {
+      "file": "SmoothFamilyTorusInverse.lean",
+      "declaration": "inverse",
+      "source_sha256": "165c097077dc3687fd1d6f93c356059e5254be17c799950873f54d91a71e90c8",
+      "excerpt_sha256": "03f1c6a53cb8fdaa325d9f0aecaab09ea83e121f338f8282903adac80dc055d4"
+    },
+    {
+      "file": "SmoothFamilyTorusInverse.lean",
+      "declaration": "slice_smooth",
+      "source_sha256": "165c097077dc3687fd1d6f93c356059e5254be17c799950873f54d91a71e90c8",
+      "excerpt_sha256": "90c0ed3f52cfca2bf525f9c98cf8057fe2bdf58a3a8844b9bd12e70b2565e5cd"
+    },
+    {
+      "file": "SmoothFourierData.lean",
+      "declaration": "partialX",
+      "source_sha256": "980b746ca551345d88351dd961d30b69876c68c84f0c758445593025d9dbc642",
+      "excerpt_sha256": "eef426afe4d8bed4750007fd751237ba047fec64c95ff43574d9bee210146385"
+    },
+    {
+      "file": "SmoothFourierData.lean",
+      "declaration": "xJet",
+      "source_sha256": "980b746ca551345d88351dd961d30b69876c68c84f0c758445593025d9dbc642",
+      "excerpt_sha256": "7ee3ec24206088644e1dd80c4411a43dc173b17c6cfe1d78709639e8a576b8a8"
+    },
+    {
+      "file": "SmoothFourierData.lean",
+      "declaration": "swapFunction",
+      "source_sha256": "980b746ca551345d88351dd961d30b69876c68c84f0c758445593025d9dbc642",
+      "excerpt_sha256": "995b23b61f5949c31c879780c3cb7403f9a566c59ee923503adf15343a74f602"
+    },
+    {
+      "file": "SmoothFourierData.lean",
+      "declaration": "coefficient_seminorm_bound",
+      "source_sha256": "980b746ca551345d88351dd961d30b69876c68c84f0c758445593025d9dbc642",
+      "excerpt_sha256": "9a1070e284ace0cc7f1d6a1da45265631a5a3899128983da62cbac7bee0222df"
+    },
+    {
+      "file": "TorusInverse.lean",
+      "declaration": "Plane",
+      "source_sha256": "891440bdb5501c67b63d2758c2dfb98c46f250aca38ce0b33498e1eacc768aeb",
+      "excerpt_sha256": "7e4c0be5cd0a36a4809ab0d19be081e62bcb03441797329aae8024a310e5e7bd"
+    },
+    {
+      "file": "TorusInverse.lean",
+      "declaration": "Frequency",
+      "source_sha256": "891440bdb5501c67b63d2758c2dfb98c46f250aca38ce0b33498e1eacc768aeb",
+      "excerpt_sha256": "c1105e0e48e647352f1fc8b50178e12ff2f416db84edbd5d488944331297bbf8"
+    },
+    {
+      "file": "TorusInverse.lean",
+      "declaration": "Direction",
+      "source_sha256": "891440bdb5501c67b63d2758c2dfb98c46f250aca38ce0b33498e1eacc768aeb",
+      "excerpt_sha256": "03ebd37e208785e67bc697e73f9ce37be689cfce14f4a3285edb499efa6b6c63"
+    },
+    {
+      "file": "TorusInverse.lean",
+      "declaration": "vector",
+      "source_sha256": "891440bdb5501c67b63d2758c2dfb98c46f250aca38ce0b33498e1eacc768aeb",
+      "excerpt_sha256": "d8c22c178bf6c034e050dbd873638213c703450113b1ba1497fa850f4e2a5cf8"
+    },
+    {
+      "file": "TorusInverse.lean",
+      "declaration": "symbol",
+      "source_sha256": "891440bdb5501c67b63d2758c2dfb98c46f250aca38ce0b33498e1eacc768aeb",
+      "excerpt_sha256": "6c853dbb49361b27effbd02e9e7467029526addf8c85034a370de6b80f663d23"
+    },
+    {
+      "file": "TorusInverse.lean",
+      "declaration": "weight",
+      "source_sha256": "891440bdb5501c67b63d2758c2dfb98c46f250aca38ce0b33498e1eacc768aeb",
+      "excerpt_sha256": "026716f83b55dd765b620e1e41c6f49e01c19a66991159876e10524bcb662855"
+    },
+    {
+      "file": "TorusInverse.lean",
+      "declaration": "coeffSeminorm",
+      "source_sha256": "891440bdb5501c67b63d2758c2dfb98c46f250aca38ce0b33498e1eacc768aeb",
+      "excerpt_sha256": "230771dfebd508c5d6984b3e10f517cc4be74f7923268ddd1ee724f166930c5e"
+    },
+    {
+      "file": "TorusInverse.lean",
+      "declaration": "derivativeWord",
+      "source_sha256": "891440bdb5501c67b63d2758c2dfb98c46f250aca38ce0b33498e1eacc768aeb",
+      "excerpt_sha256": "a88766a8005bdc415747176d62d622c8e01b2526a30e992f7bd8a10f87c70602"
+    },
+    {
+      "file": "TorusInverse.lean",
+      "declaration": "inverse_derivativeWord_bound",
+      "source_sha256": "891440bdb5501c67b63d2758c2dfb98c46f250aca38ce0b33498e1eacc768aeb",
+      "excerpt_sha256": "711d2c46c2059fae30fd18869beb4fb53257fbcf9efab6b0a43db80cb5dd594a"
+    },
+    {
+      "file": "ParametricTorusInverse.lean",
+      "declaration": "mixedLossConstant",
+      "source_sha256": "b4930518678ae79a85cfde23ecf7200d01495a94b5f19e0443aaea89e25f6cb0",
+      "excerpt_sha256": "6def49d07fb2135abd4410519484f44b5296d1a6000dc07a4c42d10721c6354f"
+    },
+    {
+      "file": "R3/PressureFlux.lean",
+      "declaration": "exists_uniform_actual_pressure_flux_bound",
+      "source_sha256": "0adffc7879e8e5e226e5d4b2d721139a4ff12a04b4c9b4ebc12cf0d0f597fc2a",
+      "excerpt_sha256": "0b80242da68358c10f311b39d2da8abb77e923426491e1b5265331607276f015"
+    },
+    {
+      "file": "R3/PressureFlux.lean",
+      "declaration": "canonicalCutoffFlux",
+      "source_sha256": "0adffc7879e8e5e226e5d4b2d721139a4ff12a04b4c9b4ebc12cf0d0f597fc2a",
+      "excerpt_sha256": "4f0a678448783e40c917f654aa5af3e7dba152d84be633fe0c309a3ada1ac518"
+    },
+    {
+      "file": "R3/PressureFlux.lean",
+      "declaration": "actual_flux_integrable_and_le_canonicalNorm",
+      "source_sha256": "0adffc7879e8e5e226e5d4b2d721139a4ff12a04b4c9b4ebc12cf0d0f597fc2a",
+      "excerpt_sha256": "93dfb4376aaec62f040b0041dfc367d33febd941e68d4c163fd1b3d0251b8599"
+    },
+    {
+      "file": "R3/PressureFlux.lean",
+      "declaration": "pressurePair_decomposition",
+      "source_sha256": "0adffc7879e8e5e226e5d4b2d721139a4ff12a04b4c9b4ebc12cf0d0f597fc2a",
+      "excerpt_sha256": "9f5823cfcae43faac359fb1a7dafb5783a273af434ff052bb94c451e48af3ebe"
+    },
+    {
+      "file": "R3/PressureFlux.lean",
+      "declaration": "norm_pressurePair_le_local_commutator",
+      "source_sha256": "0adffc7879e8e5e226e5d4b2d721139a4ff12a04b4c9b4ebc12cf0d0f597fc2a",
+      "excerpt_sha256": "cbacb6976113af4309f8f6fa0b4cd9e9079345f12e85fb39b4458ad5d971611b"
+    },
+    {
+      "file": "R3/PressureFlux.lean",
+      "declaration": "riesz_rTest_bound",
+      "source_sha256": "0adffc7879e8e5e226e5d4b2d721139a4ff12a04b4c9b4ebc12cf0d0f597fc2a",
+      "excerpt_sha256": "08d709c8e01da3f3458ebde2c8cdd8743ef6647706202141b1d6bdbab4c97c43"
+    },
+    {
+      "file": "R3/PressureFlux.lean",
+      "declaration": "rTest_four_bound",
+      "source_sha256": "0adffc7879e8e5e226e5d4b2d721139a4ff12a04b4c9b4ebc12cf0d0f597fc2a",
+      "excerpt_sha256": "56d4aca5b970b313c18e5657177bb7d63db9a8bb7d85f0939bc9eb7528f59f82"
+    },
+    {
+      "file": "R3/PressureFlux.lean",
+      "declaration": "localized_pair_bound",
+      "source_sha256": "0adffc7879e8e5e226e5d4b2d721139a4ff12a04b4c9b4ebc12cf0d0f597fc2a",
+      "excerpt_sha256": "def8b258fb10d0ee2c792d4b03977fb1abfd3008589e1381cdde811d34584553"
+    },
+    {
+      "file": "R3/PressureFlux.lean",
+      "declaration": "norm_cutoff_pressurePair_le_local_commutator",
+      "source_sha256": "0adffc7879e8e5e226e5d4b2d721139a4ff12a04b4c9b4ebc12cf0d0f597fc2a",
+      "excerpt_sha256": "745c263fb8d9541a684c76d7e611392dcd9a7acbae67852a109f1d03edb57e21"
+    },
+    {
+      "file": "R3/PressureFlux.lean",
+      "declaration": "cutoff_commutator_bound",
+      "source_sha256": "0adffc7879e8e5e226e5d4b2d721139a4ff12a04b4c9b4ebc12cf0d0f597fc2a",
+      "excerpt_sha256": "252be0a43be4a6f93ee92e7d66de4e30533cf7765e0b2a09a4c8fadf3dc18a06"
+    },
+    {
+      "file": "R3/PressureFlux.lean",
+      "declaration": "cutoff_pressurePair_bound",
+      "source_sha256": "0adffc7879e8e5e226e5d4b2d721139a4ff12a04b4c9b4ebc12cf0d0f597fc2a",
+      "excerpt_sha256": "0f0ea599354c07efe1e0ed1b739f7643531d035f05f7ca11714dd1b77f93133b"
+    },
+    {
+      "file": "R3/PressureFlux.lean",
+      "declaration": "canonicalCutoffFlux_bound",
+      "source_sha256": "0adffc7879e8e5e226e5d4b2d721139a4ff12a04b4c9b4ebc12cf0d0f597fc2a",
+      "excerpt_sha256": "eb6bc74cb6ba344a474f18549464cc4092a08f7daaa51cb27aebe91487e3f1cd"
+    },
+    {
+      "file": "R3/PressureFlux.lean",
+      "declaration": "exists_uniform_canonicalCutoffFlux_bound",
+      "source_sha256": "0adffc7879e8e5e226e5d4b2d721139a4ff12a04b4c9b4ebc12cf0d0f597fc2a",
+      "excerpt_sha256": "4bbda750a90362e0c674c7b35864b7181beaacea6c5c64019b3eee435fd151a5"
+    },
+    {
+      "file": "R3/RieszTestOperators.lean",
+      "declaration": "lpNorm_six_rieszTest_le",
+      "source_sha256": "95aff76a30315a8c937150186e6fc0817d6c06e216f15da2172d55b736d9aa19",
+      "excerpt_sha256": "56d9efdedfdb78e185c8060a017ac8a18de8ab31a10de27beb9033ca31851a93"
+    },
+    {
+      "file": "R3/RieszTestOperators.lean",
+      "declaration": "lpNorm_two_fderiv_rieszTest_le",
+      "source_sha256": "95aff76a30315a8c937150186e6fc0817d6c06e216f15da2172d55b736d9aa19",
+      "excerpt_sha256": "05d89a6f6b62011c99bbaeaa7f04ecc8d6426a4fae6461dfc7a4b369742c736f"
+    },
+    {
+      "file": "R3/PressureRecovery.lean",
+      "declaration": "Hypotheses",
+      "source_sha256": "089962e70d0e0c8aa1970785e4203910bdb56d9e16cd98cf80d5bbe72d4e6098",
+      "excerpt_sha256": "8e5e759ea3703eacb0bccbf405d0352b382051927b7d4328e91283da594f7c07"
+    },
+    {
+      "file": "R3/ComparisonSetup.lean",
+      "declaration": "cutoffL6",
+      "source_sha256": "2c1335d9da753d25c73b2b102b0c7686648c8928ddfac416d87284bb9b20fbde",
+      "excerpt_sha256": "70995f39ee9244f8404dc2219dc51fcb426d8e28cce0d0b8c6568f311f56ace2"
+    },
+    {
+      "file": "R3/ComparisonSetup.lean",
+      "declaration": "dissipationRoot",
+      "source_sha256": "2c1335d9da753d25c73b2b102b0c7686648c8928ddfac416d87284bb9b20fbde",
+      "excerpt_sha256": "d78063af9b44c0cee53d509736508bd7e169cbcad2e6cd058b4637ada354fe06"
+    },
+    {
+      "file": "R3/ComparisonSetup.lean",
+      "declaration": "comparisonLpNorm",
+      "source_sha256": "2c1335d9da753d25c73b2b102b0c7686648c8928ddfac416d87284bb9b20fbde",
+      "excerpt_sha256": "571697703fbac7106d5eb1d7d791fb911e02c0db48f11db30cd209e82d63f566"
+    }
+  ],
+  "english_policy": "Manually normalized, scoped source subargument transcription; equations visually checked on PDF pages 95,96,122,123. Not the whole lemma.",
+  "context_policy": "Explicit selected definitions and helper bodies, not complete transitive closure; no critique text or expected labels in model payloads.",
+  "cases_sha256": "52fa670ce2a7b2eb8d3a04b4343d321b61e5e78dc98fce6ae4a8e8aebde09a8f",
+  "tokens": {
+    "inverse-estimate": 2563,
+    "pressure-flux": 8396
+  }
+}
