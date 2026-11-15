@@ -1,0 +1,13 @@
+{
+  "best": {
+    "seed": 1,
+    "x": 512.0,
+    "y": 404.23180474735034,
+    "objective": -959.6406627208505,
+    "seconds": 1.0891036129996792
+  },
+  "mean_final_objective": -955.8713051865574,
+  "std_final_objective": 7.052010982025342,
+  "worst_final_objective": -935.3379515605748,
+  "total_seconds": 10.706816624999192
+}

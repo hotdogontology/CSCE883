@@ -162,7 +162,7 @@ Stage 2: Reinforcement learning by self-play
     I ran the three algorithms in the supplied
     \href{https://github.com/jordanlei/deep-reinforcement-learning-cartpole}{CartPole repository}:
     Deep Q-Network (DQN), REINFORCE, and Advantage Actor--Critic (A2C).
-    The code and experiment outputs are in \texttt{Q2\_CartPole.ipynb}.
+    The experiment notebook is \path{Q2_CartPole.ipynb}.
     Each algorithm was trained for 500 episodes for each of three random
     seeds (0, 1, and 2), giving 1,500 training episodes per algorithm.
     All methods used CartPole-v1, a discount factor of $\gamma=0.99$, and
@@ -243,12 +243,200 @@ Stage 2: Reinforcement learning by self-play
 
     \item \emph{(Question 3.)}
     \begin{enumerate}[a)]
-        \item % Your answer to 3(a).
-        \item % Your answer to 3(b).
+        \item Attention in general allows a network to update its vector representations of an input appropriately based on the surrounding context. For example, when applied to a passage of English, each token is represented as a vector. Then a query matrix is applied to these vectors. This query matrix allows the model to determine what other tokens in the sequence are relevant to each token. To preserve auto-regression in a causal decoder, masking prevents later tokens from influencing earlier tokens; positional embeddings provide information about token order. A key matrix is also applied to the vector representations of these tokens and the query and key results are compared, and then the vector representations are updated with weighted sums of values.
+
+        In self-attention, the queries, keys, and values are derived
+        from the same input sequence. If $X$ contains the token representations,
+        then $Q=XW_Q$, $K=XW_K$, and $V=XW_V$, where the three projection
+        matrices are learned separately. Each token uses its query to compare
+        itself with the keys of tokens in the same sequence and then combines
+        their values. This lets a token's representation incorporate context
+        from other tokens. In a causal decoder, a mask prevents attention to
+        future tokens.
+
+        In cross-attention, the queries come from one sequence and the keys
+        and values come from another. For example, in an encoder--decoder
+        transformer, the decoder representations $Y$ provide $Q=YW_Q$, while
+        the encoder outputs $X$ provide $K=XW_K$ and $V=XW_V$. Each decoder
+        position can therefore attend to the input sequence when producing
+        its output. The sequences can have different lengths. Both mechanisms
+        compute attention weights from query--key comparisons and use those
+        weights to combine values; the difference is where the queries,
+        keys, and values come from.
+
+        \item The supplied matrices are
+        \[
+            Q=\begin{bmatrix}1&0&1\\0&1&0\end{bmatrix},\qquad
+            K=\begin{bmatrix}1&0&1\\0&1&0\\1&1&0\end{bmatrix},\qquad
+            V=\begin{bmatrix}1&2&3\\4&5&6\\7&8&9\end{bmatrix}.
+        \]
+        The question specifies the simplified, unscaled scores $A=QK^T$.
+        Thus I do not divide by $\sqrt{d_k}$, as would be done in standard
+        scaled dot-product attention.
+
+        \begin{enumerate}[(i)]
+            \item \emph{Calculate the attention scores.}
+            Each entry $A_{ij}$ is the dot product of query $i$ with key $j$.
+            We multiply corresponding components and add the products:
+            \[
+                A_{ij}=q_i\cdot k_j=\sum_{r=1}^{3}Q_{ir}K_{jr}.
+            \]
+            For the first query, $q_1=[1,0,1]$, the three dot products are
+            \[
+                \begin{aligned}
+                    A_{11}&=(1)(1)+(0)(0)+(1)(1)=2,\\
+                    A_{12}&=(1)(0)+(0)(1)+(1)(0)=0,\\
+                    A_{13}&=(1)(1)+(0)(1)+(1)(0)=1.
+                \end{aligned}
+            \]
+            For the second query, $q_2=[0,1,0]$, they are
+            \[
+                \begin{aligned}
+                    A_{21}&=(0)(1)+(1)(0)+(0)(1)=0,\\
+                    A_{22}&=(0)(0)+(1)(1)+(0)(0)=1,\\
+                    A_{23}&=(0)(1)+(1)(1)+(0)(0)=1.
+                \end{aligned}
+            \]
+            Placing these results in their corresponding rows and columns gives
+            \[
+                A=QK^T
+                =\begin{bmatrix}1&0&1\\0&1&0\end{bmatrix}
+                 \begin{bmatrix}1&0&1\\0&1&1\\1&0&0\end{bmatrix}
+                =\boxed{\begin{bmatrix}2&0&1\\0&1&1\end{bmatrix}}.
+            \]
+
+            \item \emph{Apply softmax to each row.}
+            Let $S_{ij}=e^{A_{ij}}/\sum_{k=1}^{3}e^{A_{ik}}$.
+            The two row denominators are $e^2+1+e$ and $1+2e$, respectively:
+            \[
+                \begin{aligned}
+                S&=\operatorname{softmax}_{\mathrm{row}}(A)\\[4pt]
+                 &=\begin{bmatrix}
+                    \dfrac{e^2}{e^2+1+e}&\dfrac{1}{e^2+1+e}&\dfrac{e}{e^2+1+e}\\[8pt]
+                    \dfrac{1}{1+2e}&\dfrac{e}{1+2e}&\dfrac{e}{1+2e}
+                 \end{bmatrix}
+                \\[8pt]
+                &\approx
+                \boxed{\begin{bmatrix}
+                    0.665241&0.090031&0.244728\\
+                    0.155362&0.422319&0.422319
+                \end{bmatrix}}.
+                \end{aligned}
+            \]
+            Each row sums to one. The first query gives the most weight to
+            the first key; the second query gives equal, larger weights to
+            the second and third keys.
+
+            \item \emph{Compute the weighted sum of values.}
+            The output is $O=SV$. For example, the first output row is
+            \[
+                O_{1,:}
+                =\frac{e^2[1,2,3]+[4,5,6]+e[7,8,9]}{e^2+1+e}.
+            \]
+            For both queries, the full result is
+            \[
+                \begin{aligned}
+                O=SV&\approx\begin{bmatrix}
+                    0.665241&0.090031&0.244728\\
+                    0.155362&0.422319&0.422319
+                \end{bmatrix}
+                \begin{bmatrix}1&2&3\\4&5&6\\7&8&9\end{bmatrix}
+                \\[8pt]
+                &\approx\boxed{\begin{bmatrix}
+                    2.738463&3.738463&4.738463\\
+                    4.800869&5.800869&6.800869
+                \end{bmatrix}}.
+                \end{aligned}
+            \]
+            The output has two rows, one for each query, and three columns,
+            matching the dimension of each value vector. The displayed
+            results were calculated before rounding the softmax weights.
+        \end{enumerate}
     \end{enumerate}
 
     \item \emph{(Question 4.)}
-    % Your answer to Question 4.
+    I used the genetic algorithm in
+    \href{https://github.com/guofei9987/scikit-opt}{scikit-opt} to minimize
+    the supplied objective:
+    \[
+        \begin{aligned}
+            f(x,y)={}&-(y+47)\sin\!\left(\sqrt{\left|\frac{x}{2}+y+47\right|}\right)\\
+                    &-x\sin\!\left(\sqrt{|x-(y+47)|}\right),
+            \qquad -512\leq x,y\leq512.
+        \end{aligned}
+    \]
+    The code and executed outputs are in \path{Q4_Genetic_Algorithm.ipynb}.
+    Each candidate represents a pair $(x,y)$. The algorithm encodes the
+    coordinates as Gray-coded binary strings, selects parents through
+    tournament selection, combines them using two-point crossover, and
+    mutates bits to explore additional candidates. The objective value
+    determines which candidates are preferred, with lower values being better.
+
+    I ran ten independent searches with seeds 0 through 9. Each search used
+    a population of 300, 600 generations, a mutation probability of 0.01 per
+    bit, and a requested coordinate precision of $10^{-6}$. The bounds were
+    enforced by the coordinate encoding. The result is the best candidate
+    found across generations and seeds; no local optimization was applied.
+
+    The best observed solution was
+    \[
+        \boxed{x=512.000000,\qquad y\approx404.231805,\qquad
+               f(x,y)\approx-959.640663.}
+    \]
+    This solution lies on the upper boundary for $x$ and within the allowed
+    interval for $y$. Substituting the unrounded coordinates into the
+    objective verifies the reported value.
+
+    \begin{table}[H]
+        \centering
+        \small
+        \begin{tabular}{rrrr}
+            \toprule
+            Seed & $x$ & $y$ & Best $f(x,y)$ \\
+            \midrule
+            0 & 480.794508 & 436.181601 & -954.576097 \\
+            1 & 512.000000 & 404.231805 & -959.640663 \\
+            2 & 512.000000 & 404.231805 & -959.640663 \\
+            3 & 512.000000 & 404.231805 & -959.640663 \\
+            4 & 481.979588 & 432.495649 & -956.888778 \\
+            5 & 481.775092 & 432.252370 & -956.791642 \\
+            6 & 482.292901 & 432.809233 & -956.915269 \\
+            7 & 439.480997 & 453.977432 & -935.337952 \\
+            8 & 512.000000 & 404.231805 & -959.640663 \\
+            9 & 512.000000 & 404.231805 & -959.640663 \\
+            \bottomrule
+        \end{tabular}
+        \caption{Final best candidates from ten independent genetic algorithm runs.}
+        \label{tab:q4-runs}
+    \end{table}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\linewidth]{q4_results/20261115-170654-970112/convergence.pdf}
+        \caption{Best objective found so far in each genetic algorithm run. Lower values are better.}
+        \label{fig:q4-convergence}
+    \end{figure}
+
+    Five of the ten runs reached the best reported value. Across all ten
+    final candidates, the mean objective was $-955.871305$, with a population
+    standard deviation of $7.052011$; the worst run finished at $-935.337952$.
+    The optimization runs took about 10.7 seconds in total on the CPU,
+    excluding setup and plotting.
+
+    The variation between seeds shows why independent restarts are useful.
+    This function has many local minima, and some populations settle in
+    different regions without finding the best candidate observed in the
+    other runs. A flat convergence curve means that a run is no longer
+    improving its best observed value, not that global optimality has been
+    proved. The genetic algorithm found a strong numerical solution within
+    the specified bounds, but this experiment alone does not prove that
+    no better point exists. More generations, a larger population, or
+    additional restarts could be used to investigate reliability further.
+
+    \noindent\textit{AI-use disclosure for Question 4:}
+    I used OpenAI's Codex assistant to prepare and execute the genetic
+    algorithm notebook and to summarize its saved results in LaTeX.
+
 \end{enumerate}
 
 \end{document}
