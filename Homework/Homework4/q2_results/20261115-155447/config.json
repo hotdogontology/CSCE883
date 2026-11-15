@@ -1,0 +1,26 @@
+{
+  "episodes": 500,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "horizon": 500,
+  "gamma": 0.99,
+  "learning_rates": {
+    "DQN": 0.001,
+    "REINFORCE": 0.01,
+    "A2C": 0.01
+  },
+  "smoothing": 20,
+  "final_window": 100,
+  "eval_episodes": 20,
+  "torch": "2.15.0+cpu",
+  "gymnasium": "1.4.0",
+  "numpy": "2.5.4",
+  "source_sha256": {
+    "DQN": "5bb0c7420124f58dbc55661148697c1ab2cbf3895e3c2ae65bb4179c94e3c7c4",
+    "REINFORCE": "0f3de441e82af8bff0a9ca549df41b82a02e9f17c35dea35d48b2e5cbe3fe831",
+    "A2C": "0181d67142c00e288838482050bc9a2d740b070700344a1af3d9dba06497442d"
+  }
+}
